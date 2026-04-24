@@ -1,16 +1,9 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">
-  <!-- Leaf shape -->
-  <path d="M60 10 C30 25, 15 55, 20 85 C25 75, 35 65, 60 58 C85 65, 95 75, 100 85 C105 55, 90 25, 60 10Z" fill="#2b5d3a"/>
-  <!-- Leaf vein (center) -->
-  <line x1="60" y1="18" x2="60" y2="82" stroke="#faf9f5" stroke-width="2" stroke-linecap="round"/>
-  <!-- Leaf veins (left) -->
-  <line x1="60" y1="38" x2="38" y2="52" stroke="#faf9f5" stroke-width="1.5" stroke-linecap="round"/>
-  <line x1="60" y1="52" x2="34" y2="64" stroke="#faf9f5" stroke-width="1.5" stroke-linecap="round"/>
-  <line x1="60" y1="64" x2="36" y2="76" stroke="#faf9f5" stroke-width="1.5" stroke-linecap="round"/>
-  <!-- Leaf veins (right) -->
-  <line x1="60" y1="38" x2="82" y2="52" stroke="#faf9f5" stroke-width="1.5" stroke-linecap="round"/>
-  <line x1="60" y1="52" x2="86" y2="64" stroke="#faf9f5" stroke-width="1.5" stroke-linecap="round"/>
-  <line x1="60" y1="64" x2="84" y2="76" stroke="#faf9f5" stroke-width="1.5" stroke-linecap="round"/>
-  <!-- Stem -->
-  <line x1="60" y1="82" x2="60" y2="110" stroke="#2b5d3a" stroke-width="3" stroke-linecap="round"/>
+  <!-- EduWatch JP — 双葉(cotyledon)。外部公開用(OG 等)は色を固定色 #1e4a6e で出力。
+       サイト内のヘッダー/フッターは src/components/Logo.astro で currentColor 継承版を使う。 -->
+  <path d="M58 62 C40 38, 20 46, 20 70 C22 80, 42 80, 58 64 Z" fill="#1e4a6e"/>
+  <line x1="54" y1="67" x2="30" y2="57" stroke="#faf9f5" stroke-width="1.5" stroke-linecap="round"/>
+  <path d="M62 62 C80 38, 100 46, 100 70 C98 80, 78 80, 62 64 Z" fill="#1e4a6e"/>
+  <line x1="66" y1="67" x2="90" y2="57" stroke="#faf9f5" stroke-width="1.5" stroke-linecap="round"/>
+  <line x1="60" y1="64" x2="60" y2="110" stroke="#1e4a6e" stroke-width="3" stroke-linecap="round"/>
 </svg>

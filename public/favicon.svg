@@ -1,12 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
-  <rect width="32" height="32" rx="6" fill="#2b5d3a"/>
-  <!-- Small leaf -->
-  <path d="M16 4 C9 9, 5 16, 7 24 C9 21, 12 18, 16 17 C20 18, 23 21, 25 24 C27 16, 23 9, 16 4Z" fill="#faf9f5"/>
-  <!-- Center vein -->
-  <line x1="16" y1="7" x2="16" y2="23" stroke="#2b5d3a" stroke-width="0.8" stroke-linecap="round"/>
-  <!-- Side veins -->
-  <line x1="16" y1="12" x2="11" y2="16" stroke="#2b5d3a" stroke-width="0.6" stroke-linecap="round"/>
-  <line x1="16" y1="16" x2="10.5" y2="19.5" stroke="#2b5d3a" stroke-width="0.6" stroke-linecap="round"/>
-  <line x1="16" y1="12" x2="21" y2="16" stroke="#2b5d3a" stroke-width="0.6" stroke-linecap="round"/>
-  <line x1="16" y1="16" x2="21.5" y2="19.5" stroke="#2b5d3a" stroke-width="0.6" stroke-linecap="round"/>
+  <rect width="32" height="32" rx="6" fill="#1e4a6e"/>
+  <!-- EduWatch JP favicon — 双葉(cotyledon)。favicon サイズでは葉脈は省略 -->
+  <path d="M15.5 17 C11 12, 6 13.5, 6 20 C6.5 22, 11.5 22, 15.5 17.5 Z" fill="#faf9f5"/>
+  <path d="M16.5 17 C21 12, 26 13.5, 26 20 C25.5 22, 20.5 22, 16.5 17.5 Z" fill="#faf9f5"/>
+  <line x1="16" y1="17.5" x2="16" y2="28" stroke="#faf9f5" stroke-width="1" stroke-linecap="round"/>
 </svg>
