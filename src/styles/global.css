@@ -12,9 +12,12 @@
   --color-sub: #6b6b66;
   --color-line: #e5e3da;
   --color-card: #ffffff;
-  --color-accent: #2b5d3a;
+  /* EduWatch JP のアクセントはディープネイビー。姉妹サイト EduEvidence JP の
+     深緑(#2b5d3a)と隣接色で並列感を保ちつつ、ニュースメディアの伝統色として
+     本サイトの性格(時事・速度・信頼)を視覚的に区別する。 */
+  --color-accent: #1e4a6e;
 
-  /* チャート系列の対比色(アクセント深緑と視認性を確保するため) */
+  /* チャート系列の対比色(アクセント深青と視認性を確保するため) */
   --color-chart-red: #c0392b;
 
   --font-serif: "Noto Serif JP", "Hiragino Mincho ProN", "Yu Mincho", serif;
