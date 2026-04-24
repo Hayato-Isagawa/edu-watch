@@ -71,53 +71,76 @@
 
 ## 3. ソース別パーサー仕様
 
+### 3.0 RSS 存在調査結果(2026-04-24)
+
+Sprint 2 着手前にサブエージェントで 9 ソースを WebFetch / WebSearch で調査した結果、取得方式は以下の 3 分類に分かれる:
+
+| 方式 | 件数 | ソース |
+|---|---|---|
+| **RSS 直接取得** | 1 | 文科省 |
+| **RSS 取得 + 認証対策** | 1 | OECD(403 対策必要) |
+| **派生収集**(他 RSS からフィルタ) | 1 | 中教審(文科省 RSS から抽出) |
+| **HTML スクレイピング** | 6 | NIER / EEF / 朝日 EduA / 毎日 / 読売 / 共同 |
+
+読売は 2014 年に RSS 配信を廃止、毎日・共同のカテゴリ別 RSS も現時点で確認できない。Sprint 2 の実装主体は **HTML スクレイピング** になる。
+
 ### 3.1 第 1 層(一次情報、日次)
 
 #### 3.1.1 文部科学省 — `mext`
 
-- RSS 候補: 新着情報ページ(RSS 提供があるか要確認、無ければ HTML スクレイピング)
-- URL: `https://www.mext.go.jp/new.xml`(存在確認要)
-- 代替: `https://www.mext.go.jp/whatsnew.html` を Cheerio でパース
-- フィルタ: 記事タイトルに「学校」「教育」「児童」「学習指導」「教員」「生徒指導」等の教育キーワードを含むもの
+- **RSS: `https://www.mext.go.jp/b_menu/news/index.rdf`**(RSS 1.0 / RDF、200 OK 確認済み)
+- 更新頻度: 毎日 3〜5 本、週 15〜25 本
+- フィルタ: 教育行政・学校関連全般(文科省本体のため全件を基本採用)
 
 #### 3.1.2 国立教育政策研究所 — `nier`
 
-- RSS: `https://www.nier.go.jp/whatsnew.rss`(推定、要確認)
-- 代替: 新着情報ページの HTML スクレイピング
+- **HTML スクレイピング**: `https://www.nier.go.jp/` トップページの「新着情報」セクション
+- セレクタ見込み: `.whatsnew a` 等(実装時に DOM を確定)
+- 更新頻度: 週 5〜10 本、研究報告書が主体
 
 #### 3.1.3 中央教育審議会 — `chukyo`
 
-- 文科省サイト内の特定カテゴリ(審議会)を抽出する形
-- 文科省の収集結果からキーワード「中央教育審議会」「中教審」「答申」でフィルタするアプローチが実用的
+- **独立 RSS なし** → 文科省 RSS(`mext`)の収集結果からキーワード「中央教育審議会」「中教審」「答申」で抽出する **派生収集方式**
+- 独立パーサーは作らず、`categorize.ts` の後処理で該当記事に `sourceName: "中央教育審議会"` のサブラベルを付与
 
 #### 3.1.4 OECD Education and Skills — `oecd`
 
-- RSS: `https://www.oecd.org/education/rss.xml`(要確認)
-- 言語: en(Summary フィールドは英語のまま。Phase 2 で AI 翻訳予定)
+- **RSS: `https://search.oecd.org/rssfeeds/`(教育 topic-specific)**
+- **課題**: 直接 fetch は 403 Forbidden → `User-Agent: edu-watch/1.0 (+https://news.edu-evidence.org)` + `Accept: application/rss+xml` を試し、なお失敗する場合は Cloudflare Workers 経由で取得
+- 更新頻度: 週 2〜3 本、英語(Phase 2 で AI 翻訳予定)
 
 #### 3.1.5 Education Endowment Foundation — `eef`
 
-- RSS: `https://educationendowmentfoundation.org.uk/news/rss`(要確認)
-- Blog + Publications の両ストリーム
+- **HTML スクレイピング**: `https://educationendowmentfoundation.org.uk/news` の記事一覧
+- Podcast RSS(`feed.podbean.com/evidenceintoaction/feed.xml`)は存在するが、ニュース記事は HTML スクレイピング必須
+- 403 対策(User-Agent 設定)が Sprint 2 初期で必要になる場合あり
+- 更新頻度: 月 4〜8 本、英語
 
 ### 3.2 第 2 層(主要メディア、日次)
 
 #### 3.2.1 朝日新聞 EduA — `asahi-edua`
 
-- RSS: `https://www.asahi.com/rss/edua.rdf`(要確認)
-- ブランド: 「朝日新聞 EduA」
+- **HTML スクレイピング**: `https://edua.asahi.com/` の記事一覧
+- RSS の有無は Sprint 2 初期に再確認(Yahoo! 経由の RSS チャネルが存在する可能性)
+- 更新頻度: 週 15〜25 本
 
 #### 3.2.2 毎日新聞 教育面 — `mainichi-edu`
 
-- RSS: `https://mainichi.jp/rss/etc/education.rss`(要確認)
+- **HTML スクレイピング**: `https://mainichi.jp/articles/news/categories/education` 周辺の教育カテゴリ
+- カテゴリ別 RSS は大手紙が 2014 年前後に廃止する傾向があり、本件も現時点で未確認
+- 更新頻度: 毎日 2〜3 本、週 10〜20 本
 
 #### 3.2.3 読売新聞 こどもと教育 — `yomiuri-kodomo`
 
-- RSS 有無要確認
+- **HTML スクレイピング**: `https://www.yomiuri.co.jp/kyoiku/`(2014 年 3 月末に RSS 配信を廃止したことを確認済み)
+- 一部記事に有料壁(タイトル・リード文までは無料)
+- 更新頻度: 週 10〜20 本
 
 #### 3.2.4 共同通信 教育 — `kyodo-edu`
 
-- RSS 有無要確認。カテゴリ RSS が無ければ全国面を教育キーワードでフィルタ
+- **HTML スクレイピング**: `https://www.kyodo.co.jp/` の教育関連カテゴリページ
+- 公開 RSS 一覧は未確認。実装前に robots.txt を尊重(巡回間隔・User-Agent 設定)
+- 更新頻度: 毎日 2〜3 本、週 10〜15 本
 
 #### 3.2.5 日経 教育 — スコープ外(2026-04-24 確定)
 
