@@ -1,0 +1,111 @@
+---
+import "../styles/global.css";
+interface Props {
+  title?: string;
+  description?: string;
+  ogImagePath?: string;
+}
+const {
+  title = "edu-watch — 教育ニュースを一次情報から追う",
+  description = "文科省・国立教育政策研究所・OECD・EEF・主要新聞の教育面から、一次情報を日次で自動収集し、エビデンスの視点で整理する。edu-evidence.org 姉妹サイト。",
+  ogImagePath,
+} = Astro.props;
+const siteUrl = "https://news.edu-evidence.org";
+const canonicalUrl = new URL(Astro.url.pathname, siteUrl).href;
+const ogImage = ogImagePath ? `${siteUrl}${ogImagePath}` : `${siteUrl}/og-image.png`;
+
+const escapeLd = (obj: object): string => JSON.stringify(obj).replace(/</g, "\\u003c");
+---
+
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalUrl} />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:site_name" content="edu-watch" />
+    <meta property="og:locale" content="ja_JP" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <script
+      type="application/ld+json"
+      set:html={escapeLd({
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        name: "edu-watch",
+        url: siteUrl,
+        description,
+        inLanguage: "ja",
+      })}
+    />
+  </head>
+  <body class="bg-[var(--color-bg)] text-[var(--color-ink)]">
+    <header class="border-b border-[var(--color-line)]">
+      <div class="mx-auto max-w-6xl px-4 sm:px-6 md:px-10 h-16 flex items-center justify-between gap-4">
+        <a href="/" class="font-black text-lg sm:text-xl tracking-tight flex items-center gap-2 whitespace-nowrap">
+          <img src="/logo.svg" alt="" class="w-7 h-7 shrink-0" />
+          edu-<span class="text-[var(--color-accent)]">watch</span>
+        </a>
+        <nav class="text-xs gap-6 text-[var(--color-sub)] hidden sm:flex" aria-label="メインナビゲーション">
+          <a href="https://edu-evidence.org" class="link-underline hover:text-[var(--color-ink)] transition">
+            エビデンスで探す
+          </a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="mx-auto max-w-6xl px-4 sm:px-6 md:px-10 pb-24">
+      <slot />
+    </main>
+
+    <footer class="border-t border-[var(--color-line)]">
+      <div
+        class="mx-auto max-w-6xl px-4 sm:px-6 md:px-10 py-8 md:py-12 grid md:grid-cols-3 gap-8 text-xs text-[var(--color-sub)] leading-relaxed"
+      >
+        <div class="space-y-3">
+          <div class="font-black text-base text-[var(--color-ink)] flex items-center gap-2">
+            <img src="/logo.svg" alt="" class="w-5 h-5" />
+            edu-<span class="text-[var(--color-accent)]">watch</span>
+          </div>
+          <p>
+            教員・保護者向けに、文科省・国研・OECD・EEF・主要新聞の一次情報を日次で自動収集。
+            週次ダイジェストで論点を整理します。
+          </p>
+        </div>
+
+        <div class="space-y-3">
+          <div class="font-mono uppercase tracking-widest text-[var(--color-ink)]">姉妹サイト</div>
+          <ul class="space-y-1.5">
+            <li>
+              <a href="https://edu-evidence.org" class="link-underline">EduEvidence JP</a> — 指導法 73・コラム 20 のエビデンスポータル
+            </li>
+          </ul>
+        </div>
+
+        <div class="space-y-3">
+          <div class="font-mono uppercase tracking-widest text-[var(--color-ink)]">お問い合わせ</div>
+          <ul class="space-y-1.5">
+            <li><a href="mailto:news@edu-evidence.org" class="link-underline">news@edu-evidence.org</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="mx-auto max-w-6xl px-4 sm:px-6 md:px-10 pb-6 text-[10px] text-[var(--color-sub)]">
+        © 2026 edu-watch. CC BY-SA 4.0.
+      </div>
+    </footer>
+  </body>
+</html>

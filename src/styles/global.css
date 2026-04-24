@@ -1,0 +1,279 @@
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=Noto+Serif+JP:wght@500;700;900&family=JetBrains+Mono:wght@400;500&display=swap");
+
+@import "tailwindcss";
+
+@theme {
+  --breakpoint-xs: 30rem;
+}
+
+:root {
+  --color-bg: #faf9f5;
+  --color-ink: #1a1a1a;
+  --color-sub: #6b6b66;
+  --color-line: #e5e3da;
+  --color-card: #ffffff;
+  --color-accent: #2b5d3a;
+
+  /* チャート系列の対比色(アクセント深緑と視認性を確保するため) */
+  --color-chart-red: #c0392b;
+
+  --font-serif: "Noto Serif JP", "Hiragino Mincho ProN", "Yu Mincho", serif;
+  --font-sans: "Noto Sans JP", "Hiragino Kaku Gothic ProN", "Yu Gothic", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+}
+
+html {
+  font-family: var(--font-sans);
+  background: var(--color-bg);
+  color: var(--color-ink);
+  font-feature-settings: "palt";
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  scroll-behavior: smooth;
+}
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+body {
+  min-height: 100vh;
+  line-height: 1.8;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.font-serif {
+  font-family: var(--font-serif);
+}
+.font-mono {
+  font-family: var(--font-mono);
+}
+
+::selection {
+  background: var(--color-accent);
+  color: #fff;
+}
+
+.link-underline {
+  color: var(--color-accent);
+  text-decoration: none;
+  background-image: linear-gradient(var(--color-accent), var(--color-accent));
+  background-size: 0% 1px;
+  background-position: left bottom;
+  background-repeat: no-repeat;
+  transition: background-size 0.3s ease;
+  padding-bottom: 2px;
+}
+
+.link-underline:hover,
+.link-underline:active,
+.link-underline:focus-visible {
+  background-size: 100% 1px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .link-underline {
+    transition: none;
+  }
+}
+
+/* LineChart コンポーネント(remark-chart で生成される SVG) */
+.line-chart {
+  margin: 1.75rem 0;
+  padding: 0.75rem 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+}
+.line-chart svg {
+  width: 100%;
+  height: auto;
+  max-width: 720px;
+  margin: 0 auto;
+  display: block;
+}
+.line-chart .chart-caption {
+  font-size: 0.85rem;
+  color: var(--color-sub);
+  margin-top: 0.5rem;
+  text-align: center;
+}
+.line-chart .chart-data-table {
+  margin-top: 0.75rem;
+  font-size: 0.85rem;
+}
+.line-chart .chart-data-table summary {
+  color: var(--color-sub);
+  cursor: pointer;
+  padding: 0.25rem 0;
+}
+.line-chart .chart-data-table summary:hover {
+  color: var(--color-accent);
+}
+.line-chart .chart-data-table table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 0.5rem;
+}
+.line-chart .chart-data-table th,
+.line-chart .chart-data-table td {
+  padding: 0.35rem 0.6rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  text-align: left;
+}
+.line-chart .chart-data-table th[scope="col"] {
+  background: rgba(0, 0, 0, 0.03);
+  font-weight: 600;
+}
+
+/* Article body shared by /strategies and /columns */
+.prose-article {
+  font-size: 16px;
+  line-height: 1.95;
+  text-wrap: pretty;
+}
+.prose-article h2 {
+  font-size: 1.6rem;
+  font-weight: 900;
+  margin-top: 3rem;
+  margin-bottom: 1rem;
+  letter-spacing: -0.02em;
+}
+.prose-article h3 {
+  font-size: 1.2rem;
+  font-weight: 800;
+  margin-top: 1.75rem;
+  margin-bottom: 0.5rem;
+}
+.prose-article p {
+  margin-bottom: 1.25rem;
+}
+.prose-article ul {
+  list-style: disc;
+  padding-left: 1.5rem;
+  margin-bottom: 1.25rem;
+}
+.prose-article ul li {
+  margin-bottom: 0.4rem;
+}
+.prose-article blockquote {
+  border-left: 3px solid var(--color-accent);
+  padding-left: 1rem;
+  color: var(--color-sub);
+  margin: 1.5rem 0;
+}
+.prose-article a:not(.glossary-tip) {
+  color: var(--color-accent);
+  text-decoration: none;
+  background-image: linear-gradient(var(--color-accent), var(--color-accent));
+  background-size: 0% 1px;
+  background-position: left bottom;
+  background-repeat: no-repeat;
+  transition: background-size 0.3s ease;
+  padding-bottom: 2px;
+}
+.prose-article a:not(.glossary-tip):hover,
+.prose-article a:not(.glossary-tip):focus-visible {
+  background-size: 100% 1px;
+}
+@media (prefers-reduced-motion: reduce) {
+  .prose-article a:not(.glossary-tip) {
+    transition: none;
+  }
+}
+.prose-article em {
+  font-style: italic;
+}
+.prose-article strong {
+  font-weight: 700;
+}
+
+/* Table */
+.prose-article table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+  font-size: 14px;
+  line-height: 1.6;
+}
+.prose-article thead {
+  background: var(--color-card);
+  border-bottom: 2px solid var(--color-line);
+}
+.prose-article th {
+  font-weight: 700;
+  text-align: left;
+  padding: 10px 12px;
+  font-size: 12px;
+  letter-spacing: 0.02em;
+  color: var(--color-sub);
+}
+.prose-article td {
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--color-line);
+  vertical-align: top;
+}
+.prose-article tbody tr:hover {
+  background: var(--color-card);
+}
+@media (max-width: 640px) {
+  .prose-article table {
+    display: block;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+/* Glossary tooltip — JS で DOM 要素を生成する方式 */
+.glossary-tip,
+.prose-article .glossary-tip {
+  color: inherit;
+  text-decoration-line: underline;
+  text-decoration-style: dashed;
+  text-decoration-color: #2b5d3a;
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 3px;
+  background-image: none;
+  background-size: 0;
+  cursor: help;
+}
+.glossary-tip:hover,
+.prose-article .glossary-tip:hover {
+  color: #2b5d3a;
+}
+.glossary-bubble {
+  position: fixed;
+  z-index: 9999;
+  max-width: 300px;
+  padding: 10px 14px;
+  font-size: 13px;
+  line-height: 1.6;
+  color: #fff;
+  background: #222;
+  border-radius: 8px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.15s ease;
+  text-wrap: pretty;
+}
+.glossary-bubble.is-visible {
+  opacity: 1;
+}
+.glossary-bubble::after {
+  content: "";
+  position: absolute;
+  left: 20px;
+  bottom: -6px;
+  border: 6px solid transparent;
+  border-top-color: #222;
+}
+@media (prefers-reduced-motion: reduce) {
+  .glossary-bubble {
+    transition: none;
+  }
+}

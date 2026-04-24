@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://edu-evidence.org/sitemap-index.xml

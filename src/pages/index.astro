@@ -1,0 +1,57 @@
+---
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout>
+  <section class="py-14 sm:py-24 md:py-32 grid grid-cols-12 gap-6">
+    <div class="col-span-12 md:col-span-8 space-y-8">
+      <p class="font-mono text-xs uppercase tracking-widest text-[var(--color-accent)]">
+        edu-watch — Coming Soon
+      </p>
+      <h1 class="font-black text-5xl md:text-6xl leading-[1.1] tracking-tight">
+        <span class="text-[var(--color-accent)]">一次情報</span>から、<br />
+        教育の <span class="text-[var(--color-accent)]">今</span> を追う。
+      </h1>
+      <p class="text-[var(--color-sub)] text-base md:text-lg leading-loose max-w-xl">
+        文部科学省・国立教育政策研究所・OECD・EEF・主要新聞の教育面を日次で自動収集し、
+        エビデンスの視点で整理して配信します。
+        速報性ではなく、<strong class="text-[var(--color-ink)]">信頼性と構造</strong> を優先します。
+      </p>
+      <div class="pt-4">
+        <a
+          href="https://edu-evidence.org"
+          class="link-underline font-mono text-xs uppercase tracking-widest text-[var(--color-accent)]"
+        >
+          → 姉妹サイト「EduEvidence JP」で指導法エビデンスを探す
+        </a>
+      </div>
+    </div>
+
+    <div class="col-span-12 md:col-span-4 md:pt-6 text-[var(--color-sub)] leading-loose text-sm space-y-6">
+      <div class="space-y-2">
+        <div class="font-mono uppercase tracking-widest text-[10px] text-[var(--color-ink)]">
+          Launch roadmap
+        </div>
+        <ul class="space-y-1.5">
+          <li>Sprint 1 基盤構築</li>
+          <li>Sprint 2 RSS パイプライン</li>
+          <li>Sprint 3 フロント実装</li>
+          <li>Sprint 4 週次ダイジェスト</li>
+        </ul>
+      </div>
+      <div class="space-y-2">
+        <div class="font-mono uppercase tracking-widest text-[10px] text-[var(--color-ink)]">
+          Sources (MVP)
+        </div>
+        <ul class="space-y-1.5">
+          <li>文部科学省</li>
+          <li>国立教育政策研究所</li>
+          <li>中央教育審議会</li>
+          <li>OECD Education and Skills</li>
+          <li>Education Endowment Foundation</li>
+          <li>主要新聞の教育面</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+</Layout>
