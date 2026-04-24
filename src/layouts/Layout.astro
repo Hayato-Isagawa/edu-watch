@@ -6,8 +6,8 @@ interface Props {
   ogImagePath?: string;
 }
 const {
-  title = "edu-watch — 教育ニュースを一次情報から追う",
-  description = "文科省・国立教育政策研究所・OECD・EEF・主要新聞の教育面から、一次情報を日次で自動収集し、エビデンスの視点で整理する。edu-evidence.org 姉妹サイト。",
+  title = "EduWatch JP — 教育ニュースを一次情報から追う",
+  description = "文科省・国立教育政策研究所・OECD・EEF・主要新聞の教育面から、一次情報を日次で自動収集し、エビデンスの視点で整理する。EduEvidence JP 姉妹サイト。",
   ogImagePath,
 } = Astro.props;
 const siteUrl = "https://news.edu-evidence.org";
@@ -31,7 +31,7 @@ const escapeLd = (obj: object): string => JSON.stringify(obj).replace(/</g, "\\u
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonicalUrl} />
     <meta property="og:image" content={ogImage} />
-    <meta property="og:site_name" content="edu-watch" />
+    <meta property="og:site_name" content="EduWatch JP" />
     <meta property="og:locale" content="ja_JP" />
 
     <meta name="twitter:card" content="summary_large_image" />
@@ -46,7 +46,7 @@ const escapeLd = (obj: object): string => JSON.stringify(obj).replace(/</g, "\\u
       set:html={escapeLd({
         "@context": "https://schema.org",
         "@type": "WebSite",
-        name: "edu-watch",
+        name: "EduWatch JP",
         url: siteUrl,
         description,
         inLanguage: "ja",
@@ -58,7 +58,7 @@ const escapeLd = (obj: object): string => JSON.stringify(obj).replace(/</g, "\\u
       <div class="mx-auto max-w-6xl px-4 sm:px-6 md:px-10 h-16 flex items-center justify-between gap-4">
         <a href="/" class="font-black text-lg sm:text-xl tracking-tight flex items-center gap-2 whitespace-nowrap">
           <img src="/logo.svg" alt="" class="w-7 h-7 shrink-0" />
-          edu-<span class="text-[var(--color-accent)]">watch</span>
+          Edu<span class="text-[var(--color-accent)]">Watch</span> JP
         </a>
         <nav class="text-xs gap-6 text-[var(--color-sub)] hidden sm:flex" aria-label="メインナビゲーション">
           <a href="https://edu-evidence.org" class="link-underline hover:text-[var(--color-ink)] transition">
@@ -79,7 +79,7 @@ const escapeLd = (obj: object): string => JSON.stringify(obj).replace(/</g, "\\u
         <div class="space-y-3">
           <div class="font-black text-base text-[var(--color-ink)] flex items-center gap-2">
             <img src="/logo.svg" alt="" class="w-5 h-5" />
-            edu-<span class="text-[var(--color-accent)]">watch</span>
+            Edu<span class="text-[var(--color-accent)]">Watch</span> JP
           </div>
           <p>
             教員・保護者向けに、文科省・国研・OECD・EEF・主要新聞の一次情報を日次で自動収集。
@@ -104,7 +104,7 @@ const escapeLd = (obj: object): string => JSON.stringify(obj).replace(/</g, "\\u
         </div>
       </div>
       <div class="mx-auto max-w-6xl px-4 sm:px-6 md:px-10 pb-6 text-[10px] text-[var(--color-sub)]">
-        © 2026 edu-watch. CC BY-SA 4.0.
+        © 2026 EduWatch JP. CC BY-SA 4.0.
       </div>
     </footer>
   </body>
