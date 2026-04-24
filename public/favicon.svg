@@ -1,12 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
-  <rect width="32" height="32" rx="6" fill="#2b5d3a"/>
-  <!-- Small leaf -->
-  <path d="M16 4 C9 9, 5 16, 7 24 C9 21, 12 18, 16 17 C20 18, 23 21, 25 24 C27 16, 23 9, 16 4Z" fill="#faf9f5"/>
-  <!-- Center vein -->
-  <line x1="16" y1="7" x2="16" y2="23" stroke="#2b5d3a" stroke-width="0.8" stroke-linecap="round"/>
-  <!-- Side veins -->
-  <line x1="16" y1="12" x2="11" y2="16" stroke="#2b5d3a" stroke-width="0.6" stroke-linecap="round"/>
-  <line x1="16" y1="16" x2="10.5" y2="19.5" stroke="#2b5d3a" stroke-width="0.6" stroke-linecap="round"/>
-  <line x1="16" y1="12" x2="21" y2="16" stroke="#2b5d3a" stroke-width="0.6" stroke-linecap="round"/>
-  <line x1="16" y1="16" x2="21.5" y2="19.5" stroke="#2b5d3a" stroke-width="0.6" stroke-linecap="round"/>
+  <rect width="32" height="32" rx="6" fill="#1e4a6e"/>
+  <!-- EduWatch JP favicon — 双葉(非対称)。右葉が先行、左葉が追従、茎は微かに右傾 -->
+  <path d="M16 16 C20.5 7, 28.5 9, 29 17 C27 21.5, 21 22, 16 17 Z" fill="#faf9f5"/>
+  <path d="M16 17 C12 11, 5 13, 4 20 C6 22.5, 11 22, 16 17.5 Z" fill="#faf9f5"/>
+  <line x1="16" y1="17" x2="17" y2="29" stroke="#faf9f5" stroke-width="1.2" stroke-linecap="round"/>
 </svg>

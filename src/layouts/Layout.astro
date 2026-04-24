@@ -1,5 +1,6 @@
 ---
 import "../styles/global.css";
+import Logo from "../components/Logo.astro";
 interface Props {
   title?: string;
   description?: string;
@@ -57,8 +58,10 @@ const escapeLd = (obj: object): string => JSON.stringify(obj).replace(/</g, "\\u
     <header class="border-b border-[var(--color-line)]">
       <div class="mx-auto max-w-6xl px-4 sm:px-6 md:px-10 h-16 flex items-center justify-between gap-4">
         <a href="/" class="font-black text-lg sm:text-xl tracking-tight flex items-center gap-2 whitespace-nowrap">
-          <img src="/logo.svg" alt="" class="w-7 h-7 shrink-0" />
-          Edu<span class="text-[var(--color-accent)]">Watch</span> JP
+          <span class="text-[var(--color-accent)] inline-flex shrink-0">
+            <Logo class="w-8 h-8" />
+          </span>
+          EduWatch <span class="text-[var(--color-accent)]">JP</span>
         </a>
         <nav class="text-xs gap-6 text-[var(--color-sub)] hidden sm:flex" aria-label="メインナビゲーション">
           <a href="https://edu-evidence.org" class="link-underline hover:text-[var(--color-ink)] transition">
@@ -78,8 +81,10 @@ const escapeLd = (obj: object): string => JSON.stringify(obj).replace(/</g, "\\u
       >
         <div class="space-y-3">
           <div class="font-black text-base text-[var(--color-ink)] flex items-center gap-2">
-            <img src="/logo.svg" alt="" class="w-5 h-5" />
-            Edu<span class="text-[var(--color-accent)]">Watch</span> JP
+            <span class="text-[var(--color-accent)] inline-flex">
+              <Logo class="w-6 h-6" />
+            </span>
+            EduWatch <span class="text-[var(--color-accent)]">JP</span>
           </div>
           <p>
             教員・保護者向けに、文科省・国研・OECD・EEF・主要新聞の一次情報を日次で自動収集。

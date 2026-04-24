@@ -5,6 +5,13 @@
 - **サイト名・ブランド名**: EduWatch JP
 - **リポジトリ / 技術名**: edu-watch
 
+## ブランド
+
+- **モチーフ**: 双葉(cotyledon、**左右非対称**)。右葉が先行して広がり、左葉がやや遅れて開く構図で「成長の瞬間・動き」を表現する。姉妹サイト EduEvidence JP の「成熟した葉(左右対称)」と対になり、ストック型 vs フロー型の性格を視覚的に区別
+- **アクセント色**: ディープネイビー `#1e4a6e`(`--color-accent`)
+- **wordmark**: `EduWatch <accent>JP</accent>`(末尾の `JP` のみアクセント色。edu-evidence と統一パターン)
+- **ロゴ実装**: `src/components/Logo.astro` が inline SVG + `currentColor` 継承。色を変えたい時は呼び出し側の `color:` / Tailwind の `text-` クラスを変えるだけで済み、SVG を直接編集する必要なし
+
 ## 環境
 
 Node.js は `.tool-versions` で固定(`nodejs 24.15.0`)。[mise](https://mise.jdx.dev/) 前提。
