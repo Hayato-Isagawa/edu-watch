@@ -5,6 +5,12 @@
 - **サイト名・ブランド名**: EduWatch JP
 - **リポジトリ / 技術名**: edu-watch
 
+## ブランド
+
+- **モチーフ**: 双葉(cotyledon)。姉妹サイト EduEvidence JP の「成熟した葉」と対になり、「日々の新しい芽吹き = 日次ニュース」を象徴
+- **アクセント色**: ディープネイビー `#1e4a6e`(`--color-accent`)
+- **ロゴ実装**: `src/components/Logo.astro` が inline SVG + `currentColor` 継承。色を変えたい時は呼び出し側の `color:` / Tailwind の `text-` クラスを変えるだけで済み、SVG を直接編集する必要なし
+
 ## 環境
 
 Node.js は `.tool-versions` で固定(`nodejs 24.15.0`)。[mise](https://mise.jdx.dev/) 前提。

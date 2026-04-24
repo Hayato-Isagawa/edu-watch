@@ -1,0 +1,58 @@
+---
+/**
+ * EduWatch JP brand mark — 双葉(cotyledon)
+ *
+ * モチーフ: 開き始めた双葉は「日々の新しい芽吹き = 日次の新ニュース」を象徴。
+ * 姉妹サイト EduEvidence JP の「成熟した葉」モチーフと対になり、両サイトで
+ * 「学びを育む植物」の成長段階を表現する。
+ *
+ * 色は currentColor を継承するので、呼び出し側で `color:` / Tailwind の
+ * text- クラスを指定すれば反映される。
+ */
+interface Props {
+  class?: string;
+}
+const { class: className = "" } = Astro.props;
+---
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 120 120"
+  class={className}
+  aria-hidden="true"
+  fill="currentColor"
+>
+  <!-- 左葉 -->
+  <path d="M58 62 C40 38, 20 46, 20 70 C22 80, 42 80, 58 64 Z" />
+  <!-- 左葉の葉脈 -->
+  <line
+    x1="54"
+    y1="67"
+    x2="30"
+    y2="57"
+    stroke="var(--color-bg, #faf9f5)"
+    stroke-width="1.5"
+    stroke-linecap="round"
+  />
+  <!-- 右葉 -->
+  <path d="M62 62 C80 38, 100 46, 100 70 C98 80, 78 80, 62 64 Z" />
+  <!-- 右葉の葉脈 -->
+  <line
+    x1="66"
+    y1="67"
+    x2="90"
+    y2="57"
+    stroke="var(--color-bg, #faf9f5)"
+    stroke-width="1.5"
+    stroke-linecap="round"
+  />
+  <!-- 茎 -->
+  <line
+    x1="60"
+    y1="64"
+    x2="60"
+    y2="110"
+    stroke="currentColor"
+    stroke-width="3"
+    stroke-linecap="round"
+  />
+</svg>

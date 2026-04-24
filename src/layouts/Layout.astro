@@ -1,5 +1,6 @@
 ---
 import "../styles/global.css";
+import Logo from "../components/Logo.astro";
 interface Props {
   title?: string;
   description?: string;
@@ -57,7 +58,9 @@ const escapeLd = (obj: object): string => JSON.stringify(obj).replace(/</g, "\\u
     <header class="border-b border-[var(--color-line)]">
       <div class="mx-auto max-w-6xl px-4 sm:px-6 md:px-10 h-16 flex items-center justify-between gap-4">
         <a href="/" class="font-black text-lg sm:text-xl tracking-tight flex items-center gap-2 whitespace-nowrap">
-          <img src="/logo.svg" alt="" class="w-7 h-7 shrink-0" />
+          <span class="text-[var(--color-accent)] inline-flex shrink-0">
+            <Logo class="w-7 h-7" />
+          </span>
           Edu<span class="text-[var(--color-accent)]">Watch</span> JP
         </a>
         <nav class="text-xs gap-6 text-[var(--color-sub)] hidden sm:flex" aria-label="メインナビゲーション">
@@ -78,7 +81,9 @@ const escapeLd = (obj: object): string => JSON.stringify(obj).replace(/</g, "\\u
       >
         <div class="space-y-3">
           <div class="font-black text-base text-[var(--color-ink)] flex items-center gap-2">
-            <img src="/logo.svg" alt="" class="w-5 h-5" />
+            <span class="text-[var(--color-accent)] inline-flex">
+              <Logo class="w-5 h-5" />
+            </span>
             Edu<span class="text-[var(--color-accent)]">Watch</span> JP
           </div>
           <p>
