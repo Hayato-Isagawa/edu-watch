@@ -1,8 +1,10 @@
-# edu-watch
+# EduWatch JP
 
 教員・保護者向けに教育ニュースを一次情報から追うサイト。**news.edu-evidence.org**
 
 EduEvidence JP(edu-evidence.org)の姉妹サイト。文部科学省・国立教育政策研究所・OECD・EEF・主要新聞の教育面から、一次情報を日次で自動収集し、エビデンスの視点で整理します。
+
+> **命名について**: サイト名・ブランド名は **EduWatch JP**、リポジトリ名・技術的呼称は `edu-watch`。本 README 以降の技術ドキュメントでは文脈により使い分けています。
 
 ## ステータス
 

@@ -1,6 +1,9 @@
-# edu-watch
+# EduWatch JP
 
 教員・保護者向けに、教育ニュースを一次情報から追う姉妹サイト(news.edu-evidence.org)。Astro 6 + React 19 + Tailwind 4 + TypeScript。
+
+- **サイト名・ブランド名**: EduWatch JP
+- **リポジトリ / 技術名**: edu-watch
 
 ## 環境
 
