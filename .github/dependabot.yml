@@ -18,6 +18,10 @@ updates:
     ignore:
       - dependency-name: "typescript"
         update-types: ["version-update:semver-major"]
+      # vite 8 系は `@tailwindcss/vite@4.2.2` と非互換(BindingViteResolvePluginConfig.tsconfigPaths
+      # が欠落してビルドが落ちる)。`@tailwindcss/vite` 側が vite 8 対応を公表するまで major 更新を無視する。
+      - dependency-name: "vite"
+        update-types: ["version-update:semver-major"]
     groups:
       astro-ecosystem:
         patterns:
