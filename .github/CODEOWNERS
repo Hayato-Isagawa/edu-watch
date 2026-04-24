@@ -1,0 +1,7 @@
+# EduWatch JP code owners
+#
+# デフォルトで全ファイルの変更通知が `@Hayato-Isagawa` に入る。
+# 将来、編集協力者やメンテナが増えた場合は、領域ごとに追加する
+# (例: `src/lib/sources/ @someone-else`)。
+
+* @Hayato-Isagawa
