@@ -62,3 +62,13 @@ PRD 参照: `docs/PRD.md`。
 Cloudflare Pages(GitHub main ブランチ連携で自動デプロイ)。
 ドメイン: **news.edu-evidence.org**(edu-evidence.org のサブドメイン、CNAME)。
 メール: Cloudflare Email Routing で `news@edu-evidence.org` を個人 Gmail に転送。
+
+## コンテキスト管理
+
+Claude Code とのセッションは context 圧縮 / `/clear` / セッション終了を跨ぐことがある。重要な決定と進行状態は会話ではなくファイルに残す方針:
+
+- **主要な意思決定** → [`docs/decisions/`](docs/decisions/)(ADR、不変)
+- **現在のセッションの作業状態** → `.claude/state/active.md`(生きたチェックポイント、git 追跡外)
+- **運用方針の全体** → [`docs/context-management.md`](docs/context-management.md)
+
+`.claude/hooks/pre-compact.sh` と `post-compact.sh` が圧縮時に active.md を dump / 再読込リマインダーを出すよう登録されている(`.claude/settings.json`)。
