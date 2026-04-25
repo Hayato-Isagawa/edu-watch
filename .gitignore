@@ -14,3 +14,7 @@ scripts/fonts/*.bin
 scripts/fonts/*.woff2
 scripts/fonts/*.otf
 scripts/fonts/*.ttf
+
+# Claude Code の生きたセッション状態(docs/context-management.md 参照)
+.claude/state/
+.claude/sessions/
