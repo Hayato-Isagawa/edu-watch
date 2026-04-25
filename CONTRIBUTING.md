@@ -61,6 +61,26 @@ edu-watch の編集ポリシーは `docs/PRD.md` §6 に集約されています
 - Review thread の解決が必須
 - マージ後のブランチは自動削除
 
+### ローカル側の二段ガード
+
+GitHub 側のブランチ保護に加え、ローカルでも `main` への直接編集・直接コミットをツールレベルで拒否します。
+
+- **Claude Code 経由の編集**: `.claude/hooks/branch-guard.sh` が `Edit` / `Write` / `MultiEdit` の前に発動し、現ブランチが `main` / `master` のときに編集を拒否
+- **任意のツール経由のコミット**: `.githooks/pre-commit` が `main` / `master` への直接コミットを拒否
+
+`.githooks/` は `npm install` 時に `package.json` の `prepare` スクリプトで自動的に有効化されるため、特別なセットアップは不要です。手動確認:
+
+```bash
+git config core.hooksPath        # .githooks と表示されれば有効
+```
+
+新規作業はフィーチャーブランチを切ってから始めてください。
+
+```bash
+git checkout -b <type>/<short-description>
+# 例: feat/sprint-2-batch-2, fix/parser-edge-case, chore/deps-bump
+```
+
 ## ライセンス
 
 - コード: MIT License(`LICENSE` 参照)

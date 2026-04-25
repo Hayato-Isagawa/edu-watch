@@ -6,6 +6,7 @@
     "node": ">=24.0.0"
   },
   "scripts": {
+    "prepare": "git config core.hooksPath .githooks 2>/dev/null || true",
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
