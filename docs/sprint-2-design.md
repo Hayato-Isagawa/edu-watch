@@ -1,7 +1,7 @@
 # Sprint 2 設計書 — RSS 収集パイプライン
 
 **作成日**: 2026-04-24
-**作成者**: 伊差川隼人
+**作成者**: Isagawa Hayato
 **前提**: Sprint 1 完了(リポジトリ作成・Astro 基盤・Cloudflare Pages 公開)
 **ゴール**: 文科省・国研・OECD・EEF・主要新聞から記事を日次自動収集し、Astro の SSG でページ出力する土台を作る
 
