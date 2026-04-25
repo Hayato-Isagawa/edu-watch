@@ -46,3 +46,5 @@ EduEvidence JP と共通の運営方針(植物モチーフブランド体系 / N
 - [0004. Cloudflare ブロック対象ソース(OECD / EEF)の運用](0004-cloudflare-blocked-source-handling.md)
 - [0005. X 統一運用と Email Routing 3 エイリアス](0005-x-unified-and-email-routing.md)
 - [0006. vite major アップデートを Dependabot で ignore](0006-vite-major-pin.md)
+- [0007. 第 2 層を大手紙の教育面から教育専門紙へ転換](0007-tier2-shift-to-specialty-press.md)
+- [0008. 引用範囲遵守ポリシーと削除依頼窓口](0008-citation-scope-policy.md)
