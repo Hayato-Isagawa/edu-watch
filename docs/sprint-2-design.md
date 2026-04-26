@@ -242,77 +242,88 @@ export interface SourceParser {
 
 ## 6. GitHub Actions パイプライン
 
-### 6.1 ファイル: `.github/workflows/fetch-news.yml`
+### 6.1 ファイル: `.github/workflows/fetch-news.yml`(2026-04-26 改訂、ADR 0009)
+
+`main` ブランチには Repository Rules で「Changes must be made through a pull request」が有効化されており、ボットも例外なく PR フローに従う。日次 cron は当初 3 回(JST 07/13/19)で確定したが、ADR 0007 で Tier 2 を再構成したあとの実測更新頻度(合計 30〜45 本/日)を踏まえて **日次 2 回(JST 07:00 / 18:00)** に削減した。
 
 ```yaml
 name: Fetch news
 
 on:
   schedule:
-    - cron: "0 22,4,10 * * *"  # UTC = JST 07:00 / 13:00 / 19:00
+    - cron: "0 22,9 * * *"  # UTC = JST 07:00 / 18:00
   workflow_dispatch:
+
+concurrency:
+  group: fetch-news
+  cancel-in-progress: false
 
 jobs:
   fetch:
     runs-on: ubuntu-latest
     permissions:
-      contents: write
+      contents: write       # bot 用 feature ブランチへの push に必要
+      pull-requests: write  # PR 作成 + auto-merge enable に必要
+    timeout-minutes: 15
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v5
+        with:
+          persist-credentials: true
+      - uses: actions/setup-node@v5
         with:
           node-version: "24.15.0"
           cache: npm
       - run: npm ci
-      - run: npx tsx scripts/fetch-news.ts
-      - name: Commit new articles
+      - name: Run fetch-news
+        run: npx tsx scripts/fetch-news.ts
+      - name: Commit, push branch, and open auto-merge PR
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           git config user.name "edu-watch-bot"
           git config user.email "notify@edu-evidence.org"
           git add src/data/articles/
-          if ! git diff --cached --quiet; then
-            git commit -m "chore(data): auto-collect articles $(date -u +%Y-%m-%d_%H%M)"
-            git push
+          if git diff --cached --quiet; then
+            echo "[fetch-news] no new articles, skipping PR"
+            exit 0
           fi
+          timestamp=$(date -u +%Y%m%d-%H%M)
+          branch="chore/auto-collect-${timestamp}"
+          git checkout -b "$branch"
+          git commit -m "chore(data): auto-collect articles ${timestamp}"
+          git push -u origin "$branch"
+          gh pr create \
+            --title "chore(data): auto-collect articles ${timestamp}" \
+            --body "edu-watch-bot による定時自動収集。" \
+            --label "auto-collect" \
+            --base main --head "$branch"
+          gh pr merge --auto --squash --delete-branch "$branch"
 ```
 
-**コミットボットの表示(2026-04-24 確定)**:
+**コミットボットの表示(2026-04-24 確定、PR フロー化後も維持)**:
 
 - name: `edu-watch-bot`
-- email: `notify@edu-evidence.org`(Cloudflare Email Routing で `eduevidence.jp@gmail.com` に転送)
+- email: `notify@edu-evidence.org`(Cloudflare Email Routing で運営者へ転送)
 - GitHub 上の commit author としても `edu-watch-bot` で一貫
+- 全自動 PR には `auto-collect` ラベルを付与し、GitHub UI のフィルタで人間 PR と分離
 
 ### 6.2 スクリプト: `scripts/fetch-news.ts`
 
-```ts
-import { sources } from "../src/lib/sources";  // 10 個の Parser を束ねた配列
-import { dedupeAgainstHistory } from "../src/lib/dedupe";
-import { categorize } from "../src/lib/categorize";
-import { normalize } from "../src/lib/normalize";
-import { saveDaily } from "../src/lib/storage";
+実装は本リポジトリの `scripts/fetch-news.ts` を参照。流れは:
 
-const results = await Promise.allSettled(sources.map((s) => s.fetch()));
-const rawArticles = results
-  .filter((r): r is PromiseFulfilledResult<RawArticle[]> => r.status === "fulfilled")
-  .flatMap((r) => r.value);
-const normalized = rawArticles.map(normalize);
-const fresh = await dedupeAgainstHistory(normalized);
-const categorized = fresh.map((a) => ({ ...a, categories: categorize(a) }));
-await saveDaily(categorized);
-
-const failures = results.filter((r) => r.status === "rejected");
-if (failures.length > 0) {
-  console.error(`[fetch-news] ${failures.length} source(s) failed:`);
-  failures.forEach((f) => console.error(f.reason));
-  process.exit(1);  // Actions で赤バッジに
-}
-```
+1. `sources` の全 parser を `Promise.allSettled` で並列フェッチ
+2. 失敗ソースはログに記録して継続(他ソースの取得は止めない)
+3. `RawArticle` を `normalize` + `categorize` して `Article` へ
+4. `dedupeWithin` で同一バッチ内の重複を排除
+5. `dedupeAgainstHistory`(過去 30 日)で履歴との重複を排除
+6. `publishedAt` の日付ごとにグループ化し、`storage.mergeDay` で書き戻す
 
 ### 6.3 失敗時の挙動
 
 - ソースの一部失敗 → **残りのソースは進める**(Promise.allSettled)
-- 全ソース失敗 → Actions 赤バッジで通知
-- 記事 0 件の日でも commit はしない(`git diff --cached --quiet` でチェック)
+- **過半数のソースが失敗 → Actions 赤バッジで通知(exit 1)**(設計書初版の「1 件でも失敗で exit 1」から実装時に緩和、共同通信の取得不安定性を考慮した運用判断、PR #18 のコミットメッセージ参照)
+- 記事 0 件の場合は PR を作らない(`git diff --cached --quiet` でチェック → exit 0)
+- 持続的にソースが silent な状況は §6.4 の週次ヘルスチェックで検知
 
 ### 6.4 監視
 
@@ -392,7 +403,7 @@ if (failures.length > 0) {
 ## 10. Sprint 2 完了条件
 
 - [ ] 8 ソース全てで parser が動作(OECD は暫定除外、日経 / 朝日 EduA / 毎日 / 読売 / 教育新聞は ADR 0007 で完全除外)
-- [ ] GitHub Actions cron が 7:00 / 13:00 / 19:00 JST に稼働
+- [ ] GitHub Actions cron が 7:00 / 18:00 JST に稼働(ADR 0009 で 3 回 → 2 回に削減)
 - [ ] 1 週間の自動収集後、`src/data/articles/` に 7 日分の JSON が蓄積
 - [ ] Zod バリデーション違反ゼロ
 - [ ] 重複除去が機能(同じ URL が複数回収集されない)
@@ -438,6 +449,17 @@ if (failures.length > 0) {
 | 削除依頼窓口 | `takedown@edu-evidence.org`(Cloudflare Email Routing で運営者へ転送)、24 時間以内に削除を宣言 |
 | Batch 2 v2 の着手順 | (α) リセマム → (β) 日本教育新聞 / 教育家庭新聞 / 共同通信 |
 | リセマムのフィルタ方針 | 緩めの NG ワードフィルタ + PR 表記除外、ホワイトリストは採らず運用しながら育てる |
+
+### 2026-04-26 改訂(初回 cron 実行直後)
+
+| 項目 | 決定 |
+|---|---|
+| ボットの commit 経路 | main 直 push → **PR フロー + auto-merge**(ADR 0009) |
+| `pre-commit` hook の CI 例外 | 不要化(PR #19 を撤回、main 直接コミット禁止を全 actor に適用) |
+| cron 頻度 | 日次 3 回 → **日次 2 回(JST 07:00 / 18:00)**(ADR 0009、年間 PR 件数を 1095 → 730 に削減) |
+| 自動 PR のラベル | `auto-collect`(GitHub UI のフィルタで人間 PR と分離) |
+| Repository Rules への bypass 追加 | **しない**(`Repository admin role` を bypass 化すると人間 admin の main 直 push が可能になる副作用あり、ADR 0009) |
+| `Allow auto-merge` 設定 | Sprint 3 の運用開始前に Repository Settings で初回有効化(運用者の手作業 1 回) |
 
 ---
 
