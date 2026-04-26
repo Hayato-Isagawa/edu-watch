@@ -1,5 +1,156 @@
 [
   {
+    "id": "kkn-2026-04-26-d06b8489047a2185",
+    "title": "｢ライフプラン｣を考える機会を提供～学生や教職員にライフデザイン講座を実施～北海道",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/post_nyusatsu/260427_hokkaido",
+    "publishedAt": "2026-04-26T22:00:59.000Z",
+    "collectedAt": "2026-04-26T22:26:30.887Z",
+    "summary": "北海道は若者にライフプランについて考える機会を提供する次世代教育コーディネートの講師を派遣するため一般競争入札を4月1日に公示。 事業者は道内の高校や大学などの学生や教員に向けて講師を派遣し、出前形式によるライフデザイン […]",
+    "categories": [
+      "教員・働き方"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-04-26-5f3ed71ee2cbe4d6",
+    "title": "NISTEP、「科学技術の状況に係る総合的意識調査（NISTEP定点調査2025）」を公表",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/200260427o02",
+    "publishedAt": "2026-04-26T22:00:59.000Z",
+    "collectedAt": "2026-04-26T22:26:30.887Z",
+    "summary": "科学技術・学術政策研究所（NISTEP）は4月24日、第6期科学技術・イノベーション基本計画期間中の日本における科学技術やイノベーション創出の状況を把握する第4期「科学技術の状況に係る総合的意識調査」（NISTEP定点調 […]",
+    "categories": [
+      "研究・エビデンス"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-04-26-9a87090b653a97ea",
+    "title": "｢MIRAI SCHOOL いたばし｣を策定～10年後を見据えた教育ビジョン～東京都板橋区",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/post_committee/260427_itabashiku",
+    "publishedAt": "2026-04-26T22:00:51.000Z",
+    "collectedAt": "2026-04-26T22:26:30.887Z",
+    "summary": "東京都板橋区教育委員会は、教育を取り巻く環境が複雑化、多様化、多世代化するなか、2035年度に向けた新しい教育ビジョン｢MIRAI SCHOOL いたばし－教育ビジョン2035－｣を策定した。 これは｢教育は人が幸せに生 […]",
+    "categories": [
+      "その他"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-04-26-edb678a77189442b",
+    "title": "次世代校務DX環境整備支援業務～現行システムの課題などを調査～滋賀県",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/post_nyusatsu/260427_shigaken",
+    "publishedAt": "2026-04-26T22:00:49.000Z",
+    "collectedAt": "2026-04-26T22:26:30.887Z",
+    "summary": "滋賀県教育委員会は、市町村統一の統合型校務支援システムの調達に向けて、公募型プロポーザルを4月1日に公示した。 事業者は県内市町の教育委員会を対象に現行システムの課題や、次期システムへの要望について調査を実施。調査しきれ […]",
+    "categories": [
+      "その他"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-04-26-dfd392f4993a134a",
+    "title": "次世代型校務DXは「引き算」の英断を～毛利靖・茨城大学教育学部副学部長",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/post_ict/260427_1c",
+    "publishedAt": "2026-04-26T22:00:45.000Z",
+    "collectedAt": "2026-04-26T22:26:30.887Z",
+    "summary": "現在、多くの自治体がGIGA第2期の更新に合わせ、校務システムの刷新を急いでいる。最新のシステムを導入し、ダッシュボードで教育データを可視化する──それは確かに素晴らしい一歩に見える。 しかし、これまで、担任から校長まで […]",
+    "categories": [
+      "ICT / GIGA"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-04-26-163e9b93cfad6e0d",
+    "title": "「デジタルな形態も含む教科書」選択可能に～指針やガイドラインを国が策定",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/post_ict/260427_1b",
+    "publishedAt": "2026-04-26T22:00:44.000Z",
+    "collectedAt": "2026-04-26T22:26:30.887Z",
+    "summary": "4月10日、文部科学省は、デジタルな形態を含む教科書の発行・採択等の指針に関する検討会議（座長=堀田龍也教授・東京学芸大学副学長）の第1回会合を開催した。 これまで紙のみが認められていた教科書について、デジタルな形態を含 […]",
+    "categories": [
+      "政策・制度"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-04-26-6b55bf60df5574e1",
+    "title": "AI分析アプリで授業の質を定量化～教員の授業を5分で可視化～仙台市",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/post_committee/260427_sendaisi",
+    "publishedAt": "2026-04-26T22:00:43.000Z",
+    "collectedAt": "2026-04-26T22:26:30.887Z",
+    "summary": "仙台市内の高等学校および学習塾など5機関において、㈱sharedは教員による授業の質を標準化・可視化するアプリの実証実験を実施。3月12日に市内で報告会が行われた。 授業の録音やAIによる自動文字起こしにより評価レポート […]",
+    "categories": [
+      "研究・エビデンス",
+      "教員・働き方"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-04-26-64e432d0128a6730",
+    "title": "全児童にオリジナルTシャツを寄贈～地域が応援、今後も継続を～東京・板橋区立新河岸小学校",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/post_health/260427_8b",
+    "publishedAt": "2026-04-26T22:00:39.000Z",
+    "collectedAt": "2026-04-26T22:26:30.887Z",
+    "summary": "｢卒業したくない｣、｢（地域が）フレンドリーで治安が良い｣──今年3月、板橋区立新河岸小学校を卒業していく6年生児童たちに学校や地域の好きな点を聞いたその返事だ。同校は区内でも最小の小規模校ながら、地域の特色を生かした取 […]",
+    "categories": [
+      "その他"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-04-26-9519ae92c9955e2f",
+    "title": "JST、「創発的研究支援事業」2025年度新規研究課題に275件を採択",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20260427o03",
+    "publishedAt": "2026-04-26T22:00:35.000Z",
+    "collectedAt": "2026-04-26T22:26:30.887Z",
+    "summary": "科学技術振興機構（JST）は4月24日、創発的研究支援事業の2025年度研究提案募集における新規研究課題を決定した。 本事業は、特定の課題や短期目標を設定せず、多様性と融合によって破壊的イノベーションにつながるシーズの創 […]",
+    "categories": [
+      "研究・エビデンス"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-04-26-4476cc39f769fabc",
+    "title": "木材ならではの安心感、求める空間設計可能に～木製学校間仕切",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/post_health/260427_12b",
+    "publishedAt": "2026-04-26T22:00:32.000Z",
+    "collectedAt": "2026-04-26T22:26:30.887Z",
+    "summary": "学校施設に木材を利用することは、子供たちのストレスを緩和させ授業での集中力が増す効果、木質の床は足にかかる負担も少ない、木造の床・壁は鉄筋コンクリート造の教室と比べ温まりやすい等、精神的・物理的にもメリットが大きいことが […]",
+    "categories": [
+      "その他"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
     "id": "kkn-2026-04-26-17aecad8cde3ba14",
     "title": "「女子中高生のための女性活躍応援イベント～未来を設計する道しるべに～」6/13・ 20にハイブリッド開催",
     "sourceId": "kkn",
