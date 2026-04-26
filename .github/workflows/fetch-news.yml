@@ -1,0 +1,45 @@
+name: Fetch news
+
+on:
+  # 初回は workflow_dispatch のみ有効。GitHub UI 上で手動実行して
+  # GitHub Actions 環境(npm ci / ボット権限 / Cloudflare Pages 連動)で
+  # の挙動を確認したのち、別 PR で schedule のコメントを解除する。
+  # JST 07:00 / 13:00 / 19:00 = UTC 22:00 (-1d) / 04:00 / 10:00
+  # schedule:
+  #   - cron: "0 22,4,10 * * *"
+  workflow_dispatch:
+
+# 同時実行を抑止(cron と workflow_dispatch が重なっても 1 本だけ走る)
+concurrency:
+  group: fetch-news
+  cancel-in-progress: false
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          # 後続の commit/push に必要
+          persist-credentials: true
+      - uses: actions/setup-node@v5
+        with:
+          node-version: "24.15.0"
+          cache: npm
+      - run: npm ci
+      - name: Run fetch-news
+        run: npx tsx scripts/fetch-news.ts
+      - name: Commit new articles
+        run: |
+          git config user.name "edu-watch-bot"
+          git config user.email "notify@edu-evidence.org"
+          git add src/data/articles/
+          if git diff --cached --quiet; then
+            echo "[fetch-news] no new articles, skipping commit"
+            exit 0
+          fi
+          git commit -m "chore(data): auto-collect articles $(date -u +%Y-%m-%d_%H%M)"
+          git push
