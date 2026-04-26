@@ -20,6 +20,7 @@ jobs:
     permissions:
       contents: write       # ボット用 feature ブランチへの push に必要
       pull-requests: write  # PR 作成 + auto-merge enable に必要
+      issues: write         # `gh label create` は labels API(issues スコープ)を使う
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v5
@@ -48,6 +49,14 @@ jobs:
           git checkout -b "$branch"
           git commit -m "chore(data): auto-collect articles ${timestamp}"
           git push -u origin "$branch"
+          # `auto-collect` ラベルが未作成のリポジトリでも壊れないよう冪等に作る。
+          # 既存なら --force で上書き(色 / 説明が違っても揃える)、それでも失敗
+          # した場合は無視して PR 作成側で続行する(--label 指定が無効になるが
+          # ボット PR 自体は作りたい)。
+          gh label create auto-collect \
+            --description "Bot による自動収集 PR" \
+            --color ededed \
+            --force 2>/dev/null || true
           file_count=$(git diff --name-only HEAD~1 | wc -l | tr -d ' ')
           gh pr create \
             --title "chore(data): auto-collect articles ${timestamp}" \
