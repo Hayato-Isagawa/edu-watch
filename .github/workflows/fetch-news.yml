@@ -1,12 +1,9 @@
 name: Fetch news
 
 on:
-  # 初回は workflow_dispatch のみ有効。GitHub UI 上で手動実行して
-  # PR 作成 + auto-merge の挙動を確認したのち、別 PR で schedule の
-  # コメントを解除する。
-  # JST 07:00 / 18:00 = UTC 22:00 (-1d) / 09:00(設計書 §6.1 改訂)
-  # schedule:
-  #   - cron: "0 22,9 * * *"
+  schedule:
+    # JST 07:00 / 18:00 = UTC 22:00 (-1d) / 09:00(設計書 §6.1、ADR 0009)
+    - cron: "0 22,9 * * *"
   workflow_dispatch:
 
 # 同時実行を抑止(cron と workflow_dispatch が重なっても 1 本だけ走る)
