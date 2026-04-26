@@ -459,7 +459,14 @@ jobs:
 | cron 頻度 | 日次 3 回 → **日次 2 回(JST 07:00 / 18:00)**(ADR 0009、年間 PR 件数を 1095 → 730 に削減) |
 | 自動 PR のラベル | `auto-collect`(GitHub UI のフィルタで人間 PR と分離) |
 | Repository Rules への bypass 追加 | **しない**(`Repository admin role` を bypass 化すると人間 admin の main 直 push が可能になる副作用あり、ADR 0009) |
-| `Allow auto-merge` 設定 | Sprint 3 の運用開始前に Repository Settings で初回有効化(運用者の手作業 1 回) |
+
+### 初回セットアップで必要な GitHub UI 操作
+
+PR フロー化を前提に、リポジトリ側で以下 3 つの設定が事前に有効化されている必要がある(本リポジトリは設定済み)。fork や新規環境立ち上げの際の躓きを防ぐためのチェックリスト。詳細は ADR 0009 を参照。
+
+- [x] **Settings → General → Pull Requests → Allow auto-merge** を有効化
+- [x] **Settings → Actions → General → Allow GitHub Actions to create and approve pull requests** を有効化
+- [x] **Labels → New label `auto-collect`** を作成(workflow 側に冪等フォールバックあり、UI で明示作成も推奨)
 
 ---
 
