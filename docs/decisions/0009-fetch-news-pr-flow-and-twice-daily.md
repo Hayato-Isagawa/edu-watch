@@ -84,6 +84,20 @@ PR フロー化により、ボットは feature ブランチに commit するた
 
 ADR 0008 で予定していた `takedown@edu-evidence.org` のエイリアス追加(Sprint 3 の `/about` ページ実装と同時)は本 ADR の影響を受けない。`notify@edu-evidence.org`(コミットボット用)も既存通り維持する。
 
+### 初回セットアップで必要な GitHub UI 操作(2026-04-26 確認)
+
+PR フロー化を採用する以上、リポジトリ側で以下 3 つの設定が事前に有効化されている必要がある。fork や新規環境立ち上げの際に同じ躓きを再生産しないよう、ここに恒久的な記録として残す。
+
+1. **Repository → Settings → General → Pull Requests → Allow auto-merge** を有効化
+   - 必要理由: workflow 中の `gh pr merge --auto` がこの機能に依存。OFF だと API が拒否
+2. **Repository → Settings → Actions → General → Workflow permissions → Allow GitHub Actions to create and approve pull requests** を有効化
+   - 必要理由: workflow 中の `gh pr create` がこの設定なしには `GraphQL: GitHub Actions is not permitted to create or approve pull requests` で拒否される
+   - GitHub のデフォルトは OFF(セキュリティ上の慎重設計)
+3. **Repository → Labels → New label `auto-collect`** を作成
+   - 必要理由: workflow が PR に付ける label を事前に作成しておく。workflow 側にも `gh label create --force` の冪等フォールバックがあるため省略可能だが、UI 上の運用整備として明示的に作っておくと、将来 fork 時のセットアップ漏れを減らせる
+
+なお、Repository Rules への bypass actor 追加は **しない**(本 ADR §決定 を参照)。
+
 ## 帰結
 
 ### 良い帰結
