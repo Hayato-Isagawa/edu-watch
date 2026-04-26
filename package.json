@@ -12,7 +12,9 @@
     "preview": "astro preview",
     "astro": "astro",
     "check": "astro check",
-    "check:filter": "npx tsx scripts/check-resemom-filter.ts"
+    "check:filter:resemom": "npx tsx scripts/check-resemom-filter.ts",
+    "check:filter:kyodo": "npx tsx scripts/check-kyodo-filter.ts",
+    "check:filter": "npm run check:filter:resemom && npm run check:filter:kyodo"
   },
   "dependencies": {
     "@astrojs/react": "^5.0.3",

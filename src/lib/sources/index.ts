@@ -4,8 +4,8 @@
  *
  * Sprint 2 進捗:
  *   Batch 1: mext / chukyo(派生)/ nier
- *   Batch 2 v2-α(本ファイル対象): resemom
- *   Batch 2 v2-β(予定): nikkyo / kkn / kyodo
+ *   Batch 2 v2-α: resemom
+ *   Batch 2 v2-β(本ファイル対象): nikkyo / kkn / kyodo
  *
  * ADR 0007 で第 2 層を大手紙から教育専門紙へ転換。除外確定: 教育新聞 /
  * 朝日 EduA / 毎日 / 読売 / 日経。
@@ -19,7 +19,10 @@ import { mext } from "./mext.ts";
 import { chukyo } from "./chukyo.ts";
 import { nier } from "./nier.ts";
 import { resemom } from "./resemom.ts";
+import { nikkyo } from "./nikkyo.ts";
+import { kkn } from "./kkn.ts";
+import { kyodo } from "./kyodo.ts";
 
-export const sources: SourceParser[] = [mext, chukyo, nier, resemom];
+export const sources: SourceParser[] = [mext, chukyo, nier, resemom, nikkyo, kkn, kyodo];
 
-export { mext, chukyo, nier, resemom };
+export { mext, chukyo, nier, resemom, nikkyo, kkn, kyodo };
