@@ -89,6 +89,20 @@
     "language": "ja"
   },
   {
+    "id": "mext-2026-04-23-7132dd1d0afa0169",
+    "title": "都市と地方の連携を通じた国内留学等の促進事業の公募について",
+    "sourceId": "mext",
+    "sourceName": "文部科学省",
+    "sourceUrl": "https://www.mext.go.jp/a_menu/koutou/kaikaku/mext_00008.html",
+    "publishedAt": "2026-04-23T07:27:00.000Z",
+    "collectedAt": "2026-04-27T10:52:10.358Z",
+    "categories": [
+      "その他"
+    ],
+    "layer": 1,
+    "language": "ja"
+  },
+  {
     "id": "nikkyo-2026-04-23-3235d84dcd5fd3ec",
     "title": "働き方改革推進へ　都教委が有識者会議設置",
     "sourceId": "nikkyo",
@@ -101,6 +115,20 @@
       "教員・働き方"
     ],
     "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "mext-2026-04-23-605b509c3a2ef778",
+    "title": "「地域構想推進プラットフォーム」構築等推進事業の公募について",
+    "sourceId": "mext",
+    "sourceName": "文部科学省",
+    "sourceUrl": "https://www.mext.go.jp/a_menu/koutou/kaikaku/mext_00007.html",
+    "publishedAt": "2026-04-23T07:10:00.000Z",
+    "collectedAt": "2026-04-27T10:52:10.358Z",
+    "categories": [
+      "その他"
+    ],
+    "layer": 1,
     "language": "ja"
   },
   {
