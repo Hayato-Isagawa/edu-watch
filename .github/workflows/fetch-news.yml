@@ -20,7 +20,7 @@ jobs:
       issues: write         # `gh label create` は labels API(issues スコープ)を使う
     timeout-minutes: 15
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
         with:
           persist-credentials: true
       - uses: actions/setup-node@v6
