@@ -1,5 +1,80 @@
 [
   {
+    "id": "resemom-2026-04-27-15c90786ce45ac56",
+    "title": "東京都、中高生Webサイト「Teens'Tokyo」制作メンバー募集",
+    "sourceId": "resemom",
+    "sourceName": "リセマム",
+    "sourceUrl": "https://resemom.jp/article/2026/04/27/85925.html",
+    "publishedAt": "2026-04-27T08:45:04.000Z",
+    "collectedAt": "2026-04-27T10:52:10.358Z",
+    "summary": "東京都は2026年4月24日より、Tokyo中高生Webサイト「Teens' Tokyo」を一緒につくる仲間を募集する。活動日は、6月14日～12月中の全5回（予定）。対象は、都内在住または在学の中高生（相当年齢）、10名程度。参加費無料。申込期限は5月19日。",
+    "categories": [
+      "その他"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "resemom-2026-04-27-64b4863bff8a7c76",
+    "title": "芸術や体験イベント「ちばみんフェス」6/14…小島よしお登場",
+    "sourceId": "resemom",
+    "sourceName": "リセマム",
+    "sourceUrl": "https://resemom.jp/article/2026/04/27/85924.html",
+    "publishedAt": "2026-04-27T08:15:04.000Z",
+    "collectedAt": "2026-04-27T10:52:10.358Z",
+    "summary": "千葉県は、木更津市のかずさアカデミアホールで「ちばみんフェス2026 in 木更津」を2026年6月14日に開催する。同イベントは6月15日の「県民の日」を記念したもので、2026年度（令和8年度）に開催される房総国際芸術祭やちばアクアラインマラソンに合わせ、芸術やスポーツを体験できる参加型イベントとして実施される。",
+    "categories": [
+      "その他"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "resemom-2026-04-27-0540a45059351504",
+    "title": "2.7億PV「東京都こどもホームページ制作」小学生20名募集",
+    "sourceId": "resemom",
+    "sourceName": "リセマム",
+    "sourceUrl": "https://resemom.jp/article/2026/04/27/85923.html",
+    "publishedAt": "2026-04-27T07:15:04.000Z",
+    "collectedAt": "2026-04-27T10:52:10.358Z",
+    "summary": "東京都は2026年4月24日より、「東京都こどもホームページ」ワークショップのメンバーを募集する。ワークショップ活動日は、6月20日、7月18日、8月22日。対象は、都内在住または在学の小学4・5・6年生、20名程度。参加費無料。申込期限は5月19日午後5時。",
+    "categories": [
+      "その他"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "nikkyo-2026-04-27-c33d322cf495ea90",
+    "title": "体育WG　「動きの意図」を分かりやすく　小1～4で",
+    "sourceId": "nikkyo",
+    "sourceName": "日本教育新聞",
+    "sourceUrl": "https://www.kyoiku-press.com/post-310050/",
+    "publishedAt": "2026-04-27T07:13:00.000Z",
+    "collectedAt": "2026-04-27T10:52:10.358Z",
+    "summary": "中央教育審議会教育課程部会の体育、保健体育、健康安全ワーキンググループは24日、第9回の会合を開いた。発達段階に応じた動きや運動・スポーツの楽しさを味わう狙いを体育科で明確化する方針が示された。 　…",
+    "categories": [
+      "政策・制度"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "resemom-2026-04-27-29914904e409c0b9",
+    "title": "公務員志望、親の職業や安定志向が影響…4大学が2,643人調査",
+    "sourceId": "resemom",
+    "sourceName": "リセマム",
+    "sourceUrl": "https://resemom.jp/article/2026/04/27/85922.html",
+    "publishedAt": "2026-04-27T06:15:04.000Z",
+    "collectedAt": "2026-04-27T10:52:10.358Z",
+    "summary": "立命館大学、関西学院大学、筑波大学、大阪経済大学の研究グループは2026年4月23日、大学生2,643人を対象に公務員志望の要因を実証的に分析した結果を発表した。女性や親が公務員の学生、地方出身者などが公務員を志望しやすい傾向にあることが判明した。",
+    "categories": [
+      "研究・エビデンス"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
     "id": "resemom-2026-04-27-e0c339e5764c58d3",
     "title": "小中学生の8割、16歳未満のSNS制限は必要…ニフティキッズ調査",
     "sourceId": "resemom",
@@ -12,6 +87,20 @@
       "研究・エビデンス"
     ],
     "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "mext-2026-04-27-c05e96b1d57224e8",
+    "title": "大学研究力強化に向けた取組の推進（委託調査）　令和7年度調査研究報告書の公表について",
+    "sourceId": "mext",
+    "sourceName": "文部科学省",
+    "sourceUrl": "https://www.mext.go.jp/a_menu/kagaku/daigakukenkyuryoku/itakuchosa01.html",
+    "publishedAt": "2026-04-27T05:00:00.000Z",
+    "collectedAt": "2026-04-27T10:52:10.358Z",
+    "categories": [
+      "研究・エビデンス"
+    ],
+    "layer": 1,
     "language": "ja"
   },
   {
@@ -87,6 +176,48 @@
       "教員・働き方"
     ],
     "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "mext-2026-04-27-8c81375366e6db57",
+    "title": "科学技術・学術審議会（第79回）配布資料",
+    "sourceId": "mext",
+    "sourceName": "文部科学省",
+    "sourceUrl": "https://www.mext.go.jp/b_menu/shingi/gijyutu/gijyutu0/shiryo/mext_00023.html",
+    "publishedAt": "2026-04-27T04:00:00.000Z",
+    "collectedAt": "2026-04-27T10:52:10.358Z",
+    "categories": [
+      "その他"
+    ],
+    "layer": 1,
+    "language": "ja"
+  },
+  {
+    "id": "mext-2026-04-27-3b080d40648f2fa2",
+    "title": "教育・学習の質向上に向けた新たな評価の在り方ワーキンググループ（第10回）　配付資料",
+    "sourceId": "mext",
+    "sourceName": "文部科学省",
+    "sourceUrl": "https://www.mext.go.jp/b_menu/shingi/chukyo/chukyo4/056/giji_list/mext_00002.html",
+    "publishedAt": "2026-04-27T04:00:00.000Z",
+    "collectedAt": "2026-04-27T10:52:10.358Z",
+    "categories": [
+      "その他"
+    ],
+    "layer": 1,
+    "language": "ja"
+  },
+  {
+    "id": "mext-2026-04-27-f9a3753c2b587681",
+    "title": "中央教育審議会初等中等教育分科会教育課程部会総則・評価特別部会（第7回）の配布資料を掲載しました",
+    "sourceId": "mext",
+    "sourceName": "文部科学省",
+    "sourceUrl": "https://www.mext.go.jp/b_menu/shingi/chukyo/chukyo3/101/siryo/mext_00051.html",
+    "publishedAt": "2026-04-27T04:00:00.000Z",
+    "collectedAt": "2026-04-27T10:52:10.358Z",
+    "categories": [
+      "政策・制度"
+    ],
+    "layer": 1,
     "language": "ja"
   },
   {
@@ -253,6 +384,36 @@
       "政策・制度"
     ],
     "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "mext-2026-04-27-c0d4f7b71ec722a9",
+    "title": "教員養成部会　教職課程・免許・大学院課程ワーキンググループ養護教諭・栄養教諭作業部会（第4回）配付資料",
+    "sourceId": "mext",
+    "sourceName": "文部科学省",
+    "sourceUrl": "https://www.mext.go.jp/b_menu/shingi/chukyo/chukyo3/125/siryo/mext_00007.html",
+    "publishedAt": "2026-04-27T00:00:00.000Z",
+    "collectedAt": "2026-04-27T10:52:10.358Z",
+    "categories": [
+      "教員・働き方"
+    ],
+    "layer": 1,
+    "language": "ja"
+  },
+  {
+    "id": "mext-2026-04-27-4531612cb6e8d4fd",
+    "title": "文部科学省研究振興局ライフサイエンス課非常勤職員（文部科学省調査員）採用のお知らせ（令和8年7月1日予定）",
+    "sourceId": "mext",
+    "sourceName": "文部科学省",
+    "sourceUrl": "https://www.mext.go.jp/b_menu/saiyou/hijyoukin/1421780_00213.html",
+    "publishedAt": "2026-04-27T00:00:00.000Z",
+    "collectedAt": "2026-04-27T10:52:10.358Z",
+    "categories": [
+      "政策・制度",
+      "研究・エビデンス",
+      "教員・働き方"
+    ],
+    "layer": 1,
     "language": "ja"
   }
 ]
