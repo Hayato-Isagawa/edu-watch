@@ -61,6 +61,9 @@ export async function loadRange(
  * 指定日のファイルに記事をマージして書き戻す。
  * 既存ファイルがあれば既存記事 + 新規記事を id ベースで dedupe してから保存する。
  * 並び順は publishedAt 降順(新しい記事が先頭)。
+ *
+ * dedupe ポリシー(ADR 0010): 既存 id と一致した新規記事はスキップする。
+ * collectedAt は初観測時刻で固定し、RSS が同じ記事を再配信しても上書きしない。
  */
 export async function mergeDay(
   dataDir: string,
@@ -73,8 +76,9 @@ export async function mergeDay(
   for (const a of existing) byId.set(a.id, a);
   let added = 0;
   for (const a of newArticles) {
-    if (!byId.has(a.id)) added++;
+    if (byId.has(a.id)) continue;
     byId.set(a.id, a);
+    added++;
   }
   const merged = [...byId.values()].sort((a, b) =>
     b.publishedAt.localeCompare(a.publishedAt),
