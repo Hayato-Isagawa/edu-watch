@@ -49,3 +49,5 @@ EduEvidence JP と共通の運営方針(植物モチーフブランド体系 / N
 - [0007. 第 2 層を大手紙の教育面から教育専門紙へ転換](0007-tier2-shift-to-specialty-press.md)
 - [0008. 引用範囲遵守ポリシーと削除依頼窓口](0008-citation-scope-policy.md)
 - [0009. fetch-news ワークフローを PR フロー化、cron を日次 2 回へ削減](0009-fetch-news-pr-flow-and-twice-daily.md)
+- [0010. mergeDay は既存 id をスキップし collectedAt を初観測時刻で固定する](0010-dedupe-skip-existing-id.md)
+- [0011. UI 状態はセマンティック属性(aria-* / data-*)で管理する](0011-semantic-attribute-state-management.md)
