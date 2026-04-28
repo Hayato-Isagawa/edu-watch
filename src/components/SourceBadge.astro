@@ -10,21 +10,17 @@ const meta = getSourceMeta(sourceId);
 const color = meta?.badgeColor ?? "#3a3a3a";
 const label = meta?.shortName ?? sourceName;
 const className =
-  "inline-flex items-center px-2 py-0.5 text-[11px] font-medium tracking-wide text-white rounded-sm whitespace-nowrap hover:opacity-90 transition-opacity";
+  "inline-flex items-center px-2 py-0.5 text-[11px] font-medium tracking-wide rounded-sm whitespace-nowrap hover:opacity-90 transition-opacity";
+const inlineStyle = `background-color: ${color}; color: #f4f1ec;`;
 ---
 
 {
   linkable ? (
-    <a
-      href={`/sources/${sourceId}/`}
-      class={className}
-      style={`background-color: ${color}`}
-      data-source={sourceId}
-    >
+    <a href={`/sources/${sourceId}/`} class={className} style={inlineStyle} data-source={sourceId}>
       {label}
     </a>
   ) : (
-    <span class={className} style={`background-color: ${color}`} data-source={sourceId}>
+    <span class={className} style={inlineStyle} data-source={sourceId}>
       {label}
     </span>
   )

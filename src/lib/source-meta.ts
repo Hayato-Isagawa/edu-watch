@@ -46,7 +46,7 @@ export const SOURCE_META: Record<string, SourceMeta> = {
     displayName: "リセマム",
     shortName: "リセマム",
     homeUrl: "https://resemom.jp/",
-    badgeColor: "#b56b3f",
+    badgeColor: "#8a4f2a",
     layer: 2,
   },
   nikkyo: {
