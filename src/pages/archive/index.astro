@@ -1,0 +1,52 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import { getAllDates, getArticlesByDate, formatDayFull } from "../../lib/articles.ts";
+
+const dates = getAllDates();
+const counts = new Map(dates.map((d) => [d, getArticlesByDate(d).length]));
+const total = [...counts.values()].reduce((acc, n) => acc + n, 0);
+---
+
+<Layout
+  title="アーカイブ — EduWatch JP"
+  description="EduWatch JP のすべての記事を日付別に閲覧できるアーカイブ。文部科学省・国研・教育専門紙の教育記事を一次情報から日次で集約。"
+>
+  <section class="pt-10 sm:pt-14 pb-8 border-b border-[var(--color-line)]">
+    <p class="font-mono text-[10px] uppercase tracking-widest text-[var(--color-accent)]">
+      Archive
+    </p>
+    <h1 class="mt-3 font-black text-3xl sm:text-4xl leading-[1.15] tracking-tight">
+      日付別<span class="text-[var(--color-accent)]">アーカイブ</span>
+    </h1>
+    <p class="mt-3 text-[var(--color-sub)] text-xs font-mono tracking-wide">
+      {dates.length} 日 / {total} 件
+    </p>
+    <p class="mt-4 text-[var(--color-sub)] text-sm leading-relaxed">
+      <a href="/" class="link-underline">← トップに戻る</a>
+    </p>
+  </section>
+
+  {
+    dates.length === 0 ? (
+      <p class="py-20 text-center text-[var(--color-sub)] text-sm">
+        まだ記事がありません。
+      </p>
+    ) : (
+      <ul class="divide-y divide-[var(--color-line)]">
+        {dates.map((date) => (
+          <li class="py-4 sm:py-5 flex items-baseline justify-between gap-4">
+            <a
+              href={`/archive/${date}/`}
+              class="link-underline text-[var(--color-ink)] font-bold text-sm sm:text-base"
+            >
+              <time datetime={date}>{formatDayFull(date)}</time>
+            </a>
+            <span class="text-xs font-mono text-[var(--color-sub)] whitespace-nowrap">
+              {counts.get(date)} 件
+            </span>
+          </li>
+        ))}
+      </ul>
+    )
+  }
+</Layout>

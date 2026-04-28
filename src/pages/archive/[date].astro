@@ -1,0 +1,92 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import ArticleCard from "../../components/ArticleCard.astro";
+import {
+  getAllDates,
+  getArticlesByDate,
+  formatDayFull,
+  formatDayCompact,
+} from "../../lib/articles.ts";
+
+export function getStaticPaths() {
+  const dates = getAllDates();
+  return dates.map((date, index) => ({
+    params: { date },
+    props: {
+      date,
+      newer: index > 0 ? dates[index - 1] : null,
+      older: index < dates.length - 1 ? dates[index + 1] : null,
+    },
+  }));
+}
+
+const { date, newer, older } = Astro.props as {
+  date: string;
+  newer: string | null;
+  older: string | null;
+};
+const articles = getArticlesByDate(date);
+---
+
+<Layout
+  title={`${formatDayFull(date)} の記事 — EduWatch JP`}
+  description={`${formatDayFull(date)} に公開された ${articles.length} 件の教育ニュース。文部科学省・国研・教育専門紙の一次情報から自動集約。`}
+>
+  <section class="pt-10 sm:pt-14 pb-8 border-b border-[var(--color-line)]">
+    <p class="font-mono text-[10px] uppercase tracking-widest text-[var(--color-accent)]">
+      Archive
+    </p>
+    <h1 class="mt-3 font-black text-2xl sm:text-3xl md:text-4xl leading-[1.15] tracking-tight">
+      <time datetime={date}>{formatDayFull(date)}</time>
+    </h1>
+    <p class="mt-3 text-[var(--color-sub)] text-xs font-mono tracking-wide">
+      {articles.length} 件
+    </p>
+    <p class="mt-4 text-[var(--color-sub)] text-sm leading-relaxed">
+      <a href="/archive/" class="link-underline">← アーカイブ一覧</a>
+      <span class="ml-3"><a href="/" class="link-underline">トップ</a></span>
+    </p>
+  </section>
+
+  {
+    articles.length === 0 ? (
+      <p class="py-20 text-center text-[var(--color-sub)] text-sm">
+        この日の記事はありません。
+      </p>
+    ) : (
+      <div class="py-6 sm:py-8">
+        {articles.map((article) => (
+          <ArticleCard article={article} />
+        ))}
+      </div>
+    )
+  }
+
+  <nav
+    aria-label="日付ナビゲーション"
+    class="mt-2 mb-4 flex items-center justify-between gap-4 py-6 border-t border-[var(--color-line)]"
+  >
+    {older ? (
+      <a
+        href={`/archive/${older}/`}
+        rel="prev"
+        class="link-underline text-sm text-[var(--color-ink)]"
+      >
+        ← {formatDayCompact(older)} の記事
+      </a>
+    ) : (
+      <span class="text-sm text-[var(--color-sub)]">これより古い日付なし</span>
+    )}
+    {newer ? (
+      <a
+        href={`/archive/${newer}/`}
+        rel="next"
+        class="link-underline text-sm text-[var(--color-ink)]"
+      >
+        {formatDayCompact(newer)} の記事 →
+      </a>
+    ) : (
+      <span class="text-sm text-[var(--color-sub)]">最新の日付</span>
+    )}
+  </nav>
+</Layout>
