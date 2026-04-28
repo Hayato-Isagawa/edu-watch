@@ -75,13 +75,20 @@ const groups = groupByDate(visible);
         直近 {RECENT_DAYS} 日のうち、トップに表示しきれなかった {overflow} 件があります。
       </p>
     )}
-    <p class="mt-3 text-sm leading-relaxed">
-      <a href="/archive/" class="link-underline text-[var(--color-ink)] font-bold">
-        日付別アーカイブを見る →
-      </a>
-    </p>
+    <ul class="mt-3 text-sm leading-relaxed space-y-1">
+      <li>
+        <a href="/archive/" class="link-underline text-[var(--color-ink)] font-bold">
+          日付別アーカイブを見る →
+        </a>
+      </li>
+      <li>
+        <a href="/categories/" class="link-underline text-[var(--color-ink)] font-bold">
+          カテゴリから探す →
+        </a>
+      </li>
+    </ul>
     <p class="mt-2 text-[11px] leading-relaxed text-[var(--color-sub)]">
-      カテゴリ別 / 媒体別ページは Sprint 3 後半で公開予定です。
+      媒体別ページは Sprint 3 後半で公開予定です。
     </p>
   </section>
 </Layout>

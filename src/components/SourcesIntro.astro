@@ -1,20 +1,11 @@
 ---
 import SourceBadge from "./SourceBadge.astro";
+import CategoryBadge from "./CategoryBadge.astro";
 import { SOURCE_META } from "../lib/source-meta.ts";
+import { CATEGORY_META } from "../lib/category-meta.ts";
 
 const tier1 = Object.values(SOURCE_META).filter((s) => s.layer === 1);
 const tier2 = Object.values(SOURCE_META).filter((s) => s.layer === 2);
-
-const categories = [
-  "いじめ",
-  "不登校",
-  "ICT / GIGA",
-  "政策・制度",
-  "研究・エビデンス",
-  "国際・海外",
-  "教員・働き方",
-  "その他",
-];
 ---
 
 <section
@@ -89,15 +80,11 @@ const categories = [
   <div class="mt-5 pt-4 border-t border-[var(--color-line)]">
     <div class="text-xs font-bold text-[var(--color-ink)]">カテゴリ</div>
     <p class="mt-1 text-[11px] leading-relaxed text-[var(--color-sub)]">
-      タイトル・要約のキーワードに基づき、各記事に最大 3 つ自動付与します。
+      タイトル・要約のキーワードに基づき、各記事に最大 3 つ自動付与します。バッジをクリックすると該当カテゴリの一覧へ移動します。
     </p>
     <div class="mt-2 flex flex-wrap gap-1.5">
-      {categories.map((c) => (
-        <span
-          class="inline-flex items-center px-2 py-0.5 text-[11px] font-medium tracking-wide text-[var(--color-sub)] border border-[var(--color-line)] rounded-sm bg-[var(--color-bg)]"
-        >
-          {c}
-        </span>
+      {CATEGORY_META.map((c) => (
+        <CategoryBadge category={c.category} />
       ))}
     </div>
   </div>

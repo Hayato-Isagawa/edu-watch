@@ -1,12 +1,25 @@
 ---
+import type { ArticleCategory } from "../lib/article-schema.ts";
+import { slugForCategory } from "../lib/category-meta.ts";
+
 interface Props {
-  category: string;
+  category: ArticleCategory;
+  linkable?: boolean;
 }
-const { category } = Astro.props;
+const { category, linkable = true } = Astro.props;
+const slug = slugForCategory(category);
+const className =
+  "inline-flex items-center px-2 py-0.5 text-[11px] font-medium tracking-wide text-[var(--color-sub)] border border-[var(--color-line)] rounded-sm whitespace-nowrap bg-[var(--color-card)] hover:text-[var(--color-ink)] hover:border-[var(--color-ink)] transition-colors";
 ---
 
-<span
-  class="inline-flex items-center px-2 py-0.5 text-[11px] font-medium tracking-wide text-[var(--color-sub)] border border-[var(--color-line)] rounded-sm whitespace-nowrap bg-[var(--color-card)]"
->
-  {category}
-</span>
+{
+  linkable ? (
+    <a href={`/categories/${slug}/`} class={className} data-category={slug}>
+      {category}
+    </a>
+  ) : (
+    <span class={className} data-category={slug}>
+      {category}
+    </span>
+  )
+}
