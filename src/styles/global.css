@@ -87,6 +87,100 @@ a {
   }
 }
 
+body[data-menu="open"] {
+  overflow: hidden;
+}
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  background: color-mix(in oklab, var(--color-bg) 85%, transparent);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--color-line);
+}
+
+.mobile-menu {
+  position: fixed;
+  top: 4rem;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 50;
+  background: var(--color-bg);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-0.5rem);
+  transition:
+    opacity 200ms ease-out,
+    transform 200ms ease-out;
+}
+.mobile-menu[data-state="open"] {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+@media (prefers-reduced-motion: reduce) {
+  .mobile-menu {
+    transition: opacity 100ms linear;
+    transform: none;
+  }
+  .mobile-menu[data-state="open"] {
+    transform: none;
+  }
+}
+
+.mobile-menu-inner {
+  max-width: 32rem;
+  margin: 0 auto;
+  padding: 2rem 1.5rem 4rem;
+}
+
+.mobile-menu-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.mobile-menu-section ul {
+  display: flex;
+  flex-direction: column;
+}
+
+.mobile-menu-section-title {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-sub);
+  margin-bottom: 0.75rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--color-line);
+}
+
+.mobile-menu-section a {
+  display: block;
+  padding: 0.75rem 0;
+  font-size: 1rem;
+  color: var(--color-ink);
+  transition: color 150ms ease-out;
+}
+
+.mobile-menu-section a:hover,
+.mobile-menu-section a:focus-visible {
+  color: var(--color-accent);
+}
+
+.mobile-menu-section a:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 4px;
+  border-radius: 2px;
+}
+
 /* LineChart コンポーネント(remark-chart で生成される SVG) */
 .line-chart {
   margin: 1.75rem 0;
