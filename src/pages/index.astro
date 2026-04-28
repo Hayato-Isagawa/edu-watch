@@ -4,9 +4,12 @@ import ArticleCard from "../components/ArticleCard.astro";
 import SourcesIntro from "../components/SourcesIntro.astro";
 import { getRecentArticles, groupByDate } from "../lib/articles.ts";
 
-const RECENT_DAYS = 14;
+const RECENT_DAYS = 7;
+const MAX_ITEMS = 50;
 const recent = getRecentArticles(RECENT_DAYS);
-const groups = groupByDate(recent);
+const visible = recent.slice(0, MAX_ITEMS);
+const overflow = Math.max(0, recent.length - visible.length);
+const groups = groupByDate(visible);
 
 const dayFormatter = new Intl.DateTimeFormat("ja-JP", {
   month: "long",
@@ -35,7 +38,10 @@ function formatDayLabel(yyyyMmDd: string): string {
       日次で自動収集。タイトル原文のまま、編集者の意見は加えず、公式 URL に直接リンクします。
     </p>
     <p class="mt-3 text-[var(--color-sub)] text-xs font-mono tracking-wide">
-      直近 {RECENT_DAYS} 日 / {recent.length} 件
+      直近 {RECENT_DAYS} 日 / 表示 {visible.length} 件
+      {recent.length > visible.length && (
+        <span class="ml-1">(全 {recent.length} 件中)</span>
+      )}
     </p>
   </section>
 
@@ -62,6 +68,26 @@ function formatDayLabel(yyyyMmDd: string): string {
           </section>
         ))}
       </div>
+    )
+  }
+
+  {
+    overflow > 0 && (
+      <section
+        aria-labelledby="archive-placeholder-heading"
+        class="mt-4 sm:mt-6 p-5 sm:p-6 border border-dashed border-[var(--color-line)] bg-[var(--color-card)] rounded-sm"
+      >
+        <h2
+          id="archive-placeholder-heading"
+          class="font-mono text-[10px] uppercase tracking-widest text-[var(--color-sub)]"
+        >
+          これより古い記事
+        </h2>
+        <p class="mt-2 text-sm leading-relaxed text-[var(--color-sub)]">
+          直近 {RECENT_DAYS} 日のうち、トップに表示しきれなかった {overflow} 件があります。
+          日付別アーカイブページとカテゴリ別 / 媒体別ページは Sprint 3 後半で公開予定です。
+        </p>
+      </section>
     )
   }
 </Layout>
