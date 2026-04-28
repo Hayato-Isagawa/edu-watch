@@ -1,0 +1,43 @@
+---
+import SourceBadge from "./SourceBadge.astro";
+import CategoryBadge from "./CategoryBadge.astro";
+import type { Article } from "../lib/article-schema.ts";
+
+interface Props {
+  article: Article;
+}
+const { article } = Astro.props;
+---
+
+<article class="border-t border-[var(--color-line)] py-5 first:border-t-0 first:pt-0">
+  <div class="flex flex-wrap items-center gap-2 mb-2">
+    <SourceBadge sourceId={article.sourceId} sourceName={article.sourceName} />
+    {article.requiresMembership && (
+      <span
+        class="inline-flex items-center px-2 py-0.5 text-[11px] font-medium tracking-wide text-[#7a4a00] bg-[#fbe6c2] border border-[#e9c98a] rounded-sm whitespace-nowrap"
+        title="この記事は媒体サイトでの会員登録(無料 or 有料)が必要です"
+        data-membership="required"
+      >
+        会員限定
+      </span>
+    )}
+    {article.categories.map((c) => <CategoryBadge category={c} />)}
+  </div>
+
+  <h3 class="text-base sm:text-lg font-bold leading-snug">
+    <a
+      href={article.sourceUrl}
+      target="_blank"
+      rel="noopener noreferrer"
+      class="link-underline text-[var(--color-ink)] hover:text-[var(--color-accent)] transition-colors"
+    >
+      {article.title}
+    </a>
+  </h3>
+
+  {article.summary && (
+    <p class="mt-2 text-sm leading-relaxed text-[var(--color-sub)] line-clamp-3">
+      {article.summary}
+    </p>
+  )}
+</article>

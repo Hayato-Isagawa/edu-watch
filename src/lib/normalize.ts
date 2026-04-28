@@ -64,6 +64,7 @@ export function normalize(
     categories: categoriesFor(raw),
     layer: parser.layer,
     language: parser.language,
+    requiresMembership: raw.requiresMembership === true ? true : undefined,
   };
   return ArticleSchema.parse(article);
 }
