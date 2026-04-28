@@ -1,0 +1,74 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import ArticleCard from "../../components/ArticleCard.astro";
+import { SOURCE_META, getSourceMeta } from "../../lib/source-meta.ts";
+import {
+  getArticlesBySource,
+  groupByDate,
+  formatDayShort,
+} from "../../lib/articles.ts";
+
+export function getStaticPaths() {
+  return Object.values(SOURCE_META).map((s) => ({ params: { sourceId: s.sourceId } }));
+}
+
+const { sourceId } = Astro.params as { sourceId: string };
+const meta = getSourceMeta(sourceId);
+if (!meta) {
+  throw new Error(`Unknown sourceId: ${sourceId}`);
+}
+const articles = getArticlesBySource(sourceId);
+const groups = groupByDate(articles);
+const tierLabel = meta.layer === 1 ? "Tier 1 — 一次情報" : "Tier 2 — 教育専門紙・通信社";
+---
+
+<Layout
+  title={`${meta.displayName} — EduWatch JP`}
+  description={`${meta.displayName} の教育関連記事 ${articles.length} 件。EduWatch JP が一次情報から日次で自動収集。`}
+>
+  <section class="pt-10 sm:pt-14 pb-8 border-b border-[var(--color-line)]">
+    <p class="font-mono text-[10px] uppercase tracking-widest text-[var(--color-accent)]">
+      Source · {tierLabel}
+    </p>
+    <h1 class="mt-3 font-black text-3xl sm:text-4xl md:text-5xl leading-[1.15] tracking-tight">
+      <span class="text-[var(--color-accent)]">{meta.displayName}</span>
+    </h1>
+    <p class="mt-3 text-[var(--color-sub)] text-xs font-mono tracking-wide">
+      {articles.length} 件
+      <a
+        href={meta.homeUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="ml-3 link-underline"
+      >公式サイト ↗</a>
+    </p>
+    <p class="mt-4 text-[var(--color-sub)] text-sm leading-relaxed">
+      <a href="/sources/" class="link-underline">← 媒体一覧</a>
+      <span class="ml-3"><a href="/" class="link-underline">トップ</a></span>
+    </p>
+  </section>
+
+  {
+    groups.length === 0 ? (
+      <p class="py-20 text-center text-[var(--color-sub)] text-sm">
+        この媒体の記事はまだありません。
+      </p>
+    ) : (
+      <div class="divide-y divide-[var(--color-line)]">
+        {groups.map((group) => (
+          <section class="py-8 sm:py-10">
+            <h2 class="mb-4 sm:mb-6 font-mono text-xs uppercase tracking-widest text-[var(--color-sub)]">
+              <time datetime={group.date}>{formatDayShort(group.date)}</time>
+              <span class="ml-3 text-[var(--color-sub)]">{group.articles.length} 件</span>
+            </h2>
+            <div>
+              {group.articles.map((article) => (
+                <ArticleCard article={article} />
+              ))}
+            </div>
+          </section>
+        ))}
+      </div>
+    )
+  }
+</Layout>

@@ -91,6 +91,13 @@ export function getArticlesByCategory(category: Article["categories"][number]): 
 }
 
 /**
+ * 指定 sourceId の記事を新しい順で返す。
+ */
+export function getArticlesBySource(sourceId: string): Article[] {
+  return loadAllSorted().filter((a) => a.sourceId === sourceId);
+}
+
+/**
  * 記事を持つ全日付(JST)を新しい順で返す。
  */
 export function getAllDates(): string[] {
