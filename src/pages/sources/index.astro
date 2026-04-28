@@ -1,0 +1,86 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import SourceBadge from "../../components/SourceBadge.astro";
+import { SOURCE_META } from "../../lib/source-meta.ts";
+import { getArticlesBySource } from "../../lib/articles.ts";
+
+const items = Object.values(SOURCE_META).map((s) => ({
+  ...s,
+  count: getArticlesBySource(s.sourceId).length,
+}));
+const tier1 = items.filter((s) => s.layer === 1);
+const tier2 = items.filter((s) => s.layer === 2);
+const total = items.reduce((acc, i) => acc + i.count, 0);
+---
+
+<Layout
+  title="媒体 — EduWatch JP"
+  description="EduWatch JP が収集する 7 媒体(文部科学省・国立教育政策研究所・中央教育審議会・教育専門紙・共同通信)を媒体別に閲覧できます。"
+>
+  <section class="pt-10 sm:pt-14 pb-8 border-b border-[var(--color-line)]">
+    <p class="font-mono text-[10px] uppercase tracking-widest text-[var(--color-accent)]">
+      Sources
+    </p>
+    <h1 class="mt-3 font-black text-3xl sm:text-4xl md:text-5xl leading-[1.15] tracking-tight">
+      <span class="text-[var(--color-accent)]">媒体</span>から探す
+    </h1>
+    <p class="mt-3 text-[var(--color-sub)] text-xs font-mono tracking-wide">
+      {items.length} 媒体 / {total} 件
+    </p>
+    <p class="mt-4 text-[var(--color-sub)] text-sm leading-relaxed">
+      <a href="/" class="link-underline">← トップに戻る</a>
+    </p>
+  </section>
+
+  <section class="py-8 sm:py-10">
+    <h2 class="text-xs font-bold text-[var(--color-ink)]">
+      Tier 1 — 一次情報
+    </h2>
+    <p class="mt-1 text-xs leading-relaxed text-[var(--color-sub)]">
+      政府機関・研究所の発信。報告書・調査結果・政策発表。
+    </p>
+    <ul class="mt-4 divide-y divide-[var(--color-line)]">
+      {tier1.map((s) => (
+        <li class="py-4 sm:py-5">
+          <a href={`/sources/${s.sourceId}/`} class="flex items-baseline justify-between gap-4 group">
+            <span class="flex items-baseline gap-3">
+              <SourceBadge sourceId={s.sourceId} sourceName={s.displayName} linkable={false} />
+              <span class="text-[var(--color-ink)] font-bold text-sm sm:text-base link-underline">
+                {s.displayName}
+              </span>
+            </span>
+            <span class="text-xs font-mono text-[var(--color-sub)] whitespace-nowrap">
+              {s.count} 件
+            </span>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <section class="py-8 sm:py-10 border-t border-[var(--color-line)]">
+    <h2 class="text-xs font-bold text-[var(--color-ink)]">
+      Tier 2 — 教育専門紙・通信社
+    </h2>
+    <p class="mt-1 text-xs leading-relaxed text-[var(--color-sub)]">
+      教育専門紙・大手通信社の教育関連記事。引用範囲遵守(タイトル原文・要約のみ)。
+    </p>
+    <ul class="mt-4 divide-y divide-[var(--color-line)]">
+      {tier2.map((s) => (
+        <li class="py-4 sm:py-5">
+          <a href={`/sources/${s.sourceId}/`} class="flex items-baseline justify-between gap-4 group">
+            <span class="flex items-baseline gap-3">
+              <SourceBadge sourceId={s.sourceId} sourceName={s.displayName} linkable={false} />
+              <span class="text-[var(--color-ink)] font-bold text-sm sm:text-base link-underline">
+                {s.displayName}
+              </span>
+            </span>
+            <span class="text-xs font-mono text-[var(--color-sub)] whitespace-nowrap">
+              {s.count} 件
+            </span>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </section>
+</Layout>
