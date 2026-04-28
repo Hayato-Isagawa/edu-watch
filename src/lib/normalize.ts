@@ -49,7 +49,7 @@ export function normalize(
   raw: RawArticle,
   parser: Pick<SourceParser, "sourceId" | "sourceName" | "layer" | "language">,
   collectedAt: string = new Date().toISOString(),
-  categoriesFor: (raw: RawArticle) => Article["categories"],
+  categoriesFor: (raw: RawArticle & { sourceId: string }) => Article["categories"],
 ): Article {
   const canonicalUrl = canonicalizeUrl(raw.url);
   const article: Article = {
@@ -61,7 +61,7 @@ export function normalize(
     publishedAt: raw.publishedAt,
     collectedAt,
     summary: raw.summary?.trim() || undefined,
-    categories: categoriesFor(raw),
+    categories: categoriesFor({ ...raw, sourceId: parser.sourceId }),
     layer: parser.layer,
     language: parser.language,
     requiresMembership: raw.requiresMembership === true ? true : undefined,
