@@ -36,7 +36,7 @@ const articles = getArticlesByDate(date);
     <p class="font-mono text-[10px] uppercase tracking-widest text-[var(--color-accent)]">
       Archive
     </p>
-    <h1 class="mt-3 font-black text-2xl sm:text-3xl md:text-4xl leading-[1.15] tracking-tight">
+    <h1 class="mt-3 font-black text-3xl sm:text-4xl md:text-5xl leading-[1.15] tracking-tight">
       <time datetime={date}>{formatDayFull(date)}</time>
     </h1>
     <p class="mt-3 text-[var(--color-sub)] text-xs font-mono tracking-wide">
@@ -54,11 +54,11 @@ const articles = getArticlesByDate(date);
         この日の記事はありません。
       </p>
     ) : (
-      <div class="py-6 sm:py-8">
+      <section class="py-8 sm:py-10">
         {articles.map((article) => (
           <ArticleCard article={article} />
         ))}
-      </div>
+      </section>
     )
   }
 

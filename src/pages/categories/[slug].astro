@@ -1,0 +1,70 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import ArticleCard from "../../components/ArticleCard.astro";
+import { CATEGORY_META, getCategoryMetaBySlug } from "../../lib/category-meta.ts";
+import {
+  getArticlesByCategory,
+  groupByDate,
+  formatDayShort,
+} from "../../lib/articles.ts";
+
+export function getStaticPaths() {
+  return CATEGORY_META.map((m) => ({ params: { slug: m.slug } }));
+}
+
+const { slug } = Astro.params as { slug: string };
+const meta = getCategoryMetaBySlug(slug);
+if (!meta) {
+  throw new Error(`Unknown category slug: ${slug}`);
+}
+const articles = getArticlesByCategory(meta.category);
+const groups = groupByDate(articles);
+---
+
+<Layout
+  title={`${meta.category} — EduWatch JP`}
+  description={`${meta.category} に分類された ${articles.length} 件の教育ニュース。${meta.description}`}
+>
+  <section class="pt-10 sm:pt-14 pb-8 border-b border-[var(--color-line)]">
+    <p class="font-mono text-[10px] uppercase tracking-widest text-[var(--color-accent)]">
+      Category
+    </p>
+    <h1 class="mt-3 font-black text-3xl sm:text-4xl md:text-5xl leading-[1.15] tracking-tight">
+      <span class="text-[var(--color-accent)]">{meta.category}</span>
+    </h1>
+    <p class="mt-3 text-sm leading-relaxed text-[var(--color-sub)] max-w-2xl">
+      {meta.description}
+    </p>
+    <p class="mt-3 text-[var(--color-sub)] text-xs font-mono tracking-wide">
+      {articles.length} 件
+    </p>
+    <p class="mt-4 text-[var(--color-sub)] text-sm leading-relaxed">
+      <a href="/categories/" class="link-underline">← カテゴリ一覧</a>
+      <span class="ml-3"><a href="/" class="link-underline">トップ</a></span>
+    </p>
+  </section>
+
+  {
+    groups.length === 0 ? (
+      <p class="py-20 text-center text-[var(--color-sub)] text-sm">
+        このカテゴリの記事はまだありません。
+      </p>
+    ) : (
+      <div class="divide-y divide-[var(--color-line)]">
+        {groups.map((group) => (
+          <section class="py-8 sm:py-10">
+            <h2 class="mb-4 sm:mb-6 font-mono text-xs uppercase tracking-widest text-[var(--color-sub)]">
+              <time datetime={group.date}>{formatDayShort(group.date)}</time>
+              <span class="ml-3 text-[var(--color-sub)]">{group.articles.length} 件</span>
+            </h2>
+            <div>
+              {group.articles.map((article) => (
+                <ArticleCard article={article} />
+              ))}
+            </div>
+          </section>
+        ))}
+      </div>
+    )
+  }
+</Layout>

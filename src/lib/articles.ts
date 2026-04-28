@@ -84,6 +84,13 @@ export function getArticlesByDate(yyyyMmDdJst: string): Article[] {
 }
 
 /**
+ * 指定カテゴリ名に該当する記事を新しい順で返す。
+ */
+export function getArticlesByCategory(category: Article["categories"][number]): Article[] {
+  return loadAllSorted().filter((a) => a.categories.includes(category));
+}
+
+/**
  * 記事を持つ全日付(JST)を新しい順で返す。
  */
 export function getAllDates(): string[] {
