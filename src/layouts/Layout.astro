@@ -63,9 +63,21 @@ const escapeLd = (obj: object): string => JSON.stringify(obj).replace(/</g, "\\u
           </span>
           EduWatch <span class="text-[var(--color-accent)]">JP</span>
         </a>
-        <nav class="text-xs gap-6 text-[var(--color-sub)] hidden sm:flex" aria-label="メインナビゲーション">
-          <a href="https://edu-evidence.org" class="link-underline hover:text-[var(--color-ink)] transition">
-            エビデンスで探す
+        <nav
+          class="text-xs gap-4 lg:gap-6 text-[var(--color-sub)] hidden sm:flex items-center"
+          aria-label="メインナビゲーション"
+        >
+          <a href="/categories/" class="link-underline">カテゴリ</a>
+          <a href="/sources/" class="link-underline">媒体</a>
+          <a href="/archive/" class="link-underline">アーカイブ</a>
+          <a href="/about/" class="link-underline">サイトについて</a>
+          <a
+            href="https://edu-evidence.org"
+            class="link-underline hover:text-[var(--color-ink)] transition"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            エビデンスで探す ↗
           </a>
         </nav>
       </div>
@@ -79,7 +91,7 @@ const escapeLd = (obj: object): string => JSON.stringify(obj).replace(/</g, "\\u
       <div
         class="mx-auto max-w-6xl px-4 sm:px-6 md:px-10 py-8 md:py-12 grid md:grid-cols-3 gap-8 text-xs text-[var(--color-sub)] leading-relaxed"
       >
-        <div class="space-y-3">
+        <div class="space-y-4">
           <div class="font-black text-base text-[var(--color-ink)] flex items-center gap-2">
             <span class="text-[var(--color-accent)] inline-flex">
               <Logo class="w-6 h-6" />
@@ -87,24 +99,48 @@ const escapeLd = (obj: object): string => JSON.stringify(obj).replace(/</g, "\\u
             EduWatch <span class="text-[var(--color-accent)]">JP</span>
           </div>
           <p>
-            教員・保護者向けに、文科省・国研・OECD・EEF・主要新聞の一次情報を日次で自動収集。
+            教員・保護者向けに、文科省・国研・教育専門紙の一次情報を日次で自動収集。
             週次ダイジェストで論点を整理します。
           </p>
+          <div class="space-y-1.5 pt-2">
+            <div class="font-mono uppercase tracking-widest text-[10px] text-[var(--color-ink)]">
+              お問い合わせ
+            </div>
+            <ul class="space-y-1.5">
+              <li>
+                <a href="mailto:news@edu-evidence.org" class="link-underline">news@edu-evidence.org</a>
+                <span class="text-[10px]">(運営)</span>
+              </li>
+              <li>
+                <a href="mailto:takedown@edu-evidence.org" class="link-underline">takedown@edu-evidence.org</a>
+                <span class="text-[10px]">(削除依頼)</span>
+              </li>
+            </ul>
+          </div>
         </div>
 
         <div class="space-y-3">
-          <div class="font-mono uppercase tracking-widest text-[var(--color-ink)]">姉妹サイト</div>
+          <div class="font-mono uppercase tracking-widest text-[var(--color-ink)]">探す</div>
           <ul class="space-y-1.5">
-            <li>
-              <a href="https://edu-evidence.org" class="link-underline">EduEvidence JP</a> — 指導法 73・コラム 20 のエビデンスポータル
-            </li>
+            <li><a href="/categories/" class="link-underline">カテゴリ</a></li>
+            <li><a href="/sources/" class="link-underline">媒体</a></li>
+            <li><a href="/archive/" class="link-underline">アーカイブ</a></li>
           </ul>
         </div>
 
         <div class="space-y-3">
-          <div class="font-mono uppercase tracking-widest text-[var(--color-ink)]">お問い合わせ</div>
+          <div class="font-mono uppercase tracking-widest text-[var(--color-ink)]">サイト</div>
           <ul class="space-y-1.5">
-            <li><a href="mailto:news@edu-evidence.org" class="link-underline">news@edu-evidence.org</a></li>
+            <li><a href="/about/" class="link-underline">このサイトについて</a></li>
+            <li>
+              <a
+                href="https://edu-evidence.org"
+                class="link-underline"
+                target="_blank"
+                rel="noopener noreferrer"
+              >EduEvidence JP ↗</a>
+              <span class="text-[10px]">(姉妹サイト)</span>
+            </li>
           </ul>
         </div>
       </div>

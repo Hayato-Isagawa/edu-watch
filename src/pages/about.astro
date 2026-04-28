@@ -1,0 +1,208 @@
+---
+import Layout from "../layouts/Layout.astro";
+import SourceBadge from "../components/SourceBadge.astro";
+import { SOURCE_META } from "../lib/source-meta.ts";
+
+const tier1 = Object.values(SOURCE_META).filter((s) => s.layer === 1);
+const tier2 = Object.values(SOURCE_META).filter((s) => s.layer === 2);
+---
+
+<Layout
+  title="このサイトについて — EduWatch JP"
+  description="EduWatch JP の編集ポリシー、収集ソース、削除依頼窓口、運営者情報。文部科学省・国立教育政策研究所・教育専門紙の一次情報を日次で自動収集する非営利の教育ニュースサイト。"
+>
+  <section class="pt-10 sm:pt-14 pb-8 border-b border-[var(--color-line)]">
+    <p class="font-mono text-[10px] uppercase tracking-widest text-[var(--color-accent)]">
+      About
+    </p>
+    <h1 class="mt-3 font-black text-3xl sm:text-4xl md:text-5xl leading-[1.15] tracking-tight">
+      この<span class="text-[var(--color-accent)]">サイト</span>について
+    </h1>
+    <p class="mt-4 text-[var(--color-sub)] text-sm sm:text-base leading-loose max-w-2xl">
+      EduWatch JP は教育の一次情報と専門紙の教育記事を日次で自動収集・構造化する非営利のサイトです。
+      姉妹サイト EduEvidence JP の長期エビデンス整理と並んで、短期の時事情報を担当します。
+    </p>
+    <p class="mt-4 text-[var(--color-sub)] text-sm leading-relaxed">
+      <a href="/" class="link-underline">← トップに戻る</a>
+    </p>
+  </section>
+
+  <section aria-labelledby="role-heading" class="py-8 sm:py-10 border-b border-[var(--color-line)]">
+    <h2 id="role-heading" class="font-bold text-xl sm:text-2xl text-[var(--color-ink)]">
+      EduWatch JP の役割
+    </h2>
+    <div class="mt-4 grid sm:grid-cols-2 gap-6 text-sm leading-relaxed">
+      <div>
+        <div class="font-mono text-[10px] uppercase tracking-widest text-[var(--color-sub)]">
+          長期 / ストック
+        </div>
+        <p class="mt-1 font-bold text-[var(--color-ink)]">
+          <a href="https://edu-evidence.org" class="link-underline">EduEvidence JP</a>
+        </p>
+        <p class="mt-2 text-[var(--color-sub)]">
+          指導法 73・コラム 20 のエビデンスポータル。研究の長期的な集約と整理。
+        </p>
+      </div>
+      <div>
+        <div class="font-mono text-[10px] uppercase tracking-widest text-[var(--color-accent)]">
+          短期 / フロー
+        </div>
+        <p class="mt-1 font-bold text-[var(--color-ink)]">EduWatch JP(本サイト)</p>
+        <p class="mt-2 text-[var(--color-sub)]">
+          一次情報の日次収集 + 週次ダイジェスト。教員・保護者向けに今の動きを構造化。
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section
+    aria-labelledby="policy-heading"
+    class="py-8 sm:py-10 border-b border-[var(--color-line)]"
+  >
+    <h2 id="policy-heading" class="font-bold text-xl sm:text-2xl text-[var(--color-ink)]">
+      編集ポリシー
+    </h2>
+    <p class="mt-2 text-sm leading-relaxed text-[var(--color-sub)]">
+      引用は原典の権利と読者の信頼を両立するため、以下の 5 要件を厳格に運用します。
+    </p>
+    <ol class="mt-4 space-y-4 text-sm leading-relaxed">
+      <li>
+        <div class="font-bold text-[var(--color-ink)]">1. タイトルは原文のまま改変しない</div>
+        <p class="mt-1 text-[var(--color-sub)]">
+          媒体が公開したタイトルをそのまま表示します。要約のための短縮や編集者によるリライトは行いません。
+        </p>
+      </li>
+      <li>
+        <div class="font-bold text-[var(--color-ink)]">2. 公式 URL に直接リンクする</div>
+        <p class="mt-1 text-[var(--color-sub)]">
+          タイトルのクリックは媒体の公式ページに別タブで遷移します。EduWatch JP の中間ページは設けません。
+        </p>
+      </li>
+      <li>
+        <div class="font-bold text-[var(--color-ink)]">3. 要約は RSS の冒頭抜粋をそのまま表示</div>
+        <p class="mt-1 text-[var(--color-sub)]">
+          媒体が配信する要約・冒頭抜粋を表示し、本文の取得・AI による書き換え・拡張は行いません。
+        </p>
+      </li>
+      <li>
+        <div class="font-bold text-[var(--color-ink)]">
+          4. 日次記事に編集者の意見は加えない
+        </div>
+        <p class="mt-1 text-[var(--color-sub)]">
+          編集者の論点整理は週次ダイジェスト(別途運用予定)に限定します。日次の記事カードには評価・解釈を付与しません。
+        </p>
+      </li>
+      <li>
+        <div class="font-bold text-[var(--color-ink)]">5. 削除依頼窓口を明示し迅速に対応</div>
+        <p class="mt-1 text-[var(--color-sub)]">
+          媒体・著作権者からの削除依頼は下記窓口で受け付け、72 時間以内に初回返信、合意後すみやかに削除します。
+        </p>
+      </li>
+    </ol>
+  </section>
+
+  <section
+    aria-labelledby="sources-heading"
+    class="py-8 sm:py-10 border-b border-[var(--color-line)]"
+  >
+    <h2 id="sources-heading" class="font-bold text-xl sm:text-2xl text-[var(--color-ink)]">
+      収集ソース
+    </h2>
+    <p class="mt-2 text-sm leading-relaxed text-[var(--color-sub)]">
+      日本時間 07:00 と 18:00 の 1 日 2 回、GitHub Actions の cron で自動収集します。各媒体の RSS / HTML を読み取り、id ベースで重複排除のうえ JSON に保存します。
+    </p>
+
+    <div class="mt-5 grid sm:grid-cols-2 gap-5 text-sm">
+      <div>
+        <div class="text-xs font-bold text-[var(--color-ink)]">Tier 1 — 一次情報</div>
+        <p class="mt-1 text-xs leading-relaxed text-[var(--color-sub)]">
+          政府機関・研究所の発信。
+        </p>
+        <div class="mt-2 flex flex-wrap gap-1.5">
+          {tier1.map((s) => <SourceBadge sourceId={s.sourceId} sourceName={s.displayName} />)}
+        </div>
+      </div>
+      <div>
+        <div class="text-xs font-bold text-[var(--color-ink)]">Tier 2 — 教育専門紙・通信社</div>
+        <p class="mt-1 text-xs leading-relaxed text-[var(--color-sub)]">
+          教育専門紙・大手通信社の教育関連記事。
+        </p>
+        <div class="mt-2 flex flex-wrap gap-1.5">
+          {tier2.map((s) => <SourceBadge sourceId={s.sourceId} sourceName={s.displayName} />)}
+        </div>
+      </div>
+    </div>
+
+    <p class="mt-4 text-[11px] leading-relaxed text-[var(--color-sub)]">
+      日本教育新聞の一部記事は媒体サイトでの会員登録(無料 or 有料)が必要です。該当記事には「会員限定」バッジを付けて事前に予告します。
+    </p>
+    <p class="mt-3 text-sm leading-relaxed">
+      <a href="/sources/" class="link-underline text-[var(--color-ink)]">
+        媒体ごとの記事一覧 →
+      </a>
+    </p>
+  </section>
+
+  <section
+    aria-labelledby="contact-heading"
+    class="py-8 sm:py-10 border-b border-[var(--color-line)]"
+  >
+    <h2 id="contact-heading" class="font-bold text-xl sm:text-2xl text-[var(--color-ink)]">
+      削除依頼・お問い合わせ
+    </h2>
+    <dl class="mt-4 space-y-4 text-sm leading-relaxed">
+      <div>
+        <dt class="font-bold text-[var(--color-ink)]">削除依頼</dt>
+        <dd class="mt-1">
+          <a href="mailto:takedown@edu-evidence.org" class="link-underline">
+            takedown@edu-evidence.org
+          </a>
+        </dd>
+        <dd class="mt-1 text-[var(--color-sub)] text-xs">
+          媒体・著作権者からの削除依頼を受け付けます。72 時間以内に初回返信し、合意後すみやかに該当記事を非表示にします。
+        </dd>
+      </div>
+      <div>
+        <dt class="font-bold text-[var(--color-ink)]">運営に関するお問い合わせ</dt>
+        <dd class="mt-1">
+          <a href="mailto:news@edu-evidence.org" class="link-underline">
+            news@edu-evidence.org
+          </a>
+        </dd>
+      </div>
+    </dl>
+  </section>
+
+  <section
+    aria-labelledby="operator-heading"
+    class="py-8 sm:py-10 border-b border-[var(--color-line)]"
+  >
+    <h2 id="operator-heading" class="font-bold text-xl sm:text-2xl text-[var(--color-ink)]">
+      運営者
+    </h2>
+    <p class="mt-3 text-sm leading-relaxed text-[var(--color-sub)]">
+      <span class="font-bold text-[var(--color-ink)]">Isagawa Hayato</span>
+      が個人で運営しています。姉妹サイト EduEvidence JP も同一の運営者です。
+    </p>
+  </section>
+
+  <section aria-labelledby="license-heading" class="py-8 sm:py-10">
+    <h2 id="license-heading" class="font-bold text-xl sm:text-2xl text-[var(--color-ink)]">
+      ライセンスと著作権
+    </h2>
+    <ul class="mt-3 space-y-2 text-sm leading-relaxed text-[var(--color-sub)]">
+      <li>
+        <span class="font-bold text-[var(--color-ink)]">サイト本体のコード:</span>
+        MIT License
+      </li>
+      <li>
+        <span class="font-bold text-[var(--color-ink)]">編集者が書いたコンテンツ(週次ダイジェスト等):</span>
+        CC BY-SA 4.0
+      </li>
+      <li>
+        <span class="font-bold text-[var(--color-ink)]">各記事の著作権:</span>
+        各媒体に帰属します。本サイトはタイトル・公開日・要約・公式 URL を引用範囲遵守 5 要件のもとで表示しているのみで、本文の複製・翻案は行いません。
+      </li>
+    </ul>
+  </section>
+</Layout>
