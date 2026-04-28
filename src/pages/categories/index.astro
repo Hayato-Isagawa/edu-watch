@@ -1,0 +1,52 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import { CATEGORY_META } from "../../lib/category-meta.ts";
+import { getArticlesByCategory } from "../../lib/articles.ts";
+
+const items = CATEGORY_META.map((c) => ({
+  ...c,
+  count: getArticlesByCategory(c.category).length,
+}));
+const total = items.reduce((acc, i) => acc + i.count, 0);
+---
+
+<Layout
+  title="カテゴリ — EduWatch JP"
+  description="EduWatch JP の記事を 8 カテゴリに分けて閲覧できます。いじめ・不登校・ICT/GIGA・政策・研究・国際・教員働き方・その他。"
+>
+  <section class="pt-10 sm:pt-14 pb-8 border-b border-[var(--color-line)]">
+    <p class="font-mono text-[10px] uppercase tracking-widest text-[var(--color-accent)]">
+      Categories
+    </p>
+    <h1 class="mt-3 font-black text-3xl sm:text-4xl leading-[1.15] tracking-tight">
+      <span class="text-[var(--color-accent)]">カテゴリ</span>から探す
+    </h1>
+    <p class="mt-3 text-[var(--color-sub)] text-xs font-mono tracking-wide">
+      {items.length} カテゴリ / 全 {total} 件(複数カテゴリの重複を含む)
+    </p>
+    <p class="mt-4 text-[var(--color-sub)] text-sm leading-relaxed">
+      <a href="/" class="link-underline">← トップに戻る</a>
+    </p>
+  </section>
+
+  <ul class="divide-y divide-[var(--color-line)]">
+    {items.map((it) => (
+      <li class="py-5 sm:py-6">
+        <a
+          href={`/categories/${it.slug}/`}
+          class="flex items-baseline justify-between gap-4 group"
+        >
+          <span class="text-[var(--color-ink)] font-bold text-base sm:text-lg link-underline">
+            {it.category}
+          </span>
+          <span class="text-xs font-mono text-[var(--color-sub)] whitespace-nowrap">
+            {it.count} 件
+          </span>
+        </a>
+        <p class="mt-1 text-xs sm:text-sm leading-relaxed text-[var(--color-sub)]">
+          {it.description}
+        </p>
+      </li>
+    ))}
+  </ul>
+</Layout>
