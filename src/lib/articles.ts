@@ -74,3 +74,56 @@ export function formatDateJst(iso: string): string {
   const jst = new Date(d.getTime() + 9 * 60 * 60 * 1000);
   return jst.toISOString().slice(0, 10);
 }
+
+/**
+ * 指定の JST 日付(`YYYY-MM-DD`)に publishedAt が該当する記事を返す。
+ * 並びは publishedAt 降順。
+ */
+export function getArticlesByDate(yyyyMmDdJst: string): Article[] {
+  return loadAllSorted().filter((a) => formatDateJst(a.publishedAt) === yyyyMmDdJst);
+}
+
+/**
+ * 記事を持つ全日付(JST)を新しい順で返す。
+ */
+export function getAllDates(): string[] {
+  const set = new Set<string>();
+  for (const a of loadAllSorted()) {
+    set.add(formatDateJst(a.publishedAt));
+  }
+  return [...set].sort((a, b) => b.localeCompare(a));
+}
+
+const dayFormatterFull = new Intl.DateTimeFormat("ja-JP", {
+  year: "numeric",
+  month: "long",
+  day: "numeric",
+  weekday: "short",
+  timeZone: "Asia/Tokyo",
+});
+const dayFormatterShort = new Intl.DateTimeFormat("ja-JP", {
+  month: "long",
+  day: "numeric",
+  weekday: "short",
+  timeZone: "Asia/Tokyo",
+});
+const dayFormatterCompact = new Intl.DateTimeFormat("ja-JP", {
+  month: "long",
+  day: "numeric",
+  timeZone: "Asia/Tokyo",
+});
+
+/** `YYYY-MM-DD` を「2026年4月28日(火)」形式の JST 表記に整形する。 */
+export function formatDayFull(yyyyMmDd: string): string {
+  return dayFormatterFull.format(new Date(`${yyyyMmDd}T00:00:00+09:00`));
+}
+
+/** `YYYY-MM-DD` を「4月28日(火)」形式の JST 表記に整形する。 */
+export function formatDayShort(yyyyMmDd: string): string {
+  return dayFormatterShort.format(new Date(`${yyyyMmDd}T00:00:00+09:00`));
+}
+
+/** `YYYY-MM-DD` を「4月28日」形式の JST 表記に整形する。 */
+export function formatDayCompact(yyyyMmDd: string): string {
+  return dayFormatterCompact.format(new Date(`${yyyyMmDd}T00:00:00+09:00`));
+}
