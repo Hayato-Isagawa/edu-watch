@@ -55,7 +55,7 @@ const escapeLd = (obj: object): string => JSON.stringify(obj).replace(/</g, "\\u
     />
   </head>
   <body class="bg-[var(--color-bg)] text-[var(--color-ink)]">
-    <header class="border-b border-[var(--color-line)]">
+    <header class="site-header">
       <div class="mx-auto max-w-6xl px-4 sm:px-6 md:px-10 h-16 flex items-center justify-between gap-4">
         <a href="/" class="font-black text-lg sm:text-xl tracking-tight flex items-center gap-2 whitespace-nowrap">
           <span class="text-[var(--color-accent)] inline-flex shrink-0">
@@ -80,8 +80,61 @@ const escapeLd = (obj: object): string => JSON.stringify(obj).replace(/</g, "\\u
             エビデンスで探す ↗
           </a>
         </nav>
+        <button
+          id="menu-toggle"
+          type="button"
+          class="sm:hidden relative flex flex-col justify-center items-center gap-1.5 w-10 h-10 -mr-2 shrink-0"
+          aria-label="メニューを開く"
+          aria-expanded="false"
+          aria-controls="mobile-menu"
+        >
+          <span class="block w-6 h-[2px] bg-[var(--color-ink)] transition-transform duration-200 origin-center"></span>
+          <span class="block w-6 h-[2px] bg-[var(--color-ink)] transition-opacity duration-200"></span>
+          <span class="block w-6 h-[2px] bg-[var(--color-ink)] transition-transform duration-200 origin-center"></span>
+        </button>
       </div>
     </header>
+
+    <div
+      id="mobile-menu"
+      data-state="closed"
+      class="mobile-menu sm:hidden"
+      role="dialog"
+      aria-modal="true"
+      aria-label="モバイルナビゲーション"
+      inert
+    >
+      <div class="mobile-menu-inner">
+        <nav class="mobile-menu-nav" aria-label="サイトナビゲーション">
+          <section class="mobile-menu-section">
+            <h2 class="mobile-menu-section-title">Explore — 探す</h2>
+            <ul>
+              <li><a href="/categories/">カテゴリ</a></li>
+              <li><a href="/sources/">媒体</a></li>
+              <li><a href="/archive/">アーカイブ</a></li>
+            </ul>
+          </section>
+
+          <section class="mobile-menu-section">
+            <h2 class="mobile-menu-section-title">About — サイトについて</h2>
+            <ul>
+              <li><a href="/about/">このサイトについて</a></li>
+            </ul>
+          </section>
+
+          <section class="mobile-menu-section">
+            <h2 class="mobile-menu-section-title">Sister site — 姉妹サイト</h2>
+            <ul>
+              <li>
+                <a href="https://edu-evidence.org" target="_blank" rel="noopener noreferrer">
+                  EduEvidence JP ↗
+                </a>
+              </li>
+            </ul>
+          </section>
+        </nav>
+      </div>
+    </div>
 
     <main class="mx-auto max-w-6xl px-4 sm:px-6 md:px-10 pb-24">
       <slot />
@@ -148,5 +201,39 @@ const escapeLd = (obj: object): string => JSON.stringify(obj).replace(/</g, "\\u
         © 2026 EduWatch JP. CC BY-SA 4.0.
       </div>
     </footer>
+
+    <script is:inline>
+      (function () {
+        const toggle = document.getElementById("menu-toggle");
+        const menu = document.getElementById("mobile-menu");
+        if (!toggle || !menu) return;
+        const bars = toggle.querySelectorAll("span");
+        let isOpen = false;
+        const setOpen = (open) => {
+          isOpen = open;
+          menu.dataset.state = open ? "open" : "closed";
+          document.body.dataset.menu = open ? "open" : "closed";
+          if (open) menu.removeAttribute("inert");
+          else menu.setAttribute("inert", "");
+          toggle.setAttribute("aria-expanded", String(open));
+          toggle.setAttribute("aria-label", open ? "メニューを閉じる" : "メニューを開く");
+          if (bars.length === 3) {
+            bars[0].style.transform = open ? "translateY(8px) rotate(45deg)" : "";
+            bars[1].style.opacity = open ? "0" : "";
+            bars[2].style.transform = open ? "translateY(-8px) rotate(-45deg)" : "";
+          }
+          if (!open) {
+            toggle.focus({ preventScroll: true });
+          }
+        };
+        toggle.addEventListener("click", () => setOpen(!isOpen));
+        document.addEventListener("keydown", (e) => {
+          if (e.key === "Escape" && isOpen) setOpen(false);
+        });
+        window.addEventListener("resize", () => {
+          if (window.innerWidth >= 640 && isOpen) setOpen(false);
+        });
+      })();
+    </script>
   </body>
 </html>
