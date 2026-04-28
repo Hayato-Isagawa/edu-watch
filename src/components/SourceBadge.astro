@@ -1,0 +1,19 @@
+---
+import { getSourceMeta } from "../lib/source-meta.ts";
+interface Props {
+  sourceId: string;
+  sourceName: string;
+}
+const { sourceId, sourceName } = Astro.props;
+const meta = getSourceMeta(sourceId);
+const color = meta?.badgeColor ?? "#3a3a3a";
+const label = meta?.shortName ?? sourceName;
+---
+
+<span
+  class="inline-flex items-center px-2 py-0.5 text-[11px] font-medium tracking-wide text-white rounded-sm whitespace-nowrap"
+  style={`background-color: ${color}`}
+  data-source={sourceId}
+>
+  {label}
+</span>
