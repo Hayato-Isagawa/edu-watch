@@ -36,6 +36,7 @@ export const RawArticle = z.object({
   url: z.string().url(),
   publishedAt: z.string().datetime({ offset: true }),
   summary: z.string().optional(),
+  requiresMembership: z.boolean().optional(),
 });
 export type RawArticle = z.infer<typeof RawArticle>;
 
@@ -59,6 +60,7 @@ export const Article = z.object({
   categories: z.array(ArticleCategory).min(1),
   layer: SourceLayer,
   language: Language,
+  requiresMembership: z.boolean().optional(),
 });
 export type Article = z.infer<typeof Article>;
 
