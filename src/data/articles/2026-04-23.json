@@ -8,7 +8,7 @@
     "publishedAt": "2026-04-23T10:00:00.000Z",
     "collectedAt": "2026-04-26T12:49:39.835Z",
     "categories": [
-      "その他"
+      "政策・制度"
     ],
     "layer": 1,
     "language": "ja"
@@ -38,7 +38,7 @@
     "collectedAt": "2026-04-26T12:49:39.835Z",
     "summary": "東京都は2026年4月21日、新宿区内の小学校ではしか（麻しん）が集団発生し、児童・教職員18人の感染が確認されたと発表した。はしかは感染力が非常に強く、国内の患者数が急増していることから、ワクチン接種など予防や注意を呼びかけている。",
     "categories": [
-      "その他"
+      "教員・働き方"
     ],
     "layer": 2,
     "language": "ja"
@@ -97,7 +97,7 @@
     "publishedAt": "2026-04-23T07:27:00.000Z",
     "collectedAt": "2026-04-27T10:52:10.358Z",
     "categories": [
-      "その他"
+      "政策・制度"
     ],
     "layer": 1,
     "language": "ja"
@@ -126,7 +126,7 @@
     "publishedAt": "2026-04-23T07:10:00.000Z",
     "collectedAt": "2026-04-27T10:52:10.358Z",
     "categories": [
-      "その他"
+      "政策・制度"
     ],
     "layer": 1,
     "language": "ja"
@@ -140,7 +140,7 @@
     "publishedAt": "2026-04-23T05:00:00.000Z",
     "collectedAt": "2026-04-26T12:49:39.835Z",
     "categories": [
-      "その他"
+      "政策・制度"
     ],
     "layer": 1,
     "language": "ja"
@@ -154,6 +154,8 @@
     "publishedAt": "2026-04-23T05:00:00.000Z",
     "collectedAt": "2026-04-26T12:49:39.835Z",
     "categories": [
+      "ICT / GIGA",
+      "政策・制度",
       "研究・エビデンス"
     ],
     "layer": 1,
@@ -183,7 +185,8 @@
     "publishedAt": "2026-04-23T04:00:00.000Z",
     "collectedAt": "2026-04-26T12:49:39.835Z",
     "categories": [
-      "その他"
+      "政策・制度",
+      "教員・働き方"
     ],
     "layer": 1,
     "language": "ja"
@@ -197,7 +200,8 @@
     "publishedAt": "2026-04-23T04:00:00.000Z",
     "collectedAt": "2026-04-26T12:49:39.835Z",
     "categories": [
-      "その他"
+      "ICT / GIGA",
+      "政策・制度"
     ],
     "layer": 1,
     "language": "ja"
@@ -211,7 +215,7 @@
     "publishedAt": "2026-04-23T03:00:00.000Z",
     "collectedAt": "2026-04-26T12:49:39.835Z",
     "categories": [
-      "その他"
+      "研究・エビデンス"
     ],
     "layer": 1,
     "language": "ja"
@@ -240,7 +244,7 @@
     "publishedAt": "2026-04-23T02:00:00.000Z",
     "collectedAt": "2026-04-26T12:49:39.835Z",
     "categories": [
-      "その他"
+      "政策・制度"
     ],
     "layer": 1,
     "language": "ja"
@@ -254,7 +258,7 @@
     "publishedAt": "2026-04-23T00:30:00.000Z",
     "collectedAt": "2026-04-26T12:49:39.835Z",
     "categories": [
-      "その他"
+      "政策・制度"
     ],
     "layer": 1,
     "language": "ja"
@@ -283,7 +287,7 @@
     "publishedAt": "2026-04-23T00:00:00.000Z",
     "collectedAt": "2026-04-26T12:49:39.835Z",
     "categories": [
-      "その他"
+      "政策・制度"
     ],
     "layer": 1,
     "language": "ja"
