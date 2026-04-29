@@ -79,6 +79,19 @@ const escapeLd = (obj: object): string => JSON.stringify(obj).replace(/</g, "\\u
           >
             エビデンスで探す ↗
           </a>
+          <a href="/search/" class="hover:text-[var(--color-ink)] transition" aria-label="検索">
+            <svg
+              class="w-4 h-4 inline-block"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+            >
+              <circle cx="11" cy="11" r="8" />
+              <path d="m21 21-4.3-4.3" />
+            </svg>
+          </a>
         </nav>
         <button
           id="menu-toggle"
@@ -105,6 +118,36 @@ const escapeLd = (obj: object): string => JSON.stringify(obj).replace(/</g, "\\u
       inert
     >
       <div class="mobile-menu-inner">
+        <form
+          class="mobile-menu-search"
+          action="/search/"
+          method="get"
+          role="search"
+        >
+          <label for="mobile-menu-search-input" class="sr-only">検索</label>
+          <svg
+            class="mobile-menu-search-icon"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <circle cx="11" cy="11" r="8" />
+            <path d="m21 21-4.3-4.3" />
+          </svg>
+          <input
+            id="mobile-menu-search-input"
+            type="search"
+            name="q"
+            placeholder="教育ニュースを検索..."
+            autocomplete="off"
+            enterkeyhint="search"
+          />
+        </form>
+
         <nav class="mobile-menu-nav" aria-label="サイトナビゲーション">
           <section class="mobile-menu-section">
             <h2 class="mobile-menu-section-title">Explore — 探す</h2>
@@ -208,6 +251,7 @@ const escapeLd = (obj: object): string => JSON.stringify(obj).replace(/</g, "\\u
         const menu = document.getElementById("mobile-menu");
         if (!toggle || !menu) return;
         const bars = toggle.querySelectorAll("span");
+        const searchInput = document.getElementById("mobile-menu-search-input");
         let isOpen = false;
         const setOpen = (open) => {
           isOpen = open;
@@ -222,7 +266,9 @@ const escapeLd = (obj: object): string => JSON.stringify(obj).replace(/</g, "\\u
             bars[1].style.opacity = open ? "0" : "";
             bars[2].style.transform = open ? "translateY(-8px) rotate(-45deg)" : "";
           }
-          if (!open) {
+          if (open && searchInput) {
+            window.setTimeout(() => searchInput.focus({ preventScroll: true }), 50);
+          } else if (!open) {
             toggle.focus({ preventScroll: true });
           }
         };

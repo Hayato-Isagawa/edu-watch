@@ -1,0 +1,263 @@
+---
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout title="検索 — EduWatch JP" description="EduWatch JP の記事を検索する">
+  <section class="py-10 sm:py-14 md:py-20 space-y-8">
+    <div class="space-y-2">
+      <p class="font-mono text-[10px] uppercase tracking-widest text-[var(--color-accent)]">
+        Search
+      </p>
+      <h1 class="font-black text-3xl sm:text-4xl md:text-5xl leading-[1.15] tracking-tight">
+        記事を<span class="text-[var(--color-accent)]">検索</span>
+      </h1>
+    </div>
+    <div id="search" class="max-w-2xl"></div>
+    <p id="search-fallback" class="text-sm text-[var(--color-sub)] hidden">
+      検索機能はビルド後の環境で動作します。<code
+        class="font-mono text-xs bg-[var(--color-card)] px-1.5 py-0.5 rounded"
+        >npm run build && npm run preview</code
+      > で確認できます。
+    </p>
+  </section>
+
+  <link href="/pagefind/pagefind-ui.css" rel="stylesheet" />
+  <script src="/pagefind/pagefind-ui.js" is:inline></script>
+  <script is:inline>
+    (function initPagefind(retries) {
+      if (typeof PagefindUI === "undefined") {
+        if (retries > 10) {
+          var fb = document.getElementById("search-fallback");
+          if (fb) fb.classList.remove("hidden");
+          return;
+        }
+        setTimeout(function () {
+          initPagefind((retries || 0) + 1);
+        }, 200);
+        return;
+      }
+      var el = document.getElementById("search");
+      if (!el) return;
+      if (el.querySelector(".pagefind-ui")) return;
+      new PagefindUI({
+        element: "#search",
+        showSubResults: true,
+        translations: {
+          placeholder: "教育ニュースを検索...",
+          zero_results: "「[SEARCH_TERM]」に一致する結果は見つかりませんでした",
+          many_results: "[COUNT]件の結果が見つかりました",
+          filters_label: "フィルター",
+          clear_search: "クリア",
+        },
+      });
+      var q = new URLSearchParams(window.location.search).get("q");
+      if (q) {
+        var input = el.querySelector(".pagefind-ui__search-input");
+        if (input) {
+          input.value = q;
+          input.dispatchEvent(new Event("input", { bubbles: true }));
+        }
+      }
+    })();
+  </script>
+
+  <style is:global>
+    :root {
+      --pagefind-ui-scale: 1;
+      --pagefind-ui-primary: var(--color-accent);
+      --pagefind-ui-text: var(--color-ink);
+      --pagefind-ui-background: var(--color-bg);
+      --pagefind-ui-border: var(--color-line);
+      --pagefind-ui-tag: var(--color-accent);
+      --pagefind-ui-border-width: 1px;
+      --pagefind-ui-border-radius: 0.5rem;
+      --pagefind-ui-font: var(--font-sans);
+    }
+
+    .pagefind-ui .pagefind-ui__search-input {
+      padding: 0.875rem 1rem 0.875rem 1rem;
+      font-size: 1rem;
+      background: var(--color-card);
+      border: 1px solid var(--color-line);
+      border-radius: 0.5rem;
+      color: var(--color-ink);
+      box-shadow: none;
+      transition:
+        border-color 200ms ease-out,
+        box-shadow 200ms ease-out;
+    }
+    .pagefind-ui .pagefind-ui__search-input:focus {
+      border-color: var(--color-accent);
+      box-shadow: 0 0 0 3px color-mix(in oklab, var(--color-accent) 20%, transparent);
+      outline: none;
+    }
+    .pagefind-ui .pagefind-ui__search-clear {
+      color: var(--color-sub);
+    }
+    .pagefind-ui .pagefind-ui__search-clear:hover {
+      color: var(--color-accent);
+    }
+
+    .pagefind-ui .pagefind-ui__message {
+      font-family: var(--font-sans);
+      font-size: 0.875rem;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      text-transform: none;
+      color: var(--color-sub);
+      padding: 1.5rem 0 0.75rem;
+      border-bottom: 1px solid var(--color-line);
+      margin-bottom: 0.5rem;
+    }
+
+    .pagefind-ui .pagefind-ui__result-thumb,
+    .pagefind-ui .pagefind-ui__result-image {
+      display: none !important;
+    }
+
+    .pagefind-ui .pagefind-ui__result {
+      position: relative;
+      padding: 1.25rem 1rem 1.25rem 2.5rem;
+      border-bottom: 1px solid var(--color-line);
+      border-top: none;
+      transition: background-color 200ms ease-out;
+    }
+    .pagefind-ui .pagefind-ui__result::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 3px;
+      background: var(--color-accent);
+      transform: scaleY(0);
+      transform-origin: top center;
+      transition: transform 250ms ease-out;
+      pointer-events: none;
+    }
+    .pagefind-ui .pagefind-ui__result:hover {
+      background: var(--color-card);
+    }
+    .pagefind-ui .pagefind-ui__result:hover::before {
+      transform: scaleY(1);
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .pagefind-ui .pagefind-ui__result::before {
+        transition: none;
+      }
+    }
+    .pagefind-ui .pagefind-ui__result-inner {
+      gap: 0.5rem;
+      padding-left: 10px;
+    }
+
+    .pagefind-ui .pagefind-ui__result-title {
+      font-size: 1.125rem;
+      font-weight: 800;
+      line-height: 1.4;
+      letter-spacing: -0.01em;
+    }
+    .pagefind-ui .pagefind-ui__result-link {
+      color: var(--color-ink);
+      text-decoration: none !important;
+      background-image: linear-gradient(var(--color-accent), var(--color-accent));
+      background-size: 0% 1px;
+      background-position: left bottom;
+      background-repeat: no-repeat;
+      padding-bottom: 2px;
+      transition:
+        color 150ms ease-out,
+        background-size 0.3s ease;
+    }
+    .pagefind-ui .pagefind-ui__result-link:hover,
+    .pagefind-ui .pagefind-ui__result-link:focus,
+    .pagefind-ui .pagefind-ui__result-link:focus-visible {
+      color: var(--color-accent);
+      background-size: 100% 1px;
+    }
+    .pagefind-ui .pagefind-ui__result-link:focus-visible {
+      outline: 2px solid var(--color-accent);
+      outline-offset: 4px;
+      border-radius: 2px;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .pagefind-ui .pagefind-ui__result-link {
+        transition: none;
+      }
+    }
+
+    .pagefind-ui .pagefind-ui__result-excerpt {
+      font-size: 0.875rem;
+      line-height: 1.7;
+      color: var(--color-sub);
+    }
+
+    .pagefind-ui .pagefind-ui__result-excerpt mark,
+    .pagefind-ui mark {
+      background: color-mix(in oklab, var(--color-accent) 18%, transparent);
+      color: var(--color-accent);
+      font-weight: 700;
+      padding: 0 0.15em;
+      border-radius: 2px;
+    }
+
+    .pagefind-ui .pagefind-ui__result-tags {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--color-sub);
+      gap: 0.5rem 1rem;
+    }
+
+    .pagefind-ui .pagefind-ui__result-nested {
+      margin-left: 0;
+      padding-left: 1rem;
+      border-left: 2px solid var(--color-line);
+      margin-top: 0.75rem;
+    }
+    .pagefind-ui .pagefind-ui__result-nested .pagefind-ui__result-title {
+      font-size: 0.95rem;
+      font-weight: 600;
+    }
+    .pagefind-ui .pagefind-ui__result-nested .pagefind-ui__result-excerpt {
+      font-size: 0.8rem;
+    }
+
+    .pagefind-ui .pagefind-ui__filter-name,
+    .pagefind-ui .pagefind-ui__filter-value-label {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+    }
+
+    .pagefind-ui .pagefind-ui__button {
+      background: var(--color-card);
+      border: 1px solid var(--color-line);
+      color: var(--color-ink);
+      font-family: var(--font-sans);
+      font-size: 0.9375rem;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      text-transform: none;
+      padding: 0.875rem 1.5rem;
+      border-radius: 0.5rem;
+      width: 100%;
+      transition:
+        border-color 200ms ease-out,
+        color 200ms ease-out,
+        background-color 200ms ease-out;
+      cursor: pointer;
+      margin-top: 1.5rem;
+    }
+    .pagefind-ui .pagefind-ui__button:hover {
+      border-color: var(--color-accent);
+      color: var(--color-accent);
+      background: var(--color-bg);
+    }
+    .pagefind-ui .pagefind-ui__button:focus-visible {
+      outline: 2px solid var(--color-accent);
+      outline-offset: 2px;
+    }
+  </style>
+</Layout>
