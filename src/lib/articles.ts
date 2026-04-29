@@ -98,6 +98,21 @@ export function getArticlesBySource(sourceId: string): Article[] {
 }
 
 /**
+ * id 配列から該当する記事を順序を維持して返す。未存在 id はスキップ。
+ * 週次ダイジェストの referencedArticleIds などから使用。
+ */
+export function getArticlesByIds(ids: readonly string[]): Article[] {
+  const all = loadAllSorted();
+  const byId = new Map(all.map((a) => [a.id, a]));
+  const result: Article[] = [];
+  for (const id of ids) {
+    const a = byId.get(id);
+    if (a) result.push(a);
+  }
+  return result;
+}
+
+/**
  * 記事を持つ全日付(JST)を新しい順で返す。
  */
 export function getAllDates(): string[] {

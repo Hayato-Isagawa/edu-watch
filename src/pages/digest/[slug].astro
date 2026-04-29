@@ -1,0 +1,221 @@
+---
+import { getCollection, render } from "astro:content";
+import Layout from "../../layouts/Layout.astro";
+import ArticleCard from "../../components/ArticleCard.astro";
+import TopicBadge from "../../components/TopicBadge.astro";
+import { getArticlesByIds, formatDayShort } from "../../lib/articles.ts";
+
+export async function getStaticPaths() {
+  const all = await getCollection("digests");
+  const sorted = [...all].sort((a, b) =>
+    b.data.publishedAt.localeCompare(a.data.publishedAt),
+  );
+  return sorted.map((entry, index) => ({
+    params: { slug: entry.id },
+    props: {
+      entry,
+      newer: index > 0 ? sorted[index - 1] : null,
+      older: index < sorted.length - 1 ? sorted[index + 1] : null,
+    },
+  }));
+}
+
+const { entry, newer, older } = Astro.props;
+const { Content } = await render(entry);
+const referenced = getArticlesByIds(entry.data.referencedArticleIds);
+
+const dayFormatter = new Intl.DateTimeFormat("ja-JP", {
+  year: "numeric",
+  month: "long",
+  day: "numeric",
+  timeZone: "Asia/Tokyo",
+});
+function formatRange(from: string, to: string): string {
+  const f = dayFormatter.format(new Date(`${from}T00:00:00+09:00`));
+  const t = dayFormatter.format(new Date(`${to}T00:00:00+09:00`));
+  return `${f} 〜 ${t}`;
+}
+---
+
+<Layout
+  title={`${entry.data.title} — EduWatch JP 週次ダイジェスト`}
+  description={entry.data.summary}
+>
+  <article>
+    <header class="pt-10 sm:pt-14 pb-8 border-b border-[var(--color-line)]">
+      <p class="font-mono text-[10px] uppercase tracking-widest text-[var(--color-accent)]">
+        Weekly digest
+      </p>
+      <h1 class="mt-3 font-black text-3xl sm:text-4xl md:text-5xl leading-[1.15] tracking-tight">
+        {entry.data.title}
+      </h1>
+      <p class="mt-3 text-sm text-[var(--color-sub)] font-mono tracking-wide">
+        <time datetime={entry.data.weekStart}>{formatRange(entry.data.weekStart, entry.data.weekEnd)}</time>
+        <span class="ml-3">公開: {dayFormatter.format(new Date(entry.data.publishedAt))}</span>
+      </p>
+      <p class="mt-4 text-[var(--color-sub)] text-sm sm:text-base leading-loose max-w-2xl">
+        {entry.data.summary}
+      </p>
+      {
+        entry.data.topics.length > 0 && (
+          <div class="mt-4 flex flex-wrap gap-1.5">
+            {entry.data.topics.map((t) => <TopicBadge topic={t} />)}
+          </div>
+        )
+      }
+      <p class="mt-4 text-[var(--color-sub)] text-sm leading-relaxed">
+        <a href="/digest/" class="link-underline">← ダイジェスト一覧</a>
+        <span class="ml-3"><a href="/" class="link-underline">トップ</a></span>
+      </p>
+    </header>
+
+    <section class="prose-digest py-8 sm:py-10 border-b border-[var(--color-line)]">
+      <Content />
+    </section>
+
+    {
+      referenced.length > 0 && (
+        <section class="py-8 sm:py-10 border-b border-[var(--color-line)]">
+          <h2 class="font-bold text-xl sm:text-2xl text-[var(--color-ink)]">
+            今週言及した記事
+          </h2>
+          <p class="mt-2 text-xs leading-relaxed text-[var(--color-sub)]">
+            タイトルは原文のまま、公式 URL に直接リンクします(ADR 0008)。
+          </p>
+          <div class="mt-4">
+            {referenced.map((a) => <ArticleCard article={a} />)}
+          </div>
+        </section>
+      )
+    }
+
+    {
+      entry.data.relatedEvidenceUrls.length > 0 && (
+        <section class="py-8 sm:py-10 border-b border-[var(--color-line)]">
+          <h2 class="font-bold text-xl sm:text-2xl text-[var(--color-ink)]">
+            関連エビデンス(姉妹サイト EduEvidence JP)
+          </h2>
+          <ul class="mt-4 space-y-2 text-sm leading-relaxed">
+            {entry.data.relatedEvidenceUrls.map((url) => (
+              <li>
+                <a
+                  href={url}
+                  class="link-underline"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {url} ↗
+                </a>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )
+    }
+
+    <nav
+      aria-label="ダイジェスト ナビゲーション"
+      class="mt-2 mb-4 flex items-center justify-between gap-4 py-6"
+    >
+      {
+        older ? (
+          <a
+            href={`/digest/${older.id}/`}
+            rel="prev"
+            class="link-underline text-sm text-[var(--color-ink)]"
+          >
+            ← 前週({formatDayShort(older.data.weekEnd)} まで)
+          </a>
+        ) : (
+          <span class="text-sm text-[var(--color-sub)]">これより古いダイジェストなし</span>
+        )
+      }
+      {
+        newer ? (
+          <a
+            href={`/digest/${newer.id}/`}
+            rel="next"
+            class="link-underline text-sm text-[var(--color-ink)]"
+          >
+            次週({formatDayShort(newer.data.weekEnd)} まで) →
+          </a>
+        ) : (
+          <span class="text-sm text-[var(--color-sub)]">最新のダイジェスト</span>
+        )
+      }
+    </nav>
+  </article>
+</Layout>
+
+<style is:global>
+  .prose-digest {
+    color: var(--color-ink);
+    font-size: 1rem;
+    line-height: 1.85;
+  }
+  .prose-digest h2 {
+    font-weight: 700;
+    font-size: 1.25rem;
+    line-height: 1.4;
+    margin-top: 2rem;
+    margin-bottom: 0.75rem;
+    border-left: 3px solid var(--color-accent);
+    padding-left: 0.75rem;
+  }
+  .prose-digest h2:first-child {
+    margin-top: 0;
+  }
+  .prose-digest h3 {
+    font-weight: 700;
+    font-size: 1.05rem;
+    line-height: 1.5;
+    margin-top: 1.5rem;
+    margin-bottom: 0.5rem;
+  }
+  .prose-digest p {
+    margin: 0.85rem 0;
+  }
+  .prose-digest ul,
+  .prose-digest ol {
+    margin: 0.75rem 0 0.75rem 1.5rem;
+  }
+  .prose-digest ul {
+    list-style: disc;
+  }
+  .prose-digest ol {
+    list-style: decimal;
+  }
+  .prose-digest li + li {
+    margin-top: 0.4rem;
+  }
+  .prose-digest a {
+    text-decoration: none;
+    background-image: linear-gradient(var(--color-accent), var(--color-accent));
+    background-size: 0% 1px;
+    background-position: left bottom;
+    background-repeat: no-repeat;
+    padding-bottom: 2px;
+    transition:
+      color 150ms ease-out,
+      background-size 0.3s ease;
+  }
+  .prose-digest a:hover,
+  .prose-digest a:focus,
+  .prose-digest a:focus-visible {
+    color: var(--color-accent);
+    background-size: 100% 1px;
+  }
+  .prose-digest blockquote {
+    margin: 1.25rem 0;
+    padding: 0.5rem 1rem;
+    border-left: 3px solid var(--color-line);
+    color: var(--color-sub);
+  }
+  .prose-digest code {
+    font-family: var(--font-mono);
+    font-size: 0.85em;
+    background: var(--color-card);
+    padding: 0.1em 0.35em;
+    border-radius: 3px;
+  }
+</style>
