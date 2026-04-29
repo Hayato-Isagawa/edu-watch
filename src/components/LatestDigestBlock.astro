@@ -1,0 +1,68 @@
+---
+import { getCollection } from "astro:content";
+import TopicBadge from "./TopicBadge.astro";
+
+const all = await getCollection("digests");
+const latest = [...all].sort((a, b) =>
+  b.data.publishedAt.localeCompare(a.data.publishedAt),
+)[0];
+
+const dayFormatter = new Intl.DateTimeFormat("ja-JP", {
+  month: "long",
+  day: "numeric",
+  weekday: "short",
+  timeZone: "Asia/Tokyo",
+});
+function formatRange(from: string, to: string): string {
+  const f = dayFormatter.format(new Date(`${from}T00:00:00+09:00`));
+  const t = dayFormatter.format(new Date(`${to}T00:00:00+09:00`));
+  return `${f} 〜 ${t}`;
+}
+---
+
+{
+  latest && (
+    <section
+      aria-labelledby="latest-digest-heading"
+      class="mt-4 sm:mt-6 p-5 sm:p-6 border border-[var(--color-line)] bg-[var(--color-card)] rounded-sm"
+    >
+      <h2
+        id="latest-digest-heading"
+        class="font-mono text-[10px] uppercase tracking-widest text-[var(--color-accent)]"
+      >
+        Weekly digest / 今週のダイジェスト
+      </h2>
+      <p class="mt-2 text-xs font-mono tracking-wide text-[var(--color-sub)]">
+        <time datetime={latest.data.weekStart}>
+          {formatRange(latest.data.weekStart, latest.data.weekEnd)}
+        </time>
+      </p>
+      <h3 class="mt-2 text-base sm:text-lg font-bold leading-snug">
+        <a
+          href={`/digest/${latest.id}/`}
+          class="link-underline text-[var(--color-ink)]"
+        >
+          {latest.data.title}
+        </a>
+      </h3>
+      <p class="mt-2 text-sm leading-relaxed text-[var(--color-sub)] line-clamp-3">
+        {latest.data.summary}
+      </p>
+      {
+        latest.data.topics.length > 0 && (
+          <div class="mt-3 flex flex-wrap gap-1.5">
+            {latest.data.topics.map((t) => <TopicBadge topic={t} />)}
+          </div>
+        )
+      }
+      <p class="mt-3 text-sm leading-relaxed">
+        <a href={`/digest/${latest.id}/`} class="link-underline text-[var(--color-ink)] font-bold">
+          読む →
+        </a>
+        <span class="ml-3 text-[11px] text-[var(--color-sub)]">
+          <a href="/digest/" class="link-underline">過去のダイジェスト一覧 →</a>
+        </span>
+      </p>
+    </section>
+  )
+}
