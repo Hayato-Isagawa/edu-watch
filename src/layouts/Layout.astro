@@ -64,7 +64,7 @@ const escapeLd = (obj: object): string => JSON.stringify(obj).replace(/</g, "\\u
           EduWatch <span class="text-[var(--color-accent)]">JP</span>
         </a>
         <nav
-          class="text-xs gap-4 lg:gap-6 text-[var(--color-sub)] hidden sm:flex items-center"
+          class="text-xs gap-3 lg:gap-6 text-[var(--color-sub)] hidden md:flex items-center"
           aria-label="メインナビゲーション"
         >
           <a href="/categories/" class="link-underline">カテゴリ</a>
@@ -97,7 +97,7 @@ const escapeLd = (obj: object): string => JSON.stringify(obj).replace(/</g, "\\u
         <button
           id="menu-toggle"
           type="button"
-          class="sm:hidden relative flex flex-col justify-center items-center gap-1.5 w-10 h-10 -mr-2 shrink-0"
+          class="md:hidden relative flex flex-col justify-center items-center gap-1.5 w-10 h-10 -mr-2 shrink-0"
           aria-label="メニューを開く"
           aria-expanded="false"
           aria-controls="mobile-menu"
@@ -112,7 +112,7 @@ const escapeLd = (obj: object): string => JSON.stringify(obj).replace(/</g, "\\u
     <div
       id="mobile-menu"
       data-state="closed"
-      class="mobile-menu sm:hidden"
+      class="mobile-menu md:hidden"
       role="dialog"
       aria-modal="true"
       aria-label="モバイルナビゲーション"
@@ -302,7 +302,7 @@ const escapeLd = (obj: object): string => JSON.stringify(obj).replace(/</g, "\\u
           if (e.key === "Escape" && isOpen) setOpen(false);
         });
         window.addEventListener("resize", () => {
-          if (window.innerWidth >= 640 && isOpen) setOpen(false);
+          if (window.innerWidth >= 768 && isOpen) setOpen(false);
         });
       })();
     </script>
