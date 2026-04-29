@@ -5,9 +5,10 @@
  *   詳細は docs/sprint-4-design.md §3 を参照。
  */
 import { defineCollection, z } from "astro:content";
+import { glob } from "astro/loaders";
 
 const digests = defineCollection({
-  type: "content",
+  loader: glob({ pattern: "**/*.md", base: "./src/content/digests" }),
   schema: z.object({
     title: z.string().min(1),
     weekStart: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),

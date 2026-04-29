@@ -1,8 +1,8 @@
 ---
 title: 2026 年 5 月 第 1 週の論点
-weekStart: 2026-04-27
-weekEnd: 2026-05-03
-publishedAt: 2026-05-02T07:00:00+09:00
+weekStart: "2026-04-27"
+weekEnd: "2026-05-03"
+publishedAt: "2026-05-02T07:00:00+09:00"
 summary: 今週の主要動向を 1〜2 文で要約します(OG 画像 / RSS / 一覧で使用)。
 topics:
   - 学習指導要領
