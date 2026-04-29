@@ -1,5 +1,66 @@
 [
   {
+    "id": "kkn-2026-04-29-3e3851fc44c861ab",
+    "title": "小1の壁／小3の壁の背景にある“放課後の質”の課題解決へ　放課後NPOアフタースクールが政策共創プロジェクト始動",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20260430o01",
+    "publishedAt": "2026-04-29T22:00:59.000Z",
+    "collectedAt": "2026-04-29T22:44:26.348Z",
+    "summary": "NPO法人放課後NPOアフタースクールは、公財・SoilとPoliPoliの共同企画「Soil × PolicyFund」の支援を受け、放課後の質向上に向けた政策提言プロジェクトを始動する。本プロジェクトは、同法人の居場 […]",
+    "categories": [
+      "その他"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-04-29-d706ab6e1edebc74",
+    "title": "JST、2026年度「女子中高生の理系進路選択支援プログラム」に4機関を採択",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20260430o04",
+    "publishedAt": "2026-04-29T22:00:22.000Z",
+    "collectedAt": "2026-04-29T22:44:26.348Z",
+    "summary": "科学技術振興機構（JST）は4月28日、「女子中高生の理系進路選択支援プログラム」2026年度採択機関として、沼津工業高等専門学校など4校・大学を決定し公表した。       ■今年度実施機 […]",
+    "categories": [
+      "研究・エビデンス"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-04-29-cd4b0029517a0ee1",
+    "title": "福島市教委、安全な校務環境の構築に向けデバイス証明書管理サービスを導入",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20260430o02",
+    "publishedAt": "2026-04-29T22:00:12.000Z",
+    "collectedAt": "2026-04-29T22:44:26.348Z",
+    "summary": "福島市教育委員会は、教員向け Chromebook 環境におけるセキュリティ強化を目的として、デバイス証明書管理サービス「サイバートラスト デバイス ID」を導入。4月27日、提供元のサイバートラストが発表した。 この導 […]",
+    "categories": [
+      "政策・制度",
+      "教員・働き方"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-04-29-23f6c42e6a3735ed",
+    "title": "熊本県菊池市、今年度よりAIドリルを導入　市内の小中学校15校約3500人が「すららドリル」を利用開始",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20260430o03",
+    "publishedAt": "2026-04-29T22:00:06.000Z",
+    "collectedAt": "2026-04-29T22:44:26.348Z",
+    "summary": "熊本県菊池市は4月、AI×アダプティブラーニング教材「すららドリル」（提供：すららネット）を公立小中学校15校で導入、3,549人の児童生徒が利用を開始した。   ■公立小中学校15校に導入 「すららドリル」は […]",
+    "categories": [
+      "ICT / GIGA"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
     "id": "kkn-2026-04-29-6cad77412d1c4016",
     "title": "高校生が小学校でプログラミング教室を開催～高等学校教育改革の計画も促進・支援～大分県",
     "sourceId": "kkn",
