@@ -2,6 +2,7 @@
 import Layout from "../layouts/Layout.astro";
 import ArticleCard from "../components/ArticleCard.astro";
 import SourcesIntro from "../components/SourcesIntro.astro";
+import LatestDigestBlock from "../components/LatestDigestBlock.astro";
 import { getRecentArticles, groupByDate, formatDayShort } from "../lib/articles.ts";
 
 const RECENT_DAYS = 7;
@@ -35,6 +36,8 @@ const groups = groupByDate(visible);
   </section>
 
   <SourcesIntro />
+
+  <LatestDigestBlock />
 
   {
     groups.length === 0 ? (

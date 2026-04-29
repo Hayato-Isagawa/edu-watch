@@ -79,9 +79,6 @@ function formatRange(from: string, to: string): string {
           <h2 class="font-bold text-xl sm:text-2xl text-[var(--color-ink)]">
             今週言及した記事
           </h2>
-          <p class="mt-2 text-xs leading-relaxed text-[var(--color-sub)]">
-            タイトルは原文のまま、公式 URL に直接リンクします(ADR 0008)。
-          </p>
           <div class="mt-4">
             {referenced.map((a) => <ArticleCard article={a} />)}
           </div>
