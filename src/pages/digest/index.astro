@@ -1,0 +1,88 @@
+---
+import { getCollection } from "astro:content";
+import Layout from "../../layouts/Layout.astro";
+import TopicBadge from "../../components/TopicBadge.astro";
+
+const all = await getCollection("digests");
+const sorted = [...all].sort((a, b) =>
+  b.data.publishedAt.localeCompare(a.data.publishedAt),
+);
+
+const dayFormatter = new Intl.DateTimeFormat("ja-JP", {
+  year: "numeric",
+  month: "long",
+  day: "numeric",
+  weekday: "short",
+  timeZone: "Asia/Tokyo",
+});
+function formatPublished(iso: string): string {
+  return dayFormatter.format(new Date(iso));
+}
+function formatRange(from: string, to: string): string {
+  const f = dayFormatter.format(new Date(`${from}T00:00:00+09:00`));
+  const t = dayFormatter.format(new Date(`${to}T00:00:00+09:00`));
+  return `${f} 〜 ${t}`;
+}
+---
+
+<Layout
+  title="週次ダイジェスト — EduWatch JP"
+  description="EduWatch JP の週次ダイジェスト。1 週間の教育ニュースを編集者が論点整理して毎週金曜に公開します。"
+>
+  <section class="pt-10 sm:pt-14 pb-8 border-b border-[var(--color-line)]">
+    <p class="font-mono text-[10px] uppercase tracking-widest text-[var(--color-accent)]">
+      Weekly digest
+    </p>
+    <h1 class="mt-3 font-black text-3xl sm:text-4xl md:text-5xl leading-[1.15] tracking-tight">
+      週次<span class="text-[var(--color-accent)]">ダイジェスト</span>
+    </h1>
+    <p class="mt-4 text-[var(--color-sub)] text-sm sm:text-base leading-loose max-w-2xl">
+      1 週間の教育ニュースから「これは覚えておくべき」を編集者が選別し、背景や関連エビデンスにリンクします。
+      日次記事には付加していない論点整理を、ここで明示的に「編集者より」として提示します(ADR 0008)。
+    </p>
+    <p class="mt-3 text-[var(--color-sub)] text-xs font-mono tracking-wide">
+      {sorted.length} 本
+    </p>
+    <p class="mt-4 text-[var(--color-sub)] text-sm leading-relaxed">
+      <a href="/" class="link-underline">← トップに戻る</a>
+    </p>
+  </section>
+
+  {
+    sorted.length === 0 ? (
+      <p class="py-20 text-center text-[var(--color-sub)] text-sm">
+        まだダイジェストはありません。初回は近日公開予定です。
+      </p>
+    ) : (
+      <ul class="divide-y divide-[var(--color-line)]">
+        {sorted.map((entry) => (
+          <li class="py-6 sm:py-8">
+            <a href={`/digest/${entry.id}/`} class="block group">
+              <div class="flex items-baseline justify-between gap-4">
+                <h2 class="font-bold text-base sm:text-lg text-[var(--color-ink)] link-underline">
+                  {entry.data.title}
+                </h2>
+                <span class="text-xs font-mono text-[var(--color-sub)] whitespace-nowrap">
+                  {formatPublished(entry.data.publishedAt)}
+                </span>
+              </div>
+              <p class="mt-1 text-xs font-mono tracking-wide text-[var(--color-sub)]">
+                <time datetime={entry.data.weekStart}>
+                  {formatRange(entry.data.weekStart, entry.data.weekEnd)}
+                </time>
+              </p>
+              <p class="mt-2 text-sm leading-relaxed text-[var(--color-sub)] line-clamp-3">
+                {entry.data.summary}
+              </p>
+            </a>
+            {entry.data.topics.length > 0 && (
+              <div class="mt-3 flex flex-wrap gap-1.5">
+                {entry.data.topics.map((t) => <TopicBadge topic={t} />)}
+              </div>
+            )}
+          </li>
+        ))}
+      </ul>
+    )
+  }
+</Layout>
