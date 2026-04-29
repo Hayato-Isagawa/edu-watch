@@ -46,17 +46,26 @@
 ```ts
 // src/content.config.ts
 import { defineCollection, z } from "astro:content";
+import { glob } from "astro/loaders";
 
 const digests = defineCollection({
-  type: "content",
+  loader: glob({ pattern: "**/*.md", base: "./src/content/digests" }),
   schema: z.object({
     title: z.string().min(1),
     weekStart: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
     weekEnd: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
     publishedAt: z.string().datetime({ offset: true }),
     summary: z.string().min(1),
-    topics: z.array(z.string()).min(1),
-    referencedArticleIds: z.array(z.string()).default([]),
+    topics: z.array(z.string().min(1)).min(1),
+    sections: z
+      .array(
+        z.object({
+          articleId: z.string().min(1),
+          heading: z.string().min(1),
+          comment: z.string().min(1),
+        }),
+      )
+      .default([]),
     relatedEvidenceUrls: z.array(z.string().url()).default([]),
   }),
 });
@@ -80,12 +89,15 @@ export const collections = { digests };
 | `publishedAt` | ISO8601 | ◯ | 公開タイムスタンプ(通常 weekEnd の翌金曜) |
 | `summary` | string | ◯ | 1〜2 文の要約。OG 画像 / RSS 記述 / 一覧で使用 |
 | `topics` | string[] | ◯ | 編集者が選んだ主要トピック(自由記述、3〜5 個推奨) |
-| `referencedArticleIds` | string[] | × | 本文で言及した日次記事の id。個別ページで `ArticleCard` を再描画 |
+| `sections` | object[] | × | 言及する記事ごとに見出し + 編集者コメントをまとめた配列。配列順がそのまま「ユーザーが見てほしい順(編集者の緊急度判断)」として表示順になる |
+| `sections[i].articleId` | string | ◯ | 該当記事の id |
+| `sections[i].heading` | string | ◯ | セクションの h2 見出し(編集者が論点を 1 行で抽出) |
+| `sections[i].comment` | string | ◯ | 編集者コメント(markdown 記法可、200〜400 字目安)。`marked` で HTML 化 |
 | `relatedEvidenceUrls` | URL[] | × | edu-evidence 側の戦略 / コラム URL。本文末尾の関連リンクとして表示 |
 
 ### 3.4 本文 markdown
 
-- 「編集者より」「今週の動き」「補助線(関連エビデンス)」の節構成を推奨。テンプレート化してリポジトリに置く
+- 本文 markdown は **冒頭の「編集者まえがき」**(全体を貫く論旨を 100〜300 字)に絞る。各記事への論評は frontmatter `sections[].comment` に書く
 - 引用範囲遵守 5 要件(ADR 0008)に従い、媒体記事の本文転載は禁止。要約・論点整理に限る
 
 ---
@@ -102,13 +114,17 @@ export const collections = { digests };
 ### 4.2 個別ページ(`/digest/[slug].astro`)
 
 セクション順:
-1. ヒーロー: `Weekly digest · YYYY 年 N 月 第 N 週` ラベル / `title` / `weekStart`〜`weekEnd` / `summary`
-2. トピックバッジ群(`topics` を `CategoryBadge` 風の枠で表示。CategoryBadge は再利用しない、`topics` は自由記述のため)
-3. 本文 markdown(`<Content />`)
-4. 「今週言及した記事」: `referencedArticleIds` に該当する記事を `ArticleCard` で表示
-5. 「関連エビデンス」: `relatedEvidenceUrls` を `link-underline` でリスト
-6. 前後ナビ: 前週 / 次週へのリンク(getStaticPaths で配列を作りインデックス参照)
-7. パンくず: `← ダイジェスト一覧` / `トップ`
+1. ヒーロー: `Weekly digest` ラベル / `title` / `weekStart`〜`weekEnd` / `summary` / `topics` バッジ群
+2. **編集者まえがき**: 本文 markdown(`<Content />`)を render。週全体を貫く論旨を 100〜300 字で
+3. **論点セクション群**: `sections` 配列を順次反復し、各要素について以下を表示:
+   - `<h2>` `section.heading`
+   - `ArticleCard`(`section.articleId` で記事を引いて再描画)
+   - `marked(section.comment)` を `set:html` で展開(編集者コメント、200〜400 字)
+4. 「関連エビデンス」: `relatedEvidenceUrls` を `link-underline` でリスト
+5. 前後ナビ: 前週 / 次週へのリンク(getStaticPaths で配列を作りインデックス参照)
+6. パンくず: `← ダイジェスト一覧` / `トップ`
+
+`sections` の配列順がそのまま読者への提示順(=編集者が判断する緊急度・重要度順)になる。
 
 ### 4.3 一覧ページ(`/digest/index.astro`)
 
