@@ -51,3 +51,7 @@ EduEvidence JP と共通の運営方針(植物モチーフブランド体系 / N
 - [0009. fetch-news ワークフローを PR フロー化、cron を日次 2 回へ削減](0009-fetch-news-pr-flow-and-twice-daily.md)
 - [0010. mergeDay は既存 id をスキップし collectedAt を初観測時刻で固定する](0010-dedupe-skip-existing-id.md)
 - [0011. UI 状態はセマンティック属性(aria-* / data-*)で管理する](0011-semantic-attribute-state-management.md)
+- [0012. NIER ソースを RSS から HTML スクレイピングへ切り替え](0012-nier-html-scraping.md)
+- [0013. 日本教育新聞の会員限定記事を判別し、UI 上で予告する](0013-nikkyo-membership-detection.md)
+- [0014. categorize ロジックの改善と既存記事の再カテゴライズ](0014-categorize-overhaul-and-recategorization.md)
+- [0015. 直線 3px アクセントバーは角張ったリスト要素のみに適用する](0015-linear-accent-bar-scope.md)
