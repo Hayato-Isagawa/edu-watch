@@ -148,21 +148,37 @@ export const collections = { digests };
 
 ## 5. 編集ワークフロー
 
-### 5.1 編集者の手順(30 分以内目標)
+### 5.1 編集者の手順(30 分以内目標、一トピックずつ進める)
 
-1. 金曜朝(JST)に GitHub で `feat/digest-YYYY-MM-DD` ブランチを切る
-2. `src/content/digests/YYYY-MM-DD.md` を新規作成
-3. テンプレート(`src/content/digests/_template.md`)から frontmatter / 節構成をコピー
-4. 過去 1 週間の記事一覧(`/archive/` から JST `weekStart`〜`weekEnd`)を眺めて、論点を 3〜5 個に絞る
-5. `referencedArticleIds` を `src/data/articles/*.json` から拾って配列に入れる
-6. 本文(編集者より / 今週の動き / 補助線)を書く
-7. PR 作成 → preview deploy で確認 → セルフレビュー後にマージ
+1. 土曜朝(JST)に GitHub で `feat/digest-YYYY-MM-DD` ブランチを切る
+2. `src/content/digests/YYYY-MM-DD.md` を新規作成、テンプレート(`docs/digest-template.md`)から frontmatter / 節構成をコピー
+3. 過去 1 週間の記事一覧(`/archive/` から JST `weekStart`〜`weekEnd`)を眺めて、取り上げる記事を **緊急度順に並べる**(3〜5 件、`sections` 配列の順序がそのまま読者への提示順)
+4. **トピックごとに以下のループを回す**:
+   1. 編集者が「この記事についてこう書きたい」という論旨・主張・引用予定の数値・人物・日付を箇条書きで提示
+   2. **`digest-fact-checker` サブエージェント** に渡して **一次資料で事実検証**(数値 / 人物 / 日付 / 比較 / 中立性の 5 観点)
+   3. エージェントの判定(GO / REVISE / STOP)+ 修正提案を踏まえて、論旨を確定
+   4. 確定した論旨をもとに、執筆代行(私や別エージェント)が markdown コメントを起こす(200〜500 字目安)
+   5. 編集者が確認 → 微修正 → `sections[i].comment` に書き込み
+5. すべてのトピックが揃ったら、冒頭まえがき(全体を貫く論旨、100〜300 字)と `summary`、`title` を執筆
+6. PR 作成 → preview deploy で確認 → セルフレビュー後にマージ
 
 ### 5.2 編集の補助
 
 - VS Code(Astro 拡張)で frontmatter の型補完が効く(`content.config.ts` の Zod schema 由来)
 - preview deploy で表示確認
 - 既存の archive ページや Pagefind 検索で記事 id を引きやすい
+- `.claude/agents/digest-fact-checker.md` が必須検証観点と出力フォーマットを定義
+
+### 5.3 サブエージェントによる事実検証(`digest-fact-checker`)
+
+ADR 0008(引用範囲遵守)/ ADR 0010(`collectedAt` 上書き禁止)/ ルール 2(正確性の徹底)を **編集ワークフローの中で構造的に守る** ため、執筆前ゲートとして `digest-fact-checker` を必須化する。
+
+- 配置: `.claude/agents/digest-fact-checker.md`
+- ツール: `Read / Grep / Glob / Bash / WebFetch / WebSearch`(編集系ツールは持たない)
+- 役割: 編集者の主張を **執筆前** に一次資料で検証(数値 / 人物 / 日付 / 比較 / 中立性)
+- 出力: GO / REVISE / STOP の総合判定 + 各観点の検証結果 + 修正提案 + Sources(一次資料 URL)
+
+このゲートを通すことで、PRD §11 の KPI(30 分以内編集 / 100% 公開率)を維持しながら、edu-watch のブランド(信頼最優先、商業メディアと差別化)を構造で担保する。
 
 ---
 
