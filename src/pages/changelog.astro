@@ -10,6 +10,10 @@ const entries = [
         text: "更新履歴ページを公開。サイト機能・データの追加・修正を時系列で確認できる",
       },
       {
+        type: "fix",
+        text: "更新履歴ページのバッジ色を WCAG AA(4.5:1)に整合。「更新」「修正」のラベル色を 1 段濃く調整",
+      },
+      {
         type: "add",
         text: "週次ダイジェストの初回(2026 年 4 月第 4 週)を公開。文科省の保護者対応事例集・都教委の働き方改革有識者会議・東京都新規採用教員の早期離職・東大ベネッセの親子調査・10 代の AI 利用拡大の 5 トピックを編集者の論点付きで整理",
       },
@@ -100,8 +104,8 @@ const entries = [
 
 const typeLabel: Record<string, { label: string; color: string }> = {
   add: { label: "追加", color: "text-emerald-700" },
-  update: { label: "更新", color: "text-amber-600" },
-  fix: { label: "修正", color: "text-rose-600" },
+  update: { label: "更新", color: "text-amber-700" },
+  fix: { label: "修正", color: "text-rose-700" },
   remove: { label: "削除", color: "text-[var(--color-sub)]" },
 };
 ---
