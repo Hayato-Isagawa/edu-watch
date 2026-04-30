@@ -1,5 +1,6 @@
 ---
 import { getCollection, render } from "astro:content";
+import { marked } from "marked";
 import Layout from "../../layouts/Layout.astro";
 import ArticleCard from "../../components/ArticleCard.astro";
 import TopicBadge from "../../components/TopicBadge.astro";
@@ -22,7 +23,14 @@ export async function getStaticPaths() {
 
 const { entry, newer, older } = Astro.props;
 const { Content } = await render(entry);
-const referenced = getArticlesByIds(entry.data.referencedArticleIds);
+const articleById = new Map(
+  getArticlesByIds(entry.data.sections.map((s) => s.articleId)).map((a) => [a.id, a]),
+);
+const sectionsWithArticle = entry.data.sections.map((s) => ({
+  heading: s.heading,
+  commentHtml: marked.parse(s.comment) as string,
+  article: articleById.get(s.articleId),
+}));
 
 const dayFormatter = new Intl.DateTimeFormat("ja-JP", {
   year: "numeric",
@@ -74,14 +82,28 @@ function formatRange(from: string, to: string): string {
     </section>
 
     {
-      referenced.length > 0 && (
-        <section class="py-8 sm:py-10 border-b border-[var(--color-line)]">
-          <h2 class="font-bold text-xl sm:text-2xl text-[var(--color-ink)]">
-            今週言及した記事
-          </h2>
-          <div class="mt-4">
-            {referenced.map((a) => <ArticleCard article={a} />)}
-          </div>
+      sectionsWithArticle.length > 0 && (
+        <section class="py-2 border-b border-[var(--color-line)]">
+          {sectionsWithArticle.map((s) => (
+            <article class="py-8 sm:py-10 border-t border-[var(--color-line)] first:border-t-0">
+              <h2 class="font-bold text-xl sm:text-2xl text-[var(--color-ink)]">
+                {s.heading}
+              </h2>
+              {s.article ? (
+                <div class="mt-4 p-4 sm:p-5 border border-[var(--color-line)] bg-[var(--color-card)] rounded-sm">
+                  <div class="font-mono text-[10px] uppercase tracking-widest text-[var(--color-sub)] mb-3">
+                    Referenced article
+                  </div>
+                  <ArticleCard article={s.article} />
+                </div>
+              ) : (
+                <p class="mt-3 text-xs text-[var(--color-sub)]">
+                  該当記事は現在表示できません(削除依頼などにより非掲載)。
+                </p>
+              )}
+              <div class="prose-digest mt-4" set:html={s.commentHtml} />
+            </article>
+          ))}
         </section>
       )
     }
