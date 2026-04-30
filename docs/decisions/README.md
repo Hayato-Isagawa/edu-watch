@@ -54,4 +54,5 @@ EduEvidence JP と共通の運営方針(植物モチーフブランド体系 / N
 - [0012. NIER ソースを RSS から HTML スクレイピングへ切り替え](0012-nier-html-scraping.md)
 - [0013. 日本教育新聞の会員限定記事を判別し、UI 上で予告する](0013-nikkyo-membership-detection.md)
 - [0014. categorize ロジックの改善と既存記事の再カテゴライズ](0014-categorize-overhaul-and-recategorization.md)
-- [0015. 直線 3px アクセントバーは角張ったリスト要素のみに適用する](0015-linear-accent-bar-scope.md)
+- [0015. mext 教育スコープフィルタ導入と既存データのリンク切れ・重複クリーンアップ](0015-mext-education-scope-filter-and-data-cleanup.md)
+- [0016. 直線 3px アクセントバーは角張ったリスト要素のみに適用する](0016-linear-accent-bar-scope.md)
