@@ -90,7 +90,10 @@ function formatRange(from: string, to: string): string {
                 {s.heading}
               </h2>
               {s.article ? (
-                <div class="mt-4">
+                <div class="mt-4 p-4 sm:p-5 border border-[var(--color-line)] bg-[var(--color-card)] rounded-sm">
+                  <div class="font-mono text-[10px] uppercase tracking-widest text-[var(--color-sub)] mb-3">
+                    Referenced article
+                  </div>
                   <ArticleCard article={s.article} />
                 </div>
               ) : (
