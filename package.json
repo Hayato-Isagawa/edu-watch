@@ -14,7 +14,9 @@
     "check": "astro check",
     "check:filter:resemom": "npx tsx scripts/check-resemom-filter.ts",
     "check:filter:kyodo": "npx tsx scripts/check-kyodo-filter.ts",
-    "check:filter": "npm run check:filter:resemom && npm run check:filter:kyodo"
+    "check:filter": "npm run check:filter:resemom && npm run check:filter:kyodo",
+    "test:e2e": "npx playwright test",
+    "test:e2e:ui": "npx playwright test --ui"
   },
   "dependencies": {
     "@astrojs/react": "^5.0.3",
@@ -34,6 +36,8 @@
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.8",
+    "@axe-core/playwright": "^4.11.3",
+    "@playwright/test": "^1.59.1",
     "pagefind": "^1.5.2",
     "typescript": "^5.9.3"
   }

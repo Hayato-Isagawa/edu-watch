@@ -1,0 +1,27 @@
+---
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout title="ページが見つかりません — EduWatch JP">
+  <section class="py-20 sm:py-32 md:py-40 text-center space-y-8">
+    <div class="space-y-2">
+      <p class="font-mono text-xs uppercase tracking-widest text-[var(--color-accent)]">
+        404 — Not Found
+      </p>
+      <h1 class="font-black text-6xl md:text-8xl tracking-tight text-[var(--color-sub)]">
+        404
+      </h1>
+    </div>
+    <p class="text-[var(--color-sub)] text-base md:text-lg leading-relaxed max-w-md mx-auto">
+      お探しのページは見つかりませんでした。<br />
+      URL が変わったか、削除された可能性があります。
+    </p>
+    <a
+      href="/"
+      class="group inline-flex items-center gap-2 border border-[var(--color-line)] text-[var(--color-sub)] rounded-full px-6 py-2.5 text-sm hover:border-[var(--color-accent)] hover:text-[var(--color-accent)] transition"
+    >
+      トップページへ戻る
+      <span class="inline-block transition-transform group-hover:translate-x-1">→</span>
+    </a>
+  </section>
+</Layout>
