@@ -1,0 +1,158 @@
+---
+import Layout from "../layouts/Layout.astro";
+
+const entries = [
+  {
+    date: "2026-04-30",
+    items: [
+      {
+        type: "add",
+        text: "更新履歴ページを公開。サイト機能・データの追加・修正を時系列で確認できる",
+      },
+      {
+        type: "add",
+        text: "週次ダイジェストの初回(2026 年 4 月第 4 週)を公開。文科省の保護者対応事例集・都教委の働き方改革有識者会議・東京都新規採用教員の早期離職・東大ベネッセの親子調査・10 代の AI 利用拡大の 5 トピックを編集者の論点付きで整理",
+      },
+      {
+        type: "update",
+        text: "文科省記事のうち教育スコープ外(科学技術政策・JAXA・ジオパーク・大臣記者会見録 等)を非表示化。あわせてリンク切れ・同一日重複を整理し、一覧の見通しを改善",
+      },
+      {
+        type: "fix",
+        text: "国立教育政策研究所の事務系採用情報(期間業務職員・時間雇用職員)と同日重複が一覧を埋めないよう抑止",
+      },
+    ],
+  },
+  {
+    date: "2026-04-29",
+    items: [
+      {
+        type: "add",
+        text: "週次ダイジェスト機能を公開。1 週分の記事を編集者の論点付きで横断的に読める個別ページと一覧",
+      },
+      {
+        type: "add",
+        text: "サイト全文検索を実装。記事タイトル・媒体・カテゴリを横断して検索できる",
+      },
+      {
+        type: "add",
+        text: "ページ上部へ戻るボタン + モバイル用フルスクリーンメニュー(ハンバーガー起点、検索バー常時表示)を追加",
+      },
+    ],
+  },
+  {
+    date: "2026-04-28",
+    items: [
+      {
+        type: "add",
+        text: "記事一覧・日付別アーカイブ・カテゴリ別ページ・媒体別ページを公開。トップから 7 日分(最大 50 件)を表示しつつ、深く辿れる導線を整備",
+      },
+      {
+        type: "add",
+        text: "「サイトについて」ページを公開。編集ポリシー・3 層ソース構成・引用範囲の方針を明記",
+      },
+      {
+        type: "update",
+        text: "記事のカテゴリ判定ルールを拡張し、既存 161 記事を再カテゴライズ。媒体既定値(文科省・中教審 → 政策・制度、国立教育政策研究所 → 研究・エビデンス)も適用",
+      },
+      {
+        type: "update",
+        text: "日本教育新聞の会員限定記事を判別し、一覧上で予告表示するよう変更",
+      },
+    ],
+  },
+  {
+    date: "2026-04-27",
+    items: [
+      {
+        type: "update",
+        text: "記事の重複検出時に初観測時刻を保持するよう変更。同じ記事が日をまたいで再収集された際に、表示日付が巻き戻る現象を解消",
+      },
+      {
+        type: "fix",
+        text: "国立教育政策研究所のリンク先を、サイトトップではなく個別記事 URL に正しく差すよう修正",
+      },
+    ],
+  },
+  {
+    date: "2026-04-26",
+    items: [
+      {
+        type: "add",
+        text: "サイトを公開し、日次の自動収集を稼働開始。文部科学省・国立教育政策研究所・OECD Education・教育新聞・日本教育新聞・教育家庭新聞・リセマム の 7 媒体を対象に、12:49 JST と 22:26 JST(毎日 2 回)で更新",
+      },
+      {
+        type: "add",
+        text: "第 2 層を大手紙の教育面から教育専門紙(教育新聞・日本教育新聞・教育家庭新聞・リセマム)へ転換。教育現場により近い情報源を一次に据える方針に",
+      },
+    ],
+  },
+  {
+    date: "2026-04-24",
+    items: [
+      {
+        type: "add",
+        text: "ブランド名「EduWatch JP」、双葉(cotyledon)非対称ロゴ、アクセント色ディープネイビー(#1e4a6e)を採用。姉妹サイト EduEvidence JP の成熟葉と対になり、ストック型 vs フロー型の性格を視覚で区別",
+      },
+    ],
+  },
+];
+
+const typeLabel: Record<string, { label: string; color: string }> = {
+  add: { label: "追加", color: "text-emerald-700" },
+  update: { label: "更新", color: "text-amber-600" },
+  fix: { label: "修正", color: "text-rose-600" },
+  remove: { label: "削除", color: "text-[var(--color-sub)]" },
+};
+---
+
+<Layout title="更新履歴 — EduWatch JP">
+  <section class="py-10 xs:py-14 sm:py-20 md:py-28 grid grid-cols-12 gap-6">
+    <div class="col-span-12 md:col-span-8 space-y-6">
+      <p
+        class="font-mono text-xs uppercase tracking-widest text-[var(--color-accent)]"
+      >
+        Changelog
+      </p>
+      <h1
+        class="font-black text-5xl md:text-6xl leading-[1.15] tracking-tight"
+      >
+        更新履歴
+      </h1>
+    </div>
+    <div class="col-span-12 md:col-span-4 md:pt-6 text-[var(--color-sub)] leading-loose text-sm">
+      <p>
+        サイト機能・データの追加・修正を<br />
+        時系列で記録しています。
+      </p>
+    </div>
+  </section>
+
+  <section class="pb-24">
+    {
+      entries.map((entry) => (
+        <div class="border-t border-[var(--color-line)] py-10 space-y-4">
+          <div class="font-mono text-sm text-[var(--color-accent)]">
+            {entry.date}
+          </div>
+          <ul class="space-y-3">
+            {entry.items.map((item) => {
+              const t = typeLabel[item.type] ?? typeLabel.add;
+              return (
+                <li class="flex gap-3 items-baseline text-sm leading-relaxed">
+                  <span
+                    class={`font-mono text-xs uppercase tracking-widest shrink-0 ${t.color}`}
+                  >
+                    {t.label}
+                  </span>
+                  <span>{item.text}</span>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+      ))
+    }
+    <div class="border-t border-[var(--color-line)]"></div>
+  </section>
+</Layout>
