@@ -1,5 +1,80 @@
 [
   {
+    "id": "kkn-2026-04-30-474b3cfa4d479456",
+    "title": "教科書準拠生成AI「教科書AIワカル」、中学校数学教科書『新編 新しい数学』に対応　割引キャンペーンも〜東京書籍",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20260501o03",
+    "publishedAt": "2026-04-30T22:00:31.000Z",
+    "collectedAt": "2026-04-30T22:40:36.806Z",
+    "summary": "東京書籍は、教科書に基づいた個別最適な学習を支援するAI対話型学習サービス「教科書AIワカル」において、2025年度版中学校数学教科書『新編 新しい数学』への対応を開始した。対応単元は、現在は「数と式」領域のみで、以降、 […]",
+    "categories": [
+      "ICT / GIGA"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-04-30-1907010fc53429ce",
+    "title": "JST「産業・科学革新人材事業（INSIGHT）」公募を開始　産学連携の研究開発・人材育成を支援",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20260501o02",
+    "publishedAt": "2026-04-30T22:00:30.000Z",
+    "collectedAt": "2026-04-30T22:40:36.806Z",
+    "summary": "科学技術振興機構（JST）は4月28日、大学・企業等の能力を最大限活用し、研究開発・人材育成を一体的・総合的に推進するための資金支援制度を創設、国公私立大学を対象に公募を開始した。 本事業は、日本の産業競争力や科学技術・ […]",
+    "categories": [
+      "研究・エビデンス"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-04-30-c10370e629c7306b",
+    "title": "全国の10代100人の探究を収録した「Inspired100」2026年版　年鑑デジタル版の閲覧申し込み受付中〜Inspire High",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20260501o01",
+    "publishedAt": "2026-04-30T22:00:28.000Z",
+    "collectedAt": "2026-04-30T22:40:36.806Z",
+    "summary": "Inspire Highでは、全国の10代100人の問いを表彰する「Inspired100」デジタル版の申込受付を受付中だ。 同社は、世界とつながる探究的な学びを手軽に教室で実践できるプログラム「Inspire High […]",
+    "categories": [
+      "その他"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-04-30-e62a772c021740c1",
+    "title": "世界に挑戦する10代を募集！「Global Innovator ACADEMY」2026年度エントリー受付中〜教育の環",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20260501o04",
+    "publishedAt": "2026-04-30T22:00:17.000Z",
+    "collectedAt": "2026-04-30T22:40:36.806Z",
+    "summary": "NPO法人教育の環は、日本から世界に羽ばたく10代を育成する実践型教育プログラム「Global Innovator ACADEMY（GIA）」の2026年度参加者を募集している。 GIAは、「世界で活躍できる10代」を育 […]",
+    "categories": [
+      "その他"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "resemom-2026-04-30-791f33b2dc32c600",
+    "title": "小学生「将来なりたい職業」男子1位はサッカー選手、女子1位は？",
+    "sourceId": "resemom",
+    "sourceName": "リセマム",
+    "sourceUrl": "https://resemom.jp/article/2026/04/30/85953.html",
+    "publishedAt": "2026-04-30T10:45:04.000Z",
+    "collectedAt": "2026-04-30T22:40:36.806Z",
+    "summary": "日本FP協会は、第19回「小学生『夢をかなえる』作文コンクール」の応募作品1,383点をもとに集計した「将来なりたい職業」ランキングを発表した。男子1位は「サッカー選手・監督など」、女子1位は「保育士」となった。「大工」のトップ10入りや「漫画家」の躍進など新たな傾向も見られた。",
+    "categories": [
+      "その他"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
     "id": "resemom-2026-04-30-d8ca4e87083f67ea",
     "title": "中高生の約半数が「休日も制服着用」テーマパークやショッピングモール",
     "sourceId": "resemom",
