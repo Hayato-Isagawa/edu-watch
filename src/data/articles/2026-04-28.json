@@ -29,54 +29,12 @@
     "language": "ja"
   },
   {
-    "id": "mext-2026-04-28-fbe70edb17e07c2b",
-    "title": "松本洋平文部科学大臣記者会見録（令和8年4月28日）",
-    "sourceId": "mext",
-    "sourceName": "文部科学省",
-    "sourceUrl": "https://www.mext.go.jp/b_menu/daijin/detail/mext_00688.html",
-    "publishedAt": "2026-04-28T10:40:00.000Z",
-    "collectedAt": "2026-04-28T10:53:13.456Z",
-    "categories": [
-      "政策・制度"
-    ],
-    "layer": 1,
-    "language": "ja"
-  },
-  {
     "id": "chukyo-2026-04-28-7eb8ac49863eed81",
     "title": "中央教育審議会初等中等教育分科会教育課程部会情報・技術ワーキンググループ（第6回）の議事録を掲載しました",
     "sourceId": "chukyo",
     "sourceName": "中央教育審議会",
     "sourceUrl": "https://www.mext.go.jp/b_menu/shingi/chukyo/chukyo3/118/gijiroku/mext_00014.html",
     "publishedAt": "2026-04-28T10:40:00.000Z",
-    "collectedAt": "2026-04-28T10:53:13.456Z",
-    "categories": [
-      "政策・制度"
-    ],
-    "layer": 1,
-    "language": "ja"
-  },
-  {
-    "id": "mext-2026-04-28-ceb3dd07b5a0c765",
-    "title": "中央教育審議会初等中等教育分科会教育課程部会情報・技術ワーキンググループ（第6回）の議事録を掲載しました",
-    "sourceId": "mext",
-    "sourceName": "文部科学省",
-    "sourceUrl": "https://www.mext.go.jp/b_menu/shingi/chukyo/chukyo3/118/gijiroku/mext_00013.html",
-    "publishedAt": "2026-04-28T10:30:00.000Z",
-    "collectedAt": "2026-04-28T10:53:13.456Z",
-    "categories": [
-      "政策・制度"
-    ],
-    "layer": 1,
-    "language": "ja"
-  },
-  {
-    "id": "chukyo-2026-04-28-ceb3dd07b5a0c765",
-    "title": "中央教育審議会初等中等教育分科会教育課程部会情報・技術ワーキンググループ（第6回）の議事録を掲載しました",
-    "sourceId": "chukyo",
-    "sourceName": "中央教育審議会",
-    "sourceUrl": "https://www.mext.go.jp/b_menu/shingi/chukyo/chukyo3/118/gijiroku/mext_00013.html",
-    "publishedAt": "2026-04-28T10:30:00.000Z",
     "collectedAt": "2026-04-28T10:53:13.456Z",
     "categories": [
       "政策・制度"
@@ -129,22 +87,6 @@
     "language": "ja"
   },
   {
-    "id": "mext-2026-04-28-d02d44c0cd14674c",
-    "title": "文部科学省研究開発局地震火山防災研究課非常勤職員（期間業務職員）採用のお知らせ",
-    "sourceId": "mext",
-    "sourceName": "文部科学省",
-    "sourceUrl": "https://www.mext.go.jp/b_menu/saiyou/hijyoukin/1421780_00212.html",
-    "publishedAt": "2026-04-28T07:00:00.000Z",
-    "collectedAt": "2026-04-28T10:53:13.456Z",
-    "categories": [
-      "政策・制度",
-      "研究・エビデンス",
-      "教員・働き方"
-    ],
-    "layer": 1,
-    "language": "ja"
-  },
-  {
     "id": "nikkyo-2026-04-28-729e7e989692b42f",
     "title": "教職課程で「障害の社会モデル」必修　中教審作業部会が報告書",
     "sourceId": "nikkyo",
@@ -192,76 +134,6 @@
     "language": "ja"
   },
   {
-    "id": "mext-2026-04-28-0410d913e2c85686",
-    "title": "中央教育審議会初等中等教育分科会教育課程部会情報・技術ワーキンググループ（第6回）の議事録を掲載しました",
-    "sourceId": "mext",
-    "sourceName": "文部科学省",
-    "sourceUrl": "https://www.mext.go.jp/b_menu/shingi/chukyo/chukyo3/118/gijiroku/mext_00012.html",
-    "publishedAt": "2026-04-28T05:00:00.000Z",
-    "collectedAt": "2026-04-28T10:53:13.456Z",
-    "categories": [
-      "政策・制度"
-    ],
-    "layer": 1,
-    "language": "ja"
-  },
-  {
-    "id": "mext-2026-04-28-a43c9d452cffd6aa",
-    "title": "統計業務の質の向上に向けた専門家会議（第2回）の開催について",
-    "sourceId": "mext",
-    "sourceName": "文部科学省",
-    "sourceUrl": "https://www.mext.go.jp/b_menu/shingi/chousa/shougai/052/kaisai/mext_00002.html",
-    "publishedAt": "2026-04-28T05:00:00.000Z",
-    "collectedAt": "2026-04-28T10:53:13.456Z",
-    "categories": [
-      "研究・エビデンス"
-    ],
-    "layer": 1,
-    "language": "ja"
-  },
-  {
-    "id": "mext-2026-04-28-3fdf318bdda6a23b",
-    "title": "産業・科学革新人材事業（INSIGHT）の公募開始について",
-    "sourceId": "mext",
-    "sourceName": "文部科学省",
-    "sourceUrl": "https://www.mext.go.jp/b_menu/boshu/detail/mext_00526.html",
-    "publishedAt": "2026-04-28T05:00:00.000Z",
-    "collectedAt": "2026-04-28T10:53:13.456Z",
-    "categories": [
-      "政策・制度"
-    ],
-    "layer": 1,
-    "language": "ja"
-  },
-  {
-    "id": "mext-2026-04-28-5f85a0da8b3a3be6",
-    "title": "統計業務の質の向上に向けた専門家会議（第1回）議事録",
-    "sourceId": "mext",
-    "sourceName": "文部科学省",
-    "sourceUrl": "https://www.mext.go.jp/b_menu/shingi/chousa/shougai/052/gijiroku/mext_00001.html",
-    "publishedAt": "2026-04-28T05:00:00.000Z",
-    "collectedAt": "2026-04-28T10:53:13.456Z",
-    "categories": [
-      "研究・エビデンス"
-    ],
-    "layer": 1,
-    "language": "ja"
-  },
-  {
-    "id": "chukyo-2026-04-28-0410d913e2c85686",
-    "title": "中央教育審議会初等中等教育分科会教育課程部会情報・技術ワーキンググループ（第6回）の議事録を掲載しました",
-    "sourceId": "chukyo",
-    "sourceName": "中央教育審議会",
-    "sourceUrl": "https://www.mext.go.jp/b_menu/shingi/chukyo/chukyo3/118/gijiroku/mext_00012.html",
-    "publishedAt": "2026-04-28T05:00:00.000Z",
-    "collectedAt": "2026-04-28T10:53:13.456Z",
-    "categories": [
-      "政策・制度"
-    ],
-    "layer": 1,
-    "language": "ja"
-  },
-  {
     "id": "nikkyo-2026-04-28-8d48891a40dcda3b",
     "title": "生成AIガイドライン、年度内に改訂へ　政府",
     "sourceId": "nikkyo",
@@ -294,20 +166,6 @@
     "language": "ja"
   },
   {
-    "id": "mext-2026-04-28-f3cd44e6dd9cd129",
-    "title": "量子ビーム施設利用推進委員会（第9回）配布資料",
-    "sourceId": "mext",
-    "sourceName": "文部科学省",
-    "sourceUrl": "https://www.mext.go.jp/b_menu/shingi/gijyutu/gijyutu28/001/siryo/mext_00010.html",
-    "publishedAt": "2026-04-28T04:00:00.000Z",
-    "collectedAt": "2026-04-28T10:53:13.456Z",
-    "categories": [
-      "政策・制度"
-    ],
-    "layer": 1,
-    "language": "ja"
-  },
-  {
     "id": "mext-2026-04-28-4b5db6dd8c9369ae",
     "title": "中央教育審議会初等中等教育分科会教育課程部会情報・技術ワーキンググループ（第5回）の議事録を掲載しました",
     "sourceId": "mext",
@@ -328,20 +186,6 @@
     "sourceName": "中央教育審議会",
     "sourceUrl": "https://www.mext.go.jp/b_menu/shingi/chukyo/chukyo3/118/gijiroku/mext_00009.html",
     "publishedAt": "2026-04-28T04:00:00.000Z",
-    "collectedAt": "2026-04-28T10:53:13.456Z",
-    "categories": [
-      "政策・制度"
-    ],
-    "layer": 1,
-    "language": "ja"
-  },
-  {
-    "id": "mext-2026-04-28-e0a6db2c0658b7ef",
-    "title": "人材育成システム改革ビジョンを掲載しました",
-    "sourceId": "mext",
-    "sourceName": "文部科学省",
-    "sourceUrl": "https://www.mext.go.jp/b_menu/shingi/chousa/sonota/005/mext_00002.html",
-    "publishedAt": "2026-04-28T03:00:00.000Z",
     "collectedAt": "2026-04-28T10:53:13.456Z",
     "categories": [
       "政策・制度"
@@ -426,20 +270,6 @@
     "language": "ja"
   },
   {
-    "id": "mext-2026-04-28-abc9bdc9df9a7f0b",
-    "title": "次世代計算科学グランドリーチプログラムの公募について（※新たな区分を追加）",
-    "sourceId": "mext",
-    "sourceName": "文部科学省",
-    "sourceUrl": "https://www.mext.go.jp/b_menu/boshu/detail/mext_00494.html",
-    "publishedAt": "2026-04-28T01:00:00.000Z",
-    "collectedAt": "2026-04-28T10:53:13.456Z",
-    "categories": [
-      "政策・制度"
-    ],
-    "layer": 1,
-    "language": "ja"
-  },
-  {
     "id": "nikkyo-2026-04-28-38e4aaab4459ea19",
     "title": "「要改善」学部　大学全体を不適合に　文科省が新評価案",
     "sourceId": "nikkyo",
@@ -467,20 +297,6 @@
       "その他"
     ],
     "layer": 2,
-    "language": "ja"
-  },
-  {
-    "id": "mext-2026-04-28-f28a428a6f366953",
-    "title": "【総合職事務系】業務説明会日程一覧",
-    "sourceId": "mext",
-    "sourceName": "文部科学省",
-    "sourceUrl": "https://www.mext.go.jp/b_menu/saiyou/sougoujimu/setumei/1421199_00006.htm",
-    "publishedAt": "2026-04-28T00:00:00.000Z",
-    "collectedAt": "2026-04-28T10:53:13.456Z",
-    "categories": [
-      "政策・制度"
-    ],
-    "layer": 1,
     "language": "ja"
   }
 ]
