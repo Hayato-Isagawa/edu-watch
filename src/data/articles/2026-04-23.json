@@ -1,19 +1,5 @@
 [
   {
-    "id": "mext-2026-04-23-1d2932e8f75eaa63",
-    "title": "H3ロケット8号機の打上げ失敗の原因究明について",
-    "sourceId": "mext",
-    "sourceName": "文部科学省",
-    "sourceUrl": "https://www.mext.go.jp/a_menu/kaihatu/space/jigyou/detail/1347482_00024.html",
-    "publishedAt": "2026-04-23T10:00:00.000Z",
-    "collectedAt": "2026-04-26T12:49:39.835Z",
-    "categories": [
-      "政策・制度"
-    ],
-    "layer": 1,
-    "language": "ja"
-  },
-  {
     "id": "resemom-2026-04-23-cabd0fb9ea285373",
     "title": "スポーツ通訳士の仕事を紹介…元プロ野球選手ら登壇5/24",
     "sourceId": "resemom",
@@ -74,21 +60,6 @@
     "language": "ja"
   },
   {
-    "id": "nier-2026-04-23-8574cd034aca16b1",
-    "title": "令和８年度全国学力・学習状況調査の小学校国語・算数、中学校国語・数学の調査問題・正答例・解説資料を掲載いたしました。",
-    "sourceId": "nier",
-    "sourceName": "国立教育政策研究所",
-    "sourceUrl": "https://www.nier.go.jp/02_news/26chousa/26chousa.html",
-    "publishedAt": "2026-04-23T08:15:00.000Z",
-    "collectedAt": "2026-04-26T12:49:39.835Z",
-    "summary": "国立教育政策研究所 National Institute for Educational Policy Researchの公式サイトです。「令和８年度全国学力・学習状況調査の小学校国語・算数、中学校国語・数学の調査問題・正答例・解説資料を掲載いたしました。」に関する情報をご覧いただけます。",
-    "categories": [
-      "研究・エビデンス"
-    ],
-    "layer": 1,
-    "language": "ja"
-  },
-  {
     "id": "mext-2026-04-23-7132dd1d0afa0169",
     "title": "都市と地方の連携を通じた国内留学等の促進事業の公募について",
     "sourceId": "mext",
@@ -118,20 +89,6 @@
     "language": "ja"
   },
   {
-    "id": "mext-2026-04-23-605b509c3a2ef778",
-    "title": "「地域構想推進プラットフォーム」構築等推進事業の公募について",
-    "sourceId": "mext",
-    "sourceName": "文部科学省",
-    "sourceUrl": "https://www.mext.go.jp/a_menu/koutou/kaikaku/mext_00007.html",
-    "publishedAt": "2026-04-23T07:10:00.000Z",
-    "collectedAt": "2026-04-27T10:52:10.358Z",
-    "categories": [
-      "政策・制度"
-    ],
-    "layer": 1,
-    "language": "ja"
-  },
-  {
     "id": "mext-2026-04-23-f2b9d16d5897ffe7",
     "title": "社会教育主事・社会教育士養成等の改善・充実に関するワーキング・グループ（第6回）の開催について",
     "sourceId": "mext",
@@ -141,22 +98,6 @@
     "collectedAt": "2026-04-26T12:49:39.835Z",
     "categories": [
       "政策・制度"
-    ],
-    "layer": 1,
-    "language": "ja"
-  },
-  {
-    "id": "mext-2026-04-23-b16a6257350d7d16",
-    "title": "AI for Scienceを支える研究データの管理・利活用と流通の在り方ワーキンググループ（第3回）　議事録",
-    "sourceId": "mext",
-    "sourceName": "文部科学省",
-    "sourceUrl": "https://www.mext.go.jp/b_menu/shingi/gijyutu/gijyutu29/006/gijiroku/mext_00003.html",
-    "publishedAt": "2026-04-23T05:00:00.000Z",
-    "collectedAt": "2026-04-26T12:49:39.835Z",
-    "categories": [
-      "ICT / GIGA",
-      "政策・制度",
-      "研究・エビデンス"
     ],
     "layer": 1,
     "language": "ja"
@@ -192,35 +133,6 @@
     "language": "ja"
   },
   {
-    "id": "mext-2026-04-23-d9e34e51f6f9003f",
-    "title": "AI for Science推進委員会（第4回）　配付資料",
-    "sourceId": "mext",
-    "sourceName": "文部科学省",
-    "sourceUrl": "https://www.mext.go.jp/b_menu/shingi/chousa/shinkou/077/siryo/aifors_260423_001.html",
-    "publishedAt": "2026-04-23T04:00:00.000Z",
-    "collectedAt": "2026-04-26T12:49:39.835Z",
-    "categories": [
-      "ICT / GIGA",
-      "政策・制度"
-    ],
-    "layer": 1,
-    "language": "ja"
-  },
-  {
-    "id": "mext-2026-04-23-1f4d9cc1a7eefa05",
-    "title": "「H3ロケット8号機打上げ失敗の原因究明に係る調査・安全小委員会 中間報告書」について",
-    "sourceId": "mext",
-    "sourceName": "文部科学省",
-    "sourceUrl": "https://www.mext.go.jp/b_menu/shingi/gijyutu/gijyutu2/059/houkoku/1420708_00014.html",
-    "publishedAt": "2026-04-23T03:00:00.000Z",
-    "collectedAt": "2026-04-26T12:49:39.835Z",
-    "categories": [
-      "研究・エビデンス"
-    ],
-    "layer": 1,
-    "language": "ja"
-  },
-  {
     "id": "resemom-2026-04-23-bdb408476fa55288",
     "title": "子供・孫に勤めてほしい企業「公務員」人気が継続…親世代は外資系も",
     "sourceId": "resemom",
@@ -233,20 +145,6 @@
       "その他"
     ],
     "layer": 2,
-    "language": "ja"
-  },
-  {
-    "id": "mext-2026-04-23-f22955f5264b1cfa",
-    "title": "令和8年（第20回）「みどりの式典」を開催します",
-    "sourceId": "mext",
-    "sourceName": "文部科学省",
-    "sourceUrl": "https://www.mext.go.jp/b_menu/houdou/mext_01633.html",
-    "publishedAt": "2026-04-23T02:00:00.000Z",
-    "collectedAt": "2026-04-26T12:49:39.835Z",
-    "categories": [
-      "政策・制度"
-    ],
-    "layer": 1,
     "language": "ja"
   },
   {

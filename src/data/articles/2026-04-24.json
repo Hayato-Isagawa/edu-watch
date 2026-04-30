@@ -1,19 +1,5 @@
 [
   {
-    "id": "mext-2026-04-24-886e442caf830706",
-    "title": "松本洋平文部科学大臣記者会見録（令和8年4月24日）",
-    "sourceId": "mext",
-    "sourceName": "文部科学省",
-    "sourceUrl": "https://www.mext.go.jp/b_menu/daijin/detail/mext_00687.html",
-    "publishedAt": "2026-04-24T10:30:00.000Z",
-    "collectedAt": "2026-04-26T12:49:39.835Z",
-    "categories": [
-      "政策・制度"
-    ],
-    "layer": 1,
-    "language": "ja"
-  },
-  {
     "id": "resemom-2026-04-24-f733a8d1006b1c8a",
     "title": "スマホ所有率、都内の小学校低学年で初の3割超…東京都調査",
     "sourceId": "resemom",
@@ -60,21 +46,6 @@
     "language": "ja"
   },
   {
-    "id": "nier-2026-04-24-8ca9f3e9c9c81318",
-    "title": "令和８年度全国学力・学習状況調査の中学校英語（ 「聞くこと」 「読むこと、書くこと」）の調査問題・正答例・解説資料を掲載いたしました。",
-    "sourceId": "nier",
-    "sourceName": "国立教育政策研究所",
-    "sourceUrl": "https://www.nier.go.jp/02_news/26chousa/26chousa/eng/rwl.html",
-    "publishedAt": "2026-04-24T08:15:00.000Z",
-    "collectedAt": "2026-04-26T12:49:39.835Z",
-    "summary": "国立教育政策研究所 National Institute for Educational Policy Researchの公式サイトです。「令和８年度全国学力・学習状況調査の中学校英語（ 「聞くこと」 「読むこと、書くこと」）の調査問題・正答例・解説資料を掲載いたしました。」に関する情報をご覧いただけます。",
-    "categories": [
-      "研究・エビデンス"
-    ],
-    "layer": 1,
-    "language": "ja"
-  },
-  {
     "id": "nikkyo-2026-04-24-23e0bb5d311ed204",
     "title": "こども性暴力防止法で研修資料公表　被害児童への聞き取り方法など解説　こども家庭庁",
     "sourceId": "nikkyo",
@@ -89,20 +60,6 @@
       "教員・働き方"
     ],
     "layer": 2,
-    "language": "ja"
-  },
-  {
-    "id": "mext-2026-04-24-6b954e54cc3fa719",
-    "title": "科学技術の状況に係る総合的意識調査（NISTEP 定点調査2025）を公表しました（4月24日）",
-    "sourceId": "mext",
-    "sourceName": "文部科学省",
-    "sourceUrl": "https://www.mext.go.jp/b_menu/houdou/2026/1422310_00002.htm",
-    "publishedAt": "2026-04-24T08:00:00.000Z",
-    "collectedAt": "2026-04-26T12:49:39.835Z",
-    "categories": [
-      "研究・エビデンス"
-    ],
-    "layer": 1,
     "language": "ja"
   },
   {
@@ -121,21 +78,6 @@
     "language": "ja"
   },
   {
-    "id": "nier-2026-04-24-2dedb76c25c67586",
-    "title": "公教育データ・プラットフォーム「データで見る日本の教育」に「学校保健統計調査」のページを追加しました。",
-    "sourceId": "nier",
-    "sourceName": "国立教育政策研究所",
-    "sourceUrl": "https://www.nier.go.jp/02_news/edsc/edp/data/hoken/index.html",
-    "publishedAt": "2026-04-24T07:23:21.000Z",
-    "collectedAt": "2026-04-27T05:34:58.996Z",
-    "summary": "国立教育政策研究所 National Institute for Educational Policy Researchの公式サイトです。「公教育データ・プラットフォーム「データで見る日本の教育」に「学校保健統計調査」のページを追加しました。 」に関する情報をご覧いただけます。",
-    "categories": [
-      "研究・エビデンス"
-    ],
-    "layer": 1,
-    "language": "ja"
-  },
-  {
     "id": "mext-2026-04-24-b67af78dd301d3a6",
     "title": "中央教育審議会初等中等教育分科会教育課程部会社会・地理歴史・公民ワーキンググループの配付資料を掲載しました",
     "sourceId": "mext",
@@ -145,20 +87,6 @@
     "collectedAt": "2026-04-26T12:49:39.835Z",
     "categories": [
       "政策・制度"
-    ],
-    "layer": 1,
-    "language": "ja"
-  },
-  {
-    "id": "mext-2026-04-24-56210bce2e2806e5",
-    "title": "第5回 世界で競い成長する大学経営のあり方に関する研究会",
-    "sourceId": "mext",
-    "sourceName": "文部科学省",
-    "sourceUrl": "https://www.mext.go.jp/a_menu/kagaku/platform/1387974_00006.htm",
-    "publishedAt": "2026-04-24T06:00:00.000Z",
-    "collectedAt": "2026-04-26T12:49:39.835Z",
-    "categories": [
-      "研究・エビデンス"
     ],
     "layer": 1,
     "language": "ja"
@@ -208,34 +136,6 @@
     "language": "ja"
   },
   {
-    "id": "mext-2026-04-24-0e834fc3ead3fc11",
-    "title": "大学病院機能強化推進事業（経営環境の改善に資する教育研究基盤の充実）選定事業の概要について",
-    "sourceId": "mext",
-    "sourceName": "文部科学省",
-    "sourceUrl": "https://www.mext.go.jp/a_menu/koutou/iryou/mext_03496.html",
-    "publishedAt": "2026-04-24T05:00:00.000Z",
-    "collectedAt": "2026-04-26T12:49:39.835Z",
-    "categories": [
-      "研究・エビデンス"
-    ],
-    "layer": 1,
-    "language": "ja"
-  },
-  {
-    "id": "mext-2026-04-24-56b6e90019ea8a90",
-    "title": "創発的研究支援事業における2025年度新規研究課題の決定について",
-    "sourceId": "mext",
-    "sourceName": "文部科学省",
-    "sourceUrl": "https://www.mext.go.jp/b_menu/houdou/2024/mext_00010.html",
-    "publishedAt": "2026-04-24T05:00:00.000Z",
-    "collectedAt": "2026-04-26T12:49:39.835Z",
-    "categories": [
-      "研究・エビデンス"
-    ],
-    "layer": 1,
-    "language": "ja"
-  },
-  {
     "id": "resemom-2026-04-24-497d42b246db5c71",
     "title": "勉強・宿題にAI利用55％、保護者の不安1位「思考力の低下」",
     "sourceId": "resemom",
@@ -249,34 +149,6 @@
       "研究・エビデンス"
     ],
     "layer": 2,
-    "language": "ja"
-  },
-  {
-    "id": "mext-2026-04-24-f7280757a1a59bcb",
-    "title": "令和７年度 共同利用・共同研究システム形成事業 ～大学の枠を超えた研究基盤設備強化・充実プログラム～ の採択機関の決定について",
-    "sourceId": "mext",
-    "sourceName": "文部科学省",
-    "sourceUrl": "https://www.mext.go.jp/b_menu/boshu/detail/mext_00475.html",
-    "publishedAt": "2026-04-24T03:00:00.000Z",
-    "collectedAt": "2026-04-26T12:49:39.835Z",
-    "categories": [
-      "研究・エビデンス"
-    ],
-    "layer": 1,
-    "language": "ja"
-  },
-  {
-    "id": "mext-2026-04-24-f28a428a6f366953",
-    "title": "【総合職事務系】業務説明会日程一覧",
-    "sourceId": "mext",
-    "sourceName": "文部科学省",
-    "sourceUrl": "https://www.mext.go.jp/b_menu/saiyou/sougoujimu/setumei/1421199_00006.htm",
-    "publishedAt": "2026-04-24T03:00:00.000Z",
-    "collectedAt": "2026-04-26T12:49:39.835Z",
-    "categories": [
-      "政策・制度"
-    ],
-    "layer": 1,
     "language": "ja"
   },
   {
