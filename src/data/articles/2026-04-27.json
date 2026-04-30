@@ -242,20 +242,6 @@
     "language": "ja"
   },
   {
-    "id": "mext-2026-04-27-c05e96b1d57224e8",
-    "title": "大学研究力強化に向けた取組の推進（委託調査）　令和7年度調査研究報告書の公表について",
-    "sourceId": "mext",
-    "sourceName": "文部科学省",
-    "sourceUrl": "https://www.mext.go.jp/a_menu/kagaku/daigakukenkyuryoku/itakuchosa01.html",
-    "publishedAt": "2026-04-27T05:00:00.000Z",
-    "collectedAt": "2026-04-27T10:52:10.358Z",
-    "categories": [
-      "研究・エビデンス"
-    ],
-    "layer": 1,
-    "language": "ja"
-  },
-  {
     "id": "nikkyo-2026-04-27-0d805bee9f3c8457",
     "title": "主権者教育、実践重視に見直し　模擬選挙や模擬議会を充実",
     "sourceId": "nikkyo",
@@ -332,20 +318,6 @@
     "language": "ja"
   },
   {
-    "id": "mext-2026-04-27-8c81375366e6db57",
-    "title": "科学技術・学術審議会（第79回）配布資料",
-    "sourceId": "mext",
-    "sourceName": "文部科学省",
-    "sourceUrl": "https://www.mext.go.jp/b_menu/shingi/gijyutu/gijyutu0/shiryo/mext_00023.html",
-    "publishedAt": "2026-04-27T04:00:00.000Z",
-    "collectedAt": "2026-04-27T10:52:10.358Z",
-    "categories": [
-      "政策・制度"
-    ],
-    "layer": 1,
-    "language": "ja"
-  },
-  {
     "id": "mext-2026-04-27-3b080d40648f2fa2",
     "title": "教育・学習の質向上に向けた新たな評価の在り方ワーキンググループ（第10回）　配付資料",
     "sourceId": "mext",
@@ -416,20 +388,6 @@
       "教員・働き方"
     ],
     "layer": 2,
-    "language": "ja"
-  },
-  {
-    "id": "mext-2026-04-27-af100dcc42d13c64",
-    "title": "「Mine秋吉台」のユネスコ世界ジオパークへの認定について",
-    "sourceId": "mext",
-    "sourceName": "文部科学省",
-    "sourceUrl": "https://www.mext.go.jp/unesco/001/2019/1418143_00002.htm",
-    "publishedAt": "2026-04-27T00:30:00.000Z",
-    "collectedAt": "2026-04-28T10:53:13.456Z",
-    "categories": [
-      "国際・海外"
-    ],
-    "layer": 1,
     "language": "ja"
   },
   {
@@ -565,22 +523,6 @@
     "collectedAt": "2026-04-27T10:52:10.358Z",
     "categories": [
       "政策・制度",
-      "教員・働き方"
-    ],
-    "layer": 1,
-    "language": "ja"
-  },
-  {
-    "id": "mext-2026-04-27-4531612cb6e8d4fd",
-    "title": "文部科学省研究振興局ライフサイエンス課非常勤職員（文部科学省調査員）採用のお知らせ（令和8年7月1日予定）",
-    "sourceId": "mext",
-    "sourceName": "文部科学省",
-    "sourceUrl": "https://www.mext.go.jp/b_menu/saiyou/hijyoukin/1421780_00213.html",
-    "publishedAt": "2026-04-27T00:00:00.000Z",
-    "collectedAt": "2026-04-27T10:52:10.358Z",
-    "categories": [
-      "政策・制度",
-      "研究・エビデンス",
       "教員・働き方"
     ],
     "layer": 1,
