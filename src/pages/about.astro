@@ -9,7 +9,7 @@ const tier2 = Object.values(SOURCE_META).filter((s) => s.layer === 2);
 
 <Layout
   title="このサイトについて — EduWatch JP"
-  description="EduWatch JP の編集ポリシー、収集ソース、削除依頼窓口、運営者情報。文部科学省・国立教育政策研究所・教育専門紙の一次情報を日次で自動収集する非営利の教育ニュースサイト。"
+  description="EduWatch JP の編集ポリシー、収集ソース、削除依頼窓口、運営者情報。学校教員・教育関係者向けに、文部科学省・国立教育政策研究所・教育専門紙の一次情報を日次で自動収集する非営利の教育ニュースサイト。"
 >
   <section class="pt-10 sm:pt-14 pb-8 border-b border-[var(--color-line)]">
     <p class="font-mono text-[10px] uppercase tracking-widest text-[var(--color-accent)]">
@@ -19,7 +19,7 @@ const tier2 = Object.values(SOURCE_META).filter((s) => s.layer === 2);
       この<span class="text-[var(--color-accent)]">サイト</span>について
     </h1>
     <p class="mt-4 text-[var(--color-sub)] text-sm sm:text-base leading-loose max-w-2xl">
-      EduWatch JP は教育の一次情報と専門紙の教育記事を日次で自動収集・構造化する非営利のサイトです。
+      EduWatch JP は学校教員・教育関係者向けに、教育の一次情報と専門紙の教育記事を日次で自動収集・構造化する非営利のサイトです。
       姉妹サイト EduEvidence JP の長期エビデンス整理と並んで、短期の時事情報を担当します。
     </p>
     <p class="mt-4 text-[var(--color-sub)] text-sm leading-relaxed">
@@ -49,10 +49,25 @@ const tier2 = Object.values(SOURCE_META).filter((s) => s.layer === 2);
         </div>
         <p class="mt-1 font-bold text-[var(--color-ink)]">EduWatch JP(本サイト)</p>
         <p class="mt-2 text-[var(--color-sub)]">
-          一次情報の日次収集 + 週次ダイジェスト。教員・保護者向けに今の動きを構造化。
+          一次情報の日次収集 + 週次ダイジェスト。学校教員・教育関係者向けに今の動きを構造化。
         </p>
       </div>
     </div>
+  </section>
+
+  <section
+    aria-labelledby="audience-heading"
+    class="py-8 sm:py-10 border-b border-[var(--color-line)]"
+  >
+    <h2 id="audience-heading" class="font-bold text-xl sm:text-2xl text-[var(--color-ink)]">
+      対象読者
+    </h2>
+    <p class="mt-2 text-sm leading-relaxed text-[var(--color-sub)]">
+      EduWatch JP は学校教員・教育関係者を対象とした非営利の一次情報ハブです。具体的には、現場教員(小・中・高等学校)、管理職、指導主事、教育委員会・教育行政関係者、教育研究者、教育系記者を想定しています。
+    </p>
+    <p class="mt-3 text-sm leading-relaxed text-[var(--color-sub)]">
+      保護者の私的関心(中学受験対策・幼児教育のおすすめ・習い事ランキングなど)は対象外です。ただし保護者向けの一次情報(調査・政策)で <strong class="text-[var(--color-ink)]">教員視点で関連する場合</strong>(家庭との連携・情報モラル指導・進路指導・経済格差と学習機会など)は引き続き採用します。
+    </p>
   </section>
 
   <section
