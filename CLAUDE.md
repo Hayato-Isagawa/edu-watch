@@ -1,6 +1,8 @@
 # EduWatch JP
 
-教員・保護者向けに、教育ニュースを一次情報から追う姉妹サイト(news.edu-evidence.org)。Astro 6 + React 19 + Tailwind 4 + TypeScript。
+学校教員・教育関係者向けに、教育ニュースを一次情報から追う姉妹サイト(news.edu-evidence.org)。Astro 6 + React 19 + Tailwind 4 + TypeScript。
+
+対象読者は ADR 0018 で「学校教員・教育関係者」に統一済み。保護者向けの私的関心(中学受験・習い事ランキング・幼児教育のおすすめ等)は対象外、保護者向け一次情報でも教員視点で関連するもの(家庭との連携・情報モラル指導・経済格差と学習機会など)は採用する。
 
 - **サイト名・ブランド名**: EduWatch JP
 - **リポジトリ / 技術名**: edu-watch
