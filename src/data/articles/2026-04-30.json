@@ -60,6 +60,20 @@
     "language": "ja"
   },
   {
+    "id": "mext-2026-04-30-8a0070a5b7ad5a55",
+    "title": "令和8年度社会教育主事講習の実施について",
+    "sourceId": "mext",
+    "sourceName": "文部科学省",
+    "sourceUrl": "https://www.mext.go.jp/a_menu/shougai/gakugei/syuji/mext_02026.html",
+    "publishedAt": "2026-04-30T15:00:00.000Z",
+    "collectedAt": "2026-05-01T10:14:33.393Z",
+    "categories": [
+      "政策・制度"
+    ],
+    "layer": 1,
+    "language": "ja"
+  },
+  {
     "id": "resemom-2026-04-30-791f33b2dc32c600",
     "title": "小学生「将来なりたい職業」男子1位はサッカー選手、女子1位は？",
     "sourceId": "resemom",
@@ -201,6 +215,20 @@
     "collectedAt": "2026-04-30T10:44:56.238Z",
     "categories": [
       "教員・働き方"
+    ],
+    "layer": 1,
+    "language": "ja"
+  },
+  {
+    "id": "mext-2026-04-30-5a53a9a7794d3ab9",
+    "title": "教育課程部会　国語ワーキンググループ（第9回）の開催について",
+    "sourceId": "mext",
+    "sourceName": "文部科学省",
+    "sourceUrl": "https://www.mext.go.jp/b_menu/shingi/chukyo/chukyo3/107/kaisai/mext_00008.html",
+    "publishedAt": "2026-04-30T04:58:00.000Z",
+    "collectedAt": "2026-05-01T10:14:33.393Z",
+    "categories": [
+      "政策・制度"
     ],
     "layer": 1,
     "language": "ja"
