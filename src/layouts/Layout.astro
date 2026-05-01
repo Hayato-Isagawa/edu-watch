@@ -40,6 +40,14 @@ const escapeLd = (obj: object): string => JSON.stringify(obj).replace(/</g, "\\u
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImage} />
 
+    <!-- Fonts (CSS-from-CSS の render-blocking chain を避けるため <link> で直接読み込む) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=JetBrains+Mono:wght@400;500&display=swap"
+    />
+
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
     <script
