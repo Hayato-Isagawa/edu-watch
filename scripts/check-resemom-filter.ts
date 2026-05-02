@@ -76,6 +76,28 @@ const CASES: readonly Case[] = [
     reason: "【提供】表記",
   },
 
+  // ==== ADR 0020 narrow パターン(復活 6 件の再混入防止)====
+  {
+    title: "重田教育財団「海外留学奨学金」5名募集…年2万2千ドル給付",
+    expected: true,
+    reason: "ADR 0020 narrow / 海外留学+奨学金 + N 名募集",
+  },
+  {
+    title: "朝日新聞「未来をつくる学びテスト」7/12無料…小3対象",
+    expected: true,
+    reason: "ADR 0020 narrow / 小[1-6]対象 で個別参加募集を捕捉",
+  },
+  {
+    title: "立命館大、地域交流イベント5/17…万博体験など160企画",
+    expected: true,
+    reason: "ADR 0020 narrow / 地域交流イベント",
+  },
+  {
+    title: "東京経済大、黒田前日銀総裁招き5/13にシンポ…参加無料",
+    expected: true,
+    reason: "ADR 0020 narrow / シンポ+参加無料 で一般公開イベントを捕捉",
+  },
+
   // ==== 除外してはいけない(false) ====
   {
     title: "山梨県 教員採用奨学金返還補助制度を新設",
@@ -116,6 +138,16 @@ const CASES: readonly Case[] = [
     title: "高校受験志望校選び 8 割が教育方針重視",
     expected: false,
     reason: "受験テーマだが【高校受験】特集タイトル形式ではない調査記事",
+  },
+  {
+    title: "小学校英語教育のシンポジウム 6/15 横浜",
+    expected: false,
+    reason: "シンポ単独は教員向け学術系のため弾かない(参加無料の組合せのみ NG)",
+  },
+  {
+    title: "教員採用試験 過去問題集 5冊募集レビュー",
+    expected: false,
+    reason: "数字+名募集ではないため誤判定しないこと",
   },
 ];
 
