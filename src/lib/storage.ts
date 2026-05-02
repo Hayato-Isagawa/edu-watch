@@ -92,6 +92,55 @@ export async function mergeDay(
   return { added, total: validated.length };
 }
 
+/**
+ * 既存記事の `requiresMembership` フィールドのみ後付けで更新する(ADR 0022)。
+ *
+ * ADR 0010 では「mergeDay は既存 id をスキップし、後からの更新を一切受け入れない」
+ * 方針を採った。本関数はその例外として、`requiresMembership: undefined/false → true`
+ * の片方向遷移のみを許容する。public 化後 paywall 化された日教記事の予告精度を
+ * 維持するための限定的な後付け更新で、他のフィールド(title / summary / categories
+ * など)は一切変更しない。
+ *
+ * - 入力 `updates` は `{ id → true }` の Map。`true` 以外は受け付けない型で表現
+ * - 既に `requiresMembership === true` の記事は no-op(冗長書き込みしない)
+ * - 該当 id が当該日付ファイルに存在しない場合は黙ってスキップ
+ * - 並び順 / 整形(publishedAt 降順 / 2-space JSON / trailing newline)は `mergeDay` と統一
+ * - 戻り値: 実際に書き換わった記事数 + 当該日のファイル総数
+ */
+export async function applyMembershipUpdates(
+  dataDir: string,
+  yyyyMmDd: string,
+  updates: ReadonlyMap<string, true>,
+): Promise<{ changed: number; total: number }> {
+  if (updates.size === 0) {
+    const existing = await loadDay(dataDir, yyyyMmDd);
+    return { changed: 0, total: existing.length };
+  }
+  const existing = await loadDay(dataDir, yyyyMmDd);
+  if (existing.length === 0) return { changed: 0, total: 0 };
+
+  let changed = 0;
+  const updated = existing.map((a) => {
+    if (updates.has(a.id) && a.requiresMembership !== true) {
+      changed++;
+      return { ...a, requiresMembership: true as const };
+    }
+    return a;
+  });
+  if (changed === 0) return { changed: 0, total: existing.length };
+
+  const sorted = [...updated].sort((a, b) =>
+    b.publishedAt.localeCompare(a.publishedAt),
+  );
+  const validated = ArticleList.parse(sorted);
+  await writeFile(
+    fileForDate(dataDir, yyyyMmDd),
+    JSON.stringify(validated, null, 2) + "\n",
+    "utf8",
+  );
+  return { changed, total: validated.length };
+}
+
 function isMissingFile(err: unknown): boolean {
   return (
     typeof err === "object" &&

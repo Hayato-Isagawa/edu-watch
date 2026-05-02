@@ -17,6 +17,7 @@
     "check:filter": "npm run check:filter:resemom && npm run check:filter:kyodo",
     "check:excluded-ids": "npx tsx scripts/check-excluded-ids.ts",
     "check:membership:nikkyo": "npx tsx scripts/check-nikkyo-membership.ts",
+    "check:membership-updates": "npx tsx scripts/check-membership-updates.ts",
     "test:e2e": "npx playwright test",
     "test:e2e:ui": "npx playwright test --ui"
   },
