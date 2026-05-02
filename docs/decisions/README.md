@@ -62,3 +62,5 @@ EduEvidence JP と共通の運営方針(植物モチーフブランド体系 / N
 - [0020. 削除した記事 ID の永続追跡 + 再取り込み防止](0020-persistent-article-denylist.md)
 - [0021. nikkyo paywall 判別マーカーの OR 化と表現の正確化](0021-nikkyo-membership-detection-robustness.md)
 - [0022. nikkyo paywall 後付け化への追従(再判定 cron)](0022-recheck-nikkyo-membership.md)
+- [0023. ヒーロー領域を縦積みレイアウトに統一(edu-evidence ADR 0009 ミラー)](0023-stacked-hero-with-large-h1.md)
+- [0024. ADR 0019 取りこぼしの予防的封じ込め](0024-residual-resemom-cleanup.md)

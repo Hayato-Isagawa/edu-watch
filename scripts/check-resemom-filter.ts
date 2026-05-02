@@ -98,6 +98,28 @@ const CASES: readonly Case[] = [
     reason: "ADR 0020 narrow / シンポ+参加無料 で一般公開イベントを捕捉",
   },
 
+  // ==== ADR 0023 narrow パターン(取りこぼし 4 件の予防的封じ込め)====
+  {
+    title: "立命館大「衣笠アートヴィレッジ フェス」5/31、隈研吾氏も登壇",
+    expected: true,
+    reason: "ADR 0023 narrow / アートヴィレッジ で親子・体験イベントを捕捉",
+  },
+  {
+    title: "JAXA「油井宇宙飛行士ミッション報告会」5/19",
+    expected: true,
+    reason: "ADR 0023 narrow / (JAXA|宇宙飛行士)+報告会 で一般公開イベントを捕捉",
+  },
+  {
+    title: "スポーツ通訳士の仕事を紹介…元プロ野球選手ら登壇5/24",
+    expected: true,
+    reason: "ADR 0023 narrow / プロ(野球|...)+選手+登壇 で保護者向けイベントを捕捉",
+  },
+  {
+    title: "GW明けは子供のやる気低下を実感…実際にケアは3割以下",
+    expected: true,
+    reason: "ADR 0023 narrow / (GW|...)明け+子供 で家庭ライフスタイルを捕捉",
+  },
+
   // ==== 除外してはいけない(false) ====
   {
     title: "山梨県 教員採用奨学金返還補助制度を新設",
@@ -148,6 +170,18 @@ const CASES: readonly Case[] = [
     title: "教員採用試験 過去問題集 5冊募集レビュー",
     expected: false,
     reason: "数字+名募集ではないため誤判定しないこと",
+  },
+  {
+    title: "中教審 学校改革ワーキンググループの報告会を 5/18 開催",
+    expected: false,
+    reason:
+      "ADR 0023 で JAXA / 宇宙飛行士 と組み合わせる narrow パターンに統合済(汎用な「報告会」単独は弾かない)",
+  },
+  {
+    title: "学校改革で校長らが登壇、教育シンポ 5/30",
+    expected: false,
+    reason:
+      "プロ野球 / プロサッカー / タレント など特定の登壇者語と組み合わせるのみ。汎用「登壇」は弾かない",
   },
 ];
 
