@@ -61,3 +61,4 @@ EduEvidence JP と共通の運営方針(植物モチーフブランド体系 / N
 - [0019. 対象読者の遡及適用とリセマム NG ワード再設計](0019-retroactive-audience-cleanup-and-resemom-filter.md)
 - [0020. 削除した記事 ID の永続追跡 + 再取り込み防止](0020-persistent-article-denylist.md)
 - [0021. nikkyo paywall 判別マーカーの OR 化と表現の正確化](0021-nikkyo-membership-detection-robustness.md)
+- [0022. nikkyo paywall 後付け化への追従(再判定 cron)](0022-recheck-nikkyo-membership.md)
