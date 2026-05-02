@@ -50,18 +50,18 @@ function formatRange(from: string, to: string): string {
   description={entry.data.summary}
 >
   <article>
-    <header class="pt-10 sm:pt-14 pb-8 border-b border-[var(--color-line)]">
+    <header class="pt-10 sm:pt-14 md:pt-20 lg:pt-28 pb-10 sm:pb-14 md:pb-20 border-b border-[var(--color-line)]">
       <p class="font-mono text-[10px] uppercase tracking-widest text-[var(--color-accent)]">
         Weekly digest
       </p>
-      <h1 class="mt-3 font-black text-3xl sm:text-4xl md:text-5xl leading-[1.15] tracking-tight">
+      <h1 class="mt-5 font-black text-3xl sm:text-4xl md:text-5xl lg:text-6xl leading-[1.15] tracking-tight">
         {entry.data.title}
       </h1>
       <p class="mt-3 text-sm text-[var(--color-sub)] font-mono tracking-wide">
         <time datetime={entry.data.weekStart}>{formatRange(entry.data.weekStart, entry.data.weekEnd)}</time>
         <span class="ml-3">公開: {dayFormatter.format(new Date(entry.data.publishedAt))}</span>
       </p>
-      <p class="mt-4 text-[var(--color-sub)] text-sm sm:text-base leading-loose max-w-2xl">
+      <p class="mt-6 text-[var(--color-sub)] text-sm sm:text-base leading-loose max-w-2xl">
         {entry.data.summary}
       </p>
       {

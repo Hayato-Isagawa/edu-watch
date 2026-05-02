@@ -26,11 +26,11 @@ const tierLabel = meta.layer === 1 ? "Tier 1 — 一次情報" : "Tier 2 — 教
   title={`${meta.displayName} — EduWatch JP`}
   description={`${meta.displayName} の教育関連記事 ${articles.length} 件。EduWatch JP が一次情報から日次で自動収集。`}
 >
-  <section class="pt-10 sm:pt-14 pb-8 border-b border-[var(--color-line)]">
+  <section class="pt-10 sm:pt-14 md:pt-20 lg:pt-28 pb-10 sm:pb-14 md:pb-20 border-b border-[var(--color-line)]">
     <p class="font-mono text-[10px] uppercase tracking-widest text-[var(--color-accent)]">
       Source · {tierLabel}
     </p>
-    <h1 class="mt-3 font-black text-3xl sm:text-4xl md:text-5xl leading-[1.15] tracking-tight">
+    <h1 class="mt-5 font-black text-4xl sm:text-5xl md:text-6xl lg:text-7xl leading-[1.15] tracking-tight">
       <span class="text-[var(--color-accent)]">{meta.displayName}</span>
     </h1>
     <p class="mt-3 text-[var(--color-sub)] text-xs font-mono tracking-wide">

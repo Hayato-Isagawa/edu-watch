@@ -6,6 +6,10 @@ const entries = [
     date: "2026-05-02",
     items: [
       {
+        type: "update",
+        text: "各ページの見出しまわりのレイアウトを刷新。タイトルと説明文が縦に並び、スマートフォン・タブレット・PC のいずれでも読みやすく。姉妹サイト EduEvidence JP と統一の見え方に",
+      },
+      {
         type: "add",
         text: "週次ダイジェスト「『足し算』ではなく『選び取る』へ — 2026 年 4 月第 5 週の論点」を公開。デジタル教科書法案・生成 AI ガイドライン・教育 DX 推進自治体表彰・校務 DX・教員採用試験共同実施・教育費調査の 6 トピックを編集者の論点付きで整理",
       },
@@ -149,25 +153,18 @@ const typeLabel: Record<string, { label: string; color: string }> = {
 ---
 
 <Layout title="更新履歴 — EduWatch JP">
-  <section class="py-10 xs:py-14 sm:py-20 md:py-28 grid grid-cols-12 gap-6">
-    <div class="col-span-12 md:col-span-8 space-y-6">
-      <p
-        class="font-mono text-xs uppercase tracking-widest text-[var(--color-accent)]"
-      >
-        Changelog
-      </p>
-      <h1
-        class="font-black text-5xl md:text-6xl leading-[1.15] tracking-tight"
-      >
-        更新履歴
-      </h1>
-    </div>
-    <div class="col-span-12 md:col-span-4 md:pt-6 text-[var(--color-sub)] leading-loose text-sm">
-      <p>
-        サイト機能・データの追加・修正を<br />
-        時系列で記録しています。
-      </p>
-    </div>
+  <section class="pt-10 sm:pt-14 md:pt-20 lg:pt-28 pb-10 sm:pb-14 md:pb-20 border-b border-[var(--color-line)]">
+    <p class="font-mono text-[10px] uppercase tracking-widest text-[var(--color-accent)]">
+      Changelog
+    </p>
+    <h1
+      class="mt-5 font-black text-4xl sm:text-5xl md:text-6xl lg:text-7xl leading-[1.15] tracking-tight"
+    >
+      更新履歴
+    </h1>
+    <p class="mt-6 text-[var(--color-sub)] text-sm sm:text-base leading-loose max-w-2xl">
+      サイト機能・データの追加・修正を時系列で記録しています。
+    </p>
   </section>
 
   <section class="pb-24">
