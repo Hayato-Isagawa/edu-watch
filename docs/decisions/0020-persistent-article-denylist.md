@@ -149,7 +149,7 @@ dedupe の後・保存の前にフィルタすることで、denylist にある 
 
 ### 残タスク(別 PR で対応)
 
-- 復活防止の e2e 監視を `weekly-health-check.yml`(設計書 §6.4 で予定)に組み込む(denylist の ID が article JSON に出現したら GitHub Issue を起こす)
+- ~~復活防止の e2e 監視を `weekly-health-check.yml`(設計書 §6.4 で予定)に組み込む(denylist の ID が article JSON に出現したら GitHub Issue を起こす)~~ → `.github/workflows/health-check.yml` を新設(`pull_request` / `push: main` / 週次 cron で `npm run check:excluded-ids` を実行、cron 失敗時のみ Issue 起票・既存 Issue へのコメント集約)
 - NG ワード再設計の継続(ADR 0019 §「残り 7 件」のうち denylist で塞いだ 6 件を除く 1 件は次回観測時に追加判断)
 
 ## 参考
