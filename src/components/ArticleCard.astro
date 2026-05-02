@@ -15,10 +15,10 @@ const { article } = Astro.props;
     {article.requiresMembership && (
       <span
         class="inline-flex items-center px-2 py-0.5 text-[11px] font-medium tracking-wide text-[#7a4a00] bg-[#fbe6c2] border border-[#e9c98a] rounded-sm whitespace-nowrap"
-        title="この記事は媒体サイトでの会員登録(無料 or 有料)が必要です"
+        title="この記事は媒体サイトの電子版会員(有料)登録が必要です"
         data-membership="required"
       >
-        会員限定
+        電子版会員のみ
       </span>
     )}
     {article.categories.map((c) => <CategoryBadge category={c} />)}
