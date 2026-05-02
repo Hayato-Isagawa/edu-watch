@@ -1,0 +1,59 @@
+name: Recheck nikkyo membership
+
+on:
+  schedule:
+    # JST 火曜 06:00 = UTC 月曜 21:00(週次、ADR 0022)
+    - cron: "0 21 * * 1"
+  workflow_dispatch:
+
+concurrency:
+  group: recheck-nikkyo-membership
+  cancel-in-progress: false
+
+jobs:
+  recheck:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write       # bot 用 feature ブランチへの push に必要
+      pull-requests: write  # PR 作成 + auto-merge enable
+      issues: write         # `gh label create` は labels API を使う
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: true
+      - uses: actions/setup-node@v6
+        with:
+          node-version: "24.15.0"
+          cache: npm
+      - run: npm ci
+      - name: Run recheck-nikkyo-membership
+        run: npx tsx scripts/recheck-nikkyo-membership.ts
+      - name: Commit, push branch, and open auto-merge PR
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git config user.name "edu-watch-bot"
+          git config user.email "notify@edu-evidence.org"
+          git add src/data/articles/
+          if git diff --cached --quiet; then
+            echo "[recheck-nikkyo] no JSON changes, skipping PR"
+            exit 0
+          fi
+          timestamp=$(date -u +%Y%m%d-%H%M)
+          branch="chore/recheck-nikkyo-${timestamp}"
+          git checkout -b "$branch"
+          git commit -m "chore(data): recheck nikkyo membership ${timestamp}"
+          git push -u origin "$branch"
+          gh label create recheck-membership \
+            --description "週次 paywall 再判定 PR(ADR 0022)" \
+            --color ededed \
+            --force 2>/dev/null || true
+          file_count=$(git diff --name-only HEAD~1 | wc -l | tr -d ' ')
+          body="edu-watch-bot による週次 paywall 再判定(ADR 0022)。過去 30 日の nikkyo 記事のうち、公開後に paywall 化されたものを requiresMembership: false → true に片方向更新。Files touched: ${file_count}."
+          gh pr create \
+            --title "chore(data): recheck nikkyo membership ${timestamp}" \
+            --body "$body" \
+            --label "recheck-membership" \
+            --base main --head "$branch"
+          gh pr merge --auto --squash --delete-branch "$branch"
