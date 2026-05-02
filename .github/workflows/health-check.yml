@@ -1,0 +1,113 @@
+name: Health check
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+  schedule:
+    # JST 月曜 09:00 = UTC 月曜 00:00(週次定点監視、ADR 0020 §残タスク)
+    - cron: "0 0 * * 1"
+  workflow_dispatch:
+
+concurrency:
+  group: health-check-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  excluded-ids:
+    name: Persistent denylist consistency
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    outputs:
+      check_status: ${{ steps.run.outcome }}
+      check_log: ${{ steps.run.outputs.log }}
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: "24.15.0"
+          cache: npm
+      - run: npm ci
+      - id: run
+        name: Run check:excluded-ids
+        # スクリプトは exit 1 を返すと CI fail。schedule トリガーでも同じ
+        # 手順で実行し、後続の issue ジョブで fail を Issue 化する。
+        run: |
+          set -o pipefail
+          npm run check:excluded-ids 2>&1 | tee /tmp/check.log
+          echo "log<<EOF" >> "$GITHUB_OUTPUT"
+          cat /tmp/check.log >> "$GITHUB_OUTPUT"
+          echo "EOF" >> "$GITHUB_OUTPUT"
+
+  open-issue-on-cron:
+    name: Open issue on schedule failure
+    needs: excluded-ids
+    if: failure() && github.event_name == 'schedule'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: read
+      issues: write
+    steps:
+      - uses: actions/checkout@v6
+      - name: Ensure label exists
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh label create health-check \
+            --description "週次ヘルスチェック検知の Issue(ADR 0020)" \
+            --color d73a4a \
+            --force 2>/dev/null || true
+      - name: Open or update issue
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          CHECK_LOG: ${{ needs.excluded-ids.outputs.check_log }}
+        run: |
+          # 既に open な health-check Issue があれば、新規作成せずコメント追加で集約。
+          existing=$(gh issue list \
+            --label health-check \
+            --state open \
+            --search 'in:title "denylist drift detected"' \
+            --json number --jq '.[0].number' || true)
+
+          body=$(cat <<EOF2
+          週次ヘルスチェック(ADR 0020)で \`npm run check:excluded-ids\` が失敗しました。
+
+          \`src/data/excluded-article-ids.json\` の denylist にある ID が \`src/data/articles/*.json\` に再出現している可能性があります(cron 再取り込みによる復活)。
+
+          ## 復旧手順
+
+          1. ローカルで \`npm run check:excluded-ids\` を実行し、出力された ID を確認
+          2. 該当 ID を \`src/data/articles/<日付>.json\` から削除(物理削除)
+          3. ADR 0019 / 0020 に基づき、必要なら \`src/lib/sources/<source>.ts\` の NG_PATTERNS を強化
+          4. PR を起こしてマージ
+          5. 本 Issue を close
+
+          ## ワークフロー実行
+
+          [Run #${{ github.run_id }}](${RUN_URL})
+
+          ## ログ抜粋
+
+          \`\`\`
+          ${CHECK_LOG}
+          \`\`\`
+          EOF2
+          )
+
+          if [ -n "$existing" ]; then
+            echo "[health-check] existing issue #${existing}, adding comment"
+            gh issue comment "$existing" --body "$body"
+          else
+            echo "[health-check] creating new issue"
+            gh issue create \
+              --title "health-check: denylist drift detected" \
+              --label health-check \
+              --body "$body"
+          fi
