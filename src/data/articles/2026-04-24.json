@@ -45,7 +45,8 @@
       "教員・働き方"
     ],
     "layer": 2,
-    "language": "ja"
+    "language": "ja",
+    "requiresMembership": true
   },
   {
     "id": "mext-2026-04-24-b67af78dd301d3a6",
@@ -194,7 +195,8 @@
       "教員・働き方"
     ],
     "layer": 2,
-    "language": "ja"
+    "language": "ja",
+    "requiresMembership": true
   },
   {
     "id": "mext-2026-04-24-725e98d2164377c0",

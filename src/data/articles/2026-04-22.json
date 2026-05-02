@@ -43,7 +43,8 @@
       "教員・働き方"
     ],
     "layer": 2,
-    "language": "ja"
+    "language": "ja",
+    "requiresMembership": true
   },
   {
     "id": "nikkyo-2026-04-22-86d266b1f9ef7dad",
@@ -58,7 +59,8 @@
       "政策・制度"
     ],
     "layer": 2,
-    "language": "ja"
+    "language": "ja",
+    "requiresMembership": true
   },
   {
     "id": "nier-2026-04-22-8e1c30762fc6cc96",

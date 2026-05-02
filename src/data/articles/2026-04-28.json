@@ -71,7 +71,8 @@
       "教員・働き方"
     ],
     "layer": 2,
-    "language": "ja"
+    "language": "ja",
+    "requiresMembership": true
   },
   {
     "id": "mext-2026-04-28-a5986045e966d6d2",
