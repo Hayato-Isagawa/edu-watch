@@ -21,6 +21,7 @@ import { normalize } from "../src/lib/normalize.ts";
 import { categorize } from "../src/lib/categorize.ts";
 import { dedupeAgainstHistory, dedupeWithin } from "../src/lib/dedupe.ts";
 import { mergeDay } from "../src/lib/storage.ts";
+import { filterByDenylist, loadExcludedIds } from "../src/lib/excluded-ids.ts";
 import type { Article } from "../src/lib/article-schema.ts";
 
 const DATA_DIR = path.resolve("src/data/articles");
@@ -65,12 +66,22 @@ async function main(): Promise<number> {
     today,
   });
 
+  const denylist = await loadExcludedIds();
+  const denySet = new Set(denylist.ids);
+  const { kept, dropped } = filterByDenylist(newOnly, denySet);
+  for (const a of dropped) {
+    console.log(
+      `[fetch-news] denylist dropped ${a.id} (${denylist.reasons[a.id] ?? "no reason"})`,
+    );
+  }
+
   console.log(
     `[fetch-news] collected=${collected.length} within-dedupe=${withinDeduped.length} ` +
-      `vs-history=${newOnly.length} (history lookback ${HISTORY_LOOKBACK_DAYS} days)`,
+      `vs-history=${newOnly.length} vs-denylist=${kept.length} ` +
+      `(history lookback ${HISTORY_LOOKBACK_DAYS} days, denylist size ${denylist.ids.length})`,
   );
 
-  const byDate = groupByPublishedDate(newOnly);
+  const byDate = groupByPublishedDate(kept);
   let totalAdded = 0;
   for (const [date, items] of byDate) {
     const { added, total } = await mergeDay(DATA_DIR, date, items);
