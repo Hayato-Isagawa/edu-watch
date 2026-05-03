@@ -26,11 +26,11 @@
 }
 
 [data-theme="dark"] {
-  --color-bg: #0f1413;
-  --color-ink: #e8e6df;
-  --color-sub: #9a9a92;
-  --color-line: #2a2f2c;
-  --color-card: #161b18;
+  --color-bg: #16181d;
+  --color-ink: #f0f6fc;
+  --color-sub: #9ba1a8;
+  --color-line: #30363d;
+  --color-card: #1f2328;
   /* edu-watch のディープネイビー #1e4a6e はダーク背景上で視認性が落ちるため、
      明度を上げた #6fa8d3 に置換(コントラスト AA 達成)。
      edu-evidence のダークアクセント #6fbe87 と隣接色相で姉妹感を維持。 */
