@@ -43,7 +43,6 @@ html {
   background: var(--color-bg);
   color: var(--color-ink);
   font-feature-settings: "palt";
-  -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
   scroll-behavior: smooth;
 }
@@ -398,8 +397,8 @@ body[data-menu="open"] {
 
 /* Article body shared by /strategies and /columns */
 .prose-article {
-  font-size: 16px;
-  line-height: 1.95;
+  font-size: 17px;
+  line-height: 1.8;
   text-wrap: pretty;
 }
 .prose-article h2 {
