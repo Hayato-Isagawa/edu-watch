@@ -32,16 +32,27 @@ const sectionsWithArticle = entry.data.sections.map((s) => ({
   article: articleById.get(s.articleId),
 }));
 
-const dayFormatter = new Intl.DateTimeFormat("ja-JP", {
+const rangeFormatter = new Intl.DateTimeFormat("ja-JP", {
   year: "numeric",
   month: "long",
   day: "numeric",
   timeZone: "Asia/Tokyo",
 });
 function formatRange(from: string, to: string): string {
-  const f = dayFormatter.format(new Date(`${from}T00:00:00+09:00`));
-  const t = dayFormatter.format(new Date(`${to}T00:00:00+09:00`));
+  const f = rangeFormatter.format(new Date(`${from}T00:00:00+09:00`));
+  const t = rangeFormatter.format(new Date(`${to}T00:00:00+09:00`));
   return `${f} 〜 ${t}`;
+}
+
+const publishedFormatter = new Intl.DateTimeFormat("ja-JP", {
+  year: "numeric",
+  month: "long",
+  day: "numeric",
+  weekday: "short",
+  timeZone: "Asia/Tokyo",
+});
+function formatPublished(iso: string): string {
+  return publishedFormatter.format(new Date(iso));
 }
 ---
 
@@ -51,27 +62,29 @@ function formatRange(from: string, to: string): string {
 >
   <article>
     <header class="pt-10 sm:pt-14 md:pt-20 lg:pt-28 pb-10 sm:pb-14 md:pb-20 border-b border-[var(--color-line)]">
-      <p class="font-mono text-[10px] uppercase tracking-widest text-[var(--color-accent)]">
+      <p class="font-mono text-xs uppercase tracking-widest text-[var(--color-accent)]">
         Weekly digest
       </p>
       <h1 class="mt-5 font-black text-3xl sm:text-4xl md:text-5xl lg:text-6xl leading-[1.15] tracking-tight">
         {entry.data.title}
       </h1>
       <p class="mt-3 text-sm text-[var(--color-sub)] font-mono tracking-wide">
-        <time datetime={entry.data.weekStart}>{formatRange(entry.data.weekStart, entry.data.weekEnd)}</time>
-        <span class="ml-3">公開: {dayFormatter.format(new Date(entry.data.publishedAt))}</span>
+        <time datetime={entry.data.publishedAt}>公開: {formatPublished(entry.data.publishedAt)}</time>
+        <span class="ml-3">
+          <time datetime={entry.data.weekStart}>期間: {formatRange(entry.data.weekStart, entry.data.weekEnd)}</time>
+        </span>
       </p>
       <p class="mt-6 text-[var(--color-sub)] text-sm sm:text-base leading-loose max-w-2xl">
         {entry.data.summary}
       </p>
       {
         entry.data.topics.length > 0 && (
-          <div class="mt-4 flex flex-wrap gap-1.5">
+          <div class="mt-6 flex flex-wrap gap-1.5">
             {entry.data.topics.map((t) => <TopicBadge topic={t} />)}
           </div>
         )
       }
-      <p class="mt-4 text-[var(--color-sub)] text-sm leading-relaxed">
+      <p class="mt-6 text-[var(--color-sub)] text-sm leading-relaxed">
         <a href="/digest/" class="link-underline">← ダイジェスト一覧</a>
         <span class="ml-3"><a href="/" class="link-underline">トップ</a></span>
       </p>
