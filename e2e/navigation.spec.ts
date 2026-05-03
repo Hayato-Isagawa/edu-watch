@@ -21,15 +21,16 @@ test.describe("ナビゲーション", () => {
     await expect(page.locator("body")).toHaveAttribute("data-menu", "closed");
   });
 
-  test("モバイルメニューに 3 つのセクション(Explore / About / Sister site)が表示される", async ({ page }) => {
+  test("モバイルメニューに 4 つのセクション(Explore / About / Sister site / Display)が表示される", async ({ page }) => {
     await page.setViewportSize({ width: 375, height: 812 });
     await page.goto("/");
     await page.locator("#menu-toggle").click();
     const titles = page.locator(".mobile-menu-section-title");
-    await expect(titles).toHaveCount(3);
+    await expect(titles).toHaveCount(4);
     await expect(titles.nth(0)).toContainText("Explore");
     await expect(titles.nth(1)).toContainText("About");
     await expect(titles.nth(2)).toContainText("Sister site");
+    await expect(titles.nth(3)).toContainText("Display");
   });
 
   test("モバイルメニューを開くと検索 input にフォーカスが移る", async ({ page }) => {
