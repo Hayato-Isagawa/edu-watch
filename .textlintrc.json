@@ -1,0 +1,57 @@
+{
+  "rules": {
+    "preset-ja-technical-writing": {
+      "sentence-length": {
+        "max": 200
+      },
+      "max-comma": {
+        "max": 12
+      },
+      "max-ten": {
+        "max": 8
+      },
+      "max-kanji-continuous-len": {
+        "max": 10
+      },
+      "arabic-kanji-numbers": false,
+      "no-mix-dearu-desumasu": false,
+      "ja-no-mixed-period": false,
+      "no-double-negative-ja": true,
+      "no-dropping-the-ra": true,
+      "no-doubled-conjunctive-particle-ga": true,
+      "no-doubled-conjunction": true,
+      "no-doubled-joshi": false,
+      "no-nfd": true,
+      "no-invalid-control-character": true,
+      "no-zero-width-spaces": true,
+      "no-exclamation-question-mark": false,
+      "no-hankaku-kana": true,
+      "ja-no-weak-phrase": false,
+      "ja-no-successive-word": false,
+      "ja-no-abusage": true,
+      "ja-no-redundant-expression": true,
+      "ja-unnatural-alphabet": true,
+      "no-unmatched-pair": true
+    },
+    "preset-ja-spacing": {
+      "ja-space-around-code": {
+        "before": true,
+        "after": true
+      },
+      "ja-space-between-half-and-full-width": false,
+      "ja-space-around-link": false,
+      "ja-no-space-around-parentheses": false,
+      "ja-no-space-between-full-width": true,
+      "ja-nakaguro-or-halfwidth-space-between-katakana": false
+    },
+    "no-mix-dearu-desumasu": {
+      "preferInHeader": "",
+      "preferInBody": "ですます",
+      "preferInList": "ですます",
+      "strict": false
+    },
+    "prh": {
+      "rulePaths": ["./prh.yml"]
+    }
+  }
+}
