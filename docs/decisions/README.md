@@ -64,3 +64,4 @@ EduEvidence JP と共通の運営方針(植物モチーフブランド体系 / N
 - [0022. nikkyo paywall 後付け化への追従(再判定 cron)](0022-recheck-nikkyo-membership.md)
 - [0023. ヒーロー領域を縦積みレイアウトに統一(edu-evidence ADR 0009 ミラー)](0023-stacked-hero-with-large-h1.md)
 - [0024. ADR 0019 取りこぼしの予防的封じ込め](0024-residual-resemom-cleanup.md)
+- [0032. 静的 default OG 画像を整備し、個別 OG を持たないページのフォールバックとする](0032-static-default-og-image.md)
