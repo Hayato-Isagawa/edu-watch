@@ -19,7 +19,8 @@
     "check:membership:nikkyo": "npx tsx scripts/check-nikkyo-membership.ts",
     "check:membership-updates": "npx tsx scripts/check-membership-updates.ts",
     "test:e2e": "npx playwright test",
-    "test:e2e:ui": "npx playwright test --ui"
+    "test:e2e:ui": "npx playwright test --ui",
+    "og:default": "npx tsx scripts/generate-default-og.ts"
   },
   "dependencies": {
     "@astrojs/react": "^5.0.3",
