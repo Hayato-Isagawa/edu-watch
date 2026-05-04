@@ -1,5 +1,73 @@
 [
   {
+    "id": "nikkyo-2026-05-03-83329d0935801368",
+    "title": "通信制高校、６割弱が中３で不登校　令和７年度入学者を調査",
+    "sourceId": "nikkyo",
+    "sourceName": "日本教育新聞",
+    "sourceUrl": "https://www.kyoiku-press.com/post-310101/",
+    "publishedAt": "2026-05-03T23:50:00.000Z",
+    "collectedAt": "2026-05-04T10:54:47.082Z",
+    "summary": "文科省は４月２１日、全国の通信制高校に実施した実態調査の速報版の結果を公表した。令和７年度の入学者の５７％が中学３年生のときに不登校だったことが分かった。入学者７万７９９８人のうち、中学３年次に不登…",
+    "categories": [
+      "不登校",
+      "政策・制度",
+      "研究・エビデンス"
+    ],
+    "layer": 2,
+    "language": "ja",
+    "requiresMembership": true
+  },
+  {
+    "id": "nikkyo-2026-05-03-f158e136ced033f7",
+    "title": "単位数削減に大筋合意　中教審部会　養護教諭の養成で",
+    "sourceId": "nikkyo",
+    "sourceName": "日本教育新聞",
+    "sourceUrl": "https://www.kyoiku-press.com/post-310103/",
+    "publishedAt": "2026-05-03T23:50:00.000Z",
+    "collectedAt": "2026-05-04T10:54:47.082Z",
+    "summary": "中央教育審議会教員養成部会の作業部会は４月２７日、養護教諭と栄養教諭の養成や採用・研修の見直しについて、事務局が提示した議論のまとめ案に大筋で合意し、主査に一任した。養護教諭は、必要単位数を現在の５…",
+    "categories": [
+      "政策・制度",
+      "教員・働き方"
+    ],
+    "layer": 2,
+    "language": "ja",
+    "requiresMembership": true
+  },
+  {
+    "id": "nikkyo-2026-05-03-55ce69cb940c0b49",
+    "title": "新採教員、１年以内の退職　２年連続２００人超す",
+    "sourceId": "nikkyo",
+    "sourceName": "日本教育新聞",
+    "sourceUrl": "https://www.kyoiku-press.com/post-310111/",
+    "publishedAt": "2026-05-03T23:50:00.000Z",
+    "collectedAt": "2026-05-04T10:54:47.082Z",
+    "summary": "東京都 　東京都教委は４月２３日、令和７年度に新規採用した教員のうち、２２５人が１年以内に退職したことを公表した。前年より１５人減ったが、２年連続で２００人超え。都教委では、メンター制度など、新規採用…",
+    "categories": [
+      "研究・エビデンス",
+      "教員・働き方"
+    ],
+    "layer": 2,
+    "language": "ja",
+    "requiresMembership": true
+  },
+  {
+    "id": "nikkyo-2026-05-03-c9c703e4af4223a5",
+    "title": "各校巡回へ電動三輪車　神奈川・鎌倉市教委　通級指導で導入",
+    "sourceId": "nikkyo",
+    "sourceName": "日本教育新聞",
+    "sourceUrl": "https://www.kyoiku-press.com/post-310113/",
+    "publishedAt": "2026-05-03T23:50:00.000Z",
+    "collectedAt": "2026-05-04T10:54:47.082Z",
+    "summary": "神奈川県鎌倉市教委は本年度、通級指導教室の担当教員が各校を巡回する際の移動負担を軽減するため、電動三輪車「トゥクトゥク」＝写真＝を導入した。電車やバスの待ち時間に左右されず、学校間を効率良く移動でき…",
+    "categories": [
+      "教員・働き方"
+    ],
+    "layer": 2,
+    "language": "ja",
+    "requiresMembership": true
+  },
+  {
     "id": "nikkyo-2026-05-03-b468a75d13e9f370",
     "title": "教師は「共に問い続ける存在」へ　教師と教え子対談",
     "sourceId": "nikkyo",
