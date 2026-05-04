@@ -72,3 +72,4 @@ EduEvidence JP と共通の運営方針(植物モチーフブランド体系 / N
 - [0030. ダーク本文 ink を react.dev の gray-15(`#D0D3DC`)に再微調整する](0030-ink-token-react-dev-gray-15.md)
 - [0031. ダイジェスト個別ページに動的 OG 画像生成を導入(フォントは同梱)](0031-og-image-dynamic-with-bundled-font.md)
 - [0032. 静的 default OG 画像を整備し、個別 OG を持たないページのフォールバックとする](0032-static-default-og-image.md)
+- [0033. ダイジェスト markdown に textlint 日本語校正を導入する(姉妹サイト構成のミラー)](0033-textlint-japanese-linting.md)

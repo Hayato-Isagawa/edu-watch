@@ -1,0 +1,36 @@
+version: 1
+rules:
+  # 一般的なカナ表記統一
+  - expected: メタ分析
+    pattern:
+      - メタアナリシス
+      - メタ・アナリシス
+  - expected: ランダム化比較試験
+    pattern:
+      - ランダム化対照試験
+  - expected: 効果量
+    pattern:
+      - エフェクトサイズ
+      - エフェクト・サイズ
+
+  # IT/Web 用語
+  - expected: ウェブ
+    pattern: /\bWeb\b/
+  - expected: サイト
+    pattern: /\bsite\b/
+  - expected: ユーザー
+    pattern:
+      - ユーザ
+      - ユーザ―
+  - expected: コンピューター
+    pattern: /コンピュータ(?!ー)/
+  - expected: サーバー
+    pattern: /サーバ(?!ー)/
+
+  # よくある誤字・表記揺れ
+  - expected: および
+    pattern: /(?<!^)及び/
+  - expected: または
+    pattern: /(?<!^)又は/
+  - expected: ただし
+    pattern: /(?<!^)但し/
