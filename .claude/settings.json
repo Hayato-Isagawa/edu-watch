@@ -10,6 +10,28 @@
             "command": ".claude/hooks/branch-guard.sh"
           }
         ]
+      },
+      {
+        "matcher": "Edit|MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node .claude/hooks/pre-edit-frontmatter-immutable.cjs",
+            "timeout": 5
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Edit|MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node .claude/hooks/post-edit-roundtrip-spot-check.cjs",
+            "timeout": 5
+          }
+        ]
       }
     ],
     "PreCompact": [
