@@ -18,6 +18,9 @@
     "check:excluded-ids": "npx tsx scripts/check-excluded-ids.ts",
     "check:membership:nikkyo": "npx tsx scripts/check-nikkyo-membership.ts",
     "check:membership-updates": "npx tsx scripts/check-membership-updates.ts",
+    "check:text": "textlint 'src/content/digests/**/*.md'",
+    "check:text:fix": "textlint --fix 'src/content/digests/**/*.md'",
+    "check:all": "npm run check && npm run check:text && npm run check:filter && npm run check:excluded-ids",
     "test:e2e": "npx playwright test",
     "test:e2e:ui": "npx playwright test --ui",
     "og:default": "npx tsx scripts/generate-default-og.ts"
@@ -45,6 +48,11 @@
     "@axe-core/playwright": "^4.11.3",
     "@playwright/test": "^1.59.1",
     "pagefind": "^1.5.2",
+    "textlint": "^15.6.0",
+    "textlint-rule-no-mix-dearu-desumasu": "^6.0.4",
+    "textlint-rule-preset-ja-spacing": "^2.4.3",
+    "textlint-rule-preset-ja-technical-writing": "^12.0.2",
+    "textlint-rule-prh": "^6.1.0",
     "typescript": "^5.9.3"
   }
 }
