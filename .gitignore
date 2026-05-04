@@ -9,11 +9,13 @@ test-results
 playwright-report
 blob-report
 
-# OG 画像生成のフォントキャッシュ(ビルド時に自動取得、サイズ数MB)
-scripts/fonts/*.bin
+# OG 画像生成のフォントは scripts/fonts/noto-sans-jp-bold.bin をリポジトリに同梱
+# (ADR 0031、Google Fonts / jsDelivr への build-time 依存を排除)。
+# その他の binary / 派生フォントは引き続き除外する。
 scripts/fonts/*.woff2
 scripts/fonts/*.otf
 scripts/fonts/*.ttf
+!scripts/fonts/noto-sans-jp-bold.bin
 
 # Claude Code の生きたセッション状態(docs/context-management.md 参照)
 .claude/state/
