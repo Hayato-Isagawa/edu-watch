@@ -19,7 +19,12 @@ if (!meta) {
 }
 const articles = getArticlesBySource(sourceId);
 const groups = groupByDate(articles);
-const tierLabel = meta.layer === 1 ? "Tier 1 — 一次情報" : "Tier 2 — 教育専門紙・通信社";
+const tierLabel =
+  meta.layer === 1
+    ? "Tier 1 — 一次情報"
+    : meta.layer === 2
+      ? "Tier 2 — 教育専門紙・通信社"
+      : "Tier 3 — 参考のみ";
 ---
 
 <Layout
