@@ -1,0 +1,4 @@
+Contact: mailto:notify@edu-evidence.org
+Expires: 2027-05-05T00:00:00.000Z
+Preferred-Languages: ja, en
+Canonical: https://news.edu-evidence.org/.well-known/security.txt
