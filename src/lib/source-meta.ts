@@ -7,13 +7,19 @@
  */
 import type { SourceLayer } from "./article-schema.ts";
 
+/**
+ * 媒体の三層 Tier(ADR 0003)。
+ * Tier 1/2 は自動収集対象(`SourceLayer`)、Tier 3 は参考のみで Article schema には保存しない。
+ */
+export type SourceTier = SourceLayer | 3;
+
 export interface SourceMeta {
   sourceId: string;
   displayName: string;
   shortName: string;
   homeUrl: string;
   badgeColor: string;
-  layer: SourceLayer;
+  layer: SourceTier;
 }
 
 export const SOURCE_META: Record<string, SourceMeta> = {
@@ -71,7 +77,7 @@ export const SOURCE_META: Record<string, SourceMeta> = {
     shortName: "共同",
     homeUrl: "https://www.kyodo.co.jp/",
     badgeColor: "#3a4a5e",
-    layer: 2,
+    layer: 3,
   },
 };
 
