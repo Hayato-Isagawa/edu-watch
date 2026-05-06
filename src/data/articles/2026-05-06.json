@@ -1,5 +1,96 @@
 [
   {
+    "id": "kkn-2026-05-06-b42d90d061934646",
+    "title": "マウスコンピューター、メーカー整備・保証付きリユースPC「マウス整備済パソコン」を販売",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20260507o03",
+    "publishedAt": "2026-05-06T22:00:49.000Z",
+    "collectedAt": "2026-05-06T22:38:33.296Z",
+    "summary": "マウスコンピューターでは、自社で整備を行ったリユースPC「マウス整備済パソコン」を販売中。全国8つの直営店で購入できる。 対象製品は、同社修理工場で1台ごとに各機能の動作チェック、内部クリーニング、ストレージ初期化、OS […]",
+    "categories": [
+      "その他"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-05-06-ceedcf2e2d4536f9",
+    "title": "高校生向け無料AIプログラミング・IoT講座「GEEKKイニシアチブ」受講生募集中〜北九州市立大",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20260507o01",
+    "publishedAt": "2026-05-06T22:00:49.000Z",
+    "collectedAt": "2026-05-06T22:38:33.296Z",
+    "summary": "北九州市立大学は、特定の専門領域に強い興味や突出した能力を持つ高校生等を対象としたテクノロジ・イノベーション教育事業「GEEKK（ギーク）イニシアチブ」の2026年度プログラムを開始する。 本年度は従来のオンライン開催プ […]",
+    "categories": [
+      "ICT / GIGA"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-05-06-fcdbb8e0447792ab",
+    "title": "国立天文台、出張授業「ふれあい天文学」2026年度の実施校を募集中",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20260507o02",
+    "publishedAt": "2026-05-06T22:00:46.000Z",
+    "collectedAt": "2026-05-06T22:38:33.296Z",
+    "summary": "国立天文台は、国内外の小中学校で天文学や宇宙の授業を行う「ふれあい天文学」の2026年度実施校を募集している。講師は国立天文台の天文学者で、出張授業またはオンライン授業で実施する。 具体的な授業内容や実施時期、実施方法な […]",
+    "categories": [
+      "その他"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-05-06-815c7079f03e4409",
+    "title": "【特別対談】好奇心や疑問が学びの出発点に～図書館を使った調べる学習コンクール　第30回記念",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/post_library/260427_11a",
+    "publishedAt": "2026-05-06T22:00:30.000Z",
+    "collectedAt": "2026-05-06T22:38:33.296Z",
+    "summary": "｢図書館を使った調べる学習コンクール｣（主催:公益財団法人図書館振興財団）が2026年度で第30回を迎える。年々応募作品数が増えている本コンクールの魅力や探究的な学びとの関係、公共図書館と学校図書館への期待について、文部 […]",
+    "categories": [
+      "その他"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-05-06-a457cdb4a51fe4c8",
+    "title": "教職員向けセミナー「Google for Education 事例校×生成AIパイロット校の挑戦」5/23に開催〜ミカサ商事",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20260507o04",
+    "publishedAt": "2026-05-06T22:00:09.000Z",
+    "collectedAt": "2026-05-06T22:38:33.296Z",
+    "summary": "ミカサ商事は、教職員向けICT活用セミナー「Google for Education 事例校 × 生成AIパイロット校の挑戦〜 校内に広がるAI活用の全貌 〜」を、5月23日にオンラインで開催する。 本セミナーは、同社が […]",
+    "categories": [
+      "ICT / GIGA",
+      "教員・働き方"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-05-06-d48f2cd15c858d9e",
+    "title": "図書館を使った調べる学習コンクール第30回記念　受賞者インタビュー",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/post_library/kkf2605011",
+    "publishedAt": "2026-05-06T22:00:04.000Z",
+    "collectedAt": "2026-05-06T22:38:33.296Z",
+    "summary": "受賞者インタビュー　品川女子学院高等部1年　小森 日菜子さん 行動すること、情熱をもつこと 小学5年生の時『ヤマイヌ　～私が解明したい謎のニホンオオカミ～』で第25回図書館を使った調べる学習コンクール（調べコン）文部科学 […]",
+    "categories": [
+      "その他"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
     "id": "kkn-2026-05-06-b9033990bf58ee4f",
     "title": "＜第25回聞き書き甲子園＞全国12地域で実施　5/8より参加高校生募集開始。オンライン説明会を5/19に開催",
     "sourceId": "kkn",
