@@ -7,6 +7,9 @@ interface Props {
   article: Article;
 }
 const { article } = Astro.props;
+
+const isOecd = article.sourceId === "oecd";
+const oecdYear = isOecd ? new Date(article.publishedAt).getUTCFullYear() : null;
 ---
 
 <article class="border-t border-[var(--color-line)] py-5 first:border-t-0 first:pt-0">
@@ -29,6 +32,7 @@ const { article } = Astro.props;
       href={article.sourceUrl}
       target="_blank"
       rel="noopener noreferrer"
+      lang={article.language}
       class="link-underline text-[var(--color-ink)] hover:text-[var(--color-accent)] transition-colors"
     >
       {article.title}
@@ -36,8 +40,20 @@ const { article } = Astro.props;
   </h3>
 
   {article.summary && (
-    <p class="mt-2 text-sm leading-relaxed text-[var(--color-sub)] line-clamp-3">
+    <p
+      lang={article.language}
+      class="mt-2 text-sm leading-relaxed text-[var(--color-sub)] line-clamp-3"
+    >
       {article.summary}
+    </p>
+  )}
+
+  {isOecd && oecdYear !== null && (
+    <p
+      class="mt-2 text-xs italic text-[var(--color-sub)]"
+      data-attribution="oecd"
+    >
+      [OECD ({oecdYear}), {article.title}, {article.sourceUrl}]
     </p>
   )}
 </article>

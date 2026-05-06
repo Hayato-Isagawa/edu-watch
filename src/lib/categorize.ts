@@ -136,11 +136,16 @@ const RULES: CategoryRule[] = [
  * sourceId ごとのデフォルトカテゴリ(キーワード未ヒット時のフォールバック)。
  * mext / chukyo は政策発信、nier は研究発信が中核。Tier 2 媒体は
  * 記事内容のばらつきが大きいためデフォルトを設けない。
+ *
+ * oecd は英語タイトルが OECD/PISA/TALIS 等のキーワードを含まないことが多く
+ * (例: 教育内容そのものをタイトルにする)、デフォルトで「国際・海外」へ
+ * フォールバックさせる(ADR 0036 採用、本実装 PR で追加)。
  */
 const SOURCE_DEFAULTS: Record<string, ArticleCategory> = {
   mext: "政策・制度",
   chukyo: "政策・制度",
   nier: "研究・エビデンス",
+  oecd: "国際・海外",
 };
 
 const MAX_CATEGORIES = 3;

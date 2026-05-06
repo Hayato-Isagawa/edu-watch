@@ -13,6 +13,16 @@ import type { SourceLayer } from "./article-schema.ts";
  */
 export type SourceTier = SourceLayer | 3;
 
+/**
+ * Tier 1 媒体のサブ分類(ADR 0036)。
+ * - `primary`: 一次研究・一次政策文書を主目的とする媒体(mext / chukyo / nier)
+ * - `official-opinion`: 公式機関の局長級以上が責任を負って発信するオピニオン(oecd)
+ *
+ * 当面 UI には露出させず、週次ダイジェスト編集時の参照優先度付けと
+ * 将来の Tier 1 拡充判断の材料として保持する。Tier 1 以外の媒体では未指定。
+ */
+export type Tier1Kind = "primary" | "official-opinion";
+
 export interface SourceMeta {
   sourceId: string;
   displayName: string;
@@ -20,6 +30,7 @@ export interface SourceMeta {
   homeUrl: string;
   badgeColor: string;
   layer: SourceTier;
+  tier1Kind?: Tier1Kind;
 }
 
 export const SOURCE_META: Record<string, SourceMeta> = {
@@ -30,6 +41,7 @@ export const SOURCE_META: Record<string, SourceMeta> = {
     homeUrl: "https://www.mext.go.jp/",
     badgeColor: "#7a3b3b",
     layer: 1,
+    tier1Kind: "primary",
   },
   chukyo: {
     sourceId: "chukyo",
@@ -38,6 +50,7 @@ export const SOURCE_META: Record<string, SourceMeta> = {
     homeUrl: "https://www.mext.go.jp/b_menu/shingi/chukyo/index.html",
     badgeColor: "#8e3a3a",
     layer: 1,
+    tier1Kind: "primary",
   },
   nier: {
     sourceId: "nier",
@@ -46,6 +59,16 @@ export const SOURCE_META: Record<string, SourceMeta> = {
     homeUrl: "https://www.nier.go.jp/",
     badgeColor: "#2b5d3a",
     layer: 1,
+    tier1Kind: "primary",
+  },
+  oecd: {
+    sourceId: "oecd",
+    displayName: "OECD Education and Skills Today",
+    shortName: "OECD",
+    homeUrl: "https://oecdedutoday.com/",
+    badgeColor: "#3a5a7a",
+    layer: 1,
+    tier1Kind: "official-opinion",
   },
   resemom: {
     sourceId: "resemom",
