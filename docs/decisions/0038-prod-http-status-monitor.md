@@ -2,7 +2,7 @@
 
 ## Status
 
-採択 (2026-05-07)
+撤回 (2026-05-07)
 
 ## Context
 
@@ -87,3 +87,34 @@ ADR 0037 の 5-site 体系(edu-evidence / edu-law / edu-research / portfolio / n
 - Issue #107: Production root '/' returns HTTP 500 despite successful deployment
 - ADR 0020: 本番 HTTP ステータス監視は §残タスクの対象外で、denylist 整合性に限定されていた
 - ADR 0037: 5-site 体系のミラー方針(将来の横展開に関連)
+
+## Retraction (2026-05-07)
+
+PR #108 マージ後の post-merge 検証(Run #25490497258、`gh workflow run health-prod.yml`)で、本ワークフローが **本来の 5xx 監視として機能しないことが判明したため撤回する**。
+
+### 撤回理由
+
+GitHub Actions runner から本番 5 URL を curl した結果、全件 HTTP **403** が返る:
+
+```
+403 /
+403 /about/
+403 /categories/research/
+403 /sources/
+403 /digest/
+```
+
+ローカル(macOS)からの curl は default / Mozilla / カスタム UA いずれでも HTTP 200 のため、UA 起因ではなく **Cloudflare の IP-based bot 判定**(GitHub Actions の IP レンジを「データセンター由来の自動化トラフィック」として識別)が原因。Mozilla UA + Accept ヘッダ追加の試行コミット `b9ec23c`(Run #25491399505)でも全 403 で突破不可だった。
+
+ジョブは「5xx のみ fail」設計のため、403 は前段で弾かれて `failed=0` となり success 扱いになる。すなわち **本物の 5xx が発生しても検出できない false negative 監視**であり、存在することが誤った安心感を生むため撤回し、ワークフローファイルも削除する。
+
+### 撤回後のスタンス
+
+- 本来のリンク切れ把握(Issue #105、PR #106)は既に完結済み
+- 自サイト 500 (Issue #107) は当時既に 200 復旧済みで、週次 lychee の canonical 経由検出経路は引き続き機能している
+- 本格的な本番監視を後日必要と判断する場合は、Cloudflare 側の Health Checks や Cloudflare Worker Cron Trigger 等、Cloudflare 内部から発火する経路を別 ADR で検討する
+
+### 関連
+
+- Issue #109: health-prod workflow returns 403 from GitHub Actions runner — ADR 0038 monitoring not functional
+- 削除対象ワークフロー: `.github/workflows/health-prod.yml`
