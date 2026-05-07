@@ -73,3 +73,8 @@ EduEvidence JP と共通の運営方針(植物モチーフブランド体系 / N
 - [0031. ダイジェスト個別ページに動的 OG 画像生成を導入(フォントは同梱)](0031-og-image-dynamic-with-bundled-font.md)
 - [0032. 静的 default OG 画像を整備し、個別 OG を持たないページのフォールバックとする](0032-static-default-og-image.md)
 - [0033. ダイジェスト markdown に textlint 日本語校正を導入する(姉妹サイト構成のミラー)](0033-textlint-japanese-linting.md)
+- [0034. OG 画像キャッシュ更新ポリシー(姉妹サイト ADR の edu-watch 適用)](0034-og-cache-refresh-policy.md)
+- [0035. kyodo を Tier 1/2 自動収集から Tier 3 参考のみへ降格](0035-kyodo-tier3-demotion.md)
+- [0036. Tier 1 採用基準の緩和と OECD 公式ブログ feed の Tier 1 採用](0036-tier1-source-criteria-expansion.md)
+- [0037. 木の部位体系 5 サイト拡張を edu-watch にミラーする](0037-mirror-tree-system-5-sites.md)
+- [0038. 本番 HTTP ステータス監視ワークフローの追加](0038-prod-http-status-monitor.md)
