@@ -47,7 +47,7 @@ export const SOURCE_META: Record<string, SourceMeta> = {
     sourceId: "chukyo",
     displayName: "中央教育審議会",
     shortName: "中教審",
-    homeUrl: "https://www.mext.go.jp/b_menu/shingi/chukyo/index.html",
+    homeUrl: "https://www.mext.go.jp/b_menu/shingi/chukyo/chukyo0/index.htm",
     badgeColor: "#8e3a3a",
     layer: 1,
     tier1Kind: "primary",
