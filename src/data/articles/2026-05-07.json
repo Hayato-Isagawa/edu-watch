@@ -212,5 +212,20 @@
     ],
     "layer": 2,
     "language": "ja"
+  },
+  {
+    "id": "mext-2026-05-07-f8460209bd8830e6",
+    "title": "教員養成部会　教職課程・免許・大学院課程ワーキンググループ養護教諭・栄養教諭作業部会（第2回）議事録",
+    "sourceId": "mext",
+    "sourceName": "文部科学省",
+    "sourceUrl": "https://www.mext.go.jp/b_menu/shingi/chukyo/chukyo3/125/gijiroku/mext_00001.html",
+    "publishedAt": "2026-05-07T00:00:00.000Z",
+    "collectedAt": "2026-05-08T10:16:36.850Z",
+    "categories": [
+      "政策・制度",
+      "教員・働き方"
+    ],
+    "layer": 1,
+    "language": "ja"
   }
 ]
