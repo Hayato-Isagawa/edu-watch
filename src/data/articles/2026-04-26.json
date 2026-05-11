@@ -182,36 +182,5 @@
     ],
     "layer": 2,
     "language": "ja"
-  },
-  {
-    "id": "kkn-2026-04-26-e6c0b0dec0685a5e",
-    "title": "教育AI活用協会、教育関係者向け勉強会を4/30に開催〜実際の高校での策定プロセスをもとに生成AIガイドライン設計の考え方を解説",
-    "sourceId": "kkn",
-    "sourceName": "教育家庭新聞",
-    "sourceUrl": "https://www.kknews.co.jp/news/20260426o04",
-    "publishedAt": "2026-04-26T01:00:12.000Z",
-    "collectedAt": "2026-04-26T12:49:39.835Z",
-    "summary": "一社・教育AI活用協会は4月30日に、教育関係者を対象としたオンライン勉強会「実録・とある高校の生成AIガイドラインを設計して──固定ルールから『進化に追随する設計』へ」を開催する。 文部科学省が示す生成AIガイドライン […]",
-    "categories": [
-      "ICT / GIGA",
-      "政策・制度"
-    ],
-    "layer": 2,
-    "language": "ja"
-  },
-  {
-    "id": "kkn-2026-04-26-de3fb018405cd5b5",
-    "title": "ゼッタリンクス、Google Classroom 拡張ツール「Suite リンク」を発売　EDIX東京ではデモ体験も",
-    "sourceId": "kkn",
-    "sourceName": "教育家庭新聞",
-    "sourceUrl": "https://www.kknews.co.jp/news/20260426o02",
-    "publishedAt": "2026-04-26T01:00:09.000Z",
-    "collectedAt": "2026-04-26T12:49:39.835Z",
-    "summary": "ゼッタリンクスは4月21日、Google Classroom との連携で生徒同士が主体的に学び合う協働的な学習環境を実現できる「Suite（スイート）リンク」を発売した。   ■Google Workspace […]",
-    "categories": [
-      "その他"
-    ],
-    "layer": 2,
-    "language": "ja"
   }
 ]
