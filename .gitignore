@@ -21,5 +21,9 @@ scripts/fonts/*.ttf
 .claude/state/
 .claude/sessions/
 
-# PoC / 実験用ディレクトリ(git 管理外、PoC 採用時に必要部分のみ src/lib/ へ移管)
-experiments/
+# PoC / 実験用ディレクトリ(原則 git 管理外、PoC 採用時に必要部分のみ src/lib/ へ移管)。
+# 例外: 採用済 ADR の運用機構として git 管理が必要なスクリプトは個別に許可する。
+experiments/*
+!experiments/poc-pdf-summary/
+experiments/poc-pdf-summary/*
+!experiments/poc-pdf-summary/fact-check-grep.mjs
