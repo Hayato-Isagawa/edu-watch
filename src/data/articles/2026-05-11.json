@@ -251,6 +251,34 @@
     "language": "ja"
   },
   {
+    "id": "mext-2026-05-11-4908019fde3a6a27",
+    "title": "中央教育審議会初等中等教育分科会教育課程部会道徳ワーキンググループ（第3回）の議事録を掲載しました",
+    "sourceId": "mext",
+    "sourceName": "文部科学省",
+    "sourceUrl": "https://www.mext.go.jp/b_menu/shingi/chukyo/chukyo3/117/gijiroku/1381878_00001.htm",
+    "publishedAt": "2026-05-11T02:59:00.000Z",
+    "collectedAt": "2026-05-12T11:10:43.699Z",
+    "categories": [
+      "政策・制度"
+    ],
+    "layer": 1,
+    "language": "ja"
+  },
+  {
+    "id": "chukyo-2026-05-11-4908019fde3a6a27",
+    "title": "中央教育審議会初等中等教育分科会教育課程部会道徳ワーキンググループ（第3回）の議事録を掲載しました",
+    "sourceId": "chukyo",
+    "sourceName": "中央教育審議会",
+    "sourceUrl": "https://www.mext.go.jp/b_menu/shingi/chukyo/chukyo3/117/gijiroku/1381878_00001.htm",
+    "publishedAt": "2026-05-11T02:59:00.000Z",
+    "collectedAt": "2026-05-12T11:10:43.699Z",
+    "categories": [
+      "政策・制度"
+    ],
+    "layer": 1,
+    "language": "ja"
+  },
+  {
     "id": "resemom-2026-05-11-c4536bdc5c49909c",
     "title": "週末に行ける首都圏イベント5/16-17…東京科学大など4選",
     "sourceId": "resemom",
