@@ -1,5 +1,66 @@
 [
   {
+    "id": "kkn-2026-05-12-96cd63f341ad4706",
+    "title": "瑞浪市役所×麗澤瑞浪中学校、探究学習の成果を地域に発信～中学生が瑞浪市の未来を提案～",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20260513o01",
+    "publishedAt": "2026-05-12T22:00:59.000Z",
+    "collectedAt": "2026-05-12T22:52:07.439Z",
+    "summary": "麗澤瑞浪中学・高等学校（岐阜県瑞浪市）は5月13日、探究学習の成果発表である「瑞浪市まちづくりプロジェクト発表会」を開催する。 同校では、中学校において週1回実施している「総合的な学習の時間」に「RISE（ライズ）※」と […]",
+    "categories": [
+      "その他"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-05-12-793c3e82885a6f4c",
+    "title": "日本女子大附属中×みんなのコード、技術科・情報領域に関する指導案を公開",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20260513o02",
+    "publishedAt": "2026-05-12T22:00:48.000Z",
+    "collectedAt": "2026-05-12T22:52:07.439Z",
+    "summary": "みんなのコードは5月8日、日本女子大学附属中学校（川崎市）と開発した、技術・家庭科技術分野情報領域の指導案と授業スライドを公開した。 本プロジェクトは、キンドリルジャパンの助成を受け、テクノロジー分野のジェンダーギャップ […]",
+    "categories": [
+      "その他"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-05-12-881b83e6faeefa74",
+    "title": "『子どもの生きる力を開花させる　鉢の木へ、ようこそ！』　大竹稽／編著、釆澤良晃ほか／共著",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/post_library/260427_10c",
+    "publishedAt": "2026-05-12T22:00:35.000Z",
+    "collectedAt": "2026-05-12T22:52:07.439Z",
+    "summary": "禅の精神性でポジティブに 能の演目である『鉢の木』は、佐野市と鎌倉市が主要な舞台の物語で、由来となる名台詞｢いざ鎌倉｣が有名だ。能の｢ワキ｣として登場する旅の修行者は、実は鎌倉の最高権力者北条時頼であり、諸国の事情を知る […]",
+    "categories": [
+      "その他"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-05-12-fa2dbd5fb14bddf9",
+    "title": "JST「AI for Science革新的研究推進事業」公募を開始　AI活用した研究開発を支援",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20260513o03",
+    "publishedAt": "2026-05-12T22:00:35.000Z",
+    "collectedAt": "2026-05-12T22:52:07.439Z",
+    "summary": "科学技術振興機構（JST）は5月12日、AI for Science革新的研究推進事業（ARiSE：AI to Redesign Scientific Exploration）について、研究開発提案の公募を開始した。締切 […]",
+    "categories": [
+      "ICT / GIGA",
+      "研究・エビデンス"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
     "id": "resemom-2026-05-12-406cd924198107e9",
     "title": "ぬいぐるみで医療体験5/24…国立成育医療研究センター",
     "sourceId": "resemom",
