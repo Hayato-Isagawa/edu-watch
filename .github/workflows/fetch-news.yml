@@ -60,4 +60,19 @@ jobs:
             --body "edu-watch-bot による定時自動収集。Sources: 7 RSS feeds. Files touched: ${file_count}." \
             --label "auto-collect" \
             --base main --head "$branch"
-          gh pr merge --auto --squash --delete-branch "$branch"
+          # `gh pr merge --auto` は PR 作成直後で GitHub の status check rollup が
+          # 確定していない短い窓に "Pull request is in unstable status" GraphQL
+          # エラーで失敗することがある(2026-05-11 22:44 UTC run #25701724642)。
+          # 5 秒間隔で最大 3 回リトライし、それでも失敗したら workflow を fail
+          # させて再発検知を維持する。
+          for attempt in 1 2 3; do
+            if gh pr merge --auto --squash --delete-branch "$branch"; then
+              break
+            fi
+            if [ "$attempt" = "3" ]; then
+              echo "[fetch-news] auto-merge enable failed after 3 attempts" >&2
+              exit 1
+            fi
+            echo "[fetch-news] auto-merge enable retry in 5s (attempt ${attempt})"
+            sleep 5
+          done
