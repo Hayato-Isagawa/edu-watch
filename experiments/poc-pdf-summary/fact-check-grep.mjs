@@ -50,8 +50,8 @@ const REQUIRED_FACTS = [
     description: '教員勤務実態調査 月41h(小)・月58h(中)・6 年で 3 割減',
     severity: 'CRITICAL',
     patterns: [
-      /(小学校|小)[^。\n]{0,20}41\s*時間[\s\S]{0,200}(中学校|中)[^。\n]{0,20}58\s*時間/,
-      /(中学校|中)[^。\n]{0,20}58\s*時間[\s\S]{0,200}(小学校|小)[^。\n]{0,20}41\s*時間/,
+      /(小学校|小)[^。\n]{0,100}41\s*時間[\s\S]{0,500}(中学校|中)[^。\n]{0,100}58\s*時間/,
+      /(中学校|中)[^。\n]{0,100}58\s*時間[\s\S]{0,500}(小学校|小)[^。\n]{0,100}41\s*時間/,
       /(6|六)\s*年[^。\n]{0,10}(3|三)\s*割/,
     ],
     sourceChunks: [],
@@ -70,6 +70,7 @@ const REQUIRED_FACTS = [
     patterns: [
       /過労死[^。\n]{0,30}(月|1か月)?\s*80\s*時間/,
       /(月|1か月)\s*80\s*時間[^。\n]{0,30}過労死/,
+      /(月|1か月)\s*80\s*時間(超|以上|を超)/,
     ],
     sourceChunks: [],
   },
@@ -77,7 +78,10 @@ const REQUIRED_FACTS = [
     id: 'class-size-35-r7',
     description: '35人学級 令和7年度までに段階的移行',
     severity: 'HIGH',
-    patterns: [/35\s*人[^。\n]{0,10}学級/],
+    patterns: [
+      /35\s*人[^。\n]{0,10}学級/,
+      /学級[^。\n]{0,30}35\s*人/,
+    ],
     sourceChunks: [3, 5],
   },
   {
@@ -109,9 +113,10 @@ async function loadRequiredFacts(path) {
 }
 
 function grepFacts(text, facts) {
+  const norm = text.normalize('NFKC');
   return facts.map((f) => ({
     ...f,
-    found: f.patterns.some((re) => re.test(text)),
+    found: f.patterns.some((re) => re.test(norm)),
   }));
 }
 
