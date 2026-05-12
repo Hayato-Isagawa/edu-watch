@@ -20,3 +20,6 @@ scripts/fonts/*.ttf
 # Claude Code の生きたセッション状態(docs/context-management.md 参照)
 .claude/state/
 .claude/sessions/
+
+# PoC / 実験用ディレクトリ(git 管理外、PoC 採用時に必要部分のみ src/lib/ へ移管)
+experiments/
