@@ -1,0 +1,46 @@
+[
+  {
+    "id": "salary-adjustment-10pct",
+    "description": "教職調整額 10% 以上(現行 4%)",
+    "severity": "CRITICAL",
+    "patterns": [
+      "教職調整額[^。\\n]{0,40}(10|十)\\s*[%％]",
+      "(10|十)\\s*[%％][^。\\n]{0,40}教職調整額"
+    ],
+    "sourceChunks": [1]
+  },
+  {
+    "id": "overtime-month-45h",
+    "description": "時間外在校等時間 月45時間以内",
+    "severity": "CRITICAL",
+    "patterns": ["(月|1か月|一か月)\\s*45\\s*時間"],
+    "sourceChunks": [1]
+  },
+  {
+    "id": "work-survey-41-58",
+    "description": "教員勤務実態調査 月41h(小)・月58h(中)",
+    "severity": "CRITICAL",
+    "patterns": [
+      "(小学校|小)[^。\\n]{0,20}41\\s*時間[\\s\\S]{0,200}(中学校|中)[^。\\n]{0,20}58\\s*時間",
+      "小学校[\\s\\S]{0,40}中学校[\\s\\S]{0,40}約?41\\s*時間[\\s\\S]{0,40}約?58\\s*時間"
+    ],
+    "sourceChunks": [1]
+  },
+  {
+    "id": "karoshi-line-80h",
+    "description": "過労死ライン 月80時間",
+    "severity": "CRITICAL",
+    "patterns": [
+      "過労死[^。\\n]{0,30}(月|1か月)?\\s*80\\s*時間",
+      "(月|1か月)\\s*80\\s*時間[^。\\n]{0,30}過労死"
+    ],
+    "sourceChunks": [1]
+  },
+  {
+    "id": "class-size-35-r7",
+    "description": "35人学級 令和7年度までに段階的移行",
+    "severity": "HIGH",
+    "patterns": ["35\\s*人[^。\\n]{0,10}学級"],
+    "sourceChunks": [1]
+  }
+]
