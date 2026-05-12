@@ -16,6 +16,7 @@ const CHUNK_PATH_TEMPLATE = process.env.CHUNK_PATH_TEMPLATE || './chunk-{N}-v3.m
 const OUTPUT_PATH = process.env.OUTPUT_PATH || './summary-v3-checked.md';
 const REPORT_PATH = process.env.REPORT_PATH || './fact-check-grep-report.json';
 const SKIP_RETRY = process.env.SKIP_RETRY === 'true';
+const REQUIRED_FACTS_PATH = process.env.REQUIRED_FACTS_PATH || '';
 
 const SYSTEM = 'あなたは日本の文部科学省が発出する公文書を読み、現場の学校教員にとって有益な要約を作成する編集者です。事実誤認は絶対に避け、文書に書かれていないことは書かないでください。数値・固有名詞・時期はすべて原文と一致させてください。';
 
@@ -97,6 +98,14 @@ const REQUIRED_FACTS = [
 
 async function loadFile(p) {
   return await fs.readFile(p, 'utf8');
+}
+
+async function loadRequiredFacts(path) {
+  const raw = JSON.parse(await fs.readFile(path, 'utf8'));
+  return raw.map((f) => ({
+    ...f,
+    patterns: f.patterns.map((s) => new RegExp(s)),
+  }));
 }
 
 function grepFacts(text, facts) {
@@ -197,13 +206,20 @@ function summarizeFact(f) {
 }
 
 async function main() {
+  const facts = REQUIRED_FACTS_PATH
+    ? await loadRequiredFacts(REQUIRED_FACTS_PATH)
+    : REQUIRED_FACTS;
+  if (REQUIRED_FACTS_PATH) {
+    console.log(`[facts] loaded ${facts.length} required facts from ${REQUIRED_FACTS_PATH}`);
+  }
+
   const summary = await loadFile(SUMMARY_PATH);
   console.log(`[load] summary ${summary.length} chars from ${SUMMARY_PATH}`);
 
-  const grepInitial = grepFacts(summary, REQUIRED_FACTS);
+  const grepInitial = grepFacts(summary, facts);
   const present = grepInitial.filter((f) => f.found);
   const missing = grepInitial.filter((f) => !f.found);
-  console.log(`[grep] present ${present.length}/${REQUIRED_FACTS.length}, missing ${missing.length}`);
+  console.log(`[grep] present ${present.length}/${facts.length}, missing ${missing.length}`);
   for (const m of missing) {
     console.log(`  [missing] ${m.severity} ${m.id}: ${m.description} (sourceChunks=[${m.sourceChunks.join(', ')}])`);
   }
@@ -231,7 +247,7 @@ async function main() {
     await fs.writeFile(OUTPUT_PATH, result.text);
     console.log(`[retry done] ${result.elapsedSec.toFixed(1)}s, output ${result.text.length} chars → ${OUTPUT_PATH}`);
 
-    const grepAfter = grepFacts(result.text, REQUIRED_FACTS);
+    const grepAfter = grepFacts(result.text, facts);
     recovered = recoverable.filter((f) => grepAfter.find((g) => g.id === f.id && g.found));
     stillMissing = recoverable.filter((f) => !grepAfter.find((g) => g.id === f.id && g.found));
     retryRecord = {
@@ -253,7 +269,7 @@ async function main() {
     model: MODEL,
     numCtx: NUM_CTX,
     initial: {
-      total: REQUIRED_FACTS.length,
+      total: facts.length,
       present: present.map(summarizeFact),
       missing: missing.map((f) => ({ ...summarizeFact(f), sourceChunks: f.sourceChunks })),
     },
@@ -267,7 +283,7 @@ async function main() {
   await fs.writeFile(REPORT_PATH, JSON.stringify(report, null, 2));
   console.log(`[report] ${REPORT_PATH}`);
   const finalPresent = present.length + recovered.length;
-  console.log(`[final] present ${present.length} → after retry ${finalPresent}/${REQUIRED_FACTS.length}, out-of-scope ${outOfScope.length}, still-missing ${stillMissing.length}`);
+  console.log(`[final] present ${present.length} → after retry ${finalPresent}/${facts.length}, out-of-scope ${outOfScope.length}, still-missing ${stillMissing.length}`);
 }
 
 await main().catch((err) => {
