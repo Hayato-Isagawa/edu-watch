@@ -54,14 +54,14 @@ const REQUIRED_FACTS = [
       /(中学校|中)[^。\n]{0,100}58\s*時間[\s\S]{0,500}(小学校|小)[^。\n]{0,100}41\s*時間/,
       /(6|六)\s*年[^。\n]{0,10}(3|三)\s*割/,
     ],
-    sourceChunks: [],
+    sourceChunks: [2],
   },
   {
     id: 'subject-teacher-9400',
     description: '教科担任制 9,400 人定数措置',
     severity: 'HIGH',
     patterns: [/9,?400\s*人/],
-    sourceChunks: [],
+    sourceChunks: [3],
   },
   {
     id: 'karoshi-line-80h',
@@ -72,7 +72,7 @@ const REQUIRED_FACTS = [
       /(月|1か月)\s*80\s*時間[^。\n]{0,30}過労死/,
       /(月|1か月)\s*80\s*時間(超|以上|を超)/,
     ],
-    sourceChunks: [],
+    sourceChunks: [1, 2, 3],
   },
   {
     id: 'class-size-35-r7',
