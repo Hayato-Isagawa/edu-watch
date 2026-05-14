@@ -23,6 +23,7 @@ jobs:
       - uses: actions/checkout@v6
         with:
           persist-credentials: true
+          token: ${{ secrets.AUTO_COLLECT_PAT }}
       - uses: actions/setup-node@v6
         with:
           node-version: "24.15.0"
@@ -32,7 +33,7 @@ jobs:
         run: npx tsx scripts/fetch-news.ts
       - name: Commit, push branch, and open auto-merge PR
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.AUTO_COLLECT_PAT }}
         run: |
           git config user.name "edu-watch-bot"
           git config user.email "notify@edu-evidence.org"
