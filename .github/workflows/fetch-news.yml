@@ -2,8 +2,10 @@ name: Fetch news
 
 on:
   schedule:
-    # JST 07:00 / 18:00 = UTC 22:00 (-1d) / 09:00(設計書 §6.1、ADR 0009)
-    - cron: "0 22,9 * * *"
+    # JST 07:00 = UTC 22:00 (-1d)(設計書 §6.1、ADR 0009)
+    - cron: "0 22 * * *"
+    # JST 19:30 = UTC 10:30(ADR 0043: ピーク帯 + on-the-hour 殺到回避のため JST 18:00 → 19:30 に微調整)
+    - cron: "30 10 * * *"
   workflow_dispatch:
 
 # 同時実行を抑止(cron と workflow_dispatch が重なっても 1 本だけ走る)
