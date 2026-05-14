@@ -1,5 +1,67 @@
 [
   {
+    "id": "kkn-2026-05-13-7ecb0a29aad6bdfc",
+    "title": "名古屋市、市立全小中学校の不登校支援に「すらら」を採用〜社会的自立を軸とした多層的支援を推進",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20260514o02",
+    "publishedAt": "2026-05-13T22:00:39.000Z",
+    "collectedAt": "2026-05-13T22:55:29.922Z",
+    "summary": "名古屋市教育委員会は今年度、市立全小・中学校を対象とした不登校児童生徒の学習支援ツールとして、AI活用型アダプティブ教材「すらら」（提供元：すららネット）を導入した。 本導入は、名古屋市が推進する不登校支援の取り組みにお […]",
+    "categories": [
+      "不登校",
+      "ICT / GIGA",
+      "政策・制度"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-05-13-ecb0f262740e5573",
+    "title": "「MetaMoJi ClassRoom 3」と学習eポータル「まなびポケット」が機能連携を開始",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20260514o03",
+    "publishedAt": "2026-05-13T22:00:34.000Z",
+    "collectedAt": "2026-05-13T22:55:29.922Z",
+    "summary": "MetaMoJiは5月11日、リアルタイム授業支援サービス「MetaMoJi ClassRoom 3」が、NTTドコモビジネスが提供する学習eポータル「まなびポケット」と機能連携を開始すると発表した。名簿更新の自動化とシ […]",
+    "categories": [
+      "その他"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-05-13-3ce1a01eca9d26e7",
+    "title": "カンコー学生服が手がける制服フリマ「UNINOWA（ゆにのわ）」導入校が100校超に",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20260514o04",
+    "publishedAt": "2026-05-13T22:00:06.000Z",
+    "collectedAt": "2026-05-13T22:55:29.922Z",
+    "summary": "菅公学生服は5月11日、同社が運営する、制服専用フリマサービス「UNINOWA（ゆにのわ）」の導入決定校数が全国100校を超えたと発表した。 「UNINOWA」は、卒業やサイズアウトで不要になった制服を次の持ち主につなぐ […]",
+    "categories": [
+      "その他"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-05-13-1185e86c43fdd407",
+    "title": "＜書籍紹介＞古今東西の哲学者たちがおなじみの「昔話」をガチ考察　小川仁志著『むかしむかしあるところに哲学者がやってきた』三笠書房",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20260514o01",
+    "publishedAt": "2026-05-13T22:00:05.000Z",
+    "collectedAt": "2026-05-13T22:55:29.922Z",
+    "summary": "■昔話で学ぶ、日本一やさしい哲学入門 「浦島太郎は偽善者か？」（浦島太郎×ニーチェ） 「鬼は本当に悪なのか？」（桃太郎×デカルト） 「鶴を助けたのは下心？」（鶴の恩返し×カント） 誰もが知って […]",
+    "categories": [
+      "その他"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
     "id": "resemom-2026-05-13-c62eb76febc5fe52",
     "title": "ショート動画で語彙不足「9歳の壁」を越える読む力の重要性",
     "sourceId": "resemom",
