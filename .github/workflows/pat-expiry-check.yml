@@ -1,0 +1,100 @@
+name: PAT expiry check
+
+on:
+  schedule:
+    # 毎週日曜 UTC 00:00 = 月曜 JST 09:00(ADR 0044)
+    - cron: "0 0 * * 0"
+  workflow_dispatch:
+
+permissions:
+  issues: write
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      GH_TOKEN: ${{ secrets.AUTO_COLLECT_PAT }}
+    steps:
+      - name: Fetch PAT expiration header
+        id: expiry
+        run: |
+          set -euo pipefail
+          # `gh api -i` でレスポンスヘッダーを含めて取得。
+          # `github-authentication-token-expiration` ヘッダーは fine-grained PAT で返る
+          # (classic PAT 無期限の場合は出ない)。
+          # gh api 失敗時は set -e により step を fail させる(silent skip 回避)。
+          gh api -i /user > /tmp/gh_user_response.txt
+          expiry=$(awk 'tolower($0) ~ /^github-authentication-token-expiration:/ {
+              sub(/^[^:]+:[ \t]*/, "")
+              gsub(/\r/, "")
+              print
+              exit
+            }' /tmp/gh_user_response.txt)
+          if [ -z "$expiry" ]; then
+            echo "::warning::AUTO_COLLECT_PAT に github-authentication-token-expiration ヘッダーが無い(classic PAT 無期限 / 未対応形式)。本ワークフローは fine-grained PAT 前提のためスキップ。"
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          expiry_epoch=$(date -d "$expiry" +%s)
+          now_epoch=$(date +%s)
+          days_left=$(( (expiry_epoch - now_epoch) / 86400 ))
+          echo "expiry=$expiry" >> "$GITHUB_OUTPUT"
+          echo "days_left=$days_left" >> "$GITHUB_OUTPUT"
+          echo "[pat-expiry-check] expiry=$expiry days_left=$days_left"
+
+      - name: Ensure pat-expiry label exists
+        if: steps.expiry.outputs.skip != 'true'
+        run: |
+          gh label create pat-expiry \
+            --repo "${{ github.repository }}" \
+            --description "PAT 有効期限 14 日以内の警告(ADR 0044)" \
+            --color d76d77 \
+            --force 2>/dev/null || true
+
+      - name: Open issue if PAT expires within 14 days
+        if: steps.expiry.outputs.skip != 'true'
+        run: |
+          set -euo pipefail
+          days_left="${{ steps.expiry.outputs.days_left }}"
+          expiry="${{ steps.expiry.outputs.expiry }}"
+          if [ "$days_left" -gt 14 ]; then
+            echo "[pat-expiry-check] days_left=$days_left, no action needed"
+            exit 0
+          fi
+          existing=$(gh issue list \
+            --repo "${{ github.repository }}" \
+            --label pat-expiry \
+            --state open \
+            --json number --jq 'length')
+          if [ "$existing" -gt 0 ]; then
+            echo "[pat-expiry-check] open pat-expiry issue already exists; skipping create"
+            exit 0
+          fi
+          body=$(cat <<EOF
+          AUTO_COLLECT_PAT の有効期限が **${days_left} 日後**(${expiry})に切れます。
+
+          ## 影響
+
+          失効後は \`fetch-news\` と本 \`pat-expiry-check\` が \`actions/checkout\` の \`Input required and not supplied: token\` で失敗し、ニュース取りこぼしが発生します(参考: 2026-05-15 〜 16 の 3 連続失敗、ADR 0044 §背景)。
+
+          ## 復旧手順
+
+          1. https://github.com/settings/personal-access-tokens/new で新しい fine-grained PAT を発行
+             - Repository access: \`Hayato-Isagawa/edu-watch\` のみ
+             - Permissions: \`Contents: Read and write\` / \`Pull requests: Read and write\` / \`Issues: Read and write\` / \`Metadata: Read-only\`
+          2. \`gh secret set AUTO_COLLECT_PAT -R Hayato-Isagawa/edu-watch\` で再登録
+          3. \`gh workflow run fetch-news.yml -R Hayato-Isagawa/edu-watch\` で動作確認
+          4. 本 Issue をクローズ
+
+          ## 関連
+
+          - ADR 0044: docs/decisions/0044-fetch-news-pat-expiry-monitoring.md
+          - workflow: .github/workflows/pat-expiry-check.yml
+          EOF
+          )
+          gh issue create \
+            --repo "${{ github.repository }}" \
+            --title "AUTO_COLLECT_PAT expires in ${days_left} days (${expiry})" \
+            --body "$body" \
+            --label pat-expiry
