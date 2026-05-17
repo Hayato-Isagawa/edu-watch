@@ -17,7 +17,7 @@ const OUTPUT_PATH = process.env.OUTPUT_PATH || './summary-v3-checked.md';
 const REPORT_PATH = process.env.REPORT_PATH || './fact-check-grep-report.json';
 const SKIP_RETRY = process.env.SKIP_RETRY === 'true';
 const REQUIRED_FACTS_PATH = process.env.REQUIRED_FACTS_PATH || '';
-const INPUT_SOURCE = process.env.INPUT_SOURCE || 'summary';
+const INPUT_SOURCE = process.env.INPUT_SOURCE || 'raw';
 const EXTRACTED_PATH = process.env.EXTRACTED_PATH || './extracted.txt';
 const CHUNK_RANGES_PATH = process.env.CHUNK_RANGES_PATH || './chunk-ranges-v3.json';
 
