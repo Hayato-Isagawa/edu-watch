@@ -17,6 +17,9 @@ const OUTPUT_PATH = process.env.OUTPUT_PATH || './summary-v3-checked.md';
 const REPORT_PATH = process.env.REPORT_PATH || './fact-check-grep-report.json';
 const SKIP_RETRY = process.env.SKIP_RETRY === 'true';
 const REQUIRED_FACTS_PATH = process.env.REQUIRED_FACTS_PATH || '';
+const INPUT_SOURCE = process.env.INPUT_SOURCE || 'summary';
+const EXTRACTED_PATH = process.env.EXTRACTED_PATH || './extracted.txt';
+const CHUNK_RANGES_PATH = process.env.CHUNK_RANGES_PATH || './chunk-ranges-v3.json';
 
 const SYSTEM = 'あなたは日本の文部科学省が発出する公文書を読み、現場の学校教員にとって有益な要約を作成する編集者です。事実誤認は絶対に避け、文書に書かれていないことは書かないでください。数値・固有名詞・時期はすべて原文と一致させてください。';
 
@@ -104,6 +107,26 @@ async function loadFile(p) {
   return await fs.readFile(p, 'utf8');
 }
 
+async function loadRawChunkSources(chunkNumbers) {
+  const extracted = await loadFile(EXTRACTED_PATH);
+  const ranges = JSON.parse(await loadFile(CHUNK_RANGES_PATH));
+  const pageMarker = /\n?--- page \d+ \/ \d+ ---\n?/;
+  const rawPages = extracted.split(pageMarker).map((p) => p.trim()).filter((p) => p.length > 0);
+  const sources = {};
+  for (const n of chunkNumbers) {
+    const r = ranges[n - 1];
+    if (!r) {
+      throw new Error(`chunk ${n} not found in ${CHUNK_RANGES_PATH} (length=${ranges.length})`);
+    }
+    const slice = rawPages.slice(r.startPage - 1, r.endPage);
+    const body = slice
+      .map((p, idx) => `--- page ${r.startPage + idx} / ${rawPages.length} ---\n${p}`)
+      .join('\n\n');
+    sources[n] = body;
+  }
+  return sources;
+}
+
 async function loadRequiredFacts(path) {
   const raw = JSON.parse(await fs.readFile(path, 'utf8'));
   return raw.map((f) => ({
@@ -120,13 +143,13 @@ function grepFacts(text, facts) {
   }));
 }
 
-function buildRetryPrompt(summary, missingFacts, chunkSources) {
+function buildRetryPrompt(summary, missingFacts, chunkSources, sourceLabel = 'chunk-{N}-v3.md') {
   const missingList = missingFacts
     .map((f, i) => `${i + 1}. ${f.description}`)
     .join('\n');
   const chunkExcerpts = Object.entries(chunkSources)
     .sort(([a], [b]) => Number(a) - Number(b))
-    .map(([n, text]) => `## chunk-${n}-v3.md\n\n${text}`)
+    .map(([n, text]) => `## ${sourceLabel.replace('{N}', String(n))}\n\n${text}`)
     .join('\n\n---\n\n');
 
   return `あなたは中央教育審議会答申の要約編集者です。以下の要約には核心数値が脱落しています。chunk 抜粋メモから不足数値を保持しながら、要約全体を再生成してください。
@@ -240,6 +263,43 @@ async function main() {
     retryRecord = { attempted: false, reason: 'no-recoverable-missing' };
   } else if (SKIP_RETRY) {
     retryRecord = { attempted: false, reason: 'skip-retry-flag' };
+  } else if (INPUT_SOURCE === 'raw') {
+    const chunkNumbers = [...new Set(recoverable.flatMap((f) => f.sourceChunks))].sort((a, b) => a - b);
+    const allChunkSources = await loadRawChunkSources(chunkNumbers);
+    console.log(`[retry raw] missing ${recoverable.length}, chunks [${chunkNumbers.join(', ')}], per-chunk retry`);
+    const perChunkResults = [];
+    const recoveredSet = new Set();
+    for (const n of chunkNumbers) {
+      const single = { [n]: allChunkSources[n] };
+      const retryPrompt = buildRetryPrompt(summary, recoverable, single, 'extracted.txt (chunk-{N} raw)');
+      console.log(`[retry chunk ${n}] prompt ${retryPrompt.length} chars`);
+      const result = await callOllama(retryPrompt);
+      const chunkOutputPath = OUTPUT_PATH.replace(/\.md$/, '') + `.chunk${n}.md`;
+      await fs.writeFile(chunkOutputPath, result.text);
+      console.log(`[retry chunk ${n} done] ${result.elapsedSec.toFixed(1)}s, output ${result.text.length} chars → ${chunkOutputPath}`);
+      const grepAfter = grepFacts(result.text, facts);
+      const chunkRecovered = recoverable.filter((f) => grepAfter.find((g) => g.id === f.id && g.found));
+      for (const f of chunkRecovered) recoveredSet.add(f.id);
+      perChunkResults.push({
+        chunk: n,
+        promptChars: retryPrompt.length,
+        elapsedSec: result.elapsedSec,
+        promptEvalCount: result.promptEvalCount,
+        evalCount: result.evalCount,
+        outputPath: chunkOutputPath,
+        outputChars: result.text.length,
+        recovered: chunkRecovered.map(summarizeFact),
+      });
+    }
+    recovered = recoverable.filter((f) => recoveredSet.has(f.id));
+    stillMissing = recoverable.filter((f) => !recoveredSet.has(f.id));
+    retryRecord = {
+      attempted: true,
+      inputSource: 'raw',
+      perChunk: perChunkResults,
+      recovered: recovered.map(summarizeFact),
+      stillMissing: stillMissing.map(summarizeFact),
+    };
   } else {
     const chunkNumbers = [...new Set(recoverable.flatMap((f) => f.sourceChunks))].sort((a, b) => a - b);
     const chunkSources = {};
@@ -257,6 +317,7 @@ async function main() {
     stillMissing = recoverable.filter((f) => !grepAfter.find((g) => g.id === f.id && g.found));
     retryRecord = {
       attempted: true,
+      inputSource: 'summary',
       promptChars: retryPrompt.length,
       elapsedSec: result.elapsedSec,
       promptEvalCount: result.promptEvalCount,
