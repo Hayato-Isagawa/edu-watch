@@ -42,7 +42,7 @@
     "satori": "^0.26.0",
     "sharp": "^0.34.5",
     "tailwindcss": "^4.2.2",
-    "vite": "^7.3.2",
+    "vite": "^7.3.3",
     "zod": "^4.4.2"
   },
   "devDependencies": {
