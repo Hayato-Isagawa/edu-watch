@@ -19,7 +19,7 @@ const digests = defineCollection({
     sections: z
       .array(
         z.object({
-          articleId: z.string().min(1),
+          articleIds: z.array(z.string().min(1)).min(1),
           heading: z.string().min(1),
           comment: z.string().min(1),
         }),
