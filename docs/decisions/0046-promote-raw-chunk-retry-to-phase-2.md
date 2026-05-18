@@ -3,7 +3,7 @@
 - 状態: 採用
 - 日付: 2026-05-17
 - 関連 ADR: 0040(AI 補助 PDF 要約と編集者最終監修の運用、本 ADR で §C-7 Phase 2 採用判定済とする)/ 0045(fact-check retry の入力ソースを LLM map summary から raw chunk text へ切替、PoC 戦略文書、本 ADR は採用結論)
-- 関連 PR: TBD(本 ADR 起票 PR)/ #152(PoC 実装、commit 67faa61、本 ADR の実証根拠)
+- 関連 PR: #153(本 ADR 起票 PR)/ #155(本 ADR §決定 (1)(2) 実装、INPUT_SOURCE デフォルト raw 化 + ADR 0040 §C-7 ステータス更新)/ #152(PoC 実装、commit 67faa61、本 ADR の実証根拠)
 - 撤回 / 再検討トリガー: 本 ADR §「撤回 / 再検討の条件」参照
 
 ## 背景
@@ -111,4 +111,4 @@ ADR 0045 §決定 (2) 設計制約を継承する:
 - `experiments/poc-pdf-summary/observation-2026-05-17.md`(本 ADR 起票根拠、本体 100% / 概要版 100% を実証)
 - `experiments/poc-pdf-summary/observation-2026-05-13b.md`(本観測前段、本体 真の救出率 67% で判定未達)
 - PR #152(PoC 実装、commit 67faa61、`INPUT_SOURCE=summary|raw` 分岐 + `chunk-ranges-v3.json` 新規)
-- `experiments/poc-pdf-summary/fact-check-grep.mjs`(後続 PR でデフォルト値を `raw` に変更予定)
+- `experiments/poc-pdf-summary/fact-check-grep.mjs`(PR #155 でデフォルト値を `raw` に変更済)
