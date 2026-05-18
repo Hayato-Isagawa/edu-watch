@@ -25,12 +25,14 @@ export async function getStaticPaths() {
 const { entry, newer, older } = Astro.props;
 const { Content } = await render(entry);
 const articleById = new Map(
-  getArticlesByIds(entry.data.sections.map((s) => s.articleId)).map((a) => [a.id, a]),
+  getArticlesByIds(entry.data.sections.flatMap((s) => s.articleIds)).map((a) => [a.id, a]),
 );
 const sectionsWithArticle = entry.data.sections.map((s) => ({
   heading: s.heading,
   commentHtml: DOMPurify.sanitize(marked.parse(s.comment) as string),
-  article: articleById.get(s.articleId),
+  articles: s.articleIds
+    .map((id) => articleById.get(id))
+    .filter((a): a is NonNullable<typeof a> => a !== undefined),
 }));
 
 const rangeFormatter = new Intl.DateTimeFormat("ja-JP", {
@@ -104,12 +106,14 @@ function formatPublished(iso: string): string {
               <h2 class="font-bold text-xl sm:text-2xl text-[var(--color-ink)]">
                 {s.heading}
               </h2>
-              {s.article ? (
+              {s.articles.length > 0 ? (
                 <div class="mt-4 p-4 sm:p-5 border border-[var(--color-line)] bg-[var(--color-card)] rounded-sm">
                   <div class="font-mono text-[10px] uppercase tracking-widest text-[var(--color-sub)] mb-3">
-                    Referenced article
+                    {s.articles.length > 1 ? "Referenced articles" : "Referenced article"}
                   </div>
-                  <ArticleCard article={s.article} />
+                  <div class="space-y-3">
+                    {s.articles.map((a) => <ArticleCard article={a} />)}
+                  </div>
                 </div>
               ) : (
                 <p class="mt-3 text-xs text-[var(--color-sub)]">

@@ -78,3 +78,4 @@ EduEvidence JP と共通の運営方針(植物モチーフブランド体系 / N
 - [0036. Tier 1 採用基準の緩和と OECD 公式ブログ feed の Tier 1 採用](0036-tier1-source-criteria-expansion.md)
 - [0037. 木の部位体系 5 サイト拡張を edu-watch にミラーする](0037-mirror-tree-system-5-sites.md)
 - [0038. 本番 HTTP ステータス監視ワークフローの追加](0038-prod-http-status-monitor.md)(撤回)
+- [0047. digest sections に articleIds: string[] を採用し、N 記事 1 統合コメントを既定構造とする](0047-digest-sections-multi-article.md)
