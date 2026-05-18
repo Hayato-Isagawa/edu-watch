@@ -163,7 +163,8 @@
       "政策・制度"
     ],
     "layer": 2,
-    "language": "ja"
+    "language": "ja",
+    "requiresMembership": true
   },
   {
     "id": "resemom-2026-05-12-db63d4a6732a966d",
