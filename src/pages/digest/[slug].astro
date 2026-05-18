@@ -1,6 +1,7 @@
 ---
 import { getCollection, render } from "astro:content";
 import { marked } from "marked";
+import DOMPurify from "isomorphic-dompurify";
 import Layout from "../../layouts/Layout.astro";
 import ArticleCard from "../../components/ArticleCard.astro";
 import TopicBadge from "../../components/TopicBadge.astro";
@@ -28,7 +29,7 @@ const articleById = new Map(
 );
 const sectionsWithArticle = entry.data.sections.map((s) => ({
   heading: s.heading,
-  commentHtml: marked.parse(s.comment) as string,
+  commentHtml: DOMPurify.sanitize(marked.parse(s.comment) as string),
   article: articleById.get(s.articleId),
 }));
 
