@@ -35,3 +35,11 @@ experiments/poc-pdf-summary/*
 !experiments/poc-pdf-summary/observation-2026-05-13.md
 !experiments/poc-pdf-summary/observation-2026-05-13b.md
 !experiments/poc-pdf-summary/observation-2026-05-17.md
+!experiments/poc-pdf-summary/observation-2026-05-19.md
+!experiments/poc-pdf-summary/extract-tsuuchi.mjs
+!experiments/poc-pdf-summary/mapreduce-v4-tsuuchi.mjs
+!experiments/poc-pdf-summary/chunk-ranges-v4-tsuuchi*.json
+!experiments/poc-pdf-summary/required-facts-tsuuchi-*.json
+!experiments/poc-pdf-summary/fact-check-grep-tsuuchi-*-raw-report.json
+!experiments/poc-pdf-summary/summary-v4-tsuuchi-*-checked-raw*.md
+!experiments/poc-pdf-summary/fact-check-grep-tsuuchi-all.log
