@@ -80,3 +80,4 @@ EduEvidence JP と共通の運営方針(植物モチーフブランド体系 / N
 - [0038. 本番 HTTP ステータス監視ワークフローの追加](0038-prod-http-status-monitor.md)(撤回)
 - [0047. digest sections に articleIds: string[] を採用し、N 記事 1 統合コメントを既定構造とする](0047-digest-sections-multi-article.md)
 - [0048. digest 本文(`<Content />`)を撤回し summary 単一化する](0048-digest-drop-content-body.md)
+- [0049. recheck-nikkyo-membership の token を Fine-grained PAT に切り替えて再判定 PR の required CI を発火させる](0049-recheck-nikkyo-token-elevation.md)

@@ -22,6 +22,7 @@ jobs:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
         with:
           persist-credentials: true
+          token: ${{ secrets.AUTO_COLLECT_PAT }}
       - uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # v6
         with:
           node-version: "24.15.0"
@@ -31,7 +32,7 @@ jobs:
         run: npx tsx scripts/recheck-nikkyo-membership.ts
       - name: Commit, push branch, and open auto-merge PR
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.AUTO_COLLECT_PAT }}
         run: |
           git config user.name "edu-watch-bot"
           git config user.email "notify@edu-evidence.org"
@@ -56,4 +57,20 @@ jobs:
             --body "$body" \
             --label "recheck-membership" \
             --base main --head "$branch"
-          gh pr merge --auto --squash --delete-branch "$branch"
+          # `gh pr merge --auto` は PR 作成直後で GitHub の status check rollup が
+          # 確定していない短い窓に "Pull request is in unstable status" GraphQL
+          # エラーで失敗することがある(ADR 0042 §「監視 / リスク観測項目」、
+          # fetch-news.yml の同一対処を本 workflow にミラー)。5 秒間隔で最大
+          # 3 回リトライし、それでも失敗したら workflow を fail させて再発検知
+          # を維持する。
+          for attempt in 1 2 3; do
+            if gh pr merge --auto --squash --delete-branch "$branch"; then
+              break
+            fi
+            if [ "$attempt" = "3" ]; then
+              echo "[recheck-nikkyo] auto-merge enable failed after 3 attempts" >&2
+              exit 1
+            fi
+            echo "[recheck-nikkyo] auto-merge enable retry in 5s (attempt ${attempt})"
+            sleep 5
+          done
