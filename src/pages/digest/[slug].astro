@@ -1,5 +1,5 @@
 ---
-import { getCollection, render } from "astro:content";
+import { getCollection } from "astro:content";
 import { marked } from "marked";
 import DOMPurify from "isomorphic-dompurify";
 import Layout from "../../layouts/Layout.astro";
@@ -23,7 +23,6 @@ export async function getStaticPaths() {
 }
 
 const { entry, newer, older } = Astro.props;
-const { Content } = await render(entry);
 const articleById = new Map(
   getArticlesByIds(entry.data.sections.flatMap((s) => s.articleIds)).map((a) => [a.id, a]),
 );
@@ -93,10 +92,6 @@ function formatPublished(iso: string): string {
         <span class="ml-3"><a href="/" class="link-underline">トップ</a></span>
       </p>
     </header>
-
-    <section class="prose-digest py-8 sm:py-10 border-b border-[var(--color-line)]">
-      <Content />
-    </section>
 
     {
       sectionsWithArticle.length > 0 && (
