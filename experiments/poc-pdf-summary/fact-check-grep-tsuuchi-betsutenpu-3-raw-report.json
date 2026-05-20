@@ -1,0 +1,145 @@
+{
+  "timestamp": "2026-05-19T13:23:17.471Z",
+  "summaryPath": "./summary-v4-tsuuchi-betsutenpu-3.md",
+  "outputPath": "./summary-v4-tsuuchi-betsutenpu-3-checked-raw.md",
+  "model": "gemma3:12b",
+  "numCtx": 32768,
+  "initial": {
+    "total": 9,
+    "present": [
+      {
+        "id": "budget-request-1.58T",
+        "severity": "CRITICAL",
+        "description": "令和7年度概算要求 1兆5,807億円"
+      },
+      {
+        "id": "teacher-count-up-7653",
+        "severity": "CRITICAL",
+        "description": "教職員定数改善 +7,653人"
+      },
+      {
+        "id": "salary-improvement-232",
+        "severity": "CRITICAL",
+        "description": "教師の処遇改善 +232億円"
+      },
+      {
+        "id": "new-position-r8-4",
+        "severity": "HIGH",
+        "description": "新たな職の創設 令和8年4月予定"
+      }
+    ],
+    "missing": [
+      {
+        "id": "salary-adjustment-4to13",
+        "severity": "CRITICAL",
+        "description": "教職調整額 4%→13%",
+        "sourceChunks": [
+          1
+        ]
+      },
+      {
+        "id": "subject-teacher-2160",
+        "severity": "HIGH",
+        "description": "小学校教科担任制拡充 +2,160人",
+        "sourceChunks": [
+          1
+        ]
+      },
+      {
+        "id": "class-size-35-3086",
+        "severity": "HIGH",
+        "description": "35人学級推進(小6) +3,086人",
+        "sourceChunks": [
+          1
+        ]
+      },
+      {
+        "id": "class-teacher-allowance-3000",
+        "severity": "HIGH",
+        "description": "学級担任への加算 月額3,000円",
+        "sourceChunks": [
+          1
+        ]
+      },
+      {
+        "id": "principal-allowance-5to10k",
+        "severity": "HIGH",
+        "description": "管理職手当の改善 月額5,000~10,000円",
+        "sourceChunks": [
+          1
+        ]
+      }
+    ]
+  },
+  "retry": {
+    "attempted": true,
+    "inputSource": "raw",
+    "perChunk": [
+      {
+        "chunk": 1,
+        "promptChars": 1303,
+        "elapsedSec": 118.723,
+        "promptEvalCount": 889,
+        "evalCount": 635,
+        "outputPath": "./summary-v4-tsuuchi-betsutenpu-3-checked-raw.chunk1.md",
+        "outputChars": 1009,
+        "recovered": [
+          {
+            "id": "salary-adjustment-4to13",
+            "severity": "CRITICAL",
+            "description": "教職調整額 4%→13%"
+          },
+          {
+            "id": "subject-teacher-2160",
+            "severity": "HIGH",
+            "description": "小学校教科担任制拡充 +2,160人"
+          },
+          {
+            "id": "class-size-35-3086",
+            "severity": "HIGH",
+            "description": "35人学級推進(小6) +3,086人"
+          },
+          {
+            "id": "class-teacher-allowance-3000",
+            "severity": "HIGH",
+            "description": "学級担任への加算 月額3,000円"
+          },
+          {
+            "id": "principal-allowance-5to10k",
+            "severity": "HIGH",
+            "description": "管理職手当の改善 月額5,000~10,000円"
+          }
+        ]
+      }
+    ],
+    "recovered": [
+      {
+        "id": "salary-adjustment-4to13",
+        "severity": "CRITICAL",
+        "description": "教職調整額 4%→13%"
+      },
+      {
+        "id": "subject-teacher-2160",
+        "severity": "HIGH",
+        "description": "小学校教科担任制拡充 +2,160人"
+      },
+      {
+        "id": "class-size-35-3086",
+        "severity": "HIGH",
+        "description": "35人学級推進(小6) +3,086人"
+      },
+      {
+        "id": "class-teacher-allowance-3000",
+        "severity": "HIGH",
+        "description": "学級担任への加算 月額3,000円"
+      },
+      {
+        "id": "principal-allowance-5to10k",
+        "severity": "HIGH",
+        "description": "管理職手当の改善 月額5,000~10,000円"
+      }
+    ],
+    "stillMissing": []
+  },
+  "outOfScope": []
+}
