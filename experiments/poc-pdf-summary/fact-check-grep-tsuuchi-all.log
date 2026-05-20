@@ -1,0 +1,37 @@
+=== HONBUN start Tue May 19 22:15:00 JST 2026 ===
+[facts] loaded 8 required facts from ./required-facts-tsuuchi-honbun.json
+[load] summary 1145 chars from ./summary-v4-tsuuchi-honbun.md
+[grep] present 3/8, missing 5
+  [missing] CRITICAL overtime-month-45h: 上限指針 時間外在校等時間 月45時間以内 (sourceChunks=[1])
+  [missing] CRITICAL karoshi-line-80h: 過労死ライン 月80時間超過 (sourceChunks=[1])
+  [missing] HIGH standard-hours-1086-overstep: 標準授業時数 大幅上回り 年間1,086単位時間以上 (sourceChunks=[1])
+  [missing] HIGH notice-number-date: 通知 文科初第1293号 令和6年9月30日付け (sourceChunks=[1])
+  [missing] HIGH interval-11h: 勤務間インターバル 11時間目安 (sourceChunks=[1])
+[retry raw] missing 5, chunks [1], per-chunk retry
+[retry chunk 1] prompt 21441 chars
+[retry chunk 1 done] 378.3s, output 1264 chars → ./summary-v4-tsuuchi-honbun-checked-raw.chunk1.md
+[report] ./fact-check-grep-tsuuchi-honbun-raw-report.json
+[final] present 3 → after retry 7/8, out-of-scope 0, still-missing 1
+=== HONBUN end Tue May 19 22:21:18 JST 2026 ===
+=== BETSUTENPU-2 start Tue May 19 22:21:18 JST 2026 ===
+[facts] loaded 9 required facts from ./required-facts-tsuuchi-betsutenpu-2.json
+[load] summary 1126 chars from ./summary-v4-tsuuchi-betsutenpu-2.md
+[grep] present 9/9, missing 0
+[report] ./fact-check-grep-tsuuchi-betsutenpu-2-raw-report.json
+[final] present 9 → after retry 9/9, out-of-scope 0, still-missing 0
+=== BETSUTENPU-2 end Tue May 19 22:21:18 JST 2026 ===
+=== BETSUTENPU-3 start Tue May 19 22:21:18 JST 2026 ===
+[facts] loaded 9 required facts from ./required-facts-tsuuchi-betsutenpu-3.json
+[load] summary 830 chars from ./summary-v4-tsuuchi-betsutenpu-3.md
+[grep] present 4/9, missing 5
+  [missing] CRITICAL salary-adjustment-4to13: 教職調整額 4%→13% (sourceChunks=[1])
+  [missing] HIGH subject-teacher-2160: 小学校教科担任制拡充 +2,160人 (sourceChunks=[1])
+  [missing] HIGH class-size-35-3086: 35人学級推進(小6) +3,086人 (sourceChunks=[1])
+  [missing] HIGH class-teacher-allowance-3000: 学級担任への加算 月額3,000円 (sourceChunks=[1])
+  [missing] HIGH principal-allowance-5to10k: 管理職手当の改善 月額5,000~10,000円 (sourceChunks=[1])
+[retry raw] missing 5, chunks [1], per-chunk retry
+[retry chunk 1] prompt 1303 chars
+[retry chunk 1 done] 118.7s, output 1009 chars → ./summary-v4-tsuuchi-betsutenpu-3-checked-raw.chunk1.md
+[report] ./fact-check-grep-tsuuchi-betsutenpu-3-raw-report.json
+[final] present 4 → after retry 9/9, out-of-scope 0, still-missing 0
+=== BETSUTENPU-3 end Tue May 19 22:23:17 JST 2026 ===
