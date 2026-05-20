@@ -1,0 +1,90 @@
+[
+  {
+    "id": "budget-request-1.58T",
+    "description": "令和7年度概算要求 1兆5,807億円",
+    "severity": "CRITICAL",
+    "patterns": [
+      "1\\s*兆\\s*5,?807\\s*億",
+      "15,?807\\s*億"
+    ],
+    "sourceChunks": [1]
+  },
+  {
+    "id": "teacher-count-up-7653",
+    "description": "教職員定数改善 +7,653人",
+    "severity": "CRITICAL",
+    "patterns": ["7,?653\\s*人"],
+    "sourceChunks": [1]
+  },
+  {
+    "id": "salary-improvement-232",
+    "description": "教師の処遇改善 +232億円",
+    "severity": "CRITICAL",
+    "patterns": [
+      "232\\s*億",
+      "処遇改善[\\s\\S]{0,30}232"
+    ],
+    "sourceChunks": [1]
+  },
+  {
+    "id": "salary-adjustment-4to13",
+    "description": "教職調整額 4%→13%",
+    "severity": "CRITICAL",
+    "patterns": [
+      "4\\s*[%％][\\s\\S]{0,30}13\\s*[%％]",
+      "教職調整額[\\s\\S]{0,40}13\\s*[%％]",
+      "13\\s*[%％][\\s\\S]{0,40}(教職調整額|改善)"
+    ],
+    "sourceChunks": [1]
+  },
+  {
+    "id": "subject-teacher-2160",
+    "description": "小学校教科担任制拡充 +2,160人",
+    "severity": "HIGH",
+    "patterns": [
+      "2,?160\\s*人",
+      "教科担任制[\\s\\S]{0,40}(2,?160|1,?750)\\s*人"
+    ],
+    "sourceChunks": [1]
+  },
+  {
+    "id": "class-size-35-3086",
+    "description": "35人学級推進(小6) +3,086人",
+    "severity": "HIGH",
+    "patterns": [
+      "3,?086\\s*人",
+      "35\\s*人学級[\\s\\S]{0,80}3,?086"
+    ],
+    "sourceChunks": [1]
+  },
+  {
+    "id": "class-teacher-allowance-3000",
+    "description": "学級担任への加算 月額3,000円",
+    "severity": "HIGH",
+    "patterns": [
+      "学級担任[\\s\\S]{0,30}3,?000\\s*円",
+      "月額\\s*3,?000\\s*円"
+    ],
+    "sourceChunks": [1]
+  },
+  {
+    "id": "principal-allowance-5to10k",
+    "description": "管理職手当の改善 月額5,000~10,000円",
+    "severity": "HIGH",
+    "patterns": [
+      "5,?000\\s*円[\\s\\S]{0,15}10,?000\\s*円",
+      "管理職手当[\\s\\S]{0,30}5,?000"
+    ],
+    "sourceChunks": [1]
+  },
+  {
+    "id": "new-position-r8-4",
+    "description": "新たな職の創設 令和8年4月予定",
+    "severity": "HIGH",
+    "patterns": [
+      "新たな職[\\s\\S]{0,80}(R8\\.4|令和8年4月|令和8年\\s*4\\s*月)",
+      "(R8\\.4|令和8年4月)[\\s\\S]{0,80}(新たな職|創設)"
+    ],
+    "sourceChunks": [1]
+  }
+]

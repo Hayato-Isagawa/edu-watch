@@ -1,0 +1,92 @@
+[
+  {
+    "id": "three-category-business",
+    "description": "業務「3分類」適正化",
+    "severity": "HIGH",
+    "patterns": [
+      "(３|3)\\s*分類[\\s\\S]{0,30}(業務|適正化)",
+      "(業務|適正化)[\\s\\S]{0,30}(３|3)\\s*分類"
+    ],
+    "sourceChunks": [1]
+  },
+  {
+    "id": "club-activity-guideline",
+    "description": "部活動ガイドライン 休養日・活動時間 遵守徹底",
+    "severity": "HIGH",
+    "patterns": [
+      "部活動ガイドライン",
+      "休養日[\\s\\S]{0,20}活動時間"
+    ],
+    "sourceChunks": [1]
+  },
+  {
+    "id": "support-pairing-r7",
+    "description": "教育委員会連携 伴走型支援 R7~",
+    "severity": "HIGH",
+    "patterns": [
+      "伴走(型)?支援[\\s\\S]{0,80}(R7|令和7)",
+      "(R7|令和7)[\\s\\S]{0,80}伴走"
+    ],
+    "sourceChunks": [1]
+  },
+  {
+    "id": "management-training-r7",
+    "description": "管理職資質向上 研修プログラム R7~",
+    "severity": "HIGH",
+    "patterns": [
+      "管理職[\\s\\S]{0,40}研修[\\s\\S]{0,80}(R7|令和7)",
+      "(R7|令和7)[\\s\\S]{0,80}管理職[\\s\\S]{0,40}研修"
+    ],
+    "sourceChunks": [1]
+  },
+  {
+    "id": "school-problem-support-r6",
+    "description": "行政による学校問題解決支援体制構築モデル事業 R6~",
+    "severity": "HIGH",
+    "patterns": [
+      "学校問題解決[\\s\\S]{0,80}(R6|令和6)",
+      "(モデル事業|支援体制)[\\s\\S]{0,60}(R6|令和6)"
+    ],
+    "sourceChunks": [1]
+  },
+  {
+    "id": "school-lawyer-guidebook-r6",
+    "description": "スクールロイヤー 手引き 改訂・周知 R6~",
+    "severity": "HIGH",
+    "patterns": [
+      "スクールロイヤー[\\s\\S]{0,80}(R6|令和6)",
+      "(法務相談|法務専門家)[\\s\\S]{0,80}(R6|令和6)"
+    ],
+    "sourceChunks": [1]
+  },
+  {
+    "id": "class-hours-check-r6",
+    "description": "授業時数の点検等に関する調査 R6~",
+    "severity": "HIGH",
+    "patterns": [
+      "授業時数[\\s\\S]{0,40}点検[\\s\\S]{0,40}(R6|令和6)",
+      "(R6|令和6)[\\s\\S]{0,40}授業時数[\\s\\S]{0,20}点検"
+    ],
+    "sourceChunks": [1]
+  },
+  {
+    "id": "giga-dx-checklist-r5",
+    "description": "GIGAスクール校務DX化チェックリスト R5~",
+    "severity": "HIGH",
+    "patterns": [
+      "校務 ?DX\\s*化?\\s*チェックリスト",
+      "GIGA[\\s\\S]{0,40}チェックリスト"
+    ],
+    "sourceChunks": [1]
+  },
+  {
+    "id": "next-gen-dx-r7",
+    "description": "次世代校務DX環境整備支援 R7~",
+    "severity": "HIGH",
+    "patterns": [
+      "次世代校務 ?DX",
+      "次世代[\\s\\S]{0,15}校務[\\s\\S]{0,15}DX"
+    ],
+    "sourceChunks": [1]
+  }
+]
