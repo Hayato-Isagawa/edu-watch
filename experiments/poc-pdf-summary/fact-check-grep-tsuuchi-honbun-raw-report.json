@@ -1,0 +1,136 @@
+{
+  "timestamp": "2026-05-19T13:21:18.490Z",
+  "summaryPath": "./summary-v4-tsuuchi-honbun.md",
+  "outputPath": "./summary-v4-tsuuchi-honbun-checked-raw.md",
+  "model": "gemma3:12b",
+  "numCtx": 32768,
+  "initial": {
+    "total": 8,
+    "present": [
+      {
+        "id": "standard-hours-1015",
+        "severity": "HIGH",
+        "description": "標準授業時数 年間1,015単位時間"
+      },
+      {
+        "id": "work-survey-30pct-reduction",
+        "severity": "HIGH",
+        "description": "教員勤務実態調査 平成28年度比 約3割減少"
+      },
+      {
+        "id": "three-category-14-tasks",
+        "severity": "HIGH",
+        "description": "「3分類」14の取組"
+      }
+    ],
+    "missing": [
+      {
+        "id": "overtime-month-45h",
+        "severity": "CRITICAL",
+        "description": "上限指針 時間外在校等時間 月45時間以内",
+        "sourceChunks": [
+          1
+        ]
+      },
+      {
+        "id": "karoshi-line-80h",
+        "severity": "CRITICAL",
+        "description": "過労死ライン 月80時間超過",
+        "sourceChunks": [
+          1
+        ]
+      },
+      {
+        "id": "standard-hours-1086-overstep",
+        "severity": "HIGH",
+        "description": "標準授業時数 大幅上回り 年間1,086単位時間以上",
+        "sourceChunks": [
+          1
+        ]
+      },
+      {
+        "id": "notice-number-date",
+        "severity": "HIGH",
+        "description": "通知 文科初第1293号 令和6年9月30日付け",
+        "sourceChunks": [
+          1
+        ]
+      },
+      {
+        "id": "interval-11h",
+        "severity": "HIGH",
+        "description": "勤務間インターバル 11時間目安",
+        "sourceChunks": [
+          1
+        ]
+      }
+    ]
+  },
+  "retry": {
+    "attempted": true,
+    "inputSource": "raw",
+    "perChunk": [
+      {
+        "chunk": 1,
+        "promptChars": 21441,
+        "elapsedSec": 378.317,
+        "promptEvalCount": 13599,
+        "evalCount": 745,
+        "outputPath": "./summary-v4-tsuuchi-honbun-checked-raw.chunk1.md",
+        "outputChars": 1264,
+        "recovered": [
+          {
+            "id": "overtime-month-45h",
+            "severity": "CRITICAL",
+            "description": "上限指針 時間外在校等時間 月45時間以内"
+          },
+          {
+            "id": "karoshi-line-80h",
+            "severity": "CRITICAL",
+            "description": "過労死ライン 月80時間超過"
+          },
+          {
+            "id": "standard-hours-1086-overstep",
+            "severity": "HIGH",
+            "description": "標準授業時数 大幅上回り 年間1,086単位時間以上"
+          },
+          {
+            "id": "interval-11h",
+            "severity": "HIGH",
+            "description": "勤務間インターバル 11時間目安"
+          }
+        ]
+      }
+    ],
+    "recovered": [
+      {
+        "id": "overtime-month-45h",
+        "severity": "CRITICAL",
+        "description": "上限指針 時間外在校等時間 月45時間以内"
+      },
+      {
+        "id": "karoshi-line-80h",
+        "severity": "CRITICAL",
+        "description": "過労死ライン 月80時間超過"
+      },
+      {
+        "id": "standard-hours-1086-overstep",
+        "severity": "HIGH",
+        "description": "標準授業時数 大幅上回り 年間1,086単位時間以上"
+      },
+      {
+        "id": "interval-11h",
+        "severity": "HIGH",
+        "description": "勤務間インターバル 11時間目安"
+      }
+    ],
+    "stillMissing": [
+      {
+        "id": "notice-number-date",
+        "severity": "HIGH",
+        "description": "通知 文科初第1293号 令和6年9月30日付け"
+      }
+    ]
+  },
+  "outOfScope": []
+}

@@ -1,0 +1,63 @@
+{
+  "timestamp": "2026-05-19T13:21:18.639Z",
+  "summaryPath": "./summary-v4-tsuuchi-betsutenpu-2.md",
+  "outputPath": null,
+  "model": "gemma3:12b",
+  "numCtx": 32768,
+  "initial": {
+    "total": 9,
+    "present": [
+      {
+        "id": "three-category-business",
+        "severity": "HIGH",
+        "description": "業務「3分類」適正化"
+      },
+      {
+        "id": "club-activity-guideline",
+        "severity": "HIGH",
+        "description": "部活動ガイドライン 休養日・活動時間 遵守徹底"
+      },
+      {
+        "id": "support-pairing-r7",
+        "severity": "HIGH",
+        "description": "教育委員会連携 伴走型支援 R7~"
+      },
+      {
+        "id": "management-training-r7",
+        "severity": "HIGH",
+        "description": "管理職資質向上 研修プログラム R7~"
+      },
+      {
+        "id": "school-problem-support-r6",
+        "severity": "HIGH",
+        "description": "行政による学校問題解決支援体制構築モデル事業 R6~"
+      },
+      {
+        "id": "school-lawyer-guidebook-r6",
+        "severity": "HIGH",
+        "description": "スクールロイヤー 手引き 改訂・周知 R6~"
+      },
+      {
+        "id": "class-hours-check-r6",
+        "severity": "HIGH",
+        "description": "授業時数の点検等に関する調査 R6~"
+      },
+      {
+        "id": "giga-dx-checklist-r5",
+        "severity": "HIGH",
+        "description": "GIGAスクール校務DX化チェックリスト R5~"
+      },
+      {
+        "id": "next-gen-dx-r7",
+        "severity": "HIGH",
+        "description": "次世代校務DX環境整備支援 R7~"
+      }
+    ],
+    "missing": []
+  },
+  "retry": {
+    "attempted": false,
+    "reason": "no-recoverable-missing"
+  },
+  "outOfScope": []
+}

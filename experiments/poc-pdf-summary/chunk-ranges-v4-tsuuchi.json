@@ -1,0 +1,12 @@
+{
+  "honbun": [
+    { "startPage": 1, "endPage": 10 }
+  ],
+  "betsutenpu-2": [
+    { "startPage": 87, "endPage": 87 }
+  ],
+  "betsutenpu-3": [
+    { "startPage": 88, "endPage": 92 },
+    { "startPage": 93, "endPage": 97 }
+  ]
+}
