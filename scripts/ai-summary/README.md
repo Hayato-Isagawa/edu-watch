@@ -65,7 +65,7 @@ PoC コード(extract-tsuuchi.mjs / mapreduce-v4-tsuuchi.mjs / fact-check-grep.m
 
 - `docs/decisions/0040-ai-assisted-summary-with-editor-supervision.md` §C-7(採用判定固定)
 - `docs/decisions/0046-promote-raw-chunk-retry-to-phase-2.md`(retry 入力 raw 化の正式採用)
-- `docs/decisions/0050-ai-summary-pipeline-promotion.md`(本 MVP の決定記録、セッション 71 で起票予定)
+- `docs/decisions/0050-w1-ai-summary-mvp.md`(本 MVP の決定記録、セッション 74 で起票)
 - `~/.claude/plans/promoted-summarizing-otter.md`(W-1 MVP 計画)
 - `experiments/poc-pdf-summary/observation-2026-05-17.md`(答申本体 100% / 概要版 100%)
 - `experiments/poc-pdf-summary/observation-2026-05-19.md`(通知本文 87.5% / 別添資料2 100% / 別添資料3 100%)
