@@ -1,0 +1,45 @@
+{
+  "version": 1,
+  "entries": [
+    {
+      "slug": "tsuuchi-r6-08-27",
+      "sourceTitle": "「『令和の日本型学校教育』を担う質の高い教師の確保のための環境整備に関する総合的な方策について(答申)」を踏まえた取組の徹底等について(通知)",
+      "sourceUrl": "https://www.mext.go.jp/b_menu/shingi/chukyo/chukyo3/099/mext_00013.html",
+      "pdfUrl": "https://www.mext.go.jp/content/20240930-mxt_zaimu-000038209_1.pdf",
+      "category": "chukyo-answer-tsuuchi",
+      "issuer": "文部科学省",
+      "issueDate": "2024-08-27",
+      "sectionDetectionPatterns": {
+        "betsutenpu1": "別\\s*添\\s*資\\s*料\\s*[１1]",
+        "betsutenpu2": "別\\s*添\\s*資\\s*料\\s*[２2]",
+        "betsutenpu3": "別\\s*添\\s*資\\s*料\\s*[３3]"
+      },
+      "sections": [
+        {
+          "section": "honbun",
+          "label": "通知本文",
+          "desc": "令和6年8月27日付け文部科学省通知「『令和の日本型学校教育』を担う質の高い教師の確保のための環境整備に関する総合的な方策について(答申)を踏まえた取組の徹底等について」の通知本文",
+          "boundary": { "fromPage": 1, "toBeforeKey": "betsutenpu1" },
+          "chunkRanges": "chunk-ranges/tsuuchi-r6-08-27-honbun.json",
+          "requiredFacts": "required-facts/tsuuchi-r6-08-27-honbun.json"
+        },
+        {
+          "section": "betsutenpu-2",
+          "label": "別添資料2",
+          "desc": "上記通知に添付された別添資料２「教師を取り巻く環境整備に関する総合的な推進パッケージ」",
+          "boundary": { "fromAtKey": "betsutenpu2", "fromOffset": 1, "toBeforeKey": "betsutenpu3" },
+          "chunkRanges": "chunk-ranges/tsuuchi-r6-08-27-betsutenpu-2.json",
+          "requiredFacts": "required-facts/tsuuchi-r6-08-27-betsutenpu-2.json"
+        },
+        {
+          "section": "betsutenpu-3",
+          "label": "別添資料3",
+          "desc": "上記通知に添付された別添資料３「令和7年度概算要求」",
+          "boundary": { "fromAtKey": "betsutenpu3", "toEnd": true },
+          "chunkRanges": "chunk-ranges/tsuuchi-r6-08-27-betsutenpu-3.json",
+          "requiredFacts": "required-facts/tsuuchi-r6-08-27-betsutenpu-3.json"
+        }
+      ]
+    }
+  ]
+}

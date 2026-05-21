@@ -1,0 +1,74 @@
+[
+  {
+    "id": "overtime-month-45h",
+    "description": "上限指針 時間外在校等時間 月45時間以内",
+    "severity": "CRITICAL",
+    "patterns": ["(月|1か月|一か月)\\s*45\\s*時間"],
+    "sourceChunks": [1]
+  },
+  {
+    "id": "karoshi-line-80h",
+    "description": "過労死ライン 月80時間超過",
+    "severity": "CRITICAL",
+    "patterns": [
+      "過労死[^。\\n]{0,30}(月|1か月)?\\s*80\\s*時間",
+      "(月|1か月)\\s*80\\s*時間[^。\\n]{0,30}(過労死|超過|超え)",
+      "80\\s*時間[\\s\\S]{0,20}(超過|超え|ゼロ)"
+    ],
+    "sourceChunks": [1]
+  },
+  {
+    "id": "standard-hours-1015",
+    "description": "標準授業時数 年間1,015単位時間",
+    "severity": "HIGH",
+    "patterns": ["1,?015\\s*単位時間"],
+    "sourceChunks": [1]
+  },
+  {
+    "id": "standard-hours-1086-overstep",
+    "description": "標準授業時数 大幅上回り 年間1,086単位時間以上",
+    "severity": "HIGH",
+    "patterns": ["1,?086\\s*単位時間"],
+    "sourceChunks": [1]
+  },
+  {
+    "id": "work-survey-30pct-reduction",
+    "description": "教員勤務実態調査 平成28年度比 約3割減少",
+    "severity": "HIGH",
+    "patterns": [
+      "(平成28|H28)[\\s\\S]{0,100}(3|三|約３)\\s*割",
+      "(3|三|約３)\\s*割[\\s\\S]{0,60}(平成28|H28|減少)"
+    ],
+    "sourceChunks": [1]
+  },
+  {
+    "id": "notice-number-date",
+    "description": "通知 文科初第1293号 令和6年9月30日付け",
+    "severity": "HIGH",
+    "patterns": [
+      "文(科|部科学)初第\\s*1,?293\\s*号",
+      "令和\\s*6\\s*年\\s*9\\s*月\\s*30\\s*日"
+    ],
+    "sourceChunks": [1]
+  },
+  {
+    "id": "three-category-14-tasks",
+    "description": "「3分類」14の取組",
+    "severity": "HIGH",
+    "patterns": [
+      "(３|3)\\s*分類[\\s\\S]{0,40}14\\s*の?取組",
+      "14\\s*の?取組[\\s\\S]{0,40}(３|3)\\s*分類"
+    ],
+    "sourceChunks": [1]
+  },
+  {
+    "id": "interval-11h",
+    "description": "勤務間インターバル 11時間目安",
+    "severity": "HIGH",
+    "patterns": [
+      "インターバル[\\s\\S]{0,40}11\\s*時間",
+      "11\\s*時間[\\s\\S]{0,30}(インターバル|休息)"
+    ],
+    "sourceChunks": [1]
+  }
+]
