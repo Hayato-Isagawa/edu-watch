@@ -43,3 +43,8 @@ experiments/poc-pdf-summary/*
 !experiments/poc-pdf-summary/fact-check-grep-tsuuchi-*-raw-report.json
 !experiments/poc-pdf-summary/summary-v4-tsuuchi-*-checked-raw*.md
 !experiments/poc-pdf-summary/fact-check-grep-tsuuchi-all.log
+
+# AI 要約パイプラインの generated 出力(scripts/ai-summary/run-pipeline.mjs)。
+# 各 PDF の抽出 text / chunk / summary / fact-check report は tmp/ 配下に出力し、
+# 編集者監修済の最終 markdown のみを src/content/ai-summary/ に commit する。
+tmp/ai-summary/
