@@ -1,0 +1,89 @@
+name: AI summary reminder
+
+on:
+  schedule:
+    # JST 月曜 09:00 = UTC 月曜 00:00(ADR 0050 後続 PR、ADR 0040 §C-6 編集者監修フローの週次起点)
+    - cron: "0 0 * * 1"
+  workflow_dispatch:
+
+concurrency:
+  group: ai-summary-reminder
+  cancel-in-progress: false
+
+jobs:
+  remind:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      issues: write
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Get ISO week
+        id: week
+        run: echo "yyyy_www=$(date -u +%G-W%V)" >> "$GITHUB_OUTPUT"
+      - name: Create reminder issue
+        uses: actions/github-script@v7
+        env:
+          YYYY_WWW: ${{ steps.week.outputs.yyyy_www }}
+        with:
+          script: |
+            const fs = require('fs');
+            const path = require('path');
+
+            const registryPath = path.join(process.env.GITHUB_WORKSPACE, 'scripts/ai-summary/registry.json');
+            const registry = JSON.parse(fs.readFileSync(registryPath, 'utf8'));
+
+            const yyyyWww = process.env.YYYY_WWW;
+            const title = `AI summary 週次実行リマインダー (${yyyyWww})`;
+
+            const entriesList = registry.entries.map((e) => {
+              const sections = e.sections
+                .map((s) => `  - section: \`${s.section}\` — ${s.label}`)
+                .join('\n');
+              return `- slug: \`${e.slug}\` — ${e.sourceTitle}\n  - 発行: ${e.issuer}(${e.issueDate})\n  - pdfUrl: ${e.pdfUrl}\n${sections}`;
+            }).join('\n');
+
+            const body = [
+              '## 対象 entry',
+              '',
+              entriesList,
+              '',
+              '## 実行コマンド(ローカル M1、Ollama gemma3:12b)',
+              '',
+              '```bash',
+              'node scripts/ai-summary/run-pipeline.mjs --slug <slug>',
+              '```',
+              '',
+              '`--section <section>` で個別実行可、`--skip-extract` / `--skip-retry` で部分実行可(ADR 0050 §決定 (3))。',
+              '',
+              '## 結果確認 + 編集者監修(ADR 0040 §C-6)',
+              '',
+              '生成物 `tmp/ai-summary/<slug>/<section>/summary.md` + `fact-check-report.json` を原文 PDF と突合:',
+              '',
+              '1. 核心数値の原文突合',
+              '2. 出典ページの原文突合',
+              '3. 幻覚有無',
+              '',
+              '初回 3 件は教育長レベル監修(ADR 0040 §C-6 運用安定化フェーズ)。',
+              '',
+              '## PR 起票',
+              '',
+              'ローカルでブランチを作成 → push 後、PR テンプレ `ai-summary.md` を選択して起票してください。',
+              '',
+              `URL 例: https://github.com/${context.repo.owner}/${context.repo.repo}/compare/main...feat/ai-summary-<slug>-<section>?quick_pull=1&template=ai-summary.md`,
+              '',
+              '## 観測項目(ADR 0050 §監視 / リスク観測項目)',
+              '',
+              '- LLM 事前知識補完(真の救出率 strict との乖離)',
+              '- pattern hardening の副作用(NFKC 正規化の false positive)',
+              '- `extract.mjs` page marker root cause',
+              '- 実行コスト(1 エントリ約 43.7 分 / M1 16GB)',
+            ].join('\n');
+
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title,
+              body,
+            });
