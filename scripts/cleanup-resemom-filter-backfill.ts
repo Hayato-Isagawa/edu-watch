@@ -36,7 +36,6 @@ const REMOVE_IDS: ReadonlySet<string> = new Set([
   // 非教育判定 (44 件) - EDUCATION_PATTERNS 不一致
   "resemom-2026-04-23-fb1ef83425a6cbca",
   "resemom-2026-04-24-6122ec8297d2518d",
-  "resemom-2026-04-27-29914904e409c0b9",
   "resemom-2026-04-27-e0c339e5764c58d3",
   "resemom-2026-05-07-e33e15ef47f61608",
   "resemom-2026-05-07-1114ae9577a7e836",
@@ -50,7 +49,6 @@ const REMOVE_IDS: ReadonlySet<string> = new Set([
   "resemom-2026-05-12-0175a324fd38c95e",
   "resemom-2026-05-12-6865d274776ec0b2",
   "resemom-2026-05-12-db63d4a6732a966d",
-  "resemom-2026-05-12-e49ec95f8a52cd91",
   "resemom-2026-05-12-087a61f5908c0df8",
   "resemom-2026-05-13-1d3e19bb1a792062",
   "resemom-2026-05-13-ca50f06b33c52fe5",
