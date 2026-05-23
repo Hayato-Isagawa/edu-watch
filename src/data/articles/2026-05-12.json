@@ -61,51 +61,6 @@
     "language": "ja"
   },
   {
-    "id": "resemom-2026-05-12-406cd924198107e9",
-    "title": "ぬいぐるみで医療体験5/24…国立成育医療研究センター",
-    "sourceId": "resemom",
-    "sourceName": "リセマム",
-    "sourceUrl": "https://resemom.jp/article/2026/05/12/86043.html",
-    "publishedAt": "2026-05-12T09:45:04.000Z",
-    "collectedAt": "2026-05-12T11:10:43.699Z",
-    "summary": "国立成育医療研究センターは、ぬいぐるみのケアをとおした医療体験イベントを2026年5月24日に開催する。身長・体重を測る、包帯を巻くなどといった病院で行われている医療の一部を、自宅のぬいぐるみと一緒に体験できる。参加費は無料。申込締切は5月18日。",
-    "categories": [
-      "研究・エビデンス"
-    ],
-    "layer": 2,
-    "language": "ja"
-  },
-  {
-    "id": "resemom-2026-05-12-fc95adf5d9408ec5",
-    "title": "中学生と高1対象「文理選択ガイダンス」河合塾37校舎で開催",
-    "sourceId": "resemom",
-    "sourceName": "リセマム",
-    "sourceUrl": "https://resemom.jp/article/2026/05/12/86041.html",
-    "publishedAt": "2026-05-12T08:45:04.000Z",
-    "collectedAt": "2026-05-12T11:10:43.699Z",
-    "summary": "河合塾は、高校1年生・中学生とその保護者を対象とした「文理選択のポイントがわかる！文理選択ガイダンス」を2026年5月30日より順次、全国37校舎にて開催する。参加費は無料で、Webサイトから申し込みができる。",
-    "categories": [
-      "その他"
-    ],
-    "layer": 2,
-    "language": "ja"
-  },
-  {
-    "id": "resemom-2026-05-12-0175a324fd38c95e",
-    "title": "国際原子力科学オリンピック、灘高生ら日本代表4名決定",
-    "sourceId": "resemom",
-    "sourceName": "リセマム",
-    "sourceUrl": "https://resemom.jp/article/2026/05/12/86038.html",
-    "publishedAt": "2026-05-12T07:15:04.000Z",
-    "collectedAt": "2026-05-12T11:10:43.699Z",
-    "summary": "国際原子力科学オリンピック2026年大会（INSO-2026／第3回大会）に出場する日本代表選手4名が決定した。代表選手は、2026年8月上旬にサウジアラビアで開催予定の国際大会に出場する。",
-    "categories": [
-      "その他"
-    ],
-    "layer": 2,
-    "language": "ja"
-  },
-  {
     "id": "nikkyo-2026-05-12-3d33afad3310edf1",
     "title": "高校教育改革の先導拠点　坂井、敦賀、鯖江の3校を申請　福井県",
     "sourceId": "nikkyo",
@@ -116,21 +71,6 @@
     "summary": "福井県は、2040年を見据えた文科省の高校教育改革の「先導拠点」として、坂井、敦賀、鯖江の県立高校3校を申請する方針を決めた。それぞれに協力校も複数設け、成果を県内の高校全体へ波及させる。8日の総合…",
     "categories": [
       "政策・制度"
-    ],
-    "layer": 2,
-    "language": "ja"
-  },
-  {
-    "id": "resemom-2026-05-12-6865d274776ec0b2",
-    "title": "横浜「森公美子コンサート」6/13…18歳以下無料招待、同伴者半額優待も",
-    "sourceId": "resemom",
-    "sourceName": "リセマム",
-    "sourceUrl": "https://resemom.jp/article/2026/05/12/86037.html",
-    "publishedAt": "2026-05-12T06:45:03.000Z",
-    "collectedAt": "2026-05-12T11:10:43.699Z",
-    "summary": "ミュージカル俳優の森公美子氏によるコンサートが、2026年6月13日に横浜市磯子区民文化センター杉田劇場で開催される。文化庁「令和8年度 劇場・音楽堂等における子供舞台芸術鑑賞体験支援事業」の一環として、18歳以下の子供70名を無料招待するほか、同伴者への半額優待も実施する。",
-    "categories": [
-      "その他"
     ],
     "layer": 2,
     "language": "ja"
@@ -165,21 +105,6 @@
     "layer": 2,
     "language": "ja",
     "requiresMembership": true
-  },
-  {
-    "id": "resemom-2026-05-12-db63d4a6732a966d",
-    "title": "10～18歳の起業家育成プログラム「YOUNG IMPACT」全国から25名エントリー",
-    "sourceId": "resemom",
-    "sourceName": "リセマム",
-    "sourceUrl": "https://resemom.jp/article/2026/05/12/86035.html",
-    "publishedAt": "2026-05-12T05:15:03.000Z",
-    "collectedAt": "2026-05-12T11:10:43.699Z",
-    "summary": "こども万博実行委員会（Meta Osaka・こどもCandy）は、10～18歳の若者が社会課題解決に挑戦する起業家育成プログラム「YOUNG IMPACT（ヤング・インパクト）」の2期生募集に全国から25名のエントリーが集まったと発表した。現在、書類・動画による予選審査を実施中だ。",
-    "categories": [
-      "その他"
-    ],
-    "layer": 2,
-    "language": "ja"
   },
   {
     "id": "mext-2026-05-12-d6fedf6a46cf215f",
@@ -249,36 +174,6 @@
       "政策・制度"
     ],
     "layer": 1,
-    "language": "ja"
-  },
-  {
-    "id": "resemom-2026-05-12-e49ec95f8a52cd91",
-    "title": "中高生ネットパトロール、特に問題ある書込み増加…千葉県",
-    "sourceId": "resemom",
-    "sourceName": "リセマム",
-    "sourceUrl": "https://resemom.jp/article/2026/05/12/86034.html",
-    "publishedAt": "2026-05-12T04:15:04.000Z",
-    "collectedAt": "2026-05-12T11:10:43.699Z",
-    "summary": "千葉県は2026年5月11日、2025年度青少年ネット被害防止対策事業（ネットパトロール）の実施結果を公表した。問題のある書き込み人数は969人と前年度から減少した一方、特に問題がある書き込みは件数・人数ともに前年度から増加している。",
-    "categories": [
-      "研究・エビデンス"
-    ],
-    "layer": 2,
-    "language": "ja"
-  },
-  {
-    "id": "resemom-2026-05-12-087a61f5908c0df8",
-    "title": "東大駒場リサーチキャンパス公開6/5-6…子供向け体験イベントも",
-    "sourceId": "resemom",
-    "sourceName": "リセマム",
-    "sourceUrl": "https://resemom.jp/article/2026/05/12/86033.html",
-    "publishedAt": "2026-05-12T03:15:04.000Z",
-    "collectedAt": "2026-05-12T11:10:43.699Z",
-    "summary": "東京大学の生産技術研究所と先端科学技術研究センターは2026年6月5日と6日の2日間、「東大駒場リサーチキャンパス公開2026」を開催する。120以上の研究室が一般に公開され、最先端の研究紹介や体験イベントなどを行う。参加無料。オンラインでの来場事前登録を呼びかけている。",
-    "categories": [
-      "研究・エビデンス"
-    ],
-    "layer": 2,
     "language": "ja"
   },
   {
