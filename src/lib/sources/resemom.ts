@@ -155,10 +155,43 @@ const NG_PATTERNS: readonly RegExp[] = [
   /(芋フェス|肉フェス|ラーメンフェス)/,
   // 商業ランキング(ADR 0039、イード・アワード型の満足度調査)
   /イード[・･]アワード/,
+  // スポーツ大会試合結果(ADR 0051、大学野球・高校野球リーグ戦など)
+  /(?:大学|高校)野球.{0,10}(?:リーグ|大会|選手権)/,
+  // 子ども向け一般イベント(ADR 0051、こどもフェスタなど)
+  /(?:子ども|こども).{0,3}フェスタ/,
+  // 国際交流プログラム参加募集(ADR 0051、ジュニア大使派遣・ホームステイ募集)
+  /ジュニア大使/,
+  /ホームステイ.{0,10}(?:派遣|募集)/,
 ];
 
 export function isExcludedByTitle(title: string): boolean {
   return NG_PATTERNS.some((pattern) => pattern.test(title));
+}
+
+/**
+ * resemom 用 educational keyword filter (ADR 0051)。
+ * title または summary に教員視点の教育キーワードが一致すれば採用。
+ * 既存 isExcludedByTitle と AND で組み合わせ、NG (除外型) と include (採用型) の
+ * 両 gate を通った記事のみが parser 段階を通過する。
+ */
+const EDUCATION_PATTERNS: readonly RegExp[] = [
+  /教育/, /学校/, /教員/, /教師/, /教職/, /教科書/, /教科/, /校長/, /教頭/, /学級/,
+  /児童/, /生徒/, /学習/, /学力/, /指導要領/, /部活動/, /部活/,
+  /いじめ/, /不登校/, /特別支援/, /発達障害/,
+  /給特法/, /働き方改革/, /教員研修/, /教員養成/, /教員採用/,
+  /GIGA/, /ICT/, /タブレット/, /プログラミング教育/, /デジタル教科書/,
+  /中教審/, /文科省/, /文部科学/, /教育委員会/, /通知/, /答申/,
+  /入試/, /進路/,
+  /フリースクール/, /教育機会確保法/, /カウンセラー/, /SC\b/, /SSW/,
+  /校則/, /学校給食/, /保健室/,
+  /家庭学習/, /家庭との連携/, /保護者会/,
+  /経済格差/, /子どもの貧困/, /子供の貧困/,
+  /教科担任制/, /探究学習/, /探究的な/, /学習評価/, /カリキュラム/,
+];
+
+export function isEducationallyRelevant(title: string, summary?: string): boolean {
+  const haystack = summary ? `${title}\n${summary}` : title;
+  return EDUCATION_PATTERNS.some((pattern) => pattern.test(haystack));
 }
 
 export const resemom: SourceParser = {
@@ -177,6 +210,9 @@ export const resemom: SourceParser = {
       if (!title || !url || !pubRaw) continue;
       if (isExcludedByTitle(title)) continue;
 
+      const summary = item.contentSnippet?.trim() || item.content?.trim() || undefined;
+      if (!isEducationallyRelevant(title, summary)) continue;
+
       const published = new Date(pubRaw);
       if (Number.isNaN(published.getTime())) continue;
 
@@ -184,7 +220,7 @@ export const resemom: SourceParser = {
         title,
         url,
         publishedAt: published.toISOString(),
-        summary: item.contentSnippet?.trim() || item.content?.trim() || undefined,
+        summary,
       });
     }
     return results;
