@@ -161,6 +161,18 @@ const CASES: readonly Case[] = [
     expected: true,
     reason: "ADR 0051 / 国際交流プログラム参加募集(ジュニア大使)",
   },
+  {
+    title: "東京六大学野球、勝ち点3明大のスタメン…進学校・強豪校など多彩な出身校",
+    expected: true,
+    reason:
+      "ADR 0051 / 六大学野球関連。「進学校」内の「学校」substring が EDUCATION_PATTERNS を誤通過するため NG 側で先に弾く",
+  },
+  {
+    title: "【高校野球】北海道春季大会、16校の組合せ決定…5/25開幕",
+    expected: true,
+    reason:
+      "ADR 0051 / 高校野球大会(既存 /(?:大学|高校)野球.*(?:リーグ|大会|選手権)/ で捕捉、回帰防止)",
+  },
 
   // ==== ADR 0039 数字統計コピー記事は残す(parser pass、編集者判断) ====
   {
