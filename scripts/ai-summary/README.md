@@ -40,11 +40,32 @@ node scripts/ai-summary/run-pipeline.mjs --slug tsuuchi-r6-08-27 --section honbu
 
 # retry スキップ(デバッグ用)
 node scripts/ai-summary/run-pipeline.mjs --slug tsuuchi-r6-08-27 --skip-retry
+
+# extract + mapreduce + retry をすべてスキップ(strict 判定の再検証用、~0.3s)
+node scripts/ai-summary/run-pipeline.mjs --slug tsuuchi-r6-08-27 --skip-extract --skip-mapreduce --skip-retry
 ```
 
 各ステップは個別実行も可能(`extract.mjs --slug ...` / `mapreduce.mjs --slug ... --section ...` / `fact-check-grep.mjs --slug ... --section ...`)。
 
 OLLAMA endpoint は環境変数 `OLLAMA_BASE_URL`(default: `http://localhost:11434`)で切り替え可能。GHA self-hosted runner からは `OLLAMA_BASE_URL` を secret で注入。
+
+## strict 判定(LLM 事前知識補完検出、ADR 0054)
+
+`fact-check-grep.mjs` は report.json トップに `strict` セクションを出力する。各 required fact について 2 軸で判定:
+
+- `summaryHit`: LLM 出力(`summary.md` + 各 `summary-checked-raw.chunk{N}.md`)への required-facts grep
+- `rawChunkHit`: fact.sourceChunks に対応する PDF 本文(extracted text)への同 pattern grep
+
+4 区分:
+
+| summaryHit | rawChunkHit | 分類 | 編集者対応 |
+|---|---|---|---|
+| T | T | `present` | 真の救出、対応不要 |
+| T | F | `llm_hallucination` | LLM 補完疑い、PDF 本文を直接確認 |
+| F | T | `llm_dropped` | LLM 脱落、retry でも救えなかった項目 |
+| F | F | `missing` | 真の missing、要約に追記 or 章外と判断 |
+
+console 出力末尾 `[strict] present X/Y, llm_hallucination N, llm_dropped N, missing N` で集計確認。
 
 ## 編集者監修フロー
 
