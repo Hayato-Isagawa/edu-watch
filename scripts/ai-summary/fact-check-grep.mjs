@@ -70,19 +70,29 @@ async function loadRawChunkSources(chunkNumbers) {
   if (!Array.isArray(ranges)) {
     throw new Error(`chunkRanges must be array (or {section: array}) in ${chunkRangesPath}`);
   }
-  const pageMarker = /\n?--- page \d+ \/ \d+ ---\n?/;
-  const rawPages = extracted.split(pageMarker).map((p) => p.trim()).filter((p) => p.length > 0);
+  const pageMarkerRe = /--- page (\d+) \/ \d+ ---/g;
+  const matches = [...extracted.matchAll(pageMarkerRe)];
+  const pageMap = new Map();
+  for (let i = 0; i < matches.length; i++) {
+    const pageNum = Number(matches[i][1]);
+    const start = matches[i].index + matches[i][0].length;
+    const end = i + 1 < matches.length ? matches[i + 1].index : extracted.length;
+    pageMap.set(pageNum, extracted.slice(start, end).trim());
+  }
   const sources = {};
   for (const n of chunkNumbers) {
     const r = ranges[n - 1];
     if (!r) {
       throw new Error(`chunk ${n} not found in ${chunkRangesPath} (length=${ranges.length})`);
     }
-    const slice = rawPages.slice(r.startPage - 1, r.endPage);
-    const body = slice
-      .map((p, idx) => `--- page ${r.startPage + idx} / ${rawPages.length} ---\n${p}`)
-      .join('\n\n');
-    sources[n] = body;
+    const parts = [];
+    for (let p = r.startPage; p <= r.endPage; p++) {
+      const content = pageMap.get(p);
+      if (content !== undefined) {
+        parts.push(`--- page ${p} / ${pageMap.size} ---\n${content}`);
+      }
+    }
+    sources[n] = parts.join('\n\n');
   }
   return sources;
 }
@@ -93,6 +103,69 @@ function grepFacts(text, facts) {
     ...f,
     found: f.patterns.some((re) => re.test(norm)),
   }));
+}
+
+async function loadAllRawChunkSources(facts) {
+  const allChunkNumbers = [...new Set(facts.flatMap((f) => f.sourceChunks || []))].sort((a, b) => a - b);
+  if (allChunkNumbers.length === 0) return {};
+  return await loadRawChunkSources(allChunkNumbers);
+}
+
+async function loadAllRetryChunkOutputs() {
+  const files = await fs.readdir(sectionDir).catch(() => []);
+  const chunkFiles = files
+    .filter((f) => /^summary-checked-raw\.chunk\d+\.md$/.test(f))
+    .sort();
+  const texts = [];
+  for (const f of chunkFiles) {
+    texts.push(await fs.readFile(path.join(sectionDir, f), 'utf8'));
+  }
+  return texts.join('\n');
+}
+
+function squeezeJpSpaces(s) {
+  let prev;
+  let cur = s;
+  const re = /([぀-ヿ㐀-鿿0-9,])\s+([぀-ヿ㐀-鿿0-9,])/g;
+  do {
+    prev = cur;
+    cur = cur.replace(re, '$1$2');
+  } while (cur !== prev);
+  return cur;
+}
+
+function judgeStrict(facts, summaryText, chunkSources) {
+  const normSummary = summaryText.normalize('NFKC');
+  const details = facts.map((f) => {
+    const summaryHit = f.patterns.some((re) => re.test(normSummary));
+    const chunkNumbers = f.sourceChunks || [];
+    let rawChunkText = '';
+    for (const n of chunkNumbers) {
+      if (chunkSources[n]) rawChunkText += '\n' + chunkSources[n];
+    }
+    const normChunk = squeezeJpSpaces(rawChunkText.normalize('NFKC'));
+    const rawChunkHit = rawChunkText ? f.patterns.some((re) => re.test(normChunk)) : false;
+    let judgment;
+    if (summaryHit && rawChunkHit) judgment = 'present';
+    else if (summaryHit && !rawChunkHit) judgment = 'llm_hallucination';
+    else if (!summaryHit && rawChunkHit) judgment = 'llm_dropped';
+    else judgment = 'missing';
+    return {
+      id: f.id,
+      severity: f.severity,
+      summaryHit,
+      rawChunkHit,
+      judgment,
+    };
+  });
+  return {
+    totalFacts: facts.length,
+    strictPresent: details.filter((d) => d.judgment === 'present').length,
+    llmHallucinated: details.filter((d) => d.judgment === 'llm_hallucination').length,
+    llmDropped: details.filter((d) => d.judgment === 'llm_dropped').length,
+    stillMissingStrict: details.filter((d) => d.judgment === 'missing').length,
+    details,
+  };
 }
 
 function buildRetryPrompt(summary, missingFacts, chunkSources) {
@@ -243,6 +316,11 @@ if (recoverable.length === 0) {
   };
 }
 
+const retryChunkText = await loadAllRetryChunkOutputs();
+const combinedSummaryText = summary + '\n' + retryChunkText;
+const allChunkSources = await loadAllRawChunkSources(facts);
+const strict = judgeStrict(facts, combinedSummaryText, allChunkSources);
+
 const report = {
   timestamp: new Date().toISOString(),
   slug: values.slug,
@@ -251,6 +329,7 @@ const report = {
   model: MODEL,
   numCtx: NUM_CTX,
   ollamaBaseUrl: OLLAMA_BASE_URL,
+  strict,
   initial: {
     total: facts.length,
     present: present.map(summarizeFact),
@@ -267,3 +346,4 @@ await fs.writeFile(reportPath, JSON.stringify(report, null, 2));
 console.log(`[report] ${reportPath}`);
 const finalPresent = present.length + recovered.length;
 console.log(`[final] present ${present.length} → after retry ${finalPresent}/${facts.length}, out-of-scope ${outOfScope.length}, still-missing ${stillMissing.length}`);
+console.log(`[strict] present ${strict.strictPresent}/${strict.totalFacts}, llm_hallucination ${strict.llmHallucinated}, llm_dropped ${strict.llmDropped}, missing ${strict.stillMissingStrict}`);

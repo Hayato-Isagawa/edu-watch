@@ -12,6 +12,7 @@ const { values } = parseArgs({
     section: { type: 'string' },
     'skip-retry': { type: 'boolean', default: false },
     'skip-extract': { type: 'boolean', default: false },
+    'skip-mapreduce': { type: 'boolean', default: false },
     registry: { type: 'string', default: './scripts/ai-summary/registry.json' },
     'out-dir': { type: 'string' },
     pdf: { type: 'string' },
@@ -20,7 +21,7 @@ const { values } = parseArgs({
 });
 
 if (!values.slug) {
-  console.error('Usage: run-pipeline.mjs --slug <slug> [--section <section>] [--skip-retry] [--skip-extract] [--registry <path>] [--out-dir <dir>] [--pdf <path>] [--url <url>]');
+  console.error('Usage: run-pipeline.mjs --slug <slug> [--section <section>] [--skip-retry] [--skip-extract] [--skip-mapreduce] [--registry <path>] [--out-dir <dir>] [--pdf <path>] [--url <url>]');
   process.exit(1);
 }
 
@@ -75,8 +76,12 @@ if (!values['skip-extract']) {
 
 for (const section of targetSections) {
   const tSec = Date.now();
-  console.log(`\n=== MAPREDUCE (section=${section.section}) ===`);
-  await runStep('mapreduce.mjs', [...commonArgs, '--section', section.section]);
+  if (!values['skip-mapreduce']) {
+    console.log(`\n=== MAPREDUCE (section=${section.section}) ===`);
+    await runStep('mapreduce.mjs', [...commonArgs, '--section', section.section]);
+  } else {
+    console.log(`\n=== MAPREDUCE (section=${section.section}, skipped) ===`);
+  }
 
   console.log(`\n=== FACT-CHECK (section=${section.section}) ===`);
   const factCheckArgs = [...commonArgs, '--section', section.section];

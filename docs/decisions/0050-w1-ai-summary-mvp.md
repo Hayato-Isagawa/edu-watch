@@ -131,7 +131,7 @@ PoC observation-2026-05-19 との比較(同 PDF):
 
 ### 監視 / リスク観測項目
 
-- **LLM 事前知識補完**: observation-2026-05-19 §4.2 で betsutenpu-3 retry に 3 件(`salary-adjustment-4to13` / `class-teacher-allowance-3000` / `principal-allowance-5to10k`)観測。本 ADR の表面救出率は LLM 補完を含む値であり、新規エントリ追加時に真の救出率(strict)を併測する運用とする
+- **LLM 事前知識補完**: observation-2026-05-19 §4.2 で betsutenpu-3 retry に 3 件(`salary-adjustment-4to13` / `class-teacher-allowance-3000` / `principal-allowance-5to10k`)観測。本 ADR の表面救出率は LLM 補完を含む値であり、新規エントリ追加時に真の救出率(strict)を併測する運用とする(構造実装は ADR 0054 参照。なお当該 3 件は pre-existing バグ由来の誤検出だったことが ADR 0054 検証過程で判明、詳細は observation-2026-05-24)
 - **pattern hardening の副作用**: NFKC 正規化で半角 / 全角が一致するため、本来別の文字列を取り違える可能性。各 PDF 追加時に initial.present の False positive を編集者が原文突合で確認する
 - **`extract.mjs` page marker 検出**: セッション 74 で raw chunk prompt サイズが PoC 1,303 → 本番 1,950 chars に拡大した症状緩和を観測したが、root cause は未解明。別エントリ追加時に同症状が出ないか観測する
 - **実行コスト**: 1 エントリ 3 セクション = 計 43.7 分(M1 16GB)。エントリ追加で線形増加、月次運用上限の合意は GHA 化時に別途決定する
