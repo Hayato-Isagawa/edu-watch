@@ -172,7 +172,7 @@ export function isExcludedByTitle(title: string): boolean {
 }
 
 /**
- * resemom 用 educational keyword filter (ADR 0051)。
+ * resemom 用 educational keyword filter (ADR 0051、ADR 0053 で 3 語追加)。
  * title または summary に教員視点の教育キーワードが一致すれば採用。
  * 既存 isExcludedByTitle と AND で組み合わせ、NG (除外型) と include (採用型) の
  * 両 gate を通った記事のみが parser 段階を通過する。
@@ -182,9 +182,9 @@ const EDUCATION_PATTERNS: readonly RegExp[] = [
   /児童/, /生徒/, /学習/, /学力/, /指導要領/, /部活動/, /部活/,
   /いじめ/, /不登校/, /特別支援/, /発達障害/,
   /給特法/, /働き方改革/, /教員研修/, /教員養成/, /教員採用/,
-  /GIGA/, /ICT/, /タブレット/, /プログラミング教育/, /デジタル教科書/,
+  /GIGA/, /ICT/, /タブレット/, /プログラミング教育/, /デジタル教科書/, /情報モラル/, /ネットパトロール/,
   /中教審/, /文科省/, /文部科学/, /教育委員会/, /通知/, /答申/,
-  /入試/, /進路/,
+  /入試/, /進路/, /キャリア教育/,
   /フリースクール/, /教育機会確保法/, /カウンセラー/, /SC\b/, /SSW/,
   /校則/, /学校給食/, /保健室/,
   /家庭学習/, /家庭との連携/, /保護者会/,
