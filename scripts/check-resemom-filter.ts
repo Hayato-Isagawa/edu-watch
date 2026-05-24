@@ -10,10 +10,17 @@
  * フィルタを更新したら本スクリプトのケースも追加し、過剰除外 / 漏れの両方を
  * 回帰防止する。
  */
-import { isExcludedByTitle } from "../src/lib/sources/resemom.ts";
+import { isExcludedByTitle, isEducationallyRelevant } from "../src/lib/sources/resemom.ts";
 
 interface Case {
   title: string;
+  expected: boolean;
+  reason: string;
+}
+
+interface EduCase {
+  title: string;
+  summary?: string;
   expected: boolean;
   reason: string;
 }
@@ -269,6 +276,45 @@ const CASES: readonly Case[] = [
   },
 ];
 
+// ==== ADR 0053 で追加(EDUCATION_PATTERNS 拡充: 情報モラル / ネットパトロール / キャリア教育)====
+// `isEducationallyRelevant(title, summary?)` を対象に retain/reject を確認する。
+const EDU_CASES: readonly EduCase[] = [
+  {
+    title: "保護者の情報モラル、家庭での声かけ",
+    expected: true,
+    reason:
+      "ADR 0053 / 情報モラル(ICT 教育群)。既存 EDUCATION_PATTERNS には非マッチ、新規 /情報モラル/ で初めて retain される",
+  },
+  {
+    title: "中高生ネットパトロール、特に問題ある書込み増加…千葉県",
+    summary:
+      "千葉県は 2025 年度青少年ネット被害防止対策事業(ネットパトロール)の結果を公表した。",
+    expected: true,
+    reason:
+      "ADR 0053 / ネットパトロール(ICT 教育群)。PR #192 維持記事 fixture、ADR 0051 既存では非マッチで個別維持が必要だったが本 ADR で自動 retain",
+  },
+  {
+    title: "高校でのキャリア教育、文部科学省が新指針",
+    expected: true,
+    reason:
+      "ADR 0053 / キャリア教育(進路群)。既存 /教育/ /文部科学/ でも retain される(/キャリア教育/ 単独効果は冗長)が、群分類明示と将来保険として登録",
+  },
+  {
+    title: "公務員志望、親の職業や安定志向が影響…4 大学が 2,643 人調査",
+    summary:
+      "立命館大学・関西学院大学・筑波大学・大阪経済大学が 2,643 人を対象に公務員志望の要因を調査した。女性や親が公務員の学生、地方出身者などが公務員を志望しやすい傾向が示された。",
+    expected: false,
+    reason:
+      "PR #192 維持記事 fixture。新 3 語 + 既存 EDUCATION_PATTERNS いずれも非マッチで本 ADR の射程外(個別維持パターン継続を担保)",
+  },
+  {
+    title: "民間転職サイト、25 卒求人ピーク",
+    expected: false,
+    reason:
+      "ADR 0053 / 一般進路ニュース。新 3 語も既存パターンも非マッチ(教員視点対象外、include 方式の絞り込みを担保)",
+  },
+];
+
 let passed = 0;
 let failed = 0;
 const failures: string[] = [];
@@ -287,7 +333,25 @@ for (const c of CASES) {
   }
 }
 
-console.log(`[check:filter:resemom] ${passed} passed, ${failed} failed (${CASES.length} cases)`);
+for (const c of EDU_CASES) {
+  const actual = isEducationallyRelevant(c.title, c.summary);
+  if (actual === c.expected) {
+    passed++;
+  } else {
+    failed++;
+    failures.push(
+      `  expected=${c.expected} actual=${actual} (EDU)\n` +
+        `  title  : ${c.title}\n` +
+        `  summary: ${c.summary ?? "(none)"}\n` +
+        `  reason : ${c.reason}`,
+    );
+  }
+}
+
+const total = CASES.length + EDU_CASES.length;
+console.log(
+  `[check:filter:resemom] ${passed} passed, ${failed} failed (${total} cases: ${CASES.length} NG + ${EDU_CASES.length} EDU)`,
+);
 if (failed > 0) {
   console.error("\n[check:filter:resemom] FAILURES:");
   for (const f of failures) console.error(f);
