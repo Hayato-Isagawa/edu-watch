@@ -104,3 +104,30 @@ honbun(startPage=1, endPage=N)は互換動作。betsutenpu-2/3(startPage=87 等)
 - `scripts/ai-summary/README.md`(strict セクション + --skip-mapreduce 説明)
 - `docs/decisions/0050-w1-ai-summary-mvp.md`(§監視に 1 行追記)
 - `experiments/poc-pdf-summary/observation-2026-05-24.md`(新規)
+- `experiments/poc-pdf-summary/verify-hypothesis-b.mjs`(新規、本補足、loadRawChunkSources pre/post `single` 引数の同値検証)
+
+## Supplement (2026-05-24, session 97)
+
+本 ADR(2026-05-24 Accepted、PR #195 / commit `8eecfd8`)の merge 直後の同日中に、`--skip-retry` を解除して honbun retry を 1 回再実行したところ、strict 8/8 → 6/8 に回帰し合計 24/26(92.3%)への変動を観測した。仮説判定の結果、本 ADR の strict 26/26 = 100% は「単一スナップショット値」であり、retry path 再実行時の stochastic 変動を許容する運用として扱う。
+
+### 観測事実(セッション 96、n=1)
+
+- honbun strict 8/8 → 6/8(`notice-number-date` / `interval-11h` が llm_dropped)
+- betsutenpu-{2,3} は 9/9 維持
+- 合計 strict 24/26(92.3%)、retry chunk サイズ pre 3018 / post 2909 bytes(-3.6%、ほぼ同等)
+
+### 仮説判定(セッション 97)
+
+- **仮説 B(prompt 入力構造変化)否定**: `experiments/poc-pdf-summary/verify-hypothesis-b.mjs` で `loadRawChunkSources` の pre(PR #177 / `6acd761`)/ post(PR #195 / `8eecfd8`)両実装を同一 `extracted-honbun.txt` に対して呼び、`single = { 1: allChunkSources[1] }` を比較 → 40794 bytes / 404 lines / 内容完全一致。honbun は空ページなく `rawPages.length === pageMap.size === 10` で D4 修正は厳密に互換動作
+- **仮説 A(LLM stochastic)構造的根拠**: `callOllama` 設定 `{ temperature: 0.2, num_ctx: NUM_CTX }`(seed 指定なし)、`gemma3:12b` は 12 days ago から model 差なし → 同 prompt + 同 context_window でも実行ごとに確率的変動
+
+### 含意
+
+- strict 26/26 は単一スナップショット値、retry path 再実行による strict 変動を許容する運用とする
+- 許容変動幅(strict/26 の分布、最低値)は n=2,3 反復計測完了後に別補足 or 別 ADR で追記
+- 将来 stochastic 変動への能動的対応(`temperature=0` / seed 固定 / retry 回数増)を意思決定する際は別 ADR(0055 以降)で起票
+
+### 関連
+
+- observation-2026-05-24 §7.6-7.8: 本仮説判定の計測詳細
+- experiments/poc-pdf-summary/verify-hypothesis-b.mjs: 仮説 B 検証スクリプト本体
