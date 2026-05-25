@@ -124,10 +124,12 @@ honbun(startPage=1, endPage=N)は互換動作。betsutenpu-2/3(startPage=87 等)
 ### 含意
 
 - strict 26/26 は単一スナップショット値、retry path 再実行による strict 変動を許容する運用とする
-- 許容変動幅(strict/26 の分布、最低値)は n=2,3 反復計測完了後に別補足 or 別 ADR で追記
+- 許容変動幅: 観測幅 **23-26/26**(n=1,3 = 26/26 / n=2 = 23/26、平均 25/26 = 96.2%、session 98-99)。n=2 の劣化内訳は honbun llm_dropped 2(`notice-number-date` / `interval-11h`)+ betsutenpu-3 llm_dropped 1。stochastic 変動の上限が偶然 pre baseline と一致するため、26/26 の再現可能性は保証されない
+- retry スキップ条件(grep missing=0)を満たす **betsutenpu-2 は 3 試行とも 9/9 で不変**。retry path に入らないため stochastic 変動対象外で、観測対象セクションは honbun + betsutenpu-3 のみ(計 max 17、実測 14-17)
 - 将来 stochastic 変動への能動的対応(`temperature=0` / seed 固定 / retry 回数増)を意思決定する際は別 ADR(0055 以降)で起票
 
 ### 関連
 
 - observation-2026-05-24 §7.6-7.8: 本仮説判定の計測詳細
+- observation-2026-05-24 §7.9: n=2,3 反復計測の生データと観測幅分析
 - experiments/poc-pdf-summary/verify-hypothesis-b.mjs: 仮説 B 検証スクリプト本体

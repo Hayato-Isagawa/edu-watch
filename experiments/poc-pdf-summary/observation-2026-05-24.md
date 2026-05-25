@@ -231,3 +231,30 @@ options: { temperature: 0.2, num_ctx: NUM_CTX }
   - (i)`experiments/poc-pdf-summary/verify-hypothesis-b.mjs` として commit し再現可能にする
   - (ii)observation §7.6 の表とスクリプト全体を本ノート内に追記して、本体は破棄
   - (iii)現状の `/tmp/` 配置のまま、本セッション終了で消える
+
+### 7.9 仮説 A 反復計測結果(session 98-99、n=2,3)
+
+§7.7 の構造的根拠を裏付けるため n=2,3 を反復実行(各 ~700s)。手順は session 96 と同一(`/tmp/retry-eval-backup-session98-pre/` から pre 復元 → `--skip-retry` 解除 pipeline 実行 → post 保全 → pre 復元 → `--skip-retry` で 26/26 再現確認)。
+
+| 試行 | honbun | betsutenpu-2 | betsutenpu-3 | 合計 | llm_dropped 詳細 |
+|---|---|---|---|---|---|
+| n=1(session 96) | 8/8 | 9/9 | 9/9 | **26/26** | 0 |
+| n=2(session 98) | 6/8 | 9/9 | 8/9 | **23/26** | honbun 2(`notice-number-date` / `interval-11h`)、betsutenpu-3 1 |
+| n=3(session 99) | 8/8 | 9/9 | 9/9 | **26/26** | 0 |
+
+**観測幅**: 23-26/26(平均 25/26 = 96.2%)
+
+**解釈**:
+
+- 仮説 A(LLM stochastic)完全確証。pipeline 入力(extracted text / chunk source / prompt)が完全一致でも strict 値が 23〜26 で変動
+- n=1,3 が両方 26/26 となったが、これは「stochastic 変動の上限が偶然 pre baseline と一致した」結果であり、26/26 の再現可能性は保証されない。ADR 0054 の strict 26/26 = 100% は **snapshot value(その時点で取れた値)** と解釈すべき
+- retry スキップ条件(grep missing=0)を満たす betsutenpu-2 は 3 試行とも 9/9 で不変。retry path に入らないため stochastic 変動対象外
+- 実質的な観測対象は honbun(max 8)+ betsutenpu-3(max 9)= max 17、実測 14-17
+
+**バックアップ場所**:
+
+- pre snapshot: `/tmp/retry-eval-backup-session98-pre/`
+- n=2 post: `/tmp/retry-eval-n2-session98/`
+- n=3 post: `/tmp/retry-eval-n3-session98/`
+
+**フォロー方針**: n=4 以降の追加計測は不要(分布形は不明だが、観測幅 23-26 と snapshot value 性格の確証で ADR 0054 Supplement 完了に十分)。将来 stochastic 変動への能動対応(`temperature=0` / seed 固定 / retry 回数増)が必要になった時点で別 ADR(0055+)起票。
