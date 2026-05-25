@@ -1,5 +1,145 @@
 [
   {
+    "id": "kkn-2026-05-25-8806c88d01ed2bac",
+    "title": "京都府綾部市に「複数自治体による共同利用型メタバース教育支援センター」成基が開設へ",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20260526o04",
+    "publishedAt": "2026-05-25T22:00:59.000Z",
+    "collectedAt": "2026-05-25T22:53:55.020Z",
+    "summary": "成基は、京都府綾部市と連携し、不登校児童生徒支援を目的とした「複数自治体による共同利用型メタバース教育支援センター」を開設する。 同社はこれまで、京都市などの自治体と連携し、メタバースを活用した不登校支援事業を実施してい […]",
+    "categories": [
+      "不登校"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-05-25-1379def51993d6bd",
+    "title": "AI時代の主体的な学びへの転換「第2回　生成AIがサポートする個別化・個性化～熊本県高森中学校の自己調整学習から～」中村学園大学教育学部　山本朋弘教授",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/post_ict/260525_1d",
+    "publishedAt": "2026-05-25T22:00:59.000Z",
+    "collectedAt": "2026-05-25T22:53:55.020Z",
+    "summary": "熊本県高森町（古庄泰則教育長）では、自立した学習者の育成をめざし、個別最適化された深い学びを推進している。特に、教師だけでは対応が難しい指導の個別化・学習の個性化に対して、生成AIのサポートを取り入れた自己調整学習を展開 […]",
+    "categories": [
+      "ICT / GIGA",
+      "教員・働き方"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-05-25-8692c25dd8dfaec5",
+    "title": "文理探究科設置校の探究的な学習の質を向上～オンデマンド教材などを作成～山口県",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/post_nyusatsu/260525_yamaguchiken",
+    "publishedAt": "2026-05-25T22:00:51.000Z",
+    "collectedAt": "2026-05-25T22:53:55.020Z",
+    "summary": "山口県教育庁は｢DXで未来を創る！山口探究レベルアップ事業｣として、文理探究科を設置した高等学校6校において探究学習のレベルアップを図るとともに、オンデマンド教材を作成するため、公募型プロポーザルを4月16日に公示。 探 […]",
+    "categories": [
+      "その他"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-05-25-c37249cd2bf94cbc",
+    "title": "「情報Ⅰ 公開実力確認テスト」7/16より実施　6/1より希望校はプレ受験可〜日本文教出版",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20260526o01",
+    "publishedAt": "2026-05-25T22:00:47.000Z",
+    "collectedAt": "2026-05-25T22:53:55.020Z",
+    "summary": "日本文教出版は、第4回「情報Ⅰ 公開実力確認テスト」を7月16日〜8月31日に実施する。 「情報Ⅰ 公開実力確認テスト」は、全国の高校生が自身の現在の理解度を測るためのCBT方式のテスト。期間中はPCやタブレットから受験 […]",
+    "categories": [
+      "ICT / GIGA"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-05-25-b191e95a59b20720",
+    "title": "モデル校に生成AI学習支援サービスを導入～探究学習の高度化を図る～和歌山県",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/post_nyusatsu/260525_wakayamaken",
+    "publishedAt": "2026-05-25T22:00:41.000Z",
+    "collectedAt": "2026-05-25T22:53:55.020Z",
+    "summary": "和歌山県教育委員会は、探究学習の高度化と主体的な学びの促進を図るため、実証モデル校の名草小学校、桐蔭中学校、向陽高等学校に生成AI学習支援サービスを導入するにあたり、公募型プロポーザルを4月24日に公示。 対応OSはCh […]",
+    "categories": [
+      "ICT / GIGA",
+      "政策・制度",
+      "研究・エビデンス"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-05-25-41cd619979825800",
+    "title": "インタビュー～“脳内四次元ポケット”を充実させ課題解決力へ～『中高生のためのブックガイド　ネットとAI時代の情報リテラシー　－調べ、考え、発信する力』 監修・梅澤貴典氏に聞く",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/post_library/260525_5a",
+    "publishedAt": "2026-05-25T22:00:40.000Z",
+    "collectedAt": "2026-05-25T22:53:55.020Z",
+    "summary": "日外アソシエーツより『中高生のためのブックガイド　ネットとAI時代の情報リテラシー　－調べ、考え、発信する力』が5月に刊行された。情報リテラシーを身につけるための本400冊をテーマ別に紹介している。 監修した梅澤貴典氏は […]",
+    "categories": [
+      "ICT / GIGA"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-05-25-1d5c400dbef2dbb0",
+    "title": "100年後に世界に残したいものは何か～修学旅行で探究プログラムを実施～KNTとTBSが開発",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/post_travel/260525_6b",
+    "publishedAt": "2026-05-25T22:00:38.000Z",
+    "collectedAt": "2026-05-25T22:53:55.020Z",
+    "summary": "学校現場から探究型の学びが求められていることを背景に、近畿日本ツーリスト（KNT）と㈱TBSホールディングス（TBS）は体験型探究プログラム『My世界遺産探究』全国版を共同開発し今年4月から販売している。 KNTの教育旅 […]",
+    "categories": [
+      "教員・働き方"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-05-25-1e16143c3f2d1d72",
+    "title": "異学年集団による学び合い支援事業～4教委が推進校5校を決定～岐阜県",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/post_committee/260525_gifuken",
+    "publishedAt": "2026-05-25T22:00:33.000Z",
+    "collectedAt": "2026-05-25T22:53:55.020Z",
+    "summary": "岐阜県教育委員会は、2026年度から児童生徒の自己肯定感や自己有用感、コミュニケーション能力などの非認知能力、並びに知識・技能・判断・表現力等の認知能力の伸長を目的に｢異学年集団による学び合い支援事業｣を実施。4つの教育 […]",
+    "categories": [
+      "政策・制度"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-05-25-aca67b983ed351b4",
+    "title": "日本最大規模の総合大学、日本大学が全専任教職員1万人に「Google AI Pro for Education」を導入",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20260526o03",
+    "publishedAt": "2026-05-25T22:00:28.000Z",
+    "collectedAt": "2026-05-25T22:53:55.020Z",
+    "summary": "日本大学は今年度より、業務効率化とより高度な教育・研究の展開を目的として、すべての専任教職員を含む1万ユーザーにGoogleのGemini アプリケーション の教育機関向け有償版「Google AI Pro for Ed […]",
+    "categories": [
+      "ICT / GIGA",
+      "研究・エビデンス",
+      "教員・働き方"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
     "id": "resemom-2026-05-25-129ed338f48d0af5",
     "title": "高卒就職率97.9％で高水準を維持、工業科99.5％…文科省",
     "sourceId": "resemom",
