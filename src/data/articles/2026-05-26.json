@@ -1,5 +1,126 @@
 [
   {
+    "id": "kkn-2026-05-26-b0d0b79c55bec5c6",
+    "title": "高大生向けオンライン探究プログラム「グローバルプロジェクト2026」募集開始",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20260527o03",
+    "publishedAt": "2026-05-26T22:00:56.000Z",
+    "collectedAt": "2026-05-26T23:04:33.251Z",
+    "summary": "NPO法人EdFutureは、高校生・大学生向けのオンライン探究型国際教育プログラム「グローバルプロジェクト2026」の参加者を募集中。5月31日、6月6日、6月10日に本プログラムの詳細を案内するオンライン説明会を実施 […]",
+    "categories": [
+      "その他"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-05-26-86813c8b3c10a5b8",
+    "title": "北九州市立高等学校が次期校務支援システムを整備～SaaS型のクラウドサービスで提供～北九州市",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/post_nyusatsu/260525_kitakyusyusi",
+    "publishedAt": "2026-05-26T22:00:54.000Z",
+    "collectedAt": "2026-05-26T23:04:33.251Z",
+    "summary": "北九州市立高等学校は、現在使用している校務支援システムの契約が8月末で終了することから、次期校務支援システムを導入するにあたり公募型プロポーザルを4月17日に公示。 SaaS型のクラウドサービスとして提供され、同校でのサ […]",
+    "categories": [
+      "その他"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-05-26-d818f7cd38b78d6b",
+    "title": "日本語指導が必要な児童生徒が過去最多8万人超に〜文科省「日本語指導が必要な児童生徒の受入状況等に関する調査」",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20260527o01",
+    "publishedAt": "2026-05-26T22:00:52.000Z",
+    "collectedAt": "2026-05-26T23:04:33.251Z",
+    "summary": "文部科学省は5月25日、2025年度「日本語指導が必要な児童生徒の受入状況等に関する調査」の結果を公表した。調査は、2025年5月時点で、全都道府県、市町村教育委員会（特別区を含む）1,788 、国立大学附属学校195、 […]",
+    "categories": [
+      "政策・制度",
+      "研究・エビデンス"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-05-26-5b06c2bc63e2d3f7",
+    "title": "家庭学習環境の抜本的な充実に向けて～企業と連携協定を締結～兵庫県姫路市",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/post_committee/260525_himejisi",
+    "publishedAt": "2026-05-26T22:00:49.000Z",
+    "collectedAt": "2026-05-26T23:04:33.251Z",
+    "summary": "姫路市教育委員会は、教育分野における連携体制を強化し、教育及び地域の発展並びに児童生徒の健全な育成に寄与するため、オンライン学習サービス｢スタディサプリ｣を提供するリクルートと教育支援に関する連携協定を4月20日に締結。 […]",
+    "categories": [
+      "政策・制度"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-05-26-5ab15a43c8adcb82",
+    "title": "AI×ものづくりで未来を拓く～第7回Dコン、企業評価額第1位は豊田高専",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/post_ict/260525_4a",
+    "publishedAt": "2026-05-26T22:00:46.000Z",
+    "collectedAt": "2026-05-26T23:04:33.251Z",
+    "summary": "全国の高等専門学校生がAIとものづくりを武器にビジネスアイデアを競う｢第7回全国高等専門学校ディープラーニングコンテスト（DCON2026）｣が開催された。応募は過去最多の119作品。一次審査98作品、二次審査34作品を […]",
+    "categories": [
+      "ICT / GIGA"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-05-26-29619b72d8079974",
+    "title": "次世代型校務支援システムで校務DXを推進～県全体の教育の質の向上を目指す～沖縄県",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/post_nyusatsu/260525_okinawaken",
+    "publishedAt": "2026-05-26T22:00:41.000Z",
+    "collectedAt": "2026-05-26T23:04:33.251Z",
+    "summary": "沖縄県教育の情報化推進協議会は、県立高等学校と特別支援学校に次世代型校務支援システムを導入するにあたり一般競争入札を4月24日に公示。 次世代型校務支援システムはパブリッククラウド方式で提供。原則として多要素認証、シング […]",
+    "categories": [
+      "ICT / GIGA"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-05-26-c17b556db393f75b",
+    "title": "部活動などの指導者を地域住民から募集～指導者リストの登録フォームを開設～広島県",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/post_committee/260525_hiroshimaken",
+    "publishedAt": "2026-05-26T22:00:35.000Z",
+    "collectedAt": "2026-05-26T23:04:33.251Z",
+    "summary": "広島県教育委員会は、子供たちが将来にわたってスポーツ・文化芸術に継続して親しむことができる機会を確保するため、指導者として活動を支援する地域住民と、学校部活動や地域クラブ活動をつなぐマッチングツールとして、｢広島県地域ク […]",
+    "categories": [
+      "政策・制度"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-05-26-35250281c3157ffc",
+    "title": "「生理不快予報」開設～ソフィ公式Xなどで公開～日本気象協会とユニ・チャーム",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/post_health/260525_7e",
+    "publishedAt": "2026-05-26T22:00:23.000Z",
+    "collectedAt": "2026-05-26T23:04:33.251Z",
+    "summary": "(一財)日本気象協会はユニ・チャーム㈱と提携し、気温や湿度などの蒸し暑さによる生理時の不快感を5段階で表現して予想する指数情報｢生理不快予報｣を、5月12日からソフィ公式Ｘ（旧Twitter）などのSNSで公開している。 […]",
+    "categories": [
+      "その他"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
     "id": "oecd-2026-05-26-cdcc3bdafda3d7c4",
     "title": "How Seaworthy is Your Curriculum Reform?",
     "sourceId": "oecd",
