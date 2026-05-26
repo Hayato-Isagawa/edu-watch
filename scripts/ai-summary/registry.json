@@ -40,6 +40,28 @@
           "requiredFacts": "required-facts/tsuuchi-r6-08-27-betsutenpu-3.json"
         }
       ]
+    },
+    {
+      "slug": "kinmu-jittai-r4-kakuteichi",
+      "sourceTitle": "教員勤務実態調査（令和４年度）の集計（確定値）について",
+      "sourceUrl": "https://www.mext.go.jp/a_menu/shotou/kyoshi-kankyo/1297093_00006.htm",
+      "pdfUrl": "https://www.mext.go.jp/content/20240404-mxt_zaimu01-100003067-2.pdf",
+      "category": "kyouin-kinmu-jittai",
+      "issuer": "文部科学省 初等中等教育局",
+      "issueDate": "2024-04-04",
+      "sectionDetectionPatterns": {
+        "sankou1": "（参考[１1]）"
+      },
+      "sections": [
+        {
+          "section": "kekka-gaiyou",
+          "label": "10・11月集計結果概要",
+          "desc": "教員勤務実態調査(令和4年度)確定値の本体結果(10・11月集計結果概要)。回答者属性 / 在校等時間 / 業務内容別 / 長期休業 / 働き方改革取組状況を含む。参考1〜5(用語定義 / 数値表)は対象外。",
+          "boundary": { "fromPage": 2, "toBeforeKey": "sankou1" },
+          "chunkRanges": "chunk-ranges/kinmu-jittai-r4-kakuteichi-kekka-gaiyou.json",
+          "requiredFacts": "required-facts/kinmu-jittai-r4-kakuteichi-kekka-gaiyou.json"
+        }
+      ]
     }
   ]
 }
