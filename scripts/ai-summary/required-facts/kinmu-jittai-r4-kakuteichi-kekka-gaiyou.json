@@ -1,0 +1,32 @@
+[
+  {
+    "id": "kyouyu-zaikoutou-30min-genshou",
+    "description": "教諭の平日在校等時間 平成28年度比 約30分減少(小・中)",
+    "severity": "HIGH",
+    "patterns": [
+      "教諭[\\s\\S]{0,80}30\\s*分\\s*程?度?\\s*減少",
+      "(平成28|H28)[\\s\\S]{0,100}30\\s*分\\s*程?度?\\s*減少"
+    ],
+    "sourceChunks": [1]
+  },
+  {
+    "id": "shuu-55-60-jikan-warai-takai",
+    "description": "1週間の総在校等時間で教諭の50〜55時間未満・55〜60時間未満帯の割合が高い(令和4年度)",
+    "severity": "HIGH",
+    "patterns": [
+      "55\\s*時間\\s*[～〜]\\s*60\\s*時間",
+      "50\\s*[～〜]\\s*55\\s*時間[\\s\\S]{0,40}55\\s*[～〜]\\s*60\\s*時間"
+    ],
+    "sourceChunks": [1]
+  },
+  {
+    "id": "kotogakkou-zaikoutou-1006",
+    "description": "高等学校教諭 10・11月の平日在校等時間 10:06 / 土日 2:14",
+    "severity": "MEDIUM",
+    "patterns": [
+      "10:0?6[\\s\\S]{0,100}2:1?4",
+      "(高等学校|高校)[\\s\\S]{0,200}10:0?6"
+    ],
+    "sourceChunks": [4]
+  }
+]
