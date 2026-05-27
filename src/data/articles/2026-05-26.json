@@ -283,6 +283,48 @@
     "language": "ja"
   },
   {
+    "id": "mext-2026-05-26-ccc14725042712cf",
+    "title": "中央教育審議会初等中等教育分科会教育課程部会家庭ワーキンググループ（第5回）の議事録を掲載しました",
+    "sourceId": "mext",
+    "sourceName": "文部科学省",
+    "sourceUrl": "https://www.mext.go.jp/b_menu/shingi/chukyo/chukyo3/114/gijiroku/mext_00005.html",
+    "publishedAt": "2026-05-26T05:00:00.000Z",
+    "collectedAt": "2026-05-27T13:58:00.157Z",
+    "categories": [
+      "政策・制度"
+    ],
+    "layer": 1,
+    "language": "ja"
+  },
+  {
+    "id": "chukyo-2026-05-26-ccc14725042712cf",
+    "title": "中央教育審議会初等中等教育分科会教育課程部会家庭ワーキンググループ（第5回）の議事録を掲載しました",
+    "sourceId": "chukyo",
+    "sourceName": "中央教育審議会",
+    "sourceUrl": "https://www.mext.go.jp/b_menu/shingi/chukyo/chukyo3/114/gijiroku/mext_00005.html",
+    "publishedAt": "2026-05-26T05:00:00.000Z",
+    "collectedAt": "2026-05-27T13:58:00.157Z",
+    "categories": [
+      "政策・制度"
+    ],
+    "layer": 1,
+    "language": "ja"
+  },
+  {
+    "id": "mext-2026-05-26-8d6dacd4c6d3d539",
+    "title": "教育委員会月報　令和8年5月号",
+    "sourceId": "mext",
+    "sourceName": "文部科学省",
+    "sourceUrl": "https://www.mext.go.jp/b_menu/shuppan/geppou/mext_091001_00011.html",
+    "publishedAt": "2026-05-26T03:45:00.000Z",
+    "collectedAt": "2026-05-27T13:58:00.157Z",
+    "categories": [
+      "政策・制度"
+    ],
+    "layer": 1,
+    "language": "ja"
+  },
+  {
     "id": "resemom-2026-05-26-5933a8fe92bb8eba",
     "title": "日本語指導が必要な児童生徒8.4万人、過去最多…文科省",
     "sourceId": "resemom",
