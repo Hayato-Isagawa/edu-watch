@@ -199,7 +199,8 @@
       "研究・エビデンス"
     ],
     "layer": 2,
-    "language": "ja"
+    "language": "ja",
+    "requiresMembership": true
   },
   {
     "id": "resemom-2026-05-25-f6cd68a0dc28c234",
@@ -259,7 +260,8 @@
       "研究・エビデンス"
     ],
     "layer": 2,
-    "language": "ja"
+    "language": "ja",
+    "requiresMembership": true
   },
   {
     "id": "nikkyo-2026-05-25-9c2413e99e1952e0",

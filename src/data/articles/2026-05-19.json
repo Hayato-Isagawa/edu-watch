@@ -102,7 +102,8 @@
       "その他"
     ],
     "layer": 2,
-    "language": "ja"
+    "language": "ja",
+    "requiresMembership": true
   },
   {
     "id": "mext-2026-05-19-09e5f49c15377451",
