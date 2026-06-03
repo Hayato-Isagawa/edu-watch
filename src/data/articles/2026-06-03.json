@@ -1,5 +1,69 @@
 [
   {
+    "id": "kkn-2026-06-03-55232e7a6a722824",
+    "title": "ビクセン、小学校向け文理融合型教育プログラム「月があらわす心や気持ち」無償提供開始〜「月」を通じて文学的感性と科学的思考を同時に育む",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20260604o04",
+    "publishedAt": "2026-06-03T22:00:58.000Z",
+    "collectedAt": "2026-06-03T23:28:53.005Z",
+    "summary": "総合光学機器メーカーのビクセンは6月2日、小学生向け文理融合型教育プログラム「月があらわす心や気持ち」を公開。学校・教育関係者に向けた無料の教材資料（指導用スライド・指導案・児童用ワークシート）配布の申し込み受付をスター […]",
+    "categories": [
+      "その他"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-06-03-a846c183ff6b3241",
+    "title": "小中高生の学びの機会保障に向けた取り組み　広域自治体の不登校支援事業に「すらら」を提供",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20260604o03",
+    "publishedAt": "2026-06-03T22:00:53.000Z",
+    "collectedAt": "2026-06-03T23:28:53.005Z",
+    "summary": "すららネットは6月2日、合同会社デロイト トーマツが受託した広域自治体の不登校支援事業に対し、AI教材「すらら」の提供を開始したと発表。 本事業は、学校に通いづらい児童生徒に対し、学校以外での居場所・学びの場を提供するこ […]",
+    "categories": [
+      "不登校",
+      "ICT / GIGA"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-06-03-afafaec1afccbb4c",
+    "title": "文科省、AI活用した幅広い研究を支援「AI for Scienceによる科学研究⾰新プログラム　AI for Science萌芽的挑戦研究創出事業」第2回公募を開始",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20260604o01",
+    "publishedAt": "2026-06-03T22:00:19.000Z",
+    "collectedAt": "2026-06-03T23:28:53.005Z",
+    "summary": "文部科学省は6月2日、2025年度補正予算で実施する「AI for Scienceによる科学研究⾰新プログラム　AI for Science萌芽的挑戦研究創出事業（SPReAD）」の2回目の公募を開始した。 本事業は、日 […]",
+    "categories": [
+      "ICT / GIGA",
+      "政策・制度",
+      "研究・エビデンス"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-06-03-81551c1cfa7caff9",
+    "title": "東京都府中市、2万人規模の次世代校務DX基盤を内田洋行が構築～ゼロトラスト、統合ID認証と生成AI活用で教員の働き方変革を支援",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20260604o02",
+    "publishedAt": "2026-06-03T22:00:15.000Z",
+    "collectedAt": "2026-06-03T23:28:53.005Z",
+    "summary": "東京都府中市では、約2万1000人（教職員約2000人／児童生徒1万9000人、小・中学校33校）が利用する次世代校務DX基盤を構築。今年1月より教職員環境の運用を開始し、4月から児童・生徒環境を含めて全面展開を開始して […]",
+    "categories": [
+      "ICT / GIGA",
+      "教員・働き方"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
     "id": "resemom-2026-06-03-4c3f2dbb34839378",
     "title": "全国の大学生ら対象「埼玉県庁インターンシップ」169部署で受入れ",
     "sourceId": "resemom",
