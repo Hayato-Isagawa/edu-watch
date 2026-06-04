@@ -94,6 +94,34 @@
     "language": "ja"
   },
   {
+    "id": "mext-2026-06-03-bdd633f4f7fb7ad4",
+    "title": "中央教育審議会初等中等教育分科会教育課程部会芸術ワーキンググループ（第7回）の議事録を掲載しました",
+    "sourceId": "mext",
+    "sourceName": "文部科学省",
+    "sourceUrl": "https://www.mext.go.jp/b_menu/shingi/chukyo/chukyo3/113/gijiroku/mext_00007.html",
+    "publishedAt": "2026-06-03T09:00:00.000Z",
+    "collectedAt": "2026-06-04T13:38:44.002Z",
+    "categories": [
+      "政策・制度"
+    ],
+    "layer": 1,
+    "language": "ja"
+  },
+  {
+    "id": "chukyo-2026-06-03-bdd633f4f7fb7ad4",
+    "title": "中央教育審議会初等中等教育分科会教育課程部会芸術ワーキンググループ（第7回）の議事録を掲載しました",
+    "sourceId": "chukyo",
+    "sourceName": "中央教育審議会",
+    "sourceUrl": "https://www.mext.go.jp/b_menu/shingi/chukyo/chukyo3/113/gijiroku/mext_00007.html",
+    "publishedAt": "2026-06-03T09:00:00.000Z",
+    "collectedAt": "2026-06-04T13:38:44.002Z",
+    "categories": [
+      "政策・制度"
+    ],
+    "layer": 1,
+    "language": "ja"
+  },
+  {
     "id": "mext-2026-06-03-28e22b9e77486ba3",
     "title": "教育・学習の質向上に向けた新たな評価の在り方ワーキンググループの議論のまとめを掲載しました",
     "sourceId": "mext",
