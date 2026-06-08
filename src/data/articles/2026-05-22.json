@@ -244,7 +244,8 @@
       "その他"
     ],
     "layer": 2,
-    "language": "ja"
+    "language": "ja",
+    "requiresMembership": true
   },
   {
     "id": "nier-2026-05-22-5a46025e99272e69",
