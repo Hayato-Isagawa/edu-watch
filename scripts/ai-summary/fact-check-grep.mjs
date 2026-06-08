@@ -208,6 +208,7 @@ async function callOllama(prompt) {
       system: SYSTEM,
       prompt,
       stream: true,
+      think: false,
       options: { temperature: 0.2, num_ctx: NUM_CTX },
     }),
   });
