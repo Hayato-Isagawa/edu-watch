@@ -1,5 +1,79 @@
 [
   {
+    "id": "kkn-2026-06-08-64679fbc060e74c6",
+    "title": "リアル＋オンラインのハイブリッド型 親子で学べる「子ども大学グローバル」13期開校〜子ども大学水戸",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20260609o04",
+    "publishedAt": "2026-06-08T22:00:59.000Z",
+    "collectedAt": "2026-06-08T23:09:36.303Z",
+    "summary": "NPO法人子ども大学水戸は、全国・世界中の小学3年生～中学３年生を対象とした、「子ども大学グローバル」を、オンラインとリアル講義を融合した「ハイブリッド型」の講義として、8月8日に開校する。受講者を6月30日まで募集して […]",
+    "categories": [
+      "その他"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-06-08-dc25e0941d34706b",
+    "title": "＜小中学生の参加者募集＞エリクソン×ソフトバンク×福岡ソフトバンクホークス、福岡と大阪でロボット教育プログラム「H.E.R.O Lab」を開催",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20260609o02",
+    "publishedAt": "2026-06-08T22:00:36.000Z",
+    "collectedAt": "2026-06-08T23:09:36.303Z",
+    "summary": "エリクソン・ジャパンは、ソフトバンクおよび福岡ソフトバンクホークスと協働し、7月4日に福岡市のヒルトン福岡シーホーク、7月11日に大阪市の大阪ビジネスパーククリスタルタワー貸会議室にて、小学1年生から中学校1年生までの児 […]",
+    "categories": [
+      "その他"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-06-08-9f748b5360b65d4c",
+    "title": "総務省統計局、8月開講のオンライン講座「社会人のためのデータサイエンス入門」受講者募集を開始",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20260609o01",
+    "publishedAt": "2026-06-08T22:00:27.000Z",
+    "collectedAt": "2026-06-08T23:09:36.303Z",
+    "summary": "総務省統計局は、データサイエンス・オンライン講座「社会人のためのデータサイエンス入門」を8月4日から開講する。現在、受講者を募集だ。受講料無料。     ■統計データ分析の基本的な知識を学べる入門編講 […]",
+    "categories": [
+      "研究・エビデンス"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-06-08-3852acc4d29380cc",
+    "title": "和歌山県紀の川市、小４〜中２対象に市独自の学力・学習状況調査をCBT方式で実施",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20260609o03",
+    "publishedAt": "2026-06-08T22:00:12.000Z",
+    "collectedAt": "2026-06-08T23:09:36.303Z",
+    "summary": "和歌山県紀の川市は6月3日、市独自学力・学習状況調査（Learning Assessment）を CBT（Computer Based Testing）方式で実施すると発表。 市内の小中学校における児童生徒の学力定着状況 […]",
+    "categories": [
+      "研究・エビデンス"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "mext-2026-06-08-005caddc20595828",
+    "title": "令和7年度学校給食における地場産物・国産食材の使用状況調査",
+    "sourceId": "mext",
+    "sourceName": "文部科学省",
+    "sourceUrl": "https://www.mext.go.jp/b_menu/toukei/chousa05/eiyou/gaiyou/1406811_00009.html",
+    "publishedAt": "2026-06-08T15:00:00.000Z",
+    "collectedAt": "2026-06-08T23:09:36.303Z",
+    "categories": [
+      "政策・制度"
+    ],
+    "layer": 1,
+    "language": "ja"
+  },
+  {
     "id": "nikkyo-2026-06-08-46d1d1b83a87d54f",
     "title": "全小中に養護教諭を追加配置　愛知県みよし市教委",
     "sourceId": "nikkyo",
