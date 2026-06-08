@@ -58,7 +58,8 @@
       "ICT / GIGA"
     ],
     "layer": 2,
-    "language": "ja"
+    "language": "ja",
+    "requiresMembership": true
   },
   {
     "id": "mext-2026-06-04-b39c518dd4cdc7ff",
