@@ -37,6 +37,7 @@ experiments/poc-pdf-summary/*
 !experiments/poc-pdf-summary/observation-2026-05-17.md
 !experiments/poc-pdf-summary/observation-2026-05-19.md
 !experiments/poc-pdf-summary/observation-2026-05-24.md
+!experiments/poc-pdf-summary/observation-2026-06-07.md
 !experiments/poc-pdf-summary/verify-hypothesis-b.mjs
 !experiments/poc-pdf-summary/extract-tsuuchi.mjs
 !experiments/poc-pdf-summary/mapreduce-v4-tsuuchi.mjs
