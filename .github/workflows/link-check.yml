@@ -51,6 +51,12 @@ jobs:
         with:
           # Accept broader status codes as a safety net for paywalled news
           # outlets and government sites that may rate-limit bots.
+          #
+          # Exclude kknews.co.jp (教育家庭新聞): it blocks GitHub Actions datacenter
+          # IPs and times out entirely from CI, while serving HTTP 200 to normal
+          # clients (verified 168/168 cited URLs live on 2026-06-09). Excluding it
+          # stops recurring false-positive issues (#105, #204, #256). Re-evaluate if
+          # the domain stops blocking cloud IP ranges. See ADR 0055.
           args: >-
             --no-progress
             --cache
@@ -59,6 +65,7 @@ jobs:
             --accept 200,201,202,203,204,206,301,302,303,307,308,403,429,503
             --timeout 30
             --max-retries 2
+            --exclude 'kknews\.co\.jp'
             './dist/**/*.html'
           fail: false
           format: markdown
