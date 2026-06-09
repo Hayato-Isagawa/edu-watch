@@ -56,7 +56,9 @@
     "resemom-2026-05-08-84f640c8852e3d44",
     "resemom-2026-05-08-a3087bbd24850893",
     "resemom-2026-05-08-f0f6cb3a44ab9b9b",
-    "resemom-2026-05-09-507c8c6331485e41"
+    "resemom-2026-05-09-507c8c6331485e41",
+    "mext-2026-05-20-13c6af88549d5e6a",
+    "chukyo-2026-05-20-13c6af88549d5e6a"
   ],
   "reasons": {
     "resemom-2026-04-22-3f4390994c986325": "ADR 0019 §A 親子・体験イベント(立命館大「衣笠アートヴィレッジ フェス」5/31、隈研吾氏登壇)。PR #67 で削除後の RSS 再配信に備えた予防的 denylist(ADR 0024)。",
@@ -114,6 +116,8 @@
     "kkn-2026-05-10-87c64936c94d8726": "ADR 0039 §kkn NG_PATTERNS (PR #124)。parser 強化前の取り込み残を遡及削除。",
     "kkn-2026-05-10-c397cafd19f586d5": "ADR 0039 §kkn NG_PATTERNS (PR #124)。parser 強化前の取り込み残を遡及削除。",
     "kkn-2026-05-10-b5f1cd55ce48994f": "ADR 0039 §kkn NG_PATTERNS (PR #124)。parser 強化前の取り込み残を遡及削除。",
-    "kkn-2026-05-10-11a57e68e814b811": "ADR 0039 §kkn NG_PATTERNS (PR #124)。parser 強化前の取り込み残を遡及削除。"
+    "kkn-2026-05-10-11a57e68e814b811": "ADR 0039 §kkn NG_PATTERNS (PR #124)。parser 強化前の取り込み残を遡及削除。",
+    "mext-2026-05-20-13c6af88549d5e6a": "リンク切れ削除: MEXT 産業教育WG第6回議事録 (chukyo3/106/gijiroku/mext_00007.html) が公開後に取り下げられ 404・現行代替URLなし。issue #263 (2026-06-09)。",
+    "chukyo-2026-05-20-13c6af88549d5e6a": "リンク切れ削除: 同一記事の中教審フィード版。MEXT 産業教育WG第6回議事録 (chukyo3/106/gijiroku/mext_00007.html) が公開後に取り下げられ 404・現行代替URLなし。issue #263 (2026-06-09)。"
   }
 }
