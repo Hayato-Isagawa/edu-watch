@@ -77,34 +77,6 @@
     "requiresMembership": true
   },
   {
-    "id": "mext-2026-05-20-13c6af88549d5e6a",
-    "title": "中央教育審議会初等中等教育分科会教育課程部会産業教育ワーキンググループ（第6回）の議事録を掲載しました",
-    "sourceId": "mext",
-    "sourceName": "文部科学省",
-    "sourceUrl": "https://www.mext.go.jp/b_menu/shingi/chukyo/chukyo3/106/gijiroku/mext_00007.html",
-    "publishedAt": "2026-05-20T05:00:00.000Z",
-    "collectedAt": "2026-05-20T12:41:57.169Z",
-    "categories": [
-      "政策・制度"
-    ],
-    "layer": 1,
-    "language": "ja"
-  },
-  {
-    "id": "chukyo-2026-05-20-13c6af88549d5e6a",
-    "title": "中央教育審議会初等中等教育分科会教育課程部会産業教育ワーキンググループ（第6回）の議事録を掲載しました",
-    "sourceId": "chukyo",
-    "sourceName": "中央教育審議会",
-    "sourceUrl": "https://www.mext.go.jp/b_menu/shingi/chukyo/chukyo3/106/gijiroku/mext_00007.html",
-    "publishedAt": "2026-05-20T05:00:00.000Z",
-    "collectedAt": "2026-05-20T12:41:57.169Z",
-    "categories": [
-      "政策・制度"
-    ],
-    "layer": 1,
-    "language": "ja"
-  },
-  {
     "id": "resemom-2026-05-20-e5f2d40e63764d4a",
     "title": "【大学入学共通テスト2027】試験日程は？教科・科目・時間割ほか受験スケジュールと注意事項（まとめ）",
     "sourceId": "resemom",
