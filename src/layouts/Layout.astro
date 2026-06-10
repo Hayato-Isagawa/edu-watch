@@ -59,6 +59,8 @@ const escapeLd = (obj: object): string => JSON.stringify(obj).replace(/</g, "\\u
 
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
+    <link rel="alternate" type="application/rss+xml" title="EduWatch JP — 週次ダイジェスト" href="/rss.xml" />
+
     <script
       type="application/ld+json"
       set:html={escapeLd({
@@ -303,6 +305,16 @@ const escapeLd = (obj: object): string => JSON.stringify(obj).replace(/</g, "\\u
               <li>
                 <a href="mailto:takedown@edu-evidence.org" class="link-underline">takedown@edu-evidence.org</a>
                 <span class="text-[10px]">(削除依頼)</span>
+              </li>
+            </ul>
+          </div>
+          <div class="space-y-1.5">
+            <div class="font-mono uppercase tracking-widest text-[10px] text-[var(--color-ink)]">
+              購読
+            </div>
+            <ul class="space-y-1.5">
+              <li>
+                <a href="/rss.xml" class="link-underline">RSS フィード(週次ダイジェスト)</a>
               </li>
             </ul>
           </div>
