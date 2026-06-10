@@ -208,5 +208,20 @@
     ],
     "layer": 2,
     "language": "ja"
+  },
+  {
+    "id": "mext-2026-06-09-0fa91d5a6428e259",
+    "title": "令和9年度以降の子供の学習費調査に関する研究会（第2回）配付資料",
+    "sourceId": "mext",
+    "sourceName": "文部科学省",
+    "sourceUrl": "https://www.mext.go.jp/b_menu/shingi/chousa/shougai/051/siryo/002.html",
+    "publishedAt": "2026-06-09T02:42:00.000Z",
+    "collectedAt": "2026-06-10T13:54:14.717Z",
+    "categories": [
+      "政策・制度",
+      "研究・エビデンス"
+    ],
+    "layer": 1,
+    "language": "ja"
   }
 ]
