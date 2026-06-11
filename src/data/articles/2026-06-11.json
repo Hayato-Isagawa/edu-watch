@@ -1,5 +1,36 @@
 [
   {
+    "id": "kkn-2026-06-11-7c4f4b40cfbc18da",
+    "title": "佑人社、デジタル採点システム「YouMark Personal」でClassiとのAPI連携機能を提供開始",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20260612o01",
+    "publishedAt": "2026-06-11T22:00:58.000Z",
+    "collectedAt": "2026-06-11T23:17:29.904Z",
+    "summary": "佑人社は6月9日、デジタル採点システム「YouMark Personal」において、教育プラットフォーム「Classi」とのAPI連携機能を新たに開発し、提供を開始したと発表。同システムの各種有料プラン（従量課金プラン、 […]",
+    "categories": [
+      "その他"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-06-11-c1bec3576c491acb",
+    "title": "ワコム、DXハイスクールパッケージプランと活用事例を公開",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20260612o03",
+    "publishedAt": "2026-06-11T22:00:06.000Z",
+    "collectedAt": "2026-06-11T23:17:29.904Z",
+    "summary": "文部科学省の2026年度「高等学校DX加速化推進事業（DXハイスクール）」では、情報・数学教育の充実やICTを活用した探究的・文理横断的な学びを実現するための環境整備が支援されている。 ワコムでは、本補助金ガイドラインに […]",
+    "categories": [
+      "ICT / GIGA",
+      "政策・制度"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
     "id": "resemom-2026-06-11-aafe700ceef9b7c4",
     "title": "子供の熱中症対策、LINEで情報配信…家庭向け無料セミナーも",
     "sourceId": "resemom",
