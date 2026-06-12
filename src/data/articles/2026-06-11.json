@@ -76,6 +76,36 @@
     "language": "ja"
   },
   {
+    "id": "mext-2026-06-11-dc6803bc99a636e7",
+    "title": "中央教育審議会初等中等教育分科会教育課程部会不登校児童生徒に係る特別の教育課程ワーキンググループ（第8回）を開催します",
+    "sourceId": "mext",
+    "sourceName": "文部科学省",
+    "sourceUrl": "https://www.mext.go.jp/b_menu/shingi/chukyo/chukyo3/119/kaisai/mext_00012.html",
+    "publishedAt": "2026-06-11T07:15:00.000Z",
+    "collectedAt": "2026-06-12T13:45:43.082Z",
+    "categories": [
+      "不登校",
+      "政策・制度"
+    ],
+    "layer": 1,
+    "language": "ja"
+  },
+  {
+    "id": "chukyo-2026-06-11-dc6803bc99a636e7",
+    "title": "中央教育審議会初等中等教育分科会教育課程部会不登校児童生徒に係る特別の教育課程ワーキンググループ（第8回）を開催します",
+    "sourceId": "chukyo",
+    "sourceName": "中央教育審議会",
+    "sourceUrl": "https://www.mext.go.jp/b_menu/shingi/chukyo/chukyo3/119/kaisai/mext_00012.html",
+    "publishedAt": "2026-06-11T07:15:00.000Z",
+    "collectedAt": "2026-06-12T13:45:43.082Z",
+    "categories": [
+      "不登校",
+      "政策・制度"
+    ],
+    "layer": 1,
+    "language": "ja"
+  },
+  {
     "id": "nikkyo-2026-06-11-a25c45be72bff687",
     "title": "こども家庭センター、設置増え9割弱の自治体に",
     "sourceId": "nikkyo",
