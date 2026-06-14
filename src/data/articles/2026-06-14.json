@@ -1,5 +1,36 @@
 [
   {
+    "id": "kkn-2026-06-14-7b9bc8efcd5ddfca",
+    "title": "都立高生がAIで社会課題に挑む――都教委が「AI Lab」始動、3段階で人材育成",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20260615o03",
+    "publishedAt": "2026-06-14T22:00:47.000Z",
+    "collectedAt": "2026-06-14T23:02:28.924Z",
+    "summary": "東京都教育委員会は6月12日、都立学校の生徒を対象に、生成AIなどのデジタル技術を用いて社会や地域の課題解決に取り組む新プロジェクト「都立学校AI Lab」を開始すると発表した。これまで進めてきたAIに触れる段階から一歩 […]",
+    "categories": [
+      "ICT / GIGA",
+      "政策・制度"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-06-14-fccc7a302f2ffc75",
+    "title": "スタディポケット AI英会話、新機能「ディクテーション練習」を提供開始。話す力の土台となる「聞く力」まで育成",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20260615o01",
+    "publishedAt": "2026-06-14T22:00:11.000Z",
+    "collectedAt": "2026-06-14T23:02:28.924Z",
+    "summary": "スタディポケットは、生成AIを活用した英語学習サービス「スタディポケット AI英会話」において、新機能「ディクテーション練習」を、月額150円（税別）の基本プランに追加し提供開始した。 本機能は、英語音声を聞き、英文を書 […]",
+    "categories": [
+      "ICT / GIGA"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
     "id": "kkn-2026-06-14-cdf2b169a1afd2b3",
     "title": "堺市、AIを組み込んだ次世代型教育システム「ClassCloud」を導入　市内全140校で利用開始",
     "sourceId": "kkn",
