@@ -51,3 +51,7 @@ experiments/poc-pdf-summary/*
 # 各 PDF の抽出 text / chunk / summary / fact-check report は tmp/ 配下に出力し、
 # 編集者監修済の最終 markdown のみを src/content/ai-summary/ に commit する。
 tmp/ai-summary/
+
+# Local security assessment notes (kept outside the repository)
+VULN_ASSESSMENT_*.md
+SUPPLY_CHAIN_AUDIT_*.md
