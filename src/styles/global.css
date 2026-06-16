@@ -45,6 +45,7 @@ html {
   font-feature-settings: "palt";
   text-rendering: optimizeLegibility;
   scroll-behavior: smooth;
+  scroll-padding-top: 4rem;
 }
 @media (prefers-reduced-motion: reduce) {
   html {
@@ -173,6 +174,34 @@ body[data-menu="open"] {
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;
   border: 0;
+}
+
+.skip-link {
+  position: fixed;
+  top: 0;
+  left: 0.5rem;
+  z-index: 100; /* sticky header z-40・mobile menu z-50 より前面 */
+  transform: translateY(-150%);
+  padding: 0.5rem 1rem;
+  border-radius: 0 0 6px 6px;
+  background: var(--color-accent);
+  color: var(--color-bg); /* accent×bg は両テーマで約7:1 */
+  font-weight: 600;
+  text-decoration: none;
+  transition: transform 0.15s ease;
+}
+.skip-link:focus {
+  transform: translateY(0);
+  outline: 2px solid var(--color-ink);
+  outline-offset: 2px;
+}
+#main-content:focus {
+  outline: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .skip-link {
+    transition: none;
+  }
 }
 
 .mobile-menu-inner {

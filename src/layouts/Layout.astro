@@ -74,6 +74,7 @@ const escapeLd = (obj: object): string => JSON.stringify(obj).replace(/</g, "\\u
     />
   </head>
   <body class="bg-[var(--color-bg)] text-[var(--color-ink)]">
+    <a href="#main-content" class="skip-link">本文へスキップ</a>
     <header class="site-header">
       <div class="mx-auto max-w-6xl px-4 sm:px-6 md:px-10 h-16 flex items-center justify-between gap-4">
         <a href="/" class="font-black text-lg sm:text-xl tracking-tight flex items-center gap-2 whitespace-nowrap">
@@ -274,7 +275,7 @@ const escapeLd = (obj: object): string => JSON.stringify(obj).replace(/</g, "\\u
       </svg>
     </button>
 
-    <main class="mx-auto max-w-6xl px-4 sm:px-6 md:px-10 pb-24">
+    <main id="main-content" tabindex="-1" class="mx-auto max-w-6xl px-4 sm:px-6 md:px-10 pb-24">
       <slot />
     </main>
 
