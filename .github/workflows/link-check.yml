@@ -57,6 +57,14 @@ jobs:
           # clients (verified 168/168 cited URLs live on 2026-06-09). Excluding it
           # stops recurring false-positive issues (#105, #204, #256). Re-evaluate if
           # the domain stops blocking cloud IP ranges. See ADR 0055.
+          #
+          # Exclude MEXT part-time staff recruitment notices
+          # (b_menu/saiyou/hijyoukin/): these are time-limited postings that MEXT
+          # removes once the application deadline passes, producing permanent 404s
+          # by design. The source article keeps the original URL as an accurate
+          # historical record; excluding the path stops the checker from re-flagging
+          # this inherently ephemeral class (first seen #283; verified hard 404 on
+          # 2026-06-16 against a control MEXT URL returning 200). See ADR 0056.
           args: >-
             --no-progress
             --cache
@@ -66,6 +74,7 @@ jobs:
             --timeout 30
             --max-retries 2
             --exclude 'kknews\.co\.jp'
+            --exclude 'mext\.go\.jp/b_menu/saiyou/hijyoukin/'
             './dist/**/*.html'
           fail: false
           format: markdown
