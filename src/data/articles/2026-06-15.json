@@ -333,5 +333,22 @@
     "layer": 2,
     "language": "ja",
     "requiresMembership": true
+  },
+  {
+    "id": "nikkyo-2026-06-15-a25c45be72bff687",
+    "title": "こども家庭センター、設置増え9割弱の自治体に",
+    "sourceId": "nikkyo",
+    "sourceName": "日本教育新聞",
+    "sourceUrl": "https://www.kyoiku-press.com/post-311880/",
+    "publishedAt": "2026-06-15T00:00:00.000Z",
+    "collectedAt": "2026-06-16T15:27:03.610Z",
+    "summary": "こども家庭庁は８日、子育てに悩む保護者や、家庭で困り事を抱える子どもを支援する「こども家庭センター」の設置状況を公表した。全国１７４１自治体のうち、１４９６自治体（全体の８５・９％）で設置されていた…",
+    "categories": [
+      "政策・制度",
+      "研究・エビデンス"
+    ],
+    "layer": 2,
+    "language": "ja",
+    "requiresMembership": true
   }
 ]
