@@ -1,5 +1,50 @@
 [
   {
+    "id": "kkn-2026-06-17-eef9fece733740a3",
+    "title": "チエル、Webフィルタリングツール「InterCLASS Filtering Service」Ver.6.4を8月リリース　GIGA第2期に求められる活用促進・規制を実現",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20260618o01",
+    "publishedAt": "2026-06-17T22:00:45.000Z",
+    "collectedAt": "2026-06-17T23:18:53.151Z",
+    "summary": "チエルは、Chromebook対応Webフィルタリングツール「InterCLASS Filtering Service」を、8月にバージョンアップする。 GIGAスクール構想第2期による端末活用時間の増加を受け、「安心入 […]",
+    "categories": [
+      "ICT / GIGA"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-06-17-0499b13f04083446",
+    "title": "食育基本法から20年、農林水産省が2025年度食育白書を公表",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20260618o04",
+    "publishedAt": "2026-06-17T22:00:41.000Z",
+    "collectedAt": "2026-06-17T23:18:53.151Z",
+    "summary": "農林水産省は6月16日、2025年度食育白書を公表した。今回の白書では、2005年の食育基本法制定から約20年が経過したことを受け、「食育基本法のあゆみ」を特集テーマに掲げた。法律制定の経緯や、これまで4次にわたり策定さ […]",
+    "categories": [
+      "研究・エビデンス"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-06-17-3a166c5e03c3f7c9",
+    "title": "日本ビーコム、小中高校等を対象にタイピング教材「Gold Finger School クラウド」夏休み無料体験を実施",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20260618o02",
+    "publishedAt": "2026-06-17T22:00:29.000Z",
+    "collectedAt": "2026-06-17T23:18:53.151Z",
+    "summary": "日本ビーコムは、学校向けタイピング練習教材「Gold Finger School クラウド」の夏休み無料フル体験IDの申込受付を6月15日から全国の小・中・高等学校を対象に開始している。 「Gold Finger Sch […]",
+    "categories": [
+      "その他"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
     "id": "nikkyo-2026-06-17-6c9f4ba20b5204cf",
     "title": "LGBTQ理解、教員研修の充実など掲げ政府が基本計画",
     "sourceId": "nikkyo",
