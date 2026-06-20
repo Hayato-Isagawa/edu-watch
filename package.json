@@ -23,6 +23,7 @@
     "check:text": "textlint 'src/content/digests/**/*.md'",
     "check:text:fix": "textlint --fix 'src/content/digests/**/*.md'",
     "check:all": "npm run check && npm run check:text && npm run check:filter && npm run check:excluded-ids",
+    "test:ai-summary": "node --test 'scripts/ai-summary/*.test.mjs'",
     "test:e2e": "npx playwright test",
     "test:e2e:ui": "npx playwright test --ui",
     "og:default": "npx tsx scripts/generate-default-og.ts"

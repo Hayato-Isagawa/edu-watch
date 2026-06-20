@@ -53,6 +53,16 @@ function runStep(scriptName, args) {
   });
 }
 
+// fact-check の gate BLOCK（exit 1）で全体を中断せず exit code を捕捉する版。全 section 処理後にまとめて判定する（ADR 0057）。
+function runStepCapture(scriptName, args) {
+  return new Promise((resolve, reject) => {
+    const scriptPath = path.join(__dirname, scriptName);
+    const child = spawn('node', [scriptPath, ...args], { stdio: 'inherit' });
+    child.on('exit', (code) => resolve(code ?? 1));
+    child.on('error', reject);
+  });
+}
+
 const commonArgs = ['--slug', values.slug, '--registry', values.registry];
 if (values['out-dir']) commonArgs.push('--out-dir', values['out-dir']);
 
@@ -86,7 +96,7 @@ for (const section of targetSections) {
   console.log(`\n=== FACT-CHECK (section=${section.section}) ===`);
   const factCheckArgs = [...commonArgs, '--section', section.section];
   if (values['skip-retry']) factCheckArgs.push('--skip-retry');
-  await runStep('fact-check-grep.mjs', factCheckArgs);
+  const factCheckExit = await runStepCapture('fact-check-grep.mjs', factCheckArgs);
 
   const baseDir = path.resolve(values['out-dir'] || `./tmp/ai-summary/${values.slug}`);
   const sectionDir = path.join(baseDir, section.section);
@@ -98,6 +108,7 @@ for (const section of targetSections) {
   sectionResults.push({
     section: section.section,
     elapsedSec: (Date.now() - tSec) / 1000,
+    factCheckExit,
     report,
   });
 }
@@ -111,8 +122,13 @@ for (const r of sectionResults) {
   }
   const total = r.report.initial.total;
   const present = r.report.initial.present.length;
-  const recovered = r.report.retry?.recovered?.length || 0;
-  const stillMissing = r.report.retry?.stillMissing?.length || 0;
+  const gateStatus = r.report.gate?.status ?? 'UNKNOWN';
   const outOfScope = r.report.outOfScope.length;
-  console.log(`  ${r.section}: ${r.elapsedSec.toFixed(1)}s, present ${present} → ${present + recovered}/${total} (out-of-scope ${outOfScope}, still-missing ${stillMissing})`);
+  console.log(`  ${r.section}: ${r.elapsedSec.toFixed(1)}s, canonical ${present}/${total}, gate=${gateStatus} (out-of-scope ${outOfScope})`);
+}
+
+const failed = sectionResults.filter((r) => r.factCheckExit !== 0);
+if (failed.length > 0) {
+  console.log(`\n[gate] BLOCK/ERROR: ${failed.map((r) => `${r.section}(exit ${r.factCheckExit})`).join(', ')} — HIGH 必須 fact 欠落または異常終了。編集者が canonical summary.md を原文から補完して再判定するまで公開不可（ADR 0057）。`);
+  process.exit(1);
 }

@@ -133,3 +133,7 @@ honbun(startPage=1, endPage=N)は互換動作。betsutenpu-2/3(startPage=87 等)
 - observation-2026-05-24 §7.6-7.8: 本仮説判定の計測詳細
 - observation-2026-05-24 §7.9: n=2,3 反復計測の生データと観測幅分析
 - experiments/poc-pdf-summary/verify-hypothesis-b.mjs: 仮説 B 検証スクリプト本体
+
+## 更新 (2026-06-20)
+
+D1 の `summaryHit` スコープ(`summary.md` + 各 `summary-checked-raw.chunk{N}.md` の連結)は ADR 0057 D3 が supersede し、canonical `summary.md` のみに限定した。strict 自体も公開可否の判定根拠から外れ参考情報(advisory)に降格。公開可否は ADR 0057 の gate(canonical の HIGH 欠落で BLOCK、exit 1)が決定する。初回実 run では旧スコープが嘘の緑(strict 3/3 / 機械 grep 0/3)を生んでいた(observation-2026-06-20 §1)。
