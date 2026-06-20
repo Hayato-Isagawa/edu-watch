@@ -112,3 +112,7 @@ ADR 0045 §決定 (2) 設計制約を継承する:
 - `experiments/poc-pdf-summary/observation-2026-05-13b.md`(本観測前段、本体 真の救出率 67% で判定未達)
 - PR #152(PoC 実装、commit 67faa61、`INPUT_SOURCE=summary|raw` 分岐 + `chunk-ranges-v3.json` 新規)
 - `experiments/poc-pdf-summary/fact-check-grep.mjs`(PR #155 でデフォルト値を `raw` に変更済)
+
+## 更新 (2026-06-20)
+
+§撤回 / 再検討の条件 末尾の「`buildRetryPrompt` から fact `description` 数値を除外する別 ADR を起票」トリガーに到達。ADR 0057 D4 が retryHint 化(答案数値を含まない設問枠組みのみを提示)で本除外を実装し、初回実 run で観測された循環回収(observation-2026-06-20 §2)を遮断した。

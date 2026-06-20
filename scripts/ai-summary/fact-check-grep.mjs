@@ -2,6 +2,7 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 import { parseArgs } from 'node:util';
 import { setGlobalDispatcher, Agent } from 'undici';
+import { grepFacts, judgeStrict, buildRetryPrompt, summarizeFact, computeGate } from './fact-check-lib.mjs';
 
 setGlobalDispatcher(new Agent({
   headersTimeout: 0,
@@ -97,105 +98,10 @@ async function loadRawChunkSources(chunkNumbers) {
   return sources;
 }
 
-function grepFacts(text, facts) {
-  const norm = text.normalize('NFKC');
-  return facts.map((f) => ({
-    ...f,
-    found: f.patterns.some((re) => re.test(norm)),
-  }));
-}
-
 async function loadAllRawChunkSources(facts) {
   const allChunkNumbers = [...new Set(facts.flatMap((f) => f.sourceChunks || []))].sort((a, b) => a - b);
   if (allChunkNumbers.length === 0) return {};
   return await loadRawChunkSources(allChunkNumbers);
-}
-
-async function loadAllRetryChunkOutputs() {
-  const files = await fs.readdir(sectionDir).catch(() => []);
-  const chunkFiles = files
-    .filter((f) => /^summary-checked-raw\.chunk\d+\.md$/.test(f))
-    .sort();
-  const texts = [];
-  for (const f of chunkFiles) {
-    texts.push(await fs.readFile(path.join(sectionDir, f), 'utf8'));
-  }
-  return texts.join('\n');
-}
-
-function squeezeJpSpaces(s) {
-  let prev;
-  let cur = s;
-  const re = /([぀-ヿ㐀-鿿0-9,])\s+([぀-ヿ㐀-鿿0-9,])/g;
-  do {
-    prev = cur;
-    cur = cur.replace(re, '$1$2');
-  } while (cur !== prev);
-  return cur;
-}
-
-function judgeStrict(facts, summaryText, chunkSources) {
-  const normSummary = summaryText.normalize('NFKC');
-  const details = facts.map((f) => {
-    const summaryHit = f.patterns.some((re) => re.test(normSummary));
-    const chunkNumbers = f.sourceChunks || [];
-    let rawChunkText = '';
-    for (const n of chunkNumbers) {
-      if (chunkSources[n]) rawChunkText += '\n' + chunkSources[n];
-    }
-    const normChunk = squeezeJpSpaces(rawChunkText.normalize('NFKC'));
-    const rawChunkHit = rawChunkText ? f.patterns.some((re) => re.test(normChunk)) : false;
-    let judgment;
-    if (summaryHit && rawChunkHit) judgment = 'present';
-    else if (summaryHit && !rawChunkHit) judgment = 'llm_hallucination';
-    else if (!summaryHit && rawChunkHit) judgment = 'llm_dropped';
-    else judgment = 'missing';
-    return {
-      id: f.id,
-      severity: f.severity,
-      summaryHit,
-      rawChunkHit,
-      judgment,
-    };
-  });
-  return {
-    totalFacts: facts.length,
-    strictPresent: details.filter((d) => d.judgment === 'present').length,
-    llmHallucinated: details.filter((d) => d.judgment === 'llm_hallucination').length,
-    llmDropped: details.filter((d) => d.judgment === 'llm_dropped').length,
-    stillMissingStrict: details.filter((d) => d.judgment === 'missing').length,
-    details,
-  };
-}
-
-function buildRetryPrompt(summary, missingFacts, chunkSources) {
-  const missingList = missingFacts.map((f, i) => `${i + 1}. ${f.description}`).join('\n');
-  const chunkExcerpts = Object.entries(chunkSources)
-    .sort(([a], [b]) => Number(a) - Number(b))
-    .map(([n, text]) => `## chunk-${n} (raw)\n\n${text}`)
-    .join('\n\n---\n\n');
-
-  return `あなたは中央教育審議会答申の要約編集者です。以下の要約には核心数値が脱落しています。chunk 抜粋メモから不足数値を保持しながら、要約全体を再生成してください。
-
-# 不足している必須数値
-
-${missingList}
-
-# 制約
-
-- 元の 4 セクション構造(「1. 何が決まったか」「2. いつから実施されるか」「3. 現場で必要な対応」「4. 参照すべき PDF ページ」)を維持
-- 不足数値は本文中に必ず組み込み、出典ページを (p.X) 形式で併記
-- 圧縮しないでください(出力長は元の要約と同等以上)
-- chunk 抜粋メモにない内容、推測、一般論は書かない
-- 数値・固有名詞・時期は原文と一致させてください
-
-# 元の要約
-
-${summary}
-
-# 該当 chunk 抜粋メモ
-
-${chunkExcerpts}`;
 }
 
 async function callOllama(prompt) {
@@ -249,10 +155,6 @@ async function callOllama(prompt) {
   };
 }
 
-function summarizeFact(f) {
-  return { id: f.id, severity: f.severity, description: f.description };
-}
-
 const facts = await loadRequiredFacts(requiredFactsPath);
 console.log(`[facts] loaded ${facts.length} required facts from ${requiredFactsPath}`);
 
@@ -269,6 +171,9 @@ for (const m of missing) {
 
 const recoverable = missing.filter((f) => f.sourceChunks && f.sourceChunks.length > 0);
 const outOfScope = missing.filter((f) => !f.sourceChunks || f.sourceChunks.length === 0);
+
+// 公開可否ゲート（ADR 0057）。canonical summary.md のみを完全性の正とし、retry recovered は本体未統合のため算入しない。
+const gate = computeGate(present, missing, facts.length);
 
 let retryRecord = { attempted: false };
 let recovered = [];
@@ -317,10 +222,9 @@ if (recoverable.length === 0) {
   };
 }
 
-const retryChunkText = await loadAllRetryChunkOutputs();
-const combinedSummaryText = summary + '\n' + retryChunkText;
+// strict は canonical summary.md のみを対象に判定（retry 連結を廃止、ADR 0057 D3 が ADR 0054 D1 を supersede）。参考情報であり合否には算入しない。
 const allChunkSources = await loadAllRawChunkSources(facts);
-const strict = judgeStrict(facts, combinedSummaryText, allChunkSources);
+const strict = judgeStrict(facts, summary, allChunkSources);
 
 const report = {
   timestamp: new Date().toISOString(),
@@ -330,6 +234,7 @@ const report = {
   model: MODEL,
   numCtx: NUM_CTX,
   ollamaBaseUrl: OLLAMA_BASE_URL,
+  gate,
   strict,
   initial: {
     total: facts.length,
@@ -345,6 +250,7 @@ const report = {
 
 await fs.writeFile(reportPath, JSON.stringify(report, null, 2));
 console.log(`[report] ${reportPath}`);
-const finalPresent = present.length + recovered.length;
-console.log(`[final] present ${present.length} → after retry ${finalPresent}/${facts.length}, out-of-scope ${outOfScope.length}, still-missing ${stillMissing.length}`);
-console.log(`[strict] present ${strict.strictPresent}/${strict.totalFacts}, llm_hallucination ${strict.llmHallucinated}, llm_dropped ${strict.llmDropped}, missing ${strict.stillMissingStrict}`);
+console.log(`[gate] ${gate.status} — canonical present ${present.length}/${facts.length}, missing HIGH ${gate.missingHigh.length} / MEDIUM ${gate.missingMedium.length}`);
+console.log(`[retry/参考] recovered ${recovered.length}, still-missing ${stillMissing.length}, out-of-scope ${outOfScope.length}（advisory・本体未統合）`);
+console.log(`[strict/参考] present ${strict.strictPresent}/${strict.totalFacts}, llm_hallucination ${strict.llmHallucinated}, llm_dropped ${strict.llmDropped}, missing ${strict.stillMissingStrict}`);
+process.exitCode = gate.status === 'BLOCK' ? 1 : 0;
