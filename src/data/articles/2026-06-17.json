@@ -1,14 +1,148 @@
 [
   {
-    "id": "kkn-2026-06-17-260c285b74f29f28",
-    "title": "生成AI活用、教員の9割が効果実感 「成熟度」向上で課題は管理体制へ〜デジタル・ナレッジ「小中高のAI活用実態調査」から",
+    "id": "kkn-2026-06-17-eef9fece733740a3",
+    "title": "チエル、Webフィルタリングツール「InterCLASS Filtering Service」Ver.6.4を8月リリース　GIGA第2期に求められる活用促進・規制を実現",
     "sourceId": "kkn",
     "sourceName": "教育家庭新聞",
-    "sourceUrl": "https://www.kknews.co.jp/news/20260617o04",
-    "publishedAt": "2026-06-17T01:00:00.000Z",
-    "collectedAt": "2026-06-20T00:00:00.000Z",
-    "summary": "デジタル・ナレッジが運営するeラーニング戦略研究所が、全国の小中高の教職員を対象に実施した生成AI活用の実態調査の報告書を公開。校務での利用率は84.2％、授業準備でも74.4％に達し、回答した教員の約9割が効果を実感。AI活用成熟度が高い学校ほど効果実感も高い一方、ルール・ガイドラインの整備や研修には学校間で差がみられた。",
-    "categories": ["ICT / GIGA", "教員・働き方"],
+    "sourceUrl": "https://www.kknews.co.jp/news/20260618o01",
+    "publishedAt": "2026-06-17T22:00:45.000Z",
+    "collectedAt": "2026-06-17T23:18:53.151Z",
+    "summary": "チエルは、Chromebook対応Webフィルタリングツール「InterCLASS Filtering Service」を、8月にバージョンアップする。 GIGAスクール構想第2期による端末活用時間の増加を受け、「安心入 […]",
+    "categories": [
+      "ICT / GIGA"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-06-17-0499b13f04083446",
+    "title": "食育基本法から20年、農林水産省が2025年度食育白書を公表",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20260618o04",
+    "publishedAt": "2026-06-17T22:00:41.000Z",
+    "collectedAt": "2026-06-17T23:18:53.151Z",
+    "summary": "農林水産省は6月16日、2025年度食育白書を公表した。今回の白書では、2005年の食育基本法制定から約20年が経過したことを受け、「食育基本法のあゆみ」を特集テーマに掲げた。法律制定の経緯や、これまで4次にわたり策定さ […]",
+    "categories": [
+      "研究・エビデンス"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-06-17-3a166c5e03c3f7c9",
+    "title": "日本ビーコム、小中高校等を対象にタイピング教材「Gold Finger School クラウド」夏休み無料体験を実施",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20260618o02",
+    "publishedAt": "2026-06-17T22:00:29.000Z",
+    "collectedAt": "2026-06-17T23:18:53.151Z",
+    "summary": "日本ビーコムは、学校向けタイピング練習教材「Gold Finger School クラウド」の夏休み無料フル体験IDの申込受付を6月15日から全国の小・中・高等学校を対象に開始している。 「Gold Finger Sch […]",
+    "categories": [
+      "その他"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "nikkyo-2026-06-17-6c9f4ba20b5204cf",
+    "title": "LGBTQ理解、教員研修の充実など掲げ政府が基本計画",
+    "sourceId": "nikkyo",
+    "sourceName": "日本教育新聞",
+    "sourceUrl": "https://www.kyoiku-press.com/post-312305/",
+    "publishedAt": "2026-06-17T07:32:00.000Z",
+    "collectedAt": "2026-06-17T14:07:33.293Z",
+    "summary": "政府は16日、性的指向、ジェンダーアイデンティティの多様性に関する基本計画を閣議決定した。LGBTQに関する基本法に基づくもので、学校設置者・学校に対しては、児童・生徒への配慮事項を資料としてまとめ…",
+    "categories": [
+      "教員・働き方"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "nikkyo-2026-06-17-84efad3a9ab860c7",
+    "title": "都立高校生の海外大学進学支援へ　都が給付型奨学金",
+    "sourceId": "nikkyo",
+    "sourceName": "日本教育新聞",
+    "sourceUrl": "https://www.kyoiku-press.com/post-312302/",
+    "publishedAt": "2026-06-17T05:55:00.000Z",
+    "collectedAt": "2026-06-17T14:07:33.293Z",
+    "summary": "東京都は、世界大学ランキング上位のトップレベルの海外大学への進学を希望する都立高校生を対象とする給付型奨学金制度を始める。グローバルリーダーの育成に向けて国際感覚を養成する機会をつくる狙い。応募は7…",
+    "categories": [
+      "国際・海外"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "nikkyo-2026-06-17-2887051dde535d10",
+    "title": "校長講話を紙芝居で　自作の物語で想い伝える",
+    "sourceId": "nikkyo",
+    "sourceName": "日本教育新聞",
+    "sourceUrl": "https://www.kyoiku-press.com/post-312296/",
+    "publishedAt": "2026-06-17T05:27:00.000Z",
+    "collectedAt": "2026-06-17T14:07:33.293Z",
+    "summary": "東京都墨田区立立花吾嬬(あずま)の森小学校の向井一郎校長は、全校朝礼での校長講話に当たり、自作の紙芝居を活用している。学校生活上での注意事項などを物語で表現。児童が話に興味を持てるよう工夫している。…",
+    "categories": [
+      "教員・働き方"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "mext-2026-06-17-247fec41d6687b22",
+    "title": "中央教育審議会初等中等教育分科会教育課程部会特別支援教育ワーキンググループ（第10回）を開催します",
+    "sourceId": "mext",
+    "sourceName": "文部科学省",
+    "sourceUrl": "https://www.mext.go.jp/b_menu/shingi/chukyo/chukyo3/105/kaisai/mext_00011.html",
+    "publishedAt": "2026-06-17T05:00:00.000Z",
+    "collectedAt": "2026-06-17T14:07:33.293Z",
+    "categories": [
+      "政策・制度"
+    ],
+    "layer": 1,
+    "language": "ja"
+  },
+  {
+    "id": "mext-2026-06-17-b5661e204d2f097e",
+    "title": "社会教育主事・社会教育士養成等の改善・充実に関するワーキング・グループ（第8回）の開催について",
+    "sourceId": "mext",
+    "sourceName": "文部科学省",
+    "sourceUrl": "https://www.mext.go.jp/b_menu/shingi/chukyo/chukyo2/016/kaisai/mext_00008.html",
+    "publishedAt": "2026-06-17T05:00:00.000Z",
+    "collectedAt": "2026-06-17T14:07:33.293Z",
+    "categories": [
+      "政策・制度"
+    ],
+    "layer": 1,
+    "language": "ja"
+  },
+  {
+    "id": "chukyo-2026-06-17-247fec41d6687b22",
+    "title": "中央教育審議会初等中等教育分科会教育課程部会特別支援教育ワーキンググループ（第10回）を開催します",
+    "sourceId": "chukyo",
+    "sourceName": "中央教育審議会",
+    "sourceUrl": "https://www.mext.go.jp/b_menu/shingi/chukyo/chukyo3/105/kaisai/mext_00011.html",
+    "publishedAt": "2026-06-17T05:00:00.000Z",
+    "collectedAt": "2026-06-17T14:07:33.293Z",
+    "categories": [
+      "政策・制度"
+    ],
+    "layer": 1,
+    "language": "ja"
+  },
+  {
+    "id": "resemom-2026-06-17-166c7380379f3908",
+    "title": "共立女子大「絵本ライブ＆トーク」児童学部開設記念9/26",
+    "sourceId": "resemom",
+    "sourceName": "リセマム",
+    "sourceUrl": "https://resemom.jp/article/2026/06/17/86438.html",
+    "publishedAt": "2026-06-17T04:45:02.000Z",
+    "collectedAt": "2026-06-17T14:07:33.293Z",
+    "summary": "共立女子大学は2026年9月26日、児童学部の開設および家政学部児童学科開設20周年を記念した特別プログラムを開催する。同大客員教授で絵本作家の長谷川義史氏を招き、「子どもと絵本の未来 Part 2」をテーマとした「絵本ライブ＆トーク」を実施する。参加費は無料で、事前のオンライン申込みが必要だ。",
+    "categories": [
+      "その他"
+    ],
     "layer": 2,
     "language": "ja"
   }
