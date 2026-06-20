@@ -81,9 +81,39 @@ jobs:
               '- 実行コスト(1 エントリ約 43.7 分 / M1 16GB)',
             ].join('\n');
 
-            await github.rest.issues.create({
+            const created = await github.rest.issues.create({
               owner: context.repo.owner,
               repo: context.repo.repo,
               title,
               body,
             });
+
+            // 既存のオープンなリマインダー issue を close し、常に最新 1 件に保つ(issue #246)
+            const reminderTitlePrefix = 'AI summary 週次実行リマインダー';
+            const openIssues = await github.paginate(github.rest.issues.listForRepo, {
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              state: 'open',
+              per_page: 100,
+            });
+            const stale = openIssues.filter(
+              (i) =>
+                !i.pull_request &&
+                i.number !== created.data.number &&
+                i.title.startsWith(reminderTitlePrefix),
+            );
+            for (const issue of stale) {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: issue.number,
+                body: `最新の週次リマインダー #${created.data.number} に集約してクローズします(未処理エントリの追跡は最新 issue で継続)。`,
+              });
+              await github.rest.issues.update({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: issue.number,
+                state: 'closed',
+                state_reason: 'not_planned',
+              });
+            }
