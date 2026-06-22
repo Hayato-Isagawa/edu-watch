@@ -211,13 +211,10 @@ const escapeLd = (obj: object): string => JSON.stringify(obj).replace(/</g, "\\u
           </section>
 
           <section class="mobile-menu-section">
-            <h2 class="mobile-menu-section-title">Sister site — 姉妹サイト</h2>
+            <h2 class="mobile-menu-section-title">Sister Sites — 姉妹サイト</h2>
             <ul>
-              <li>
-                <a href="https://edu-evidence.org" target="_blank" rel="noopener noreferrer">
-                  EduEvidence JP ↗
-                </a>
-              </li>
+              <li><a href="https://edu-evidence.org">EduEvidence JP — 教育エビデンス</a></li>
+              <li><a href="https://law.edu-evidence.org">EduLaw JP — 教育法令</a></li>
             </ul>
           </section>
 
@@ -343,6 +340,15 @@ const escapeLd = (obj: object): string => JSON.stringify(obj).replace(/</g, "\\u
                 target="_blank"
                 rel="noopener noreferrer"
               >EduEvidence JP ↗</a>
+              <span class="text-[10px]">(姉妹サイト)</span>
+            </li>
+            <li>
+              <a
+                href="https://law.edu-evidence.org"
+                class="link-underline"
+                target="_blank"
+                rel="noopener noreferrer"
+              >EduLaw JP ↗</a>
               <span class="text-[10px]">(姉妹サイト)</span>
             </li>
           </ul>
