@@ -1,5 +1,157 @@
 [
   {
+    "id": "kkn-2026-06-22-8c58b989b855eecd",
+    "title": "汗で失った電解質をサプリをかんで吸収～塩分補給サプリ",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/post_health/260622_7a",
+    "publishedAt": "2026-06-22T22:00:57.000Z",
+    "collectedAt": "2026-06-22T23:14:55.011Z",
+    "summary": "気象庁の発表によると2025年は全国的に暖かい空気に覆われたため、1946年の統計開始以降、全国153の気象台などのうち132地点で夏の平均気温が歴代1位の高温となった。 2026年も最新の3か月予報によると、6月から8 […]",
+    "categories": [
+      "研究・エビデンス"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-06-22-757da5b176f07150",
+    "title": "地域スポーツクラブ活動への展開～運動部活動管理運営等業務委託～京都市",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/post_nyusatsu/260622_kyotosi",
+    "publishedAt": "2026-06-22T22:00:53.000Z",
+    "collectedAt": "2026-06-22T23:14:55.011Z",
+    "summary": "京都市教育委員会は、市立中学校の運動部活動を地域スポーツクラブ活動へ展開するため、公募型プロポーザルを5月28日に公示。 実施校数および対象部活動は、野球部2校、卓球部4校、バスケットボール部2校、バドミントン部2校、ソ […]",
+    "categories": [
+      "政策・制度"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-06-22-439b8aed34503f0e",
+    "title": "日よけを設置することで日射熱を最大88％カット～外付けロールスクリーン",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/post_health/260622_7c",
+    "publishedAt": "2026-06-22T22:00:53.000Z",
+    "collectedAt": "2026-06-22T23:14:55.011Z",
+    "summary": "日本気象協会が発表した気温傾向によると、今年は早い時期から厳しい暑さとなり、梅雨明け後は猛暑日が増えるため、万全な熱中症対策が求められる。 文部科学省と環境省が2024年4月に公表した｢学校における熱中症対策ガイドライン […]",
+    "categories": [
+      "政策・制度",
+      "研究・エビデンス"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-06-22-8d96d0d6c73f9279",
+    "title": "集金代行システム「学校モール」で業務改善～「未入金のお知らせ」をシステムが担当",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/post_ict/260622_2b",
+    "publishedAt": "2026-06-22T22:00:49.000Z",
+    "collectedAt": "2026-06-22T23:14:55.011Z",
+    "summary": "文部科学省では、教材費等の私費会計にあたるものも含めて学校徴収金の公会計化を推奨している。教材費等を公会計化した自治体のほぼすべてが利用しているものが、集金代行システム等だ。 集金代行システム｢学校モール｣を現在約120 […]",
+    "categories": [
+      "政策・制度"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-06-22-b7938d44d83ee833",
+    "title": "汎用的なクラウドツールを日常の「校務」に最適化　現場の声から開発～遠鉄システムサービス",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/post_ict/260622_2a",
+    "publishedAt": "2026-06-22T22:00:49.000Z",
+    "collectedAt": "2026-06-22T23:14:55.011Z",
+    "summary": "ICT支援員サービスや学校インフラ構築により静岡県の教育DXを支えてきた遠鉄システムサービスが、校務効率化システム｢みらい校務ターミナル｣と学習データ蓄積・活用サービス｢学びパートナー支援｣を開発し、全国への提供を開始し […]",
+    "categories": [
+      "ICT / GIGA"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-06-22-b6d9d7bde6528132",
+    "title": "探究学習学習ライブラリー「SPARKE」、雪印メグミルクとの連携プログラムをアップデート、2026年度利用申込受付中",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20260623o04",
+    "publishedAt": "2026-06-22T22:00:45.000Z",
+    "collectedAt": "2026-06-22T23:14:55.011Z",
+    "summary": "COMPASSは、小学館集英社プロダクションと共同で展開する小中学校向け探究学習ライブラリー「SPARKE（スパーク）」において、雪印メグミルクとの連携プログラム「ロングセラーチーズのヒミツから探る ふりかえりでパワーア […]",
+    "categories": [
+      "その他"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-06-22-54cfaba690e00b01",
+    "title": "給食調理場の転倒対策に～底型意匠でスリップ防止～滑りに強い靴",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/post_health/260622_8e",
+    "publishedAt": "2026-06-22T22:00:43.000Z",
+    "collectedAt": "2026-06-22T23:14:55.011Z",
+    "summary": "学校給食の調理場は衛生管理の改善という観点から、乾式（ドライシステム）への移行が進んでいるが、多湿式（ウエットシステム）による調理場はもちろん、ドライシステム導入の調理場でも水や油分で汚れた床での作業には、常にスリップへ […]",
+    "categories": [
+      "その他"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-06-22-f6a7d69b34d68ce1",
+    "title": "GIGAスクール構想で新しいネット環境を構築～ルーターなどを職員室に設置～福岡市",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/post_nyusatsu/260622_fukuokasi",
+    "publishedAt": "2026-06-22T22:00:38.000Z",
+    "collectedAt": "2026-06-22T23:14:55.011Z",
+    "summary": "福岡市教育委員会は、小・中・特別支援学校に新しいインターネット環境を構築するため一般競争入札を5月21日に公示。 ルーターはFortiGate50G相当を359台、中規模拠点LBはFortiGate90G相当を91台、大 […]",
+    "categories": [
+      "ICT / GIGA",
+      "政策・制度"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-06-22-2d93995ab4fbfcfb",
+    "title": "｢子どもも教師も育つ島｣の実現に向けて～地域特性を生かした教育づくり～東京都利島村",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/post_committee/260622_toshimamura",
+    "publishedAt": "2026-06-22T22:00:38.000Z",
+    "collectedAt": "2026-06-22T23:14:55.011Z",
+    "summary": "利島村とTeach For Japanは、それぞれが有する人的・知的資源およびネットワークを活用することで、島の地域特性を生かした教育の充実と高度化を図ることを目的に、6月2日事業連携協定を締結した。 今回の連携により｢ […]",
+    "categories": [
+      "教員・働き方"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-06-22-5dffa253fd466a9c",
+    "title": "熱中症への予防と対策を",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/post_health/260622_6a",
+    "publishedAt": "2026-06-22T22:00:37.000Z",
+    "collectedAt": "2026-06-22T23:14:55.011Z",
+    "summary": "熱中症対策でWBGT測定を恒久化～酷暑を見据えて活動場所・活動時間ごとの測定を推奨 近年の気候変動により、熱中症のリスクはかつてないほど高まっている。今年も5月から全国各地で35度を超える猛暑日が観測され、教育現場では屋 […]",
+    "categories": [
+      "その他"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
     "id": "resemom-2026-06-22-070977eb89bbf12f",
     "title": "千葉県、公立高校等「奨学のための給付金」7/1から申請受付",
     "sourceId": "resemom",
