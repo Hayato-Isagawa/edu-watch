@@ -56,6 +56,19 @@ const publishedFormatter = new Intl.DateTimeFormat("ja-JP", {
 function formatPublished(iso: string): string {
   return publishedFormatter.format(new Date(iso));
 }
+
+function siteLabel(url: string): string | null {
+  let host: string;
+  try {
+    host = new URL(url).hostname;
+  } catch {
+    return null;
+  }
+  if (host === "law.edu-evidence.org") return "EduLaw JP";
+  if (host === "edu-evidence.org" || host === "www.edu-evidence.org")
+    return "EduEvidence JP";
+  return null;
+}
 ---
 
 <Layout
@@ -126,21 +139,27 @@ function formatPublished(iso: string): string {
       entry.data.relatedEvidenceUrls.length > 0 && (
         <section class="py-8 sm:py-10 border-b border-[var(--color-line)]">
           <h2 class="font-bold text-xl sm:text-2xl text-[var(--color-ink)]">
-            関連エビデンス(姉妹サイト EduEvidence JP)
+            関連リンク(姉妹サイト)
           </h2>
           <ul class="mt-4 space-y-2 text-sm leading-relaxed">
-            {entry.data.relatedEvidenceUrls.map((url) => (
-              <li>
-                <a
-                  href={url}
-                  class="link-underline"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  {url} ↗
-                </a>
-              </li>
-            ))}
+            {entry.data.relatedEvidenceUrls.map((url) => {
+              const label = siteLabel(url);
+              return (
+                <li>
+                  {label && (
+                    <span class="text-[var(--color-sub)] mr-2">{label}</span>
+                  )}
+                  <a
+                    href={url}
+                    class="link-underline"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {url} ↗
+                  </a>
+                </li>
+              );
+            })}
           </ul>
         </section>
       )
