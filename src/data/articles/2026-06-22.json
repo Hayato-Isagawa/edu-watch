@@ -152,6 +152,20 @@
     "language": "ja"
   },
   {
+    "id": "mext-2026-06-22-32736c25b442c448",
+    "title": "教育課程部会　特別活動ワーキンググループ（第7回）　配付資料",
+    "sourceId": "mext",
+    "sourceName": "文部科学省",
+    "sourceUrl": "https://www.mext.go.jp/b_menu/shingi/chukyo/chukyo3/115/siryo/mext_00022.html",
+    "publishedAt": "2026-06-22T12:09:00.000Z",
+    "collectedAt": "2026-06-23T23:03:07.921Z",
+    "categories": [
+      "政策・制度"
+    ],
+    "layer": 1,
+    "language": "ja"
+  },
+  {
     "id": "resemom-2026-06-22-070977eb89bbf12f",
     "title": "千葉県、公立高校等「奨学のための給付金」7/1から申請受付",
     "sourceId": "resemom",
@@ -295,6 +309,21 @@
     "collectedAt": "2026-06-22T15:35:04.631Z",
     "categories": [
       "政策・制度"
+    ],
+    "layer": 1,
+    "language": "ja"
+  },
+  {
+    "id": "mext-2026-06-22-6f9733c20f07cef7",
+    "title": "文部科学省総合教育政策局男女共同参画共生社会学習・安全課 非常勤職員（期間業務職員）採用のお知らせ（令和８年９月１日予定）",
+    "sourceId": "mext",
+    "sourceName": "文部科学省",
+    "sourceUrl": "https://www.mext.go.jp/b_menu/saiyou/hijyoukin/1423086_00170.htm",
+    "publishedAt": "2026-06-22T01:00:00.000Z",
+    "collectedAt": "2026-06-23T23:03:07.921Z",
+    "categories": [
+      "政策・制度",
+      "教員・働き方"
     ],
     "layer": 1,
     "language": "ja"
