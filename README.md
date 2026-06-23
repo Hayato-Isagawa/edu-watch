@@ -17,7 +17,7 @@ Sprint 1(基盤構築)進行中。本番公開はまだ準備段階です。
 | フレームワーク | Astro 6 |
 | UI | React 19 / Tailwind 4 |
 | 言語 | TypeScript |
-| バージョン管理 | mise(`.tool-versions` で Node 24.15.0 固定) |
+| バージョン管理 | mise(`.tool-versions` で Node 24.17.0 固定) |
 | ホスティング | Cloudflare Pages |
 | ドメイン | news.edu-evidence.org |
 
