@@ -59,6 +59,20 @@
     "language": "ja"
   },
   {
+    "id": "mext-2026-06-23-9f9c3690bdc71afa",
+    "title": "中央教育審議会初等中等教育分科会教育課程部会特別支援教育ワーキンググループ（第10回）の配付資料を掲載しました",
+    "sourceId": "mext",
+    "sourceName": "文部科学省",
+    "sourceUrl": "https://www.mext.go.jp/b_menu/shingi/chukyo/chukyo3/105/siryo/mext_00017.html",
+    "publishedAt": "2026-06-23T05:59:00.000Z",
+    "collectedAt": "2026-06-23T23:03:07.921Z",
+    "categories": [
+      "政策・制度"
+    ],
+    "layer": 1,
+    "language": "ja"
+  },
+  {
     "id": "chukyo-2026-06-23-da3add755b7b6f7e",
     "title": "中央教育審議会大学分科会質向上・質保証システム部会（第10回）を開催します",
     "sourceId": "chukyo",
@@ -66,6 +80,20 @@
     "sourceUrl": "https://www.mext.go.jp/b_menu/shingi/chukyo/chukyo4/055/kaisai/1422340_00013.html",
     "publishedAt": "2026-06-23T05:00:00.000Z",
     "collectedAt": "2026-06-23T13:20:35.974Z",
+    "categories": [
+      "政策・制度"
+    ],
+    "layer": 1,
+    "language": "ja"
+  },
+  {
+    "id": "mext-2026-06-23-da3add755b7b6f7e",
+    "title": "中央教育審議会大学分科会質向上・質保証システム部会（第10回）を開催します",
+    "sourceId": "mext",
+    "sourceName": "文部科学省",
+    "sourceUrl": "https://www.mext.go.jp/b_menu/shingi/chukyo/chukyo4/055/kaisai/1422340_00013.html",
+    "publishedAt": "2026-06-23T05:00:00.000Z",
+    "collectedAt": "2026-06-23T23:03:07.921Z",
     "categories": [
       "政策・制度"
     ],
