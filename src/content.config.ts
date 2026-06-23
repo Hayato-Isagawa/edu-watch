@@ -25,7 +25,9 @@ const digests = defineCollection({
         }),
       )
       .default([]),
-    relatedEvidenceUrls: z.array(z.string().url()).default([]),
+    relatedEvidenceUrls: z
+      .array(z.object({ url: z.string().url(), title: z.string().min(1) }))
+      .default([]),
   }),
 });
 

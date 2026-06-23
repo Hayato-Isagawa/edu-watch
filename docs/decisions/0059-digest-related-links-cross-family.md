@@ -7,34 +7,38 @@
 
 ## 背景
 
-週次ダイジェストは末尾に関連リンク節を持ち、`relatedEvidenceUrls`(`src/content.config.ts`)で姉妹サイトのページを列挙している。だが描画(`src/pages/digest/[slug].astro`)は見出しを「関連エビデンス(姉妹サイト EduEvidence JP)」と **evi 固定でハードコード**していた。
+週次ダイジェストは末尾に関連リンク節を持ち、`relatedEvidenceUrls`(`src/content.config.ts`)で姉妹サイトのページを列挙している。当初の描画(`src/pages/digest/[slug].astro`)は見出しを「関連エビデンス(姉妹サイト EduEvidence JP)」と **evi 固定でハードコード**し、各リンクは **生 URL** を表示していた。
 
-4 サイト横断リピート訪問性分析(2026-06)の P2 #6 は、ニュースの背景に法令・公的方針がある回で、読者を姉妹サイト EduLaw JP(law.edu-evidence.org)の法令解説ガイドへ送る導線を求めた。スキーマ `relatedEvidenceUrls: z.array(z.string().url())` は任意の URL を通すが、描画が evi 固定ラベルのため law URL を入れると誤ラベルになる(技術的障壁を実機調査で特定)。
+4 サイト横断リピート訪問性分析(2026-06)の P2 #6 は、ニュースの背景に法令・公的方針がある回で、読者を姉妹サイト EduLaw JP(law.edu-evidence.org)の法令解説ガイドへ送る導線を求めた。
+
+加えて、サイト名ラベル(「EduEvidence JP」)だけでは「どのサイトか」しか伝わらず「何のページか」が分からない(生 URL のスラッグが唯一の手掛かり)。本家 edu-evidence の関連表示はページタイトル主体(`src/pages/strategies/[...slug].astro`、`title={s.data.title}`)であり、edu-watch もこの表示水準に揃える必要がある。
 
 ## 決定
 
 1. `relatedEvidenceUrls` の意味を「姉妹サイト横断(evi + law)の関連リンク」へ拡張する。
-2. 描画を host ベースの site-aware ラベルにする: `law.edu-evidence.org` → 「EduLaw JP」/ `edu-evidence.org`(`www.` 含む)→ 「EduEvidence JP」/ それ以外 → ラベル無し。見出しは「関連リンク(姉妹サイト)」へ汎用化する。
-3. フィールド名 `relatedEvidenceUrls` は据え置く。
+2. スキーマを `z.array(z.string().url())` から `z.array(z.object({ url, title }))` へ変更し、各リンクに **タイトル**を持たせる。タイトルはリンク先(他サイト)の実題を編集者が転記する。
+3. 描画はタイトルを主リンクテキストにし、補助ラベルとして **サイト名(host 判定: `law.edu-evidence.org`→EduLaw JP / `edu-evidence.org`→EduEvidence JP)**と **種別(path 判定: `/strategies/`→戦略 / `/columns/`→コラム / law の `/guides/`→法令ガイド)**を併記する。生 URL は表示しない。見出しは「関連リンク(姉妹サイト)」へ汎用化する。
+4. フィールド名 `relatedEvidenceUrls` は据え置く。
 
 ## なぜこの判断にしたか
 
-- 単一フィールド + ラベル判定は、別フィールド(`relatedLawUrls`)追加による 2 セクション重複より最小で DRY。
-- 後方互換: 既存 6 本(全 evi URL)は同じ「EduEvidence JP」ラベルで従来通り描画され、構造は不変。
+- タイトル表示は「何のページか」を読者に直接伝える。サイト名だけでは不十分という利用者フィードバックに応え、本家 edu-evidence のタイトル主体表示(rule 7)に揃える。
+- タイトルを frontmatter に持たせるのは、edu-watch のビルドが他サイトのコンテンツを参照できず、クロスサイトのタイトルをビルド時に解決できないため(ビルド時 fetch は不安定なので不採用)。各サイトの実題を転記する。
+- サイト名は host、種別は path から導出する。`new URL()` を try/catch で安全に解析し、未知の host / path はラベル無しにフォールバックする(入力境界のバリデーション)。
 - フィールド名据え置きは、改名が digest 6 本 + schema + 描画へ波及するため(最小変更原則)。名称は evidence 由来だが、意味は本 ADR で「姉妹サイト横断の関連リンク」と定義し直す。
-- host 判定は `new URL().hostname` を try/catch で安全に解析し、不正 URL はラベル無しにフォールバックする(入力境界のバリデーション)。
 
 ## 帰結
 
-- 2026-06-20 のダイジェスト(働き方改革を扱う回)に `https://law.edu-evidence.org/guides/work-style-reform/` を追加し、導線を 1 本通した(リンク先は HTTP 200 で live 確認済)。
-- 今後、法令・公的方針が背景にある回は law ガイド URL を関連リンクに加えられる。
+- 既存 6 digest(計 18 リンク)に実題を付与した。2026-06-20 の回(働き方改革)には law ガイド `https://law.edu-evidence.org/guides/work-style-reform/` を追加し、導線を 1 本通した(リンク先は HTTP 200 で live 確認済)。
+- 今後、法令・公的方針が背景にある回は law ガイド URL を関連リンクに加えられる。関連リンクを追加する際はリンク先の実題をタイトルに転記する。
 - ユーザー向け変化のため changelog に 1 行追加(rule: PR ごとに changelog 更新)。
 
 ## トレードオフ / 既知のリスク
 
+- タイトルは他サイトの実題を **転記**するため、リンク先がページを改題するとタイトルが乖離しうる。関連リンク更新時に転記し直す運用とする。
 - フィールド名 `relatedEvidenceUrls` は law を含む実態と名がずれる。改名コストを避けるため許容し、本 ADR で意味を明示する。
-- 関連リンクは生 URL 表示のまま(跨サイトのページタイトル取得は build 時に不可)。表示の改善は別タスク。
 
 ## 撤回 / 再検討の条件
 
-- 関連リンクの種類が増えて単一フィールド + ホスト判定が煩雑になる場合、サイト別フィールドまたは構造化(`{ url, site }`)へ再設計する。
+- 関連リンクの種類が増えて host / path 判定が煩雑になる場合、リンクに `site` / `type` を明示フィールドとして持たせる構造へ再設計する。
+- 転記タイトルの乖離が頻発する場合、ビルド時のタイトル解決(姉妹サイト間のデータ共有・共通パッケージ化)を再検討する。
