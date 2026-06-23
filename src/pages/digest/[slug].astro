@@ -56,6 +56,36 @@ const publishedFormatter = new Intl.DateTimeFormat("ja-JP", {
 function formatPublished(iso: string): string {
   return publishedFormatter.format(new Date(iso));
 }
+
+function siteLabel(url: string): string | null {
+  let host: string;
+  try {
+    host = new URL(url).hostname;
+  } catch {
+    return null;
+  }
+  if (host === "law.edu-evidence.org") return "EduLaw JP";
+  if (host === "edu-evidence.org" || host === "www.edu-evidence.org")
+    return "EduEvidence JP";
+  return null;
+}
+
+function typeLabel(url: string): string | null {
+  let parsed: URL;
+  try {
+    parsed = new URL(url);
+  } catch {
+    return null;
+  }
+  const { hostname, pathname } = parsed;
+  if (hostname === "law.edu-evidence.org" && pathname.startsWith("/guides/"))
+    return "法令ガイド";
+  if (hostname === "edu-evidence.org" || hostname === "www.edu-evidence.org") {
+    if (pathname.startsWith("/strategies/")) return "戦略";
+    if (pathname.startsWith("/columns/")) return "コラム";
+  }
+  return null;
+}
 ---
 
 <Layout
@@ -126,21 +156,31 @@ function formatPublished(iso: string): string {
       entry.data.relatedEvidenceUrls.length > 0 && (
         <section class="py-8 sm:py-10 border-b border-[var(--color-line)]">
           <h2 class="font-bold text-xl sm:text-2xl text-[var(--color-ink)]">
-            関連エビデンス(姉妹サイト EduEvidence JP)
+            関連リンク(姉妹サイト)
           </h2>
-          <ul class="mt-4 space-y-2 text-sm leading-relaxed">
-            {entry.data.relatedEvidenceUrls.map((url) => (
-              <li>
-                <a
-                  href={url}
-                  class="link-underline"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  {url} ↗
-                </a>
-              </li>
-            ))}
+          <ul class="mt-4 space-y-3 text-sm leading-relaxed">
+            {entry.data.relatedEvidenceUrls.map((link) => {
+              const meta = [siteLabel(link.url), typeLabel(link.url)]
+                .filter(Boolean)
+                .join(" ・ ");
+              return (
+                <li>
+                  <a
+                    href={link.url}
+                    class="link-underline font-medium"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {link.title} ↗
+                  </a>
+                  {meta && (
+                    <div class="mt-0.5 text-xs text-[var(--color-sub)]">
+                      {meta}
+                    </div>
+                  )}
+                </li>
+              );
+            })}
           </ul>
         </section>
       )

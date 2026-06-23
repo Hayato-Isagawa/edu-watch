@@ -98,3 +98,4 @@ EduEvidence JP と共通の運営方針(植物モチーフブランド体系 / N
 - [0056. リンクチェックから MEXT 採用公告（非常勤職員）を除外する](0056-exclude-mext-recruitment-from-link-check.md)
 - [0057. AI summary honesty gate（canonical 限定の公開可否ゲート・strict 降格・retry 循環回収遮断）](0057-ai-summary-honest-gate.md)
 - [0058. changelog の文体(敬体)と粒度をファミリー統一する(edu-law ADR 0022 ミラー)](0058-unify-changelog-register-and-granularity.md)
+- [0059. ダイジェストの関連リンクを姉妹サイト横断(evi + law)へ拡張する](0059-digest-related-links-cross-family.md)
