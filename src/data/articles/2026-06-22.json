@@ -440,5 +440,21 @@
     "layer": 2,
     "language": "ja",
     "requiresMembership": true
+  },
+  {
+    "id": "nikkyo-2026-06-22-029ebc3dfddcc993",
+    "title": "不易流行",
+    "sourceId": "nikkyo",
+    "sourceName": "日本教育新聞",
+    "sourceUrl": "https://www.kyoiku-press.com/post-312377/",
+    "publishedAt": "2026-06-22T00:00:00.000Z",
+    "collectedAt": "2026-06-23T13:20:35.974Z",
+    "summary": "◆南信濃の山あいに昭和７年築の木造２階建て校舎が保存公開されている。旧木沢小学校（長野県飯田市）だ。明治５年に発足、平成１２年に廃校となったが、校舎や当時の備品等が地元住民の手で大事に保存されている …",
+    "categories": [
+      "その他"
+    ],
+    "layer": 2,
+    "language": "ja",
+    "requiresMembership": true
   }
 ]
