@@ -29,27 +29,43 @@ const tier2 = Object.values(SOURCE_META).filter((s) => s.layer === 2);
 
   <section aria-labelledby="role-heading" class="py-8 sm:py-10 border-b border-[var(--color-line)]">
     <h2 id="role-heading" class="font-bold text-xl sm:text-2xl text-[var(--color-ink)]">
-      EduWatch JP の役割
+      姉妹サイト — 1 本の木
     </h2>
-    <div class="mt-4 grid sm:grid-cols-2 gap-6 text-sm leading-relaxed">
-      <div>
+    <p class="mt-4 text-sm leading-relaxed text-[var(--color-sub)] max-w-2xl">
+      EduEvidence JP・<strong class="text-[var(--color-ink)]">EduWatch JP</strong>・EduLaw JP は、教員の仕事を 1 本の木に見立てた姉妹サイトです。光を受けて学びを育てる「成熟した葉」、日々新しい情報が芽吹く「双葉」、足元から制度を支える「根」——それぞれが独立したサイトとして、1 本の木を形づくります。
+    </p>
+    <div class="mt-6 grid sm:grid-cols-3 gap-5 text-sm leading-relaxed">
+      <div class="border border-[var(--color-line)] rounded-xl p-5 space-y-1.5">
         <div class="font-mono text-[10px] uppercase tracking-widest text-[var(--color-sub)]">
-          長期 / ストック
+          成熟した葉
         </div>
-        <p class="mt-1 font-bold text-[var(--color-ink)]">
-          <a href="https://edu-evidence.org" class="link-underline">EduEvidence JP</a>
-        </p>
-        <p class="mt-2 text-[var(--color-sub)]">
-          指導法 73・コラム 20 のエビデンスポータル。研究の長期的な集約と整理。
+        <div class="font-bold text-[var(--color-ink)]">
+          <a href="https://edu-evidence.org" target="_blank" rel="noopener noreferrer" class="link-underline text-[var(--color-accent)]">EduEvidence JP</a>
+        </div>
+        <p class="text-[var(--color-sub)]">
+          研究で確かめられた指導法・コラムを長期に蓄積するエビデンスポータル（ストック型）。
         </p>
       </div>
-      <div>
-        <div class="font-mono text-[10px] uppercase tracking-widest text-[var(--color-accent)]">
-          短期 / フロー
+      <div class="border border-[var(--color-line)] rounded-xl p-5 space-y-1.5">
+        <div class="font-mono text-[10px] uppercase tracking-widest text-[var(--color-sub)]">
+          双葉
         </div>
-        <p class="mt-1 font-bold text-[var(--color-ink)]">EduWatch JP(本サイト)</p>
-        <p class="mt-2 text-[var(--color-sub)]">
-          一次情報の日次収集 + 週次ダイジェスト。学校教員・教育関係者向けに今の動きを構造化。
+        <div class="font-bold text-[var(--color-ink)]">
+          <span aria-current="page">EduWatch JP（本サイト）</span>
+        </div>
+        <p class="text-[var(--color-sub)]">
+          教育の一次情報を日次収集し、週次ダイジェストで論点を整理（フロー型）。
+        </p>
+      </div>
+      <div class="border border-[var(--color-line)] rounded-xl p-5 space-y-1.5">
+        <div class="font-mono text-[10px] uppercase tracking-widest text-[var(--color-sub)]">
+          根
+        </div>
+        <div class="font-bold text-[var(--color-ink)]">
+          <a href="https://law.edu-evidence.org" target="_blank" rel="noopener noreferrer" class="link-underline text-[var(--color-accent)]">EduLaw JP</a>
+        </div>
+        <p class="text-[var(--color-sub)]">
+          教育関連法と公式解説を法令別に整理する、制度の基盤。
         </p>
       </div>
     </div>
