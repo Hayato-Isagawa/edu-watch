@@ -1,5 +1,53 @@
 [
   {
+    "id": "kkn-2026-06-24-51024b59ad5dd825",
+    "title": "民間企業の研究開発者採用、中途が4年連続増加 博士修了者の採用意欲も8割弱に",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20260625o03",
+    "publishedAt": "2026-06-24T22:00:35.000Z",
+    "collectedAt": "2026-06-24T23:00:23.327Z",
+    "summary": "文部科学省科学技術・学術政策研究所（NISTEP）は6月24日、「民間企業の研究活動に関する調査」の2025年度調査結果を公表した。新卒・中途を問わず研究開発者を採用した企業の割合は前年度から増加して56.9%となり、特 […]",
+    "categories": [
+      "政策・制度",
+      "研究・エビデンス",
+      "教員・働き方"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-06-24-545b5be65f951b0f",
+    "title": "NTTグループ、通信の大切さとICT技術を学ぶ子供向けイベント「NTTドリームキッズ 2026」を10/31まで開催",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20260625o02",
+    "publishedAt": "2026-06-24T22:00:32.000Z",
+    "collectedAt": "2026-06-24T23:00:23.327Z",
+    "summary": "NTTグループは6月22日、ICTや通信の仕組みを無料で学べる子供向けイベント「NTTドリームキッズ 2026」の提供を開始した。同イベントは、社会インフラである通信の重要性を理解してもらう目的で2006年から毎年開催さ […]",
+    "categories": [
+      "ICT / GIGA"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-06-24-fa6753b8589cc2f8",
+    "title": "多賀城市、シプードと連携協定　教育DXやチーム担任制などの実践を全国へ発信、新たな教育共創モデルを推進へ",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20260625o04",
+    "publishedAt": "2026-06-24T22:00:30.000Z",
+    "collectedAt": "2026-06-24T23:00:23.327Z",
+    "summary": "宮城県多賀城市は、広報支援を行うシプードと連携協定を締結し、企業や大学、地域と一体となって教育を支える「教育共創モデル」の構築を開始した。市内における不登校児童生徒数の増加など複雑化する教育課題に対し、学校や行政の枠組み […]",
+    "categories": [
+      "不登校",
+      "ICT / GIGA"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
     "id": "oecd-2026-06-24-aee6f4c6a88950af",
     "title": "Why teacher education and knowledge matter: Insights from the Teacher Knowledge Survey",
     "sourceId": "oecd",
