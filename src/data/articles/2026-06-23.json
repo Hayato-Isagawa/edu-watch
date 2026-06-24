@@ -1,5 +1,141 @@
 [
   {
+    "id": "kkn-2026-06-23-445977879882d6b7",
+    "title": "デジタル時代の「公教育」～理数教育充実、高専設置も促進　合田哲雄・文科省高等教育局長",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/post_ict/260622_3c",
+    "publishedAt": "2026-06-23T22:00:53.000Z",
+    "collectedAt": "2026-06-24T12:33:01.878Z",
+    "summary": "2008年及び2017年度の学習指導要領改訂時に担当課長を務め、現在、高等教育局長として高等教育改革（大学改革）に取り組んでいる合田氏は｢2040年の社会・地域・デモクラシーと学び｣をテーマに｢デジタル時代の公教育の役割 […]",
+    "categories": [
+      "政策・制度"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-06-23-f66c8530e1fdfde2",
+    "title": "【第14回】KOSENから未来を創造　滋賀県立高等専門学校(設置構想中)「2028年4月、滋賀県初の高専が開校」",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/post_ict/260622_4c",
+    "publishedAt": "2026-06-23T22:00:50.000Z",
+    "collectedAt": "2026-06-24T12:33:01.878Z",
+    "summary": "県内経済界などが待ち望んだ教育機関 滋賀県は昭和30年代前半まで、第一次産業を中心とする農業県だった。名神高速道路、東海道新幹線が開通すると、急速に工業立地が進展した。 当時、国立の高等専門学校が全国に次々と設置されてい […]",
+    "categories": [
+      "その他"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-06-23-897f08d0ccd47b54",
+    "title": "横浜市教委、教育ビッグデータから「運動能力」や「情報活用能力」向上の糸口を発見 6/26に研究成果の発表イベント開催",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20260624o04",
+    "publishedAt": "2026-06-23T22:00:49.000Z",
+    "collectedAt": "2026-06-24T12:33:01.878Z",
+    "summary": "横浜市は6月26日に、第１回「横浜教育データサイエンス・ラボ」を、ハイブリッドで開催する。 同市教育委員会は、市立小中学校に在籍する児童生徒約24万人の教育ビッグデータを分析し、新たな学びの可能性を考察する「横浜教育デー […]",
+    "categories": [
+      "政策・制度",
+      "研究・エビデンス"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-06-23-67b714ba6a0459f9",
+    "title": "【来春開校】eスポーツ×デジタル教育のNTTe-Sports高等学院大宮校が6/27に開校記念イベントを実施",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20260624o03",
+    "publishedAt": "2026-06-23T22:00:46.000Z",
+    "collectedAt": "2026-06-24T12:33:01.878Z",
+    "summary": "NTT東日本グループのNTTe-Sportsは、2027年4月に「NTTe-Sports高等学院 大宮校」を埼玉県さいたま市大宮区に開校する。2025年に開校した千葉校に続く2校目。大宮校は、eスポーツを学びの入り口とし […]",
+    "categories": [
+      "その他"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-06-23-1748ea80f9c1234d",
+    "title": "県立学校の統合型校務支援システムを統一化～パブリッククラウド方式で提供～宮崎県",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/post_nyusatsu/260622_miyazakiken",
+    "publishedAt": "2026-06-23T22:00:38.000Z",
+    "collectedAt": "2026-06-24T12:33:01.878Z",
+    "summary": "宮崎県教育庁は、すべての県立学校の統合型校務支援システムを統一化し、パブリッククラウド方式（SaaS）で提供する環境の構築に向けて、企画提案競技を5月18日に公示。 インターネット経由で接続し、県教委指定の認証基盤アカウ […]",
+    "categories": [
+      "その他"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-06-23-41b9d43bfda93f21",
+    "title": "おいしい献立写真　旬の食材は生きた教材～第13回「6月／ピーマンとトマトのチーズ焼き」",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/post_health/260622_9c",
+    "publishedAt": "2026-06-23T22:00:37.000Z",
+    "collectedAt": "2026-06-24T12:33:01.878Z",
+    "summary": "青梅が色づく季節に～豊富になる野菜のビタミンC この季節は、青梅が色づき始め、ラッキョウや実山椒、新ショウガといった保存食用の食材が出回るようになります。ラッキョウの甘酢漬けは仕上がり、間もなく梅干し作りを開始します。こ […]",
+    "categories": [
+      "その他"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-06-23-2cb366616f8bf94a",
+    "title": "キャリタス、産学官の連携イベント「デジタル・グリーン人材 Summit 2026」を6/29に開催 大学・高専など92校が参加",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20260624o01",
+    "publishedAt": "2026-06-23T22:00:34.000Z",
+    "collectedAt": "2026-06-24T12:33:01.878Z",
+    "summary": "DXやグリーン社会の実現に向け、デジタル・環境・エネルギー分野を担う高度理系人材の育成が急務となっている。そのようななか、キャリタスは6月29日に、教育機関と企業、官公庁の連携を支援するイベント「デジタル・グリーン人材  […]",
+    "categories": [
+      "その他"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-06-23-c5a44d097f99aad7",
+    "title": "「理学部に行けば就職は安泰」は誤解　理系強化が“家庭負担”を押し上げる可能性も",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/kksml0623",
+    "publishedAt": "2026-06-23T22:00:26.000Z",
+    "collectedAt": "2026-06-24T12:33:01.878Z",
+    "summary": "国は理系人材育成強化を掲げているが、「理学部に行けば就職は安泰」というわけではない。また、国公立・私立すべての理学部が支援されているわけではなく、重点分野は情報系、工学系、農学系と限られている。   特定分野の […]",
+    "categories": [
+      "その他"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-06-23-50adce0c1b72180c",
+    "title": "安心・安全なネットワーク環境を提供～クラウドサービスを安全かつ円滑に～沖縄県",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/post_nyusatsu/260622_okinawaken",
+    "publishedAt": "2026-06-23T22:00:24.000Z",
+    "collectedAt": "2026-06-24T12:33:01.878Z",
+    "summary": "沖縄県教育庁は、｢沖縄県総合教育情報ネットワークサーバ｣の契約が2026年度末で満了となることから、サーバー一式の更改を行うため一般競争入札を5月26日に公示した。   各校からの回線を集約して学術情報ネットワ […]",
+    "categories": [
+      "その他"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
     "id": "resemom-2026-06-23-a3a20509a7761e5e",
     "title": "【共通テスト2027】受験案内公開…Web出願9/15より開始",
     "sourceId": "resemom",
@@ -128,6 +264,34 @@
       "国際・海外"
     ],
     "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "mext-2026-06-23-158eb6826771e081",
+    "title": "中央教育審議会初等中等教育分科会デジタル学習基盤特別委員会(第10回)の開催について",
+    "sourceId": "mext",
+    "sourceName": "文部科学省",
+    "sourceUrl": "https://www.mext.go.jp/b_menu/shingi/chukyo/chukyo3/093/kaisai/mext_00005.html",
+    "publishedAt": "2026-06-23T02:08:00.000Z",
+    "collectedAt": "2026-06-24T12:33:01.878Z",
+    "categories": [
+      "政策・制度"
+    ],
+    "layer": 1,
+    "language": "ja"
+  },
+  {
+    "id": "chukyo-2026-06-23-158eb6826771e081",
+    "title": "中央教育審議会初等中等教育分科会デジタル学習基盤特別委員会(第10回)の開催について",
+    "sourceId": "chukyo",
+    "sourceName": "中央教育審議会",
+    "sourceUrl": "https://www.mext.go.jp/b_menu/shingi/chukyo/chukyo3/093/kaisai/mext_00005.html",
+    "publishedAt": "2026-06-23T02:08:00.000Z",
+    "collectedAt": "2026-06-24T12:33:01.878Z",
+    "categories": [
+      "政策・制度"
+    ],
+    "layer": 1,
     "language": "ja"
   },
   {
