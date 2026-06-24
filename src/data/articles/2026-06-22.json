@@ -152,6 +152,36 @@
     "language": "ja"
   },
   {
+    "id": "mext-2026-06-22-fafd3e027b0f7fd2",
+    "title": "中央教育審議会初等中等教育分科会教育課程部会不登校児童生徒に係る特別の教育課程ワーキンググループ（第9回）を開催します",
+    "sourceId": "mext",
+    "sourceName": "文部科学省",
+    "sourceUrl": "https://www.mext.go.jp/b_menu/shingi/chukyo/chukyo3/119/kaisai/mext_00013.html",
+    "publishedAt": "2026-06-22T13:07:00.000Z",
+    "collectedAt": "2026-06-24T12:33:01.878Z",
+    "categories": [
+      "不登校",
+      "政策・制度"
+    ],
+    "layer": 1,
+    "language": "ja"
+  },
+  {
+    "id": "chukyo-2026-06-22-fafd3e027b0f7fd2",
+    "title": "中央教育審議会初等中等教育分科会教育課程部会不登校児童生徒に係る特別の教育課程ワーキンググループ（第9回）を開催します",
+    "sourceId": "chukyo",
+    "sourceName": "中央教育審議会",
+    "sourceUrl": "https://www.mext.go.jp/b_menu/shingi/chukyo/chukyo3/119/kaisai/mext_00013.html",
+    "publishedAt": "2026-06-22T13:07:00.000Z",
+    "collectedAt": "2026-06-24T12:33:01.878Z",
+    "categories": [
+      "不登校",
+      "政策・制度"
+    ],
+    "layer": 1,
+    "language": "ja"
+  },
+  {
     "id": "mext-2026-06-22-32736c25b442c448",
     "title": "教育課程部会　特別活動ワーキンググループ（第7回）　配付資料",
     "sourceId": "mext",
