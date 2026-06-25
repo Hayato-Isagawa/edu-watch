@@ -9,6 +9,11 @@ test-results
 playwright-report
 blob-report
 
+# VRT(ADR 0060): ベースラインはコミットせず CI の 2 ビルド差分で都度生成する
+vrt/__screenshots__/
+dist-pr
+dist-main
+
 # OG 画像生成のフォントは scripts/fonts/noto-sans-jp-bold.bin をリポジトリに同梱
 # (ADR 0031、Google Fonts / jsDelivr への build-time 依存を排除)。
 # その他の binary / 派生フォントは引き続き除外する。
