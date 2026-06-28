@@ -27,7 +27,7 @@ EduWatch の週次ダイジェスト（`src/content/digests/YYYY-MM-DD.md`）は
    - 関連する EduEvidence 戦略・コラム、過去 digest への横断リンク
    - 「私」を主語にしない観察フレーミングへの統一
    - 太字・体裁の調整
-   - 清書の最後に [deslop-checklist.md](./deslop-checklist.md) を通し、AI 感（擬人化主語・二項対比の連打・まとめの定型 等）を除く。**論点と数値は対象外**
+   - 清書の最後に [deslop-checklist.md](./deslop-checklist.md) を通し、定型的・機械的な言い回し（擬人化主語・二項対比の連打・まとめの定型 等）を除く。**論点と数値は対象外**
 4. **編集者が確認** → 次の節へ。
 
 ### 最後
