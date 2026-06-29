@@ -54,7 +54,7 @@
   "devDependencies": {
     "@astrojs/check": "^0.9.9",
     "@axe-core/playwright": "^4.11.3",
-    "@playwright/test": "^1.61.0",
+    "@playwright/test": "^1.61.1",
     "pagefind": "^1.5.2",
     "textlint": "^15.7.0",
     "textlint-rule-no-mix-dearu-desumasu": "^6.0.4",
