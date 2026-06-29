@@ -29,9 +29,10 @@ npm run vrt                # ビジュアルリグレッションテスト(現 d
 
 `package.json` の `engines.node` は `>=24.0.0`。
 
-## プロジェクト構造(Sprint 1 時点)
+## プロジェクト構造
 
-- `src/pages/index.astro` — トップ(Coming Soon)
+- `src/content/digests/` — 週次ダイジェスト(Markdown コレクション、本サイトの主コンテンツ)
+- `src/pages/` — index(トップ) / digest(一覧・詳細) / archive / categories / sources / search / about / changelog / 404 / og / rss.xml.ts
 - `src/layouts/Layout.astro` — 共通レイアウト(edu-evidence と統一のデザイントークン)
 - `src/styles/global.css` — デザインシステム(edu-evidence から持ち込み、将来共通化候補)
 - `public/_headers` — セキュリティヘッダー
@@ -39,19 +40,14 @@ npm run vrt                # ビジュアルリグレッションテスト(現 d
 
 ## 姉妹サイトとの関係
 
-- **edu-evidence.org**(本家): 戦略 73 本・コラム 20 本のストック型エビデンスポータル
+- **edu-evidence.org**(本家): 戦略 74 本・コラム 30 本のストック型エビデンスポータル
 - **news.edu-evidence.org**(本サイト): 日次の教育ニュース + 週次ダイジェスト(フロー型)
 
 Layout / styles / glossary / OG 画像ユーティリティは edu-evidence からコピー持ち込み。半年運用後に共通化(npm package 化など)を検討する。
 
-## ロードマップ
+## 現状
 
-- **Sprint 1**(進行中): 基盤構築(本リポジトリ作成・Cloudflare Pages デプロイ・CNAME)
-- **Sprint 2**: RSS パイプライン(日次自動収集、GitHub Actions cron)
-- **Sprint 3**: フロント実装(記事一覧・カテゴリ・検索)
-- **Sprint 4**: 週次ダイジェスト
-
-PRD 参照: `docs/PRD.md`。
+Sprint 1〜4(基盤構築・RSS 自動収集パイプライン・フロント実装・週次ダイジェスト)は完了し、現在は週次ダイジェストの継続運用フェーズ。直近の作業状態は `.claude/state/active.md`、要件の経緯は `docs/PRD.md` を参照。
 
 ## 編集ポリシー(PRD §6 抜粋)
 
