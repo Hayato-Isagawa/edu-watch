@@ -1,5 +1,67 @@
 [
   {
+    "id": "kkn-2026-07-01-3e051cc1cc99fd57",
+    "title": "コナミスポーツ、教員対象の体育実技研修を3自治体で実施 水泳やマット運動の指導法伝える",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20260702o01",
+    "publishedAt": "2026-07-01T22:00:52.000Z",
+    "collectedAt": "2026-07-01T23:06:48.766Z",
+    "summary": "コナミスポーツは6月30日、小学校の教職員を対象とした体育の実技指導研修を、埼玉県川口市、神奈川県川崎市、大阪府枚方市の3自治体で実施したことを発表。専門的な指導方法が求められる体育授業において、教職員が抱える不安や課題 […]",
+    "categories": [
+      "教員・働き方"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-07-01-0b2b2f0299202cb2",
+    "title": "ファイルサーバーの代替に バッファローが法人・自治体等向けに最新NASのモニター募集中",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20260702o04",
+    "publishedAt": "2026-07-01T22:00:46.000Z",
+    "collectedAt": "2026-07-01T23:06:48.766Z",
+    "summary": "バッファローは、最新OSの「Windows Server IoT 2025 for Storage」を搭載した法人向けネットワーク対応HDD（NAS）の無料モニターキャンペーンを実施している。応募期間は7月15日までで、 […]",
+    "categories": [
+      "その他"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-07-01-f45ebb9e3f440a82",
+    "title": "山梨県笛吹市、生成AIの校務活用で教員の負担軽減へ  ディスカバリーズと連携し市内小中学校で活用支援",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20260702o02",
+    "publishedAt": "2026-07-01T22:00:38.000Z",
+    "collectedAt": "2026-07-01T23:06:48.766Z",
+    "summary": "山梨県笛吹市教育委員会は、DX・AI活用支援などを行うディスカバリーズと連携し、市内の全小中学校19校（小学校14校、中学校5校）を対象に、生成AI（Microsoft 365 Copilot Chat）を活用した校務効 […]",
+    "categories": [
+      "ICT / GIGA",
+      "政策・制度",
+      "教員・働き方"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-07-01-9127280f6212cb83",
+    "title": "長野高専、次世代の理工系人材育む「放課後サイエンスクラブ」を開設　部活動地域展開の受け皿にも",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20260702o03",
+    "publishedAt": "2026-07-01T22:00:13.000Z",
+    "collectedAt": "2026-07-01T23:06:48.766Z",
+    "summary": "長野工業高等専門学校は、近隣中学校の1、2年生を対象とした「長野高専放課後サイエンスクラブ」を新たに開設し、6月1日より活動している。市が進める市立中学校の部活動の地域移行を見据え、その受け皿としての役割を担う。同時に、 […]",
+    "categories": [
+      "その他"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
     "id": "resemom-2026-07-01-21bbae8f5d69833d",
     "title": "ICT CONNECT21、多様な学びSIG設立…東大で記念イベント8/30",
     "sourceId": "resemom",
