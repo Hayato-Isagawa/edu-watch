@@ -1,5 +1,66 @@
 [
   {
+    "id": "kkn-2026-07-02-0c02fa68637aba84",
+    "title": "AIガイドライン改訂へ　次世代校務DX支援メニューと共同調達を整理　文科省デジタル学習基盤特別委員会",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/0702n01",
+    "publishedAt": "2026-07-02T22:00:49.000Z",
+    "collectedAt": "2026-07-02T22:58:57.240Z",
+    "summary": "文部科学省は６月30日、第10回デジタル学習基盤特別委員会（委員長＝堀田龍也東京学芸大学副学長）を開催。学校におけるAI活用の現状等、地方自治体法施行規則改正等に伴う教育情報セキュリティポリシーの改訂等、次世代校務DX環 […]",
+    "categories": [
+      "ICT / GIGA",
+      "政策・制度"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-07-02-fe7870c9359b7516",
+    "title": "TOEIC S&W受験者数が過去最多　英語の「伝える力」需要高まる〜IIBC、TOEIC Program DATA & ANALYSIS 2026」を発表",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20260703o01",
+    "publishedAt": "2026-07-02T22:00:28.000Z",
+    "collectedAt": "2026-07-02T22:58:57.240Z",
+    "summary": "一財・国際ビジネスコミュニケーション協会（IIBC）は7月1日、2025年度のTOEIC Programの受験者数データをまとめた「TOEIC Program DATA & ANALYSIS 2026」を発表した […]",
+    "categories": [
+      "その他"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-07-02-520ede294758a73d",
+    "title": "カルシウムを骨に蓄えられるのは20歳頃まで～日本乳業協会が動画教材提供",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/post_health/260622_8c",
+    "publishedAt": "2026-07-02T22:00:26.000Z",
+    "collectedAt": "2026-07-02T22:58:57.240Z",
+    "summary": "(一社)日本乳業協会では、牛乳や乳製品を摂る大切さについて伝える動画教材を各種用意。学校など教育現場に向け活用を呼び掛けている。 学校給食終了後、カルシウム不足に 人の骨にカルシウムを蓄えられるのは20歳頃までで、その後 […]",
+    "categories": [
+      "その他"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-07-02-46eddd72844ffc2d",
+    "title": "部活動の遠征事故受け、文科省と国交省が移動の安全対策を策定 レンタカー利用時のチェックシート活用など7項目徹底へ",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20260703o03",
+    "publishedAt": "2026-07-02T22:00:00.000Z",
+    "collectedAt": "2026-07-02T22:58:57.240Z",
+    "summary": "文部科学省と国土交通省は6月30日、学校教育における移動の安全確保に向けた対策を取りまとめ、全国の教育委員会や学校法人などへ通知した。5月に部活動の遠征移動中で生徒に死傷者が出る重大なバス事故が発生したことを受け、再発防 […]",
+    "categories": [
+      "政策・制度"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
     "id": "resemom-2026-07-02-2c9f7b1f3ec9d49e",
     "title": "宿題のみ「家庭学習0分層」が増加、家庭環境による差も拡大",
     "sourceId": "resemom",
