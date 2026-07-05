@@ -1,0 +1,79 @@
+[
+  {
+    "id": "kkn-2026-07-05-680ede57a295c689",
+    "title": "千葉県印西市、小中学校向け「生成AI導入授業パッケージ」と「児童生徒用ハンドブック」を作成　みんなのコードと協働で",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20260706o04",
+    "publishedAt": "2026-07-05T22:00:56.000Z",
+    "collectedAt": "2026-07-05T22:56:20.271Z",
+    "summary": "印西市教育委員会（千葉県）は、NPO法人みんなのコードと協働し、市内小中学校の授業で活用できる「生成AI導入授業パッケージ」および「児童生徒用生成AIハンドブック」を作成した。文部科学省の「生成AIパイロット校事業」の指 […]",
+    "categories": [
+      "ICT / GIGA",
+      "政策・制度"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-07-05-7da33c6a7c49a0f0",
+    "title": "名古屋市、不登校支援に教育メタバース本格導入へ 実証経てオンライン校外学習など拡充　富士ソフトが支援",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20260706o02",
+    "publishedAt": "2026-07-05T22:00:46.000Z",
+    "collectedAt": "2026-07-05T22:56:20.271Z",
+    "summary": "名古屋市は、不登校の児童生徒への多様な学びの保障に向けた支援方策「Nagoya HEART Plan」の一環として、教育メタバースを活用した支援事業「Nagoya Compass Campus」を9月から本格的に開始する […]",
+    "categories": [
+      "不登校",
+      "研究・エビデンス"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-07-05-36dc46a521ee1bc7",
+    "title": "ラインズ、AI型ドリル搭載「ｅライブラリアドバンス」小中学校向けに無料体験を開始",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20260705o01",
+    "publishedAt": "2026-07-05T01:00:49.000Z",
+    "collectedAt": "2026-07-05T22:56:20.271Z",
+    "summary": "ラインズ7月1日、AI型ドリルを搭載した学習支援サービス「ラインズｅライブラリアドバンス」の無料特別トライアルキャンペーンを開始した。 本キャンペーンは、全国の小学校・中学校を対象に、実際の活用や運用イメージを体験する機 […]",
+    "categories": [
+      "ICT / GIGA"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-07-05-12264a42c4dee39a",
+    "title": "paiza、AIでのゲーム開発講座「バイブコーディング入門 Claude Code編 横スクロールゲームを作ってみよう」を無料公開",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20260705o03",
+    "publishedAt": "2026-07-05T01:00:48.000Z",
+    "collectedAt": "2026-07-05T22:56:20.271Z",
+    "summary": "IT人材向け学習プラットフォームを運営するpaizaはこのほど、プログラミングVTuberのサプー氏と共同開発した新講座「バイブコーディング入門 Claude Code編 横スクロールゲームを作ってみよう」の無料提供を開 […]",
+    "categories": [
+      "ICT / GIGA"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-07-05-097ac4919a994dbd",
+    "title": "中高生が企画運営、子供向け「EGG JAMフェス」7/26に大阪で開催、AIやVRを体験",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20260705o04",
+    "publishedAt": "2026-07-05T01:00:46.000Z",
+    "collectedAt": "2026-07-05T22:56:20.271Z",
+    "summary": "Meta Heroesのグループ会社であるHero Eggが運営する学生コミュニティー「EGG JAM」は7月26日に、大阪工業大学梅田キャンパスにて、小中高生と保護者を対象としたテクノロジー体験イベント「EGG JAM […]",
+    "categories": [
+      "ICT / GIGA"
+    ],
+    "layer": 2,
+    "language": "ja"
+  }
+]
