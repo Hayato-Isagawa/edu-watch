@@ -1,5 +1,53 @@
 [
   {
+    "id": "nikkyo-2026-07-05-df6b27bc387a33c7",
+    "title": "高専の分野拡大「準学士」見直し　機能強化を検討",
+    "sourceId": "nikkyo",
+    "sourceName": "日本教育新聞",
+    "sourceUrl": "https://www.kyoiku-press.com/post-312580/",
+    "publishedAt": "2026-07-05T23:50:00.000Z",
+    "collectedAt": "2026-07-06T14:04:47.296Z",
+    "summary": "文科省は６月１９日、高等専門学校の機能強化に向けた有識者会議の初会合を開いた。高専で扱う分野を広げることや、卒業者に与える「準学士」の称号の在り方を議論する。 　高専の対象分野をアニメ・漫画などのコ…",
+    "categories": [
+      "政策・制度"
+    ],
+    "layer": 2,
+    "language": "ja",
+    "requiresMembership": true
+  },
+  {
+    "id": "nikkyo-2026-07-05-e64d0f8f4eb4b706",
+    "title": "高校生が学生、教員と未来の学校語り合う　大阪府教委　教職志望者を育成",
+    "sourceId": "nikkyo",
+    "sourceName": "日本教育新聞",
+    "sourceUrl": "https://www.kyoiku-press.com/post-312796/",
+    "publishedAt": "2026-07-05T23:50:00.000Z",
+    "collectedAt": "2026-07-06T14:04:47.296Z",
+    "summary": "「教育文理学科」を置く大阪府立桜和高校で話し合う高校生ら 　中学生から社会人まで幅広い世代が集まってグループ討議などに臨む「MIRA―GE」（ミラッジ）が教育界で広がりつつある。先月は、教員志望者育成…",
+    "categories": [
+      "教員・働き方"
+    ],
+    "layer": 2,
+    "language": "ja",
+    "requiresMembership": true
+  },
+  {
+    "id": "nikkyo-2026-07-05-798a89129d1b9454",
+    "title": "SNS、年齢確認を強化　有識者会議　子どもの安全利用に向け",
+    "sourceId": "nikkyo",
+    "sourceName": "日本教育新聞",
+    "sourceUrl": "https://www.kyoiku-press.com/post-312703/",
+    "publishedAt": "2026-07-05T23:50:00.000Z",
+    "collectedAt": "2026-07-06T14:04:47.296Z",
+    "summary": "１８歳未満が安全にインターネットを利用できる環境整備の在り方を検討するこども家庭庁の有識者会議は６月２６日、中間整理報告の骨子案を示した。SNSで利用者の年齢をより確実に確認することや、インターネッ…",
+    "categories": [
+      "政策・制度"
+    ],
+    "layer": 2,
+    "language": "ja",
+    "requiresMembership": true
+  },
+  {
     "id": "kkn-2026-07-05-680ede57a295c689",
     "title": "千葉県印西市、小中学校向け「生成AI導入授業パッケージ」と「児童生徒用ハンドブック」を作成　みんなのコードと協働で",
     "sourceId": "kkn",
