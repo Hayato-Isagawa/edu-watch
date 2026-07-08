@@ -1,5 +1,67 @@
 [
   {
+    "id": "kkn-2026-07-07-77f3a27e5ae03956",
+    "title": "全国どこの自治体に転出入しても自動でデータ連携",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/post_ict/0707%ef%bd%8e01",
+    "publishedAt": "2026-07-07T22:00:36.000Z",
+    "collectedAt": "2026-07-08T12:03:21.253Z",
+    "summary": "全国どこの自治体に転出入しても自動でデータ連携ができる――この実現フェーズが近づいている。 デジタル庁では、全国共通で教育データの真正性を担保するための“教育分野の認証基盤”について制度・技術要件の整理を進めてきた。 組 […]",
+    "categories": [
+      "その他"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-07-07-bb63e99251df054e",
+    "title": "LINEヤフー、GIGA端末と情報モラル教材の活用状況調査を公開 教員の8割以上がルールの明確化を要望",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20260708o01",
+    "publishedAt": "2026-07-07T22:00:21.000Z",
+    "collectedAt": "2026-07-08T12:03:21.253Z",
+    "summary": "LINEヤフーは7月6日、GIGAスクール端末および活用型情報モラル教材「GIGAワークブック」の活用実態と教育効果、教員の意識に関する調査報告書を公開した。報告書では、調査結果を踏まえた「情報モラル教育実践へのポイント […]",
+    "categories": [
+      "ICT / GIGA",
+      "研究・エビデンス",
+      "教員・働き方"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-07-07-300bc4290923609d",
+    "title": "『子どもでいられなかったわたしたちへ　ヤングケアラー｢その後｣を生きる』高岡里衣／著",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/post_library/260622_5c",
+    "publishedAt": "2026-07-07T22:00:13.000Z",
+    "collectedAt": "2026-07-08T12:03:21.253Z",
+    "summary": "当事者が描くケアのリアル 元ヤングケアラー当事者である著者は、9歳の頃に母が難病を発症し、以後、母のケアや介護と家事に奔走する。常に予断を許さない母の状態に不安と緊張を抱えながら24年間過ごし、母を看取った後は人生の再構 […]",
+    "categories": [
+      "その他"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-07-07-c76e393869fb3a21",
+    "title": "学生eスポーツの健全な発展へ、指導者の能力認定制度が創設 初の認定団体にNTTe-Sports",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20260708o03",
+    "publishedAt": "2026-07-07T22:00:10.000Z",
+    "collectedAt": "2026-07-08T12:03:21.253Z",
+    "summary": "NPO法人国際教育eスポーツ連盟ネットワーク日本本部（NASEF JAPAN）は7月2日、学生eスポーツの健全な発展と安全な指導環境の整備を目的に「eスポーツ人材育成能力認定制度」を創設した。近年、学校教育や部活動でeス […]",
+    "categories": [
+      "その他"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
     "id": "resemom-2026-07-07-98edef8155f87f9d",
     "title": "【東大・京大受験2026】合否を分けた習慣の差…駿台が明かす合格者の共通点",
     "sourceId": "resemom",
@@ -118,6 +180,20 @@
     "collectedAt": "2026-07-07T12:41:56.518Z",
     "categories": [
       "政策・制度"
+    ],
+    "layer": 1,
+    "language": "ja"
+  },
+  {
+    "id": "mext-2026-07-07-06c4a02d0452bc24",
+    "title": "令和9年度全国学力・学習状況調査を実施するための委託事業に関する事前説明会の開催について",
+    "sourceId": "mext",
+    "sourceName": "文部科学省",
+    "sourceUrl": "https://www.mext.go.jp/a_menu/shotou/gakuryoku-chousa/zenkoku/1417141_00013.htm",
+    "publishedAt": "2026-07-07T04:13:00.000Z",
+    "collectedAt": "2026-07-08T12:03:21.253Z",
+    "categories": [
+      "研究・エビデンス"
     ],
     "layer": 1,
     "language": "ja"
