@@ -72,6 +72,13 @@ const escapeLd = (obj: object): string => JSON.stringify(obj).replace(/</g, "\\u
         inLanguage: "ja",
       })}
     />
+
+    <!-- Cloudflare Web Analytics -->
+    <script
+      is:inline
+      type="module"
+      src="https://static.cloudflareinsights.com/beacon.min.js"
+      data-cf-beacon='{"token": "cb05eab858a846e5863af9f3349d881c"}'></script>
   </head>
   <body class="bg-[var(--color-bg)] text-[var(--color-ink)]">
     <a href="#main-content" class="skip-link">本文へスキップ</a>
