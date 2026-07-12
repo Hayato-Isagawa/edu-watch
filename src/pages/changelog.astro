@@ -1,13 +1,36 @@
 ---
 import Layout from "../layouts/Layout.astro";
 
-const entries = [
+type ChangeType = "add" | "update" | "fix" | "remove";
+
+interface ChangelogLink {
+  label: string;
+  href: string;
+}
+
+interface ChangelogItem {
+  type: ChangeType;
+  text: string;
+  links?: ChangelogLink[];
+}
+
+interface ChangelogEntry {
+  date: string;
+  items: ChangelogItem[];
+}
+
+const entries: ChangelogEntry[] = [
   {
     date: "2026-07-12",
     items: [
       {
         type: "add",
+        text: "更新履歴の各項目から、変更されたページへ直接たどれるリンクを追加しました",
+      },
+      {
+        type: "add",
         text: "「このサイトについて」の運営者欄に経歴(元小学校教諭・現場経験約 10 年)を追加し、誰が編集しているサイトかを確認できるようにしました",
+        links: [{ label: "このサイトについて", href: "/about/" }],
       },
     ],
   },
@@ -17,6 +40,12 @@ const entries = [
       {
         type: "add",
         text: "週次ダイジェスト「掲げた方針に、担う中身は伴うか — 2026 年 7 月第 2 週の論点」を公開。コンクール校内審査の不要要請・山梨県の文書半減・業務量管理計画の策定状況といった負担軽減、猛暑の居場所づくりを求める文科省要請、技術科教員の臨時免許・免許外と裁量時間の研修枠を編集者の論点付きで整理しました",
+        links: [
+          {
+            label: "掲げた方針に、担う中身は伴うか",
+            href: "/digest/2026-07-11/",
+          },
+        ],
       },
     ],
   },
@@ -26,6 +55,12 @@ const entries = [
       {
         type: "add",
         text: "週次ダイジェスト「制度を現場にどう根づかせるか — 2026 年 7 月第 1 週の論点」を公開。都教委の公用スマホ貸与と小学校教科担任制の拡大・こども家庭庁のSNS年齢確認と長時間利用対策・文科省の移動安全と防火防災の2通知を編集者の論点付きで整理しました",
+        links: [
+          {
+            label: "制度を現場にどう根づかせるか",
+            href: "/digest/2026-07-04/",
+          },
+        ],
       },
     ],
   },
@@ -35,6 +70,12 @@ const entries = [
       {
         type: "add",
         text: "週次ダイジェスト「判断の拠りどころを問い直す — 2026 年 6 月第 4 週の論点」を公開。少人数学級の効果を検証した文科省の大規模実証研究・辺野古をめぐる学習と政治的中立をめぐる文科省見解・愛知県新城市の暑さ指数34以上での臨時休校基準を編集者の論点付きで整理しました",
+        links: [
+          {
+            label: "判断の拠りどころを問い直す",
+            href: "/digest/2026-06-27/",
+          },
+        ],
       },
     ],
   },
@@ -357,7 +398,18 @@ const typeLabel: Record<string, { label: string; color: string }> = {
                   >
                     {t.label}
                   </span>
-                  <span>{item.text}</span>
+                  <span>
+                    {item.text}
+                    {item.links && (
+                      <span class="mt-1.5 flex flex-wrap gap-x-4 gap-y-1 text-xs">
+                        {item.links.map((l) => (
+                          <a href={l.href} class="link-underline">
+                            {l.label} <span aria-hidden="true">→</span>
+                          </a>
+                        ))}
+                      </span>
+                    )}
+                  </span>
                 </li>
               );
             })}
