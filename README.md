@@ -8,7 +8,7 @@ EduEvidence JP(edu-evidence.org)の姉妹サイト。文部科学省・国立教
 
 ## ステータス
 
-Sprint 1(基盤構築)進行中。本番公開はまだ準備段階です。
+本番公開済み([news.edu-evidence.org](https://news.edu-evidence.org))。Sprint 1〜4(基盤構築・RSS 自動収集パイプライン・フロント実装・週次ダイジェスト)は完了し、週次ダイジェストの継続運用フェーズです。
 
 ## 技術スタック
 
