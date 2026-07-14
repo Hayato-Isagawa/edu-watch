@@ -95,6 +95,20 @@
     "language": "ja"
   },
   {
+    "id": "mext-2026-07-09-a47789c18ee34283",
+    "title": "教育委員会月報　令和8年7月号",
+    "sourceId": "mext",
+    "sourceName": "文部科学省",
+    "sourceUrl": "https://www.mext.go.jp/b_menu/shuppan/geppou/mext_091001_00013.html",
+    "publishedAt": "2026-07-09T06:07:00.000Z",
+    "collectedAt": "2026-07-14T11:52:12.547Z",
+    "categories": [
+      "政策・制度"
+    ],
+    "layer": 1,
+    "language": "ja"
+  },
+  {
     "id": "resemom-2026-07-09-aaf9c89e01b0862a",
     "title": "灘の大学合格実績2026、東大95人・京大47人・早慶59人",
     "sourceId": "resemom",
