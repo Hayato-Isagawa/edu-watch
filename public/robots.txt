@@ -1,3 +1,31 @@
 User-agent: *
 Allow: /
+
+# --- AI 検索・引用クローラ（許可：回答エンジンの citation を駆動）---
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+# --- AI 学習クローラ（CC BY-SA・公益方針として許可）---
+User-agent: GPTBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+# --- 攻撃的スクレイパ（block）---
+User-agent: Bytespider
+Disallow: /
+
 Sitemap: https://news.edu-evidence.org/sitemap-index.xml
