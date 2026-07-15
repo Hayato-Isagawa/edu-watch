@@ -99,3 +99,6 @@ EduEvidence JP と共通の運営方針(植物モチーフブランド体系 / N
 - [0057. AI summary honesty gate（canonical 限定の公開可否ゲート・strict 降格・retry 循環回収遮断）](0057-ai-summary-honest-gate.md)
 - [0058. changelog の文体(敬体)と粒度をファミリー統一する(edu-law ADR 0022 ミラー)](0058-unify-changelog-register-and-granularity.md)
 - [0059. ダイジェストの関連リンクを姉妹サイト横断(evi + law)へ拡張する](0059-digest-related-links-cross-family.md)
+- [0060. ビジュアルリグレッションテスト(VRT)を視覚変更 PR に限定して導入する(edu-evidence ADR 0024 ミラー)](0060-visual-regression-testing.md)
+- [0061. W-1 推論ホストで Flash Attention を有効化(gemma3:12b の CPU 退避解消)](0061-w1-ollama-flash-attention.md)
+- [0062. Cloudflare Web Analytics を手動スニペット方式で導入し CSP を最小限緩和する(edu-evidence ADR 0026 ミラー)](0062-web-analytics-beacon-and-csp.md)
