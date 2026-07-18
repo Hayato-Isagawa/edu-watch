@@ -77,7 +77,7 @@ import Layout from "../layouts/Layout.astro";
     .pagefind-ui .pagefind-ui__search-input {
       padding: 0.875rem 1rem 0.875rem 1rem;
       font-size: 1rem;
-      background: var(--color-card);
+      background: var(--color-card) !important;
       border: 1px solid var(--color-line);
       border-radius: 0.5rem;
       color: var(--color-ink);
@@ -92,7 +92,8 @@ import Layout from "../layouts/Layout.astro";
       outline: none;
     }
     .pagefind-ui .pagefind-ui__search-clear {
-      color: var(--color-sub);
+      color: var(--color-sub) !important;
+      background: transparent !important;
     }
     .pagefind-ui .pagefind-ui__search-clear:hover {
       color: var(--color-accent);
@@ -158,7 +159,7 @@ import Layout from "../layouts/Layout.astro";
       letter-spacing: -0.01em;
     }
     .pagefind-ui .pagefind-ui__result-link {
-      color: var(--color-ink);
+      color: var(--color-ink) !important;
       text-decoration: none !important;
       background-image: linear-gradient(var(--color-accent), var(--color-accent));
       background-size: 0% 1px;
@@ -172,7 +173,7 @@ import Layout from "../layouts/Layout.astro";
     .pagefind-ui .pagefind-ui__result-link:hover,
     .pagefind-ui .pagefind-ui__result-link:focus,
     .pagefind-ui .pagefind-ui__result-link:focus-visible {
-      color: var(--color-accent);
+      color: var(--color-accent) !important;
       background-size: 100% 1px;
     }
     .pagefind-ui .pagefind-ui__result-link:focus-visible {
