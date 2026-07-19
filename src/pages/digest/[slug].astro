@@ -112,6 +112,18 @@ function typeLabel(url: string): string | null {
         {entry.data.summary}
       </p>
       {
+        entry.data.sections.length > 0 && (
+          <div class="mt-6 max-w-2xl">
+            <p class="text-xs font-mono tracking-wide text-[var(--color-sub)]">今週の論点</p>
+            <ul class="mt-2 list-disc pl-5 space-y-1.5 text-sm sm:text-base leading-relaxed">
+              {entry.data.sections.map((s) => (
+                <li>{s.heading}</li>
+              ))}
+            </ul>
+          </div>
+        )
+      }
+      {
         entry.data.topics.length > 0 && (
           <div class="mt-6 flex flex-wrap gap-1.5">
             {entry.data.topics.map((t) => <TopicBadge topic={t} />)}
