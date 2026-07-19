@@ -91,6 +91,14 @@ import Layout from "../layouts/Layout.astro";
       box-shadow: 0 0 0 3px color-mix(in oklab, var(--color-accent) 20%, transparent);
       outline: none;
     }
+    .pagefind-ui .pagefind-ui__search-input::placeholder {
+      color: var(--color-sub) !important;
+      opacity: 1 !important;
+    }
+    .pagefind-ui .pagefind-ui__form::before {
+      background-color: var(--color-sub) !important;
+      opacity: 1 !important;
+    }
     .pagefind-ui .pagefind-ui__search-clear {
       color: var(--color-sub) !important;
       background: transparent !important;
