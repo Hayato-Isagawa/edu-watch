@@ -1,5 +1,52 @@
 [
   {
+    "id": "kkn-2026-07-20-eea1ad5507154b2f",
+    "title": "NTTとTBSが共同会社設立へ、AIと物語で子供の「自分で決める力」を育む次世代エデュテインメント",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20260721o03",
+    "publishedAt": "2026-07-20T22:00:54.000Z",
+    "collectedAt": "2026-07-20T22:52:31.410Z",
+    "summary": "NTTとTBSホールディングスは7月17日、AI時代における子供の主体的選択力を育む次世代エデュテインメント事業を展開する共同出資会社「e6合同会社」を、8月8日に設立すると発表した。最先端のAI技術とコンテンツ制作力を […]",
+    "categories": [
+      "ICT / GIGA"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-07-20-c382b5f6326ea9b0",
+    "title": "横浜市×つながりAI、子供のSOSを24時間受け止める相談窓口「友達AI」の実証開始　夏休みの孤立を防ぐ",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20260721o01",
+    "publishedAt": "2026-07-20T22:00:11.000Z",
+    "collectedAt": "2026-07-20T22:52:31.410Z",
+    "summary": "つながりAIは7月17日、横浜市の公立中学校・高校の生徒の一部を対象に、LINE等を通じて24時間365日相談できるAIサービス「友達AI」の実証実験を開始した。期間は2027年1月15日まで。特に長期休暇中に学校や教職 […]",
+    "categories": [
+      "ICT / GIGA",
+      "研究・エビデンス",
+      "教員・働き方"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "oecd-2026-07-20-48c8714598ceb39e",
+    "title": "Empathy in education: Why it matters for every student",
+    "sourceId": "oecd",
+    "sourceName": "OECD Education and Skills Today",
+    "sourceUrl": "https://oecdedutoday.com/empathy-in-education-why-it-matters-for-every-student/",
+    "publishedAt": "2026-07-20T13:40:22.000Z",
+    "collectedAt": "2026-07-20T22:52:31.410Z",
+    "summary": "By Laila El Abbadi, OECD Directorate for Education and Skills School should be a place where every child feels safe, …",
+    "categories": [
+      "国際・海外"
+    ],
+    "layer": 1,
+    "language": "en"
+  },
+  {
     "id": "kkn-2026-07-20-622fdcc355b1ad84",
     "title": "神山まるごと高専、ジー・サーチと連携 科学技術情報の分析で学生の探究力と情報活用力を育成",
     "sourceId": "kkn",
