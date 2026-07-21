@@ -60,5 +60,103 @@
     ],
     "layer": 2,
     "language": "ja"
+  },
+  {
+    "id": "nikkyo-2026-07-20-afeefe94bffc1b78",
+    "title": "不易流行",
+    "sourceId": "nikkyo",
+    "sourceName": "日本教育新聞",
+    "sourceUrl": "https://www.kyoiku-press.com/post-313465/",
+    "publishedAt": "2026-07-20T00:00:00.000Z",
+    "collectedAt": "2026-07-21T12:07:47.106Z",
+    "summary": "◆今日は海の日。この３連休で海のレジャーに出掛けた人も多いだろう。近年の海のレジャーは多様化した。サーフィンやボート、ヨット、水族館、海辺のテラス。海岸線を目指す道路は混雑。子ども連れの親は、トイレや…",
+    "categories": [
+      "その他"
+    ],
+    "layer": 2,
+    "language": "ja",
+    "requiresMembership": true
+  },
+  {
+    "id": "nikkyo-2026-07-20-cd52e089de56cfb7",
+    "title": "デジタルでの新たな学びを実証　地域超えた対話や探究の評価",
+    "sourceId": "nikkyo",
+    "sourceName": "日本教育新聞",
+    "sourceUrl": "https://www.kyoiku-press.com/post-313461/",
+    "publishedAt": "2026-07-20T00:00:00.000Z",
+    "collectedAt": "2026-07-21T12:07:47.106Z",
+    "summary": "デジタル・シチズンシップ・シティの取り組みの説明のため、イベント参加者向け授業も開かれた＝１２日、東京都新宿区 ４テーマで成果を報告 　デジタル技術を生かした新たな学びの研究成果を紹介するイベントが１…",
+    "categories": [
+      "研究・エビデンス"
+    ],
+    "layer": 2,
+    "language": "ja",
+    "requiresMembership": true
+  },
+  {
+    "id": "nikkyo-2026-07-20-77994f674ff47c4f",
+    "title": "性教育、個別指導を継続　保健・体育WG取りまとめ案　生命の安全教育充実",
+    "sourceId": "nikkyo",
+    "sourceName": "日本教育新聞",
+    "sourceUrl": "https://www.kyoiku-press.com/post-313312/",
+    "publishedAt": "2026-07-20T00:00:00.000Z",
+    "collectedAt": "2026-07-21T12:07:47.106Z",
+    "summary": "文科省は１０日、中央教育審議会教育課程部会の体育・保健体育、健康、安全ワーキンググループに取りまとめ案を示した。一人一人の発達に応じた性教育については次期学習指導要領でも引き続き保護者の理解を得て個…",
+    "categories": [
+      "政策・制度"
+    ],
+    "layer": 2,
+    "language": "ja",
+    "requiresMembership": true
+  },
+  {
+    "id": "nikkyo-2026-07-20-ec6bdc455376d27b",
+    "title": "裁量時間、週２コマ上限に　文科省、次期指導要領で示す",
+    "sourceId": "nikkyo",
+    "sourceName": "日本教育新聞",
+    "sourceUrl": "https://www.kyoiku-press.com/post-313085/",
+    "publishedAt": "2026-07-20T00:00:00.000Z",
+    "collectedAt": "2026-07-21T12:07:47.106Z",
+    "summary": "次期学習指導要領で小・中学校に導入予定の「裁量的な時間」を巡り、文科省は年間７０コマ（週２コマ程度）を上限とする考えを示した。児童・生徒の実態に応じた指導などに充てる「学習枠」と、教員の組織的な学び…",
+    "categories": [
+      "政策・制度",
+      "教員・働き方"
+    ],
+    "layer": 2,
+    "language": "ja",
+    "requiresMembership": true
+  },
+  {
+    "id": "nikkyo-2026-07-20-97611146b561dd61",
+    "title": "文書半減　県立校宛て、初の達成　山梨県教委",
+    "sourceId": "nikkyo",
+    "sourceName": "日本教育新聞",
+    "sourceUrl": "https://www.kyoiku-press.com/post-313095/",
+    "publishedAt": "2026-07-20T00:00:00.000Z",
+    "collectedAt": "2026-07-21T12:07:47.106Z",
+    "summary": "小・中学校向けは２年連続 　学校現場の負担軽減に向けて、送付する文書を減らす「文書半減プロジェクト」に取り組んでいる山梨県教委は７日、令和７年度の状況を公表した。市町村立小・中学校では２年連続で目標を…",
+    "categories": [
+      "研究・エビデンス",
+      "教員・働き方"
+    ],
+    "layer": 2,
+    "language": "ja",
+    "requiresMembership": true
+  },
+  {
+    "id": "nikkyo-2026-07-20-ae42e2f5d389671b",
+    "title": "多様な家族像反映へ　道徳、内容項目の記述見直し",
+    "sourceId": "nikkyo",
+    "sourceName": "日本教育新聞",
+    "sourceUrl": "https://www.kyoiku-press.com/post-313074/",
+    "publishedAt": "2026-07-20T00:00:00.000Z",
+    "collectedAt": "2026-07-21T12:07:47.106Z",
+    "summary": "取りまとめ案 　文科省は７日、中央教育審議会教育課程部会の道徳ワーキンググループに議論の取りまとめ案を示した。次期学習指導要領に向けて、家族や友人関係の多様な実態を踏まえ、道徳科の内容項目の一部の記述…",
+    "categories": [
+      "政策・制度"
+    ],
+    "layer": 2,
+    "language": "ja",
+    "requiresMembership": true
   }
 ]
