@@ -236,5 +236,21 @@
     ],
     "layer": 2,
     "language": "ja"
+  },
+  {
+    "id": "nier-2026-07-21-d1e135e8639ac7fa",
+    "title": "教育データ活用講座に動画「全国学力・学習状況調査　学校・教育委員会への提供資料とその見方」を公表しました。",
+    "sourceId": "nier",
+    "sourceName": "国立教育政策研究所",
+    "sourceUrl": "https://www.nier.go.jp/edsc/edp/seminar/",
+    "publishedAt": "2026-07-21T00:00:00.000Z",
+    "collectedAt": "2026-07-22T12:11:11.624Z",
+    "summary": "研究・事業活動",
+    "categories": [
+      "政策・制度",
+      "研究・エビデンス"
+    ],
+    "layer": 1,
+    "language": "ja"
   }
 ]
