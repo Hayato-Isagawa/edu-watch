@@ -2,7 +2,7 @@
 
 - 状態: 採用
 - 日付: 2026-07-23
-- 関連 PR: —(本 astro 7 移行 PR。作成後に追記)
+- 関連 PR: [#427](https://github.com/Hayato-Isagawa/edu-watch/pull/427)
 - 関連 ADR: edu-evidence 0027(原本。移行の全体像と検討した選択肢)/ [`ADR 0060`](0060-visual-regression-testing.md)(VRT で移行を検証)
 - 関連: Dependabot security PR #420(astro 6.4.8→7.1.0 提案・本移行で supersede)
 
