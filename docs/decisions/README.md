@@ -102,3 +102,4 @@ EduEvidence JP と共通の運営方針(植物モチーフブランド体系 / N
 - [0060. ビジュアルリグレッションテスト(VRT)を視覚変更 PR に限定して導入する(edu-evidence ADR 0024 ミラー)](0060-visual-regression-testing.md)
 - [0061. W-1 推論ホストで Flash Attention を有効化(gemma3:12b の CPU 退避解消)](0061-w1-ollama-flash-attention.md)
 - [0062. Cloudflare Web Analytics を手動スニペット方式で導入し CSP を最小限緩和する(edu-evidence ADR 0026 ミラー)](0062-web-analytics-beacon-and-csp.md)
+- [0063. Astro 7 へ移行し XSS advisory 3 件を解消する(edu-evidence ADR 0027 ミラー・edu-watch 差分あり)](0063-astro-7-migration.md)
