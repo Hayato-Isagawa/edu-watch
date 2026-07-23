@@ -1,5 +1,68 @@
 [
   {
+    "id": "kkn-2026-07-23-84651ecb5aa43c96",
+    "title": "ロイロ認定ティーチャー 2026年度＜前期＞申請受付を開始 審査期間は8/1-9/30、認定サポート研修を8/21オンライン実施",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20260724o04",
+    "publishedAt": "2026-07-23T22:00:55.000Z",
+    "collectedAt": "2026-07-23T22:50:25.998Z",
+    "summary": "LoiLoでは、ロイロノート・スクールを活用して児童生徒主体の授業をデザインできる教員を認定する「ロイロ認定ティーチャー」の2026年度前期申請を受け付けている。審査期間は8月1日から9月30日まで。 認定を受けると、全 […]",
+    "categories": [
+      "教員・働き方"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-07-23-1e300d9a21881d39",
+    "title": "「第7回全国学生AIアスリート選手権大会」始動 年齢制限を撤廃、スマホ参加も可能に",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20260724o03",
+    "publishedAt": "2026-07-23T22:00:38.000Z",
+    "collectedAt": "2026-07-23T22:50:25.998Z",
+    "summary": "一社・未来キッズコンテンツ総合研究所は7月21日、「第7回全国学生AIアスリート選手権大会 シンギュラリティバトルクエスト2026」の公式サイトを開設し、開催概要を発表した。 本年度は名称を改称し、18歳以下としていた年 […]",
+    "categories": [
+      "ICT / GIGA",
+      "研究・エビデンス"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-07-23-20e6289fd66ddb09",
+    "title": "文部科学省、教職員向けプチ学習会を8/5からオンライン開催〜生成AIや校務DXなど全5テーマ",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20260724o02",
+    "publishedAt": "2026-07-23T22:00:35.000Z",
+    "collectedAt": "2026-07-23T22:50:25.998Z",
+    "summary": "文部科学省「GIGA StuDX推進チーム」は、教員や教育委員会職員、学校管理職、事務職員らを対象に、第2回プチ学習会を8月5日から開催する。期間は8月24日まで。学習会はZoomウェビナー形式で実施され、学校現場の最新 […]",
+    "categories": [
+      "ICT / GIGA",
+      "政策・制度",
+      "教員・働き方"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-07-23-4a0d04fdde578778",
+    "title": "親子向け体験イベント「ドコモ未来プロジェクト SUMMER FES」を7/30-8/5に池尻大橋で開催〜NTTドコモ",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20260724o01",
+    "publishedAt": "2026-07-23T22:00:24.000Z",
+    "collectedAt": "2026-07-23T22:50:25.998Z",
+    "summary": "NTTドコモは7月30日から8月5日までの7日間、東京都世田谷区の「HOME/WORK VILLAGE」にて、親子向け体験イベント「遊んで、学んで、楽しめる！ドコモ未来プロジェクト SUMMER FES」を開催する。参加 […]",
+    "categories": [
+      "その他"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
     "id": "mext-2026-07-23-091bd3ee91db3cc9",
     "title": "令和7年度におけるがん教育の実施状況調査の結果について",
     "sourceId": "mext",
