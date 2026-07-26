@@ -1,5 +1,157 @@
 [
   {
+    "id": "kkn-2026-07-26-c2345f98375eca3a",
+    "title": "生徒と保護者を対象に情報モラル講演を実施～SNSの安全な使い方を伝える～福島県喜多方市",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/post_committee/260727_kitakatasi",
+    "publishedAt": "2026-07-26T22:00:59.000Z",
+    "collectedAt": "2026-07-26T22:53:15.427Z",
+    "summary": "喜多方市立第三中学校は、SNS上でのトラブルや誹謗中傷が深刻な社会問題となっている中、生徒と保護者に向けて情報モラル講演を7月8日に実施。 講師は情報セキュリティの国際資格｢CISSP｣を持つNTT東日本ビジネス開発本部 […]",
+    "categories": [
+      "その他"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-07-26-37ba89d7d38f8939",
+    "title": "ハッシャダイ、闇バイトや特殊詐欺などから若者を守る『騙されない為の教科書』を神奈川県立高の全生徒に無償配布",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20260727o03",
+    "publishedAt": "2026-07-26T22:00:57.000Z",
+    "collectedAt": "2026-07-26T22:53:15.427Z",
+    "summary": "一社・HASSYADAI social（ハッシャダイソーシャル）は7月23日、闇バイトや特殊詐欺などの被害防止を目的とする消費者教育教材『騙されない為の教科書』が神奈川県教育委員会に採択されたと発表した。県内すべての県立 […]",
+    "categories": [
+      "政策・制度"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-07-26-62f065c5a09a783a",
+    "title": "学校ネットワークの通信機器などを更新～仮想ホストサーバ機器を提供～栃木県佐野市",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/post_nyusatsu/269727_sanosi",
+    "publishedAt": "2026-07-26T22:00:55.000Z",
+    "collectedAt": "2026-07-26T22:53:15.427Z",
+    "summary": "佐野市教育センターは、学校ネットワーク通信機器や学校系サーバ機器などを更新し、情報セキュリティ対策の強化を図るにあたり条件付一般競争入札を6月30日に公示。 学校コアL3スイッチ装置はVLAN機能でインターネット接続セグ […]",
+    "categories": [
+      "その他"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-07-26-0570ad9a2e7f5ef2",
+    "title": "オンライン国際交流プログラムを実施～オーストラリアの中高生と英語で討論～埼玉県",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/post_committee/260727_saitamaken",
+    "publishedAt": "2026-07-26T22:00:55.000Z",
+    "collectedAt": "2026-07-26T22:53:15.427Z",
+    "summary": "埼玉県県民生活部は、県内の中高生100人を対象に8月17日から19日の3日間にわたって｢オンライン国際交流プログラム｣を実施する。 プログラムはすべてオンラインで実施。初日は｢どうすれば世界で働けるの？～埼玉の中高生が、 […]",
+    "categories": [
+      "その他"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-07-26-78c081ea0bb097ba",
+    "title": "ネットワーク機器の経年劣化に伴い入替～VPNルーターなどを導入～千葉県銚子市",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/post_nyusatsu/260727_tyousisi",
+    "publishedAt": "2026-07-26T22:00:52.000Z",
+    "collectedAt": "2026-07-26T22:53:15.427Z",
+    "summary": "銚子市教育委員会は、市内の小中学校で利用しているネットワーク機器が、経年劣化による障害で業務に影響がでないように入替を行うため制限付一般競争入札を6月29日に公示。 新たに導入するのは、VPNルーターがNECのUNIVE […]",
+    "categories": [
+      "政策・制度"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-07-26-bffe9d510e8a8fbb",
+    "title": "産学官民で挑む地域防災 福山市立大学の学生が備蓄品検討、深津学区に防災倉庫設置へ",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20260727o02",
+    "publishedAt": "2026-07-26T22:00:52.000Z",
+    "collectedAt": "2026-07-26T22:53:15.427Z",
+    "summary": "広島県福山市の深津学区で、大学・地域・企業・行政が手を携えた画期的な防災プロジェクトが動き出した。一般社団法人みんなの防災倉庫普及協会と福山市立大学が共同で立ち上げた本取り組みは、学生が主体となり、災害時に地域住民が活用 […]",
+    "categories": [
+      "その他"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-07-26-73388331bfcd070e",
+    "title": "文部科学省、「産業イノベーション人材育成等に資する高等学校等教育改革促進事業」追加公募を実施",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20260727o01",
+    "publishedAt": "2026-07-26T22:00:51.000Z",
+    "collectedAt": "2026-07-26T22:53:15.427Z",
+    "summary": "文部科学省は7月23日、「産業イノベーション人材育成等に資する高等学校等教育改革促進事業」の追加公募を開始した。公募期間は8月10日正午まで（第1回）と9月11日正午まで（第2回）の2回に分かれている。 本事業は、N-E […]",
+    "categories": [
+      "政策・制度"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-07-26-1ba7b5aefbe1c90f",
+    "title": "「紙とデジタルを組み合わせた教科書」希望する設置者が最多～文科省調査",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/post_ict/260727_1c",
+    "publishedAt": "2026-07-26T22:00:50.000Z",
+    "collectedAt": "2026-07-26T22:53:15.427Z",
+    "summary": "全学校種・全教科を通じて、ハイブリッドな形態の教科書を望む回答が最多──これは7月16日に開催されたデジタルな形態を含む教科書の発行・採択等の指針に関する検討会議（第3回）で報告された｢教科書の形態に関する意向調査結果｣ […]",
+    "categories": [
+      "政策・制度",
+      "研究・エビデンス"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-07-26-8637f2e325e34175",
+    "title": "未知なる文化財との出会いを  ｢とーはくワンダーウォール｣ ～  東京国立博物館",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/post_library/260727_5f",
+    "publishedAt": "2026-07-26T22:00:47.000Z",
+    "collectedAt": "2026-07-26T22:53:15.427Z",
+    "summary": "東京・上野公園の東京国立博物館（東博）は6月30日、本館1階の体験型展示｢日本美術のとびら｣をリニューアル。新しいデジタルコンテンツ｢とーはくワンダーウォール　一期一会　～きょう、出会う一点～｣の運用を開始した。（＝写真 […]",
+    "categories": [
+      "その他"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-07-26-7025a7a0402bf6a6",
+    "title": "司書教諭の専門的職務とは～学校図書館資料保存センター　研修会より",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/post_library/260727_5a",
+    "publishedAt": "2026-07-26T22:00:38.000Z",
+    "collectedAt": "2026-07-26T22:53:15.427Z",
+    "summary": "(一社)学校図書館資料保存センターは6月20日に研修会をオンラインで実施。2名の講師を招き、十文字学園女子大学非常勤講師・福満芳枝氏｢学校図書館と利用者をつなぐ司書教諭｣、NPO法人学校図書館実践活動研究会理事長・小林達 […]",
+    "categories": [
+      "研究・エビデンス",
+      "教員・働き方"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
     "id": "kkn-2026-07-26-5eb776e3775930b2",
     "title": "DXハイスクールの酒田西高、「Ai GROW」活用し全教員研修　生徒の非認知能力育成への理解を深める",
     "sourceId": "kkn",
