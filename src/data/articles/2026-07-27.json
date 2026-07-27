@@ -1,5 +1,159 @@
 [
   {
+    "id": "kkn-2026-07-27-4332416ec8534d72",
+    "title": "県立学校26校に電子黒板160台を導入～黒板と併用して教員の負担を軽減～福井県",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/post_nyusatsu/260727_fukuiken",
+    "publishedAt": "2026-07-27T22:00:51.000Z",
+    "collectedAt": "2026-07-27T22:54:49.171Z",
+    "summary": "福井県教育庁は県立学校に電子黒板を導入し、黒板との併用で教員の負担軽減・効率化を図るため、一般競争入札を三国地区・嶺南地区・奥越地区・丹南地区は6月23日、福井地区は6月30日に公示。 5地区合計で高等学校24校・定時制 […]",
+    "categories": [
+      "教員・働き方"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-07-27-cfa5addc7c455f48",
+    "title": "防災教育への視点　一般財団法人防災教育推進協会　理事長　濱口和久～最終回「防災学」の導入と判断力",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/post_health/260727_7b",
+    "publishedAt": "2026-07-27T22:00:50.000Z",
+    "collectedAt": "2026-07-27T22:54:49.171Z",
+    "summary": "望まれる｢防災学｣の必修化 日本の学校教育では、基本的に高校を卒業するまで国語、数学、英語は必ず履修することになっているが、社会、理科は高校ではコース（理系・文系など）別に分かれ、選択科目制となっている学校がほとんどだ。 […]",
+    "categories": [
+      "その他"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-07-27-d78b536981d5bcc2",
+    "title": "未来思考で学校施設を再構築～老朽化対策ではなく「地域拠点化」を～国研報告書が提案",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/post_health/260627_7a",
+    "publishedAt": "2026-07-27T22:00:47.000Z",
+    "collectedAt": "2026-07-27T22:54:49.171Z",
+    "summary": "人口減少・財政制約が進む中、学校施設の老朽化は自治体にとって喫緊の課題だ。築40年以上の学校施設は2026年度時点で約6割──1970年代建設の学校が一斉に更新期を迎えている。 国立教育政策研究所が2026年3月に公表し […]",
+    "categories": [
+      "研究・エビデンス"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-07-27-9da3164910376d12",
+    "title": "次世代校務支援システムの共同調達に向けて～ロードマップを整備し仕様書(案)を策定～長野県",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/post_nyusatsu/260727_naganoken",
+    "publishedAt": "2026-07-27T22:00:46.000Z",
+    "collectedAt": "2026-07-27T22:54:49.171Z",
+    "summary": "長野県教育委員会は、次世代校務支援システムなどの共同調達を円滑に実施するため公募型プロポーザルを6月25日に公示。 次世代型校務支援システムおよび認証基盤などについて2028年度に共同調達を行い、2029年度からの運用開 […]",
+    "categories": [
+      "政策・制度"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-07-27-4ef9182f40a2a7e7",
+    "title": "小学校48校にネットワーク機器などを導入～2026年12月から5年間のリース～福井市",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/post_nyusatsu/260727_fukuisi",
+    "publishedAt": "2026-07-27T22:00:45.000Z",
+    "collectedAt": "2026-07-27T22:54:49.171Z",
+    "summary": "福井市教育委員会は、市立小学校48校と学校教育課にネットワーク機器などを導入するにあたり一般競争入札を6月15日に公示。フェニックスリースが落札した。リース期間は2026年12月1日から2031年11月30日までの5年間 […]",
+    "categories": [
+      "政策・制度"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-07-27-52ef828210077199",
+    "title": "統合認証基盤を設計・構築～IDやアクセス権限を一元的に管理～川崎市",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/post_nyusatsu/260727_kawasakisi",
+    "publishedAt": "2026-07-27T22:00:42.000Z",
+    "collectedAt": "2026-07-27T22:54:49.171Z",
+    "summary": "川崎市総合教育センターは、Microsoft Entra IDを中核とする統合認証基盤を設計・構築し、IDおよびアクセス権限を一元的に管理可能な環境を整備するため公募型プロポーザルを7月1日に公示。 検証用ID管理システ […]",
+    "categories": [
+      "その他"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-07-27-bde79cd93bbae490",
+    "title": "Google、夏休みの自由研究や学びにつながる「YouTube おちゃのま 夏の学校 WEEK」8/1～8/7に開催",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20260728o02",
+    "publishedAt": "2026-07-27T22:00:39.000Z",
+    "collectedAt": "2026-07-27T22:54:49.171Z",
+    "summary": "Googleは、小・中学生の夏休みの自由研究や日常の学習支援を目的としたオンラインイベント「YouTube おちゃのま 夏の学校 WEEK」を8月1日から8月7日までの7日間にわたり開催する。リビングルームのテレビ画面で […]",
+    "categories": [
+      "研究・エビデンス"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-07-27-742839e1223c55fb",
+    "title": "Polaris.AI、文科省「N-E.X.T.ハイスクール構想」に対応した高校向けAI伴走支援サービスの提供を開始",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20260728o01",
+    "publishedAt": "2026-07-27T22:00:32.000Z",
+    "collectedAt": "2026-07-27T22:54:49.171Z",
+    "summary": "東京大学松尾研究室発のAIスタートアップであるPolaris.AIは7月24日、文部科学省が進める「N-E.X.T.ハイスクール構想」に取り組む自治体や教育委員会、高等学校を対象に、教育に特化したAI伴走支援サービスの提 […]",
+    "categories": [
+      "ICT / GIGA",
+      "政策・制度",
+      "研究・エビデンス"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-07-27-dddf9a1801aa5b14",
+    "title": "国産クラウドを活用して次世代技術者を育成～社会実装共同プログラムの開発を目指す～東京都",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/post_committee/260727_tokyo",
+    "publishedAt": "2026-07-27T22:00:30.000Z",
+    "collectedAt": "2026-07-27T22:54:49.171Z",
+    "summary": "東京工業高等専門学校は、国産クラウドおよび国産AIを活用した次世代技術者の育成を推進することを目的に、さくらインターネットと7月1日に基本合意を締結した。 今回の合意を通じて、東京高専が実施する各種教育活動において、さく […]",
+    "categories": [
+      "ICT / GIGA"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-07-27-7df41560f9f2121d",
+    "title": "観世能楽会、多言語AIを採用 外国人来場者の問い合わせに50言語で24時間対応",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20260728o03",
+    "publishedAt": "2026-07-27T22:00:29.000Z",
+    "collectedAt": "2026-07-27T22:54:49.171Z",
+    "summary": "観世能楽堂の運営を担う観世能楽会は、海外からの来場者向け対応の強化を目的に、ikuraが提供する多言語AIエージェント「AIインバウンド担当」を導入した。24時間リアルタイムで問い合わせに応じる体制を整え、訪日外国人の利 […]",
+    "categories": [
+      "ICT / GIGA",
+      "国際・海外",
+      "教員・働き方"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
     "id": "resemom-2026-07-27-c43b884d111eb178",
     "title": "多様化の時代、若手の先生との接し方…Teacher’s［Shift］",
     "sourceId": "resemom",
