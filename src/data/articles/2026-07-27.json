@@ -469,5 +469,21 @@
     "layer": 2,
     "language": "ja",
     "requiresMembership": true
+  },
+  {
+    "id": "nikkyo-2026-07-27-d9460bef12c56438",
+    "title": "社会科教科書の用語整理　文科省が精選方針を作成",
+    "sourceId": "nikkyo",
+    "sourceName": "日本教育新聞",
+    "sourceUrl": "https://www.kyoiku-press.com/post-313390/",
+    "publishedAt": "2026-07-27T00:00:00.000Z",
+    "collectedAt": "2026-07-28T12:20:00.649Z",
+    "summary": "社会科や地理歴史・公民科の教科書に載せる用語を整理するため、文科省は「教科書等における用語等の精選方針（仮称）」を新たに作成する。学習指導要領と教科書の記載や入試問題を比較し、探究的な学習に必要とな…",
+    "categories": [
+      "政策・制度"
+    ],
+    "layer": 2,
+    "language": "ja",
+    "requiresMembership": true
   }
 ]
