@@ -1,5 +1,68 @@
 [
   {
+    "id": "kkn-2026-07-29-ad11b2fcc37115da",
+    "title": "スマホ学生証とゲート連携した入退室管理ソリューションで大学DX加速〜内田洋行など3社が全国展開",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20260730o03",
+    "publishedAt": "2026-07-29T22:00:34.000Z",
+    "collectedAt": "2026-07-29T22:55:01.183Z",
+    "summary": "内田洋行、クマヒラ、Siba Serviceの3社は7月27日、スマホ学生証と入退室管理システム・セキュリティゲートを連携させたキャンパスセキュリティソリューションの全国展開を開始すると発表した。統合ポータルサービス「K […]",
+    "categories": [
+      "その他"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-07-29-219ccafb669a1b48",
+    "title": "保育現場で園児見守りリストバンドの実証実験を開始 熱中症やバス置き去りを防ぐ支援技術を検証〜IBIS",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20260730o01",
+    "publishedAt": "2026-07-29T22:00:32.000Z",
+    "collectedAt": "2026-07-29T22:55:01.183Z",
+    "summary": "IBISは、保育現場での安全性向上と職員の負担軽減を目指し、キッズ大陸フロンタウン生田園にて園児用見守りリストバンドの実証実験を7月から開始した。実証期間は10月2日までの予定。猛暑に伴う熱中症リスクの増加や送迎バスへの […]",
+    "categories": [
+      "研究・エビデンス"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-07-29-700173ad2084687f",
+    "title": "相模原市とJMCが教育DXで包括連携協定を締結 子供の学びと教員の働きがい向上を目指す",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20260730o04",
+    "publishedAt": "2026-07-29T22:00:27.000Z",
+    "collectedAt": "2026-07-29T22:55:01.183Z",
+    "summary": "神奈川県相模原市は、教育ICTを推進するJMCと教育分野における包括連携協定を締結した。7月13日に同市役所で協定締結式が行われ、市教育委員会の細川恵教育長とJMCの松田憲明代表取締役社長が出席した。 本協定は、子供一人 […]",
+    "categories": [
+      "ICT / GIGA",
+      "政策・制度",
+      "教員・働き方"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-07-29-d6cb8b95122bd933",
+    "title": "全国の教員らが最新AIを活用した教育課題解決のアイデアを発表「Gemini for Education アイデアソン 2026 Showcase」8/7開催〜Google for Education",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20260730o02",
+    "publishedAt": "2026-07-29T22:00:16.000Z",
+    "collectedAt": "2026-07-29T22:55:01.183Z",
+    "summary": "Google for Educationは8月7日、「Gemini for Education アイデアソン 2026 Showcase（最終発表会）」を開催する。 本イベントは、全国3都市（福岡・大阪・北海道）で実施さ […]",
+    "categories": [
+      "ICT / GIGA",
+      "教員・働き方"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
     "id": "nikkyo-2026-07-29-698d74cbd907975d",
     "title": "避難所に冷房がある教室活用を　文科省、熱中症対策で通知",
     "sourceId": "nikkyo",
