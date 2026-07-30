@@ -63,6 +63,20 @@
     "language": "ja"
   },
   {
+    "id": "mext-2026-07-29-617c9a4a6adbe819",
+    "title": "高等専門学校の機能強化に関する検討会（第3回）配布資料",
+    "sourceId": "mext",
+    "sourceName": "文部科学省",
+    "sourceUrl": "https://www.mext.go.jp/b_menu/shingi/chousa/koutou/136/siryo/mext_00002.html",
+    "publishedAt": "2026-07-29T09:00:00.000Z",
+    "collectedAt": "2026-07-30T12:11:00.711Z",
+    "categories": [
+      "政策・制度"
+    ],
+    "layer": 1,
+    "language": "ja"
+  },
+  {
     "id": "nikkyo-2026-07-29-698d74cbd907975d",
     "title": "避難所に冷房がある教室活用を　文科省、熱中症対策で通知",
     "sourceId": "nikkyo",
@@ -109,6 +123,34 @@
     "language": "ja"
   },
   {
+    "id": "mext-2026-07-29-0bb4f6b2f4d8dcf1",
+    "title": "中央教育審議会初等中等教育分科会教育課程部会社会・地理歴史・公民ワーキンググループの配付資料を掲載しました",
+    "sourceId": "mext",
+    "sourceName": "文部科学省",
+    "sourceUrl": "https://www.mext.go.jp/b_menu/shingi/chukyo/chukyo3/109/siryo/mext_00010.html",
+    "publishedAt": "2026-07-29T06:30:00.000Z",
+    "collectedAt": "2026-07-30T12:11:00.711Z",
+    "categories": [
+      "政策・制度"
+    ],
+    "layer": 1,
+    "language": "ja"
+  },
+  {
+    "id": "chukyo-2026-07-29-0bb4f6b2f4d8dcf1",
+    "title": "中央教育審議会初等中等教育分科会教育課程部会社会・地理歴史・公民ワーキンググループの配付資料を掲載しました",
+    "sourceId": "chukyo",
+    "sourceName": "中央教育審議会",
+    "sourceUrl": "https://www.mext.go.jp/b_menu/shingi/chukyo/chukyo3/109/siryo/mext_00010.html",
+    "publishedAt": "2026-07-29T06:30:00.000Z",
+    "collectedAt": "2026-07-30T12:11:00.711Z",
+    "categories": [
+      "政策・制度"
+    ],
+    "layer": 1,
+    "language": "ja"
+  },
+  {
     "id": "resemom-2026-07-29-313dcf4d762b2079",
     "title": "高校サッカー男子インターハイ、4強に近大附属と大津",
     "sourceId": "resemom",
@@ -136,6 +178,20 @@
       "その他"
     ],
     "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "mext-2026-07-29-d32b853a8faf251a",
+    "title": "CSユースリーダーによる大学生対象イベントを開催します",
+    "sourceId": "mext",
+    "sourceName": "文部科学省",
+    "sourceUrl": "https://www.mext.go.jp/b_menu/houdou/mext_01658.html",
+    "publishedAt": "2026-07-29T05:00:00.000Z",
+    "collectedAt": "2026-07-30T12:11:00.711Z",
+    "categories": [
+      "政策・制度"
+    ],
+    "layer": 1,
     "language": "ja"
   },
   {

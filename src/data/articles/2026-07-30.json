@@ -1,0 +1,120 @@
+[
+  {
+    "id": "mext-2026-07-30-de70db4122b593e6",
+    "title": "公立学校施設における空調（冷房）設備の設置状況調査を実施（令和8年5月1日現在）",
+    "sourceId": "mext",
+    "sourceName": "文部科学省",
+    "sourceUrl": "https://www.mext.go.jp/b_menu/houdou/mext_01661.html",
+    "publishedAt": "2026-07-30T08:00:00.000Z",
+    "collectedAt": "2026-07-30T12:11:00.711Z",
+    "categories": [
+      "政策・制度"
+    ],
+    "layer": 1,
+    "language": "ja"
+  },
+  {
+    "id": "mext-2026-07-30-17b53daa0a7710fd",
+    "title": "公立学校施設の体育館等の空調（冷房）設備の設置状況調査を実施（令和8年5月1日現在）",
+    "sourceId": "mext",
+    "sourceName": "文部科学省",
+    "sourceUrl": "https://www.mext.go.jp/b_menu/houdou/mext_01659.html",
+    "publishedAt": "2026-07-30T08:00:00.000Z",
+    "collectedAt": "2026-07-30T12:11:00.711Z",
+    "categories": [
+      "政策・制度"
+    ],
+    "layer": 1,
+    "language": "ja"
+  },
+  {
+    "id": "resemom-2026-07-30-1514ef27ee84a6b7",
+    "title": "難関大受験の新戦略…一般×推薦を賢く併願する高校1、2年生からの「複線設計」",
+    "sourceId": "resemom",
+    "sourceName": "リセマム",
+    "sourceUrl": "https://resemom.jp/article/2026/07/30/86998.html",
+    "publishedAt": "2026-07-30T07:45:03.000Z",
+    "collectedAt": "2026-07-30T12:11:00.711Z",
+    "summary": "総合型選抜や学校推薦型選抜が注目されているが、依然として難関大学合格に必要なのは学力だ。多様化する入試ルートを勝ち抜くための早期からの受験戦略の重要性と、プロ講師による個別指導予備校「なんぷろ」が実践する伴走型指導の価値に迫る。",
+    "categories": [
+      "その他"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "nikkyo-2026-07-30-2e789e47f73ea0ee",
+    "title": "教育のDX推進へ　都教委が有識者会議設置",
+    "sourceId": "nikkyo",
+    "sourceName": "日本教育新聞",
+    "sourceUrl": "https://www.kyoiku-press.com/post-314116/",
+    "publishedAt": "2026-07-30T07:34:00.000Z",
+    "collectedAt": "2026-07-30T12:11:00.711Z",
+    "summary": "学校での生成AI活用や校務DXの推進などに向けて東京都教委は有識者会議を設置する。児童・生徒の学び方や、教員の教え方・働き方の改革をテーマに話し合う。８月６日に初会合を開いた上で４回程度議論を重ね、…",
+    "categories": [
+      "ICT / GIGA",
+      "教員・働き方"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "mext-2026-07-30-d442a34b64724c07",
+    "title": "教育課程部会　情報・技術ワーキンググループ（第12回）　配付資料について",
+    "sourceId": "mext",
+    "sourceName": "文部科学省",
+    "sourceUrl": "https://www.mext.go.jp/b_menu/shingi/chukyo/chukyo3/118/mext_00009.html",
+    "publishedAt": "2026-07-30T07:30:00.000Z",
+    "collectedAt": "2026-07-30T12:11:00.711Z",
+    "categories": [
+      "政策・制度"
+    ],
+    "layer": 1,
+    "language": "ja"
+  },
+  {
+    "id": "nikkyo-2026-07-30-1d15308c31fa2757",
+    "title": "主権者教育、合意形成の学び重視　社会ＷＧ",
+    "sourceId": "nikkyo",
+    "sourceName": "日本教育新聞",
+    "sourceUrl": "https://www.kyoiku-press.com/post-314114/",
+    "publishedAt": "2026-07-30T07:05:00.000Z",
+    "collectedAt": "2026-07-30T12:11:00.711Z",
+    "summary": "文科省は29日、中央教育審議会教育課程部会の社会、地理歴史、公民ワーキンググループに次期学習指導要領に向けた議論の取りまとめ案の修正案を示した。前回案を一部修正し、主権者教育では、子どもが自ら判断し…",
+    "categories": [
+      "政策・制度"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "nikkyo-2026-07-30-41f2862b21ea1013",
+    "title": "ダンスに挑戦　教員志望の院生が表現力磨く　東京理科大",
+    "sourceId": "nikkyo",
+    "sourceName": "日本教育新聞",
+    "sourceUrl": "https://www.kyoiku-press.com/post-314111/",
+    "publishedAt": "2026-07-30T06:15:00.000Z",
+    "collectedAt": "2026-07-30T12:11:00.711Z",
+    "summary": "東京理科大学は29日、教員志望の大学院生を対象に、教員に求められる表現力を高めるための集中講義を開いた。井藤元（いとう・げん）教授が担当する全３日間の講義の２日目で、舞台俳優の出口稚子さんをゲスト講…",
+    "categories": [
+      "教員・働き方"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "resemom-2026-07-30-b0c29bbaa1558c0c",
+    "title": "活育財団、AI時代の教育アワード募集…ファイナル10/25",
+    "sourceId": "resemom",
+    "sourceName": "リセマム",
+    "sourceUrl": "https://resemom.jp/article/2026/07/30/86993.html",
+    "publishedAt": "2026-07-30T04:15:03.000Z",
+    "collectedAt": "2026-07-30T12:11:00.711Z",
+    "summary": "活育財団は、教育アワード「Next Education Award」の3回目となる応募受付を開始した。テーマは「AI × Well-being」。AI時代の新たな教育実践を全国から募集し、2026年10月25日に東京都内でファイナル（プレゼン＆表彰式）を開催する。",
+    "categories": [
+      "ICT / GIGA"
+    ],
+    "layer": 2,
+    "language": "ja"
+  }
+]
