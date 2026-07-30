@@ -1,5 +1,96 @@
 [
   {
+    "id": "kkn-2026-07-30-ca24a8c382623ba2",
+    "title": "日本のおもちゃの進化の歴史を振り返る～藤枝市郷土博物館・文学館",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/post_library/260727_5h",
+    "publishedAt": "2026-07-30T22:00:50.000Z",
+    "collectedAt": "2026-07-30T22:58:27.009Z",
+    "summary": "静岡県の藤枝市郷土博物館・文学館は、郷土玩具愛好家団体｢日本雪だるまの会｣と(一財)日本玩具文化財団の協力により、博物館特別展｢日本のおもちゃ博覧会｣を8月16日まで開催している。 明治時代後期から大正・昭和・平成に至る […]",
+    "categories": [
+      "その他"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-07-30-d9524e15545f0a1b",
+    "title": "就活生のガクチカ調査　選考通過ESで「研究・ゼミ」が「体育会・スポーツ」を逆転〜ネオキャリア（unistyle）調べ",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20260731o01",
+    "publishedAt": "2026-07-30T22:00:48.000Z",
+    "collectedAt": "2026-07-30T22:58:27.009Z",
+    "summary": "ネオキャリアが運営する就職活動支援メディア「unistyle（ユニスタイル）」は、自社の選考通過エントリーシート（ES）データベースを活用した「ガクチカ（学生時代に力を入れたこと）」の分析結果を発表した。2022年卒から […]",
+    "categories": [
+      "研究・エビデンス"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-07-30-cbace53838a92044",
+    "title": "文科省、全国学力調査のCSVデータサンプルを公開〜自治体の独自のデータ分析・ダッシュボード開発支援へ",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20260731o04",
+    "publishedAt": "2026-07-30T22:00:44.000Z",
+    "collectedAt": "2026-07-30T22:58:27.009Z",
+    "summary": "文部科学省はこのほど、都道府県や市町村の教育委員会に提供する全国学力・学習状況調査のCSVデータサンプルおよびデータレイアウト等をウェブサイトで公開した。2025年6月の報告書「全国学力・学習状況調査の調査結果の取扱いの […]",
+    "categories": [
+      "政策・制度",
+      "研究・エビデンス"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-07-30-5ab9a021f356a09f",
+    "title": "光村図書出版「教科書のひみつ展」8/6-11に日本橋三越で開催　懐かしの国語教科書や表紙の工夫を紹介",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20260731o03",
+    "publishedAt": "2026-07-30T22:00:29.000Z",
+    "collectedAt": "2026-07-30T22:58:27.009Z",
+    "summary": "光村図書出版は創立77周年を記念し、8月6日から11日まで、日本橋三越本店で「教科書のひみつ展―言葉と歩く、光村のこれまでとこれから―」を開催する。 会場では、教科書づくりの舞台裏や表紙に隠された仕掛けなどの「7つのひみ […]",
+    "categories": [
+      "その他"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-07-30-928beff6b1156bf1",
+    "title": "探究を深め広げる読書へ～「第58回学校図書館賞」「第28回学校図書館出版賞」",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/post_library/260727_5b",
+    "publishedAt": "2026-07-30T22:00:26.000Z",
+    "collectedAt": "2026-07-30T22:58:27.009Z",
+    "summary": "(公社)全国学校図書館協議会(全国SLA)による｢第56回学校図書館賞｣｢第28回学校図書館出版賞｣の授賞が決定し、7月2日、東京・千代田区の日本出版クラブで表彰式および受賞者発表会が行われた。 ｢学校図書館賞｣は、学校 […]",
+    "categories": [
+      "その他"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-07-30-0d2689ca36283647",
+    "title": "さつき、電子黒板向けAI地図アプリ「MIRAI MAPS」提供開始〜AIとの対話で深めるインタラクティブな地図学習",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20260731o02",
+    "publishedAt": "2026-07-30T22:00:07.000Z",
+    "collectedAt": "2026-07-30T22:58:27.009Z",
+    "summary": "さつきはこのほど、同社の電子黒板「MIRAI TOUCH（ミライタッチ）」上で動作するAI地図アプリケーション「MIRAI MAPS」の提供を開始した。本アプリは専用ストアからダウンロード可能で、Google Cloud […]",
+    "categories": [
+      "ICT / GIGA"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
     "id": "mext-2026-07-30-de70db4122b593e6",
     "title": "公立学校施設における空調（冷房）設備の設置状況調査を実施（令和8年5月1日現在）",
     "sourceId": "mext",
