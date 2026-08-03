@@ -1,5 +1,51 @@
 [
   {
+    "id": "kkn-2026-08-03-82e8532a7b7df00a",
+    "title": "東大メタバース工学部ジュニア講座、夏休み講座の受講受付中〜生成AI、渋滞学、工学から考える幸せなど",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20260804o01",
+    "publishedAt": "2026-08-03T22:00:58.000Z",
+    "collectedAt": "2026-08-03T22:54:59.540Z",
+    "summary": "東京大学メタバース工学部が提供するジュニア講座では、夏休み期間に開講する講座の受講者を募集している。 東京大学メタバース工学部ジュニア講座は、設立以来120以上の講座を開講し、5万5000人以上が受講している。今回、生成 […]",
+    "categories": [
+      "ICT / GIGA"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-08-03-e16226c4daf6c848",
+    "title": "Polimill、自治体向け生成AI「QommonsAI」の研修を3自治体で実施 業務効率化と実務活用へ",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20260804o02",
+    "publishedAt": "2026-08-03T22:00:39.000Z",
+    "collectedAt": "2026-08-03T22:54:59.540Z",
+    "summary": "自治体向け生成AI「QommonsAI（コモンズAI）」を展開するPolimillは、7月16日から23日にかけて、全国の自治体職員を対象とした活用研修を実施した。行政DXを推進する同社は、「導入して終わり」にさせない現 […]",
+    "categories": [
+      "ICT / GIGA",
+      "教員・働き方"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-08-03-9be39c0465096023",
+    "title": "聖望学園、体育授業等にARスポーツ「HADO」を導入、多様な生徒が活躍できる教育環境の構築を目指す",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20260804o03",
+    "publishedAt": "2026-08-03T22:00:16.000Z",
+    "collectedAt": "2026-08-03T22:54:59.540Z",
+    "summary": "聖望学園中学校高等学校（埼玉県）は8月より、校内教育活動においてテクノロジーを活用したARスポーツ「HADO」（提供元：meleap）を導入した。運動が得意な生徒だけでなく、全ての生徒が主体的に参加し楽しめるスポーツ環境 […]",
+    "categories": [
+      "その他"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
     "id": "resemom-2026-08-03-892df39813bf4aa0",
     "title": "東京都、2027年度使用教科書を採択…小・中学校は前年度と同一",
     "sourceId": "resemom",
