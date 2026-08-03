@@ -38,7 +38,7 @@
     "@types/react-dom": "^19.0.3",
     "astro": "^7.1.6",
     "cheerio": "^1.2.0",
-    "isomorphic-dompurify": "^3.19.0",
+    "isomorphic-dompurify": "^3.20.0",
     "marked": "^18.0.7",
     "pdf-parse": "^2.4.5",
     "react": "^19.2.8",
