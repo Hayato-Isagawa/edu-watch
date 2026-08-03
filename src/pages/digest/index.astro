@@ -28,21 +28,21 @@ function formatRange(from: string, to: string): string {
   title="週次ダイジェスト — EduWatch JP"
   description="EduWatch JP の週次ダイジェスト。1 週間の教育ニュースを編集者が論点整理して毎週金曜に公開します。"
 >
-  <section class="pt-10 sm:pt-14 md:pt-20 lg:pt-28 pb-10 sm:pb-14 md:pb-20 border-b border-[var(--color-line)]">
-    <p class="font-mono text-[10px] uppercase tracking-widest text-[var(--color-accent)]">
+  <section class="pt-10 sm:pt-14 md:pt-20 lg:pt-28 pb-10 sm:pb-14 md:pb-20 border-b border-line">
+    <p class="font-mono text-[10px] uppercase tracking-widest text-accent">
       Weekly digest
     </p>
     <h1 class="mt-5 font-black text-4xl sm:text-5xl md:text-6xl lg:text-7xl leading-[1.15] tracking-tight">
-      週次<span class="text-[var(--color-accent)]">ダイジェスト</span>
+      週次<span class="text-accent">ダイジェスト</span>
     </h1>
-    <p class="mt-4 text-[var(--color-sub)] text-sm sm:text-base leading-loose max-w-2xl">
+    <p class="mt-4 text-sub text-sm sm:text-base leading-loose max-w-2xl">
       1 週間の教育ニュースから「これは知っておいてほしい」を編集者が選別し、背景や関連エビデンスにリンクします。
       日次記事には付加していない論点整理を、ここで明示的に「編集者より」として提示します。
     </p>
-    <p class="mt-3 text-[var(--color-sub)] text-xs font-mono tracking-wide">
+    <p class="mt-3 text-sub text-xs font-mono tracking-wide">
       {sorted.length} 本
     </p>
-    <p class="mt-4 text-[var(--color-sub)] text-sm leading-relaxed">
+    <p class="mt-4 text-sub text-sm leading-relaxed">
       <a href="/" class="link-underline">← トップに戻る</a>
       <span class="mx-2" aria-hidden="true">·</span>
       <a href="/rss.xml" class="link-underline">RSS フィード</a>
@@ -51,11 +51,11 @@ function formatRange(from: string, to: string): string {
 
   {
     sorted.length === 0 ? (
-      <p class="py-20 text-center text-[var(--color-sub)] text-sm">
+      <p class="py-20 text-center text-sub text-sm">
         まだダイジェストはありません。初回は近日公開予定です。
       </p>
     ) : (
-      <ul class="divide-y divide-[var(--color-line)]">
+      <ul class="divide-y divide-line">
         {sorted.map((entry) => (
           <li class="py-6 sm:py-8">
             <a
@@ -63,20 +63,20 @@ function formatRange(from: string, to: string): string {
               class="flex items-baseline justify-between gap-4 group"
             >
               <h2 class="font-bold text-base sm:text-lg">
-                <span class="text-[var(--color-ink)] link-underline">
+                <span class="text-ink link-underline">
                   {entry.data.title}
                 </span>
               </h2>
-              <span class="text-xs font-mono text-[var(--color-sub)] whitespace-nowrap">
+              <span class="text-xs font-mono text-sub whitespace-nowrap">
                 {formatPublished(entry.data.publishedAt)}
               </span>
             </a>
-            <p class="mt-1 text-xs font-mono tracking-wide text-[var(--color-sub)]">
+            <p class="mt-1 text-xs font-mono tracking-wide text-sub">
               <time datetime={entry.data.weekStart}>
                 {formatRange(entry.data.weekStart, entry.data.weekEnd)}
               </time>
             </p>
-            <p class="mt-2 text-sm leading-relaxed text-[var(--color-sub)] line-clamp-3">
+            <p class="mt-2 text-sm leading-relaxed text-sub line-clamp-3">
               {entry.data.summary}
             </p>
             {entry.data.topics.length > 0 && (

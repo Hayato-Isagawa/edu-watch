@@ -12,7 +12,7 @@ const isOecd = article.sourceId === "oecd";
 const oecdYear = isOecd ? new Date(article.publishedAt).getUTCFullYear() : null;
 ---
 
-<article class="border-t border-[var(--color-line)] py-5 first:border-t-0 first:pt-0">
+<article class="border-t border-line py-5 first:border-t-0 first:pt-0">
   <div class="flex flex-wrap items-center gap-2 mb-2">
     <SourceBadge sourceId={article.sourceId} sourceName={article.sourceName} />
     {article.requiresMembership && (
@@ -33,7 +33,7 @@ const oecdYear = isOecd ? new Date(article.publishedAt).getUTCFullYear() : null;
       target="_blank"
       rel="noopener noreferrer"
       lang={article.language}
-      class="link-underline text-[var(--color-ink)] hover:text-[var(--color-accent)] transition-colors"
+      class="link-underline text-ink hover:text-accent transition-colors"
     >
       {article.title}
     </a>
@@ -42,7 +42,7 @@ const oecdYear = isOecd ? new Date(article.publishedAt).getUTCFullYear() : null;
   {article.summary && (
     <p
       lang={article.language}
-      class="mt-2 text-sm leading-relaxed text-[var(--color-sub)] line-clamp-3"
+      class="mt-2 text-sm leading-relaxed text-sub line-clamp-3"
     >
       {article.summary}
     </p>
@@ -50,7 +50,7 @@ const oecdYear = isOecd ? new Date(article.publishedAt).getUTCFullYear() : null;
 
   {isOecd && oecdYear !== null && (
     <p
-      class="mt-2 text-xs italic text-[var(--color-sub)]"
+      class="mt-2 text-xs italic text-sub"
       data-attribution="oecd"
     >
       [OECD ({oecdYear}), {article.title}, {article.sourceUrl}]

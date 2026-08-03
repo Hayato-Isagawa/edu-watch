@@ -5,17 +5,17 @@ import Layout from "../layouts/Layout.astro";
 <Layout title="検索 — EduWatch JP" description="EduWatch JP の記事を検索する">
   <section class="pt-10 sm:pt-14 md:pt-20 lg:pt-28 pb-10 sm:pb-14 md:pb-20 space-y-8">
     <div>
-      <p class="font-mono text-[10px] uppercase tracking-widest text-[var(--color-accent)]">
+      <p class="font-mono text-[10px] uppercase tracking-widest text-accent">
         Search
       </p>
       <h1 class="mt-5 font-black text-4xl sm:text-5xl md:text-6xl lg:text-7xl leading-[1.15] tracking-tight">
-        記事を<span class="text-[var(--color-accent)]">検索</span>
+        記事を<span class="text-accent">検索</span>
       </h1>
     </div>
     <div id="search" class="max-w-2xl"></div>
-    <p id="search-fallback" class="text-sm text-[var(--color-sub)] hidden">
+    <p id="search-fallback" class="text-sm text-sub hidden">
       検索機能はビルド後の環境で動作します。<code
-        class="font-mono text-xs bg-[var(--color-card)] px-1.5 py-0.5 rounded"
+        class="font-mono text-xs bg-card px-1.5 py-0.5 rounded"
         >npm run build && npm run preview</code
       > で確認できます。
     </p>
