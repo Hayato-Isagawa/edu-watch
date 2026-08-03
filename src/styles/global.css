@@ -1,12 +1,13 @@
 @import "tailwindcss";
 
+/* トークンは @theme に置く。ここに置いて初めて Tailwind が text-ink /       */
+/* bg-card / border-line 等のユーティリティを生成する。:root に書いていた    */
+/* 間はユーティリティが無く、254 箇所が text-[var(--color-sub)] のような     */
+/* 任意値で書かれていた(edu-evidence ADR 0031 と同じ是正)。                  */
+/* 名前と値は docs/BRAND.md がファミリー 5 サイトで共有しているため変えない。*/
 @theme {
   --breakpoint-xs: 30rem;
-}
 
-@variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
-
-:root {
   --color-bg: #faf9f5;
   --color-ink: #1a1a1a;
   --color-sub: #6b6b66;
@@ -23,7 +24,22 @@
   --font-serif: "Hiragino Mincho ProN", "Yu Mincho", serif;
   --font-sans: system-ui, -apple-system, "Hiragino Kaku Gothic ProN", "Hiragino Sans", "Yu Gothic UI", "Yu Gothic", "Meiryo", sans-serif;
   --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, "Roboto Mono", monospace;
+
+  /* hover 時の派生色。姉妹サイト edu-evidence と同じ定義を持たせる。
+     これが無かったため #back-to-top の hover が dark でも black 混色になり、
+     アクセントが明るい dark ではコントラストが 6.95 → 4.62 と下がっていた。 */
+  --color-accent-hover: color-mix(in oklab, var(--color-accent) 85%, black);
+
+  /* 更新履歴の変更種別。パレット直書き(emerald-700 / amber-700 / rose-700)で
+     dark 変種が無く、ダークで 2.94〜3.53 と AA を割っていた。light は現行値の
+     ままトークン化し、dark は姉妹サイト edu-evidence が出典色で実績を持つ
+     200〜300 番台に合わせる。 */
+  --color-change-add: oklch(50.8% 0.118 165.612);
+  --color-change-update: oklch(55.5% 0.163 48.998);
+  --color-change-fix: oklch(51.4% 0.222 16.935);
 }
+
+@variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
 
 [data-theme="dark"] {
   --color-bg: #16181d;
@@ -35,7 +51,12 @@
      明度を上げた #6fa8d3 に置換(コントラスト AA 達成)。
      edu-evidence のダークアクセント #6fbe87 と隣接色相で姉妹感を維持。 */
   --color-accent: #6fa8d3;
+  --color-accent-hover: color-mix(in oklab, var(--color-accent) 85%, white);
   --color-chart-red: #f08070;
+
+  --color-change-add: oklch(84.5% 0.143 164.978);
+  --color-change-update: oklch(92.4% 0.12 95.746);
+  --color-change-fix: oklch(89.2% 0.058 10.001);
 }
 
 html {
@@ -373,7 +394,7 @@ body[data-menu="open"] {
   pointer-events: auto;
 }
 #back-to-top[data-state="visible"]:hover {
-  background: color-mix(in oklab, var(--color-accent) 85%, black);
+  background: var(--color-accent-hover);
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
   transform: translateY(-2px);
 }

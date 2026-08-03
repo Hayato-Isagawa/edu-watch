@@ -9,7 +9,7 @@ interface Props {
 const { category, linkable = true } = Astro.props;
 const slug = slugForCategory(category);
 const className =
-  "inline-flex items-center px-2 py-0.5 text-[11px] font-medium tracking-wide text-[var(--color-sub)] border border-[var(--color-line)] rounded-sm whitespace-nowrap bg-[var(--color-card)] hover:text-[var(--color-ink)] hover:border-[var(--color-ink)] transition-colors";
+  "inline-flex items-center px-2 py-0.5 text-[11px] font-medium tracking-wide text-sub border border-line rounded-sm whitespace-nowrap bg-card hover:text-ink hover:border-ink transition-colors";
 ---
 
 {

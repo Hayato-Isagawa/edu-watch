@@ -21,6 +21,16 @@ interface ChangelogEntry {
 
 const entries: ChangelogEntry[] = [
   {
+    date: "2026-08-03",
+    items: [
+      {
+        type: "fix",
+        text: "ダークモードでこのページの「追加」「更新」「修正」のラベルが読みにくかったのを直しました。背景に対する明暗差が足りず、いずれも判読の目安を下回っていました",
+        links: [{ label: "更新履歴", href: "/changelog/" }],
+      },
+    ],
+  },
+  {
     date: "2026-08-01",
     items: [
       {
@@ -453,16 +463,16 @@ const entries: ChangelogEntry[] = [
 ];
 
 const typeLabel: Record<string, { label: string; color: string }> = {
-  add: { label: "追加", color: "text-emerald-700" },
-  update: { label: "更新", color: "text-amber-700" },
-  fix: { label: "修正", color: "text-rose-700" },
-  remove: { label: "削除", color: "text-[var(--color-sub)]" },
+  add: { label: "追加", color: "text-change-add" },
+  update: { label: "更新", color: "text-change-update" },
+  fix: { label: "修正", color: "text-change-fix" },
+  remove: { label: "削除", color: "text-sub" },
 };
 ---
 
 <Layout title="更新履歴 — EduWatch JP">
-  <section class="pt-10 sm:pt-14 md:pt-20 lg:pt-28 pb-10 sm:pb-14 md:pb-20 border-b border-[var(--color-line)]">
-    <p class="font-mono text-[10px] uppercase tracking-widest text-[var(--color-accent)]">
+  <section class="pt-10 sm:pt-14 md:pt-20 lg:pt-28 pb-10 sm:pb-14 md:pb-20 border-b border-line">
+    <p class="font-mono text-[10px] uppercase tracking-widest text-accent">
       Changelog
     </p>
     <h1
@@ -470,7 +480,7 @@ const typeLabel: Record<string, { label: string; color: string }> = {
     >
       更新履歴
     </h1>
-    <p class="mt-6 text-[var(--color-sub)] text-sm sm:text-base leading-loose max-w-2xl">
+    <p class="mt-6 text-sub text-sm sm:text-base leading-loose max-w-2xl">
       サイト機能・データの追加・修正を時系列で記録しています。
     </p>
   </section>
@@ -478,8 +488,8 @@ const typeLabel: Record<string, { label: string; color: string }> = {
   <section class="pb-24">
     {
       entries.map((entry) => (
-        <div class="border-t border-[var(--color-line)] py-10 space-y-4">
-          <div class="font-mono text-sm text-[var(--color-accent)]">
+        <div class="border-t border-line py-10 space-y-4">
+          <div class="font-mono text-sm text-accent">
             {entry.date}
           </div>
           <ul class="space-y-3">
@@ -511,6 +521,6 @@ const typeLabel: Record<string, { label: string; color: string }> = {
         </div>
       ))
     }
-    <div class="border-t border-[var(--color-line)]"></div>
+    <div class="border-t border-line"></div>
   </section>
 </Layout>
