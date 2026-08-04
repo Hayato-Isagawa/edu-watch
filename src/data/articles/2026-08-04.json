@@ -1,5 +1,53 @@
 [
   {
+    "id": "kkn-2026-08-04-387b6d40a14f14c6",
+    "title": "ネットワンシステムズ、AIと監視カメラでクマ出没を自動検知する新ソリューションの提供を開始",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20260805o02",
+    "publishedAt": "2026-08-04T22:00:51.000Z",
+    "collectedAt": "2026-08-04T22:55:52.700Z",
+    "summary": "ネットワンシステムズは8月3日、AIと監視カメラを組み合わせてクマの出没をリアルタイムで自動検知し、迅速に通知する「AIクマ検知・通知ソリューション」の提供を開始した。近年の深刻なクマ被害急増に伴い、住民や児童・生徒の安 […]",
+    "categories": [
+      "ICT / GIGA",
+      "政策・制度"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-08-04-600bca9480dbdfcd",
+    "title": "2040年の教育と社会を考える「2040年をデザインする夏FES」8/7-9に開催〜日本OECD共同研究×教育AI活用協会",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20260805o04",
+    "publishedAt": "2026-08-04T22:00:30.000Z",
+    "collectedAt": "2026-08-04T22:55:52.700Z",
+    "summary": "一社・教育AI活用協会と日本OECD共同研究は、8月7日から9日までの3日間、日本OECD共同研究「2040年をデザインする夏FES」を共同開催する。本イベントは、「学校は社会の未来図」という理念のもと、2040年の教育 […]",
+    "categories": [
+      "ICT / GIGA",
+      "研究・エビデンス",
+      "国際・海外"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-08-04-098754ee00d72ce3",
+    "title": "『担任の先生に伝わる！子どもがラクになる　合理的配慮サポートブック』大場美鈴／著",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/post_library/260727_5k",
+    "publishedAt": "2026-08-04T22:00:10.000Z",
+    "collectedAt": "2026-08-04T22:55:52.700Z",
+    "summary": "教育現場の実情に合わせた伝え方 著者は発達障害・グレーゾーンの3人の子育てをしながら、子育て・発達障害児者の総合応援Webサイト｢楽々かあさんHP｣を運営する。 自身の経験をもとに、日本の学校教育現場の事情に合わせた合理 […]",
+    "categories": [
+      "その他"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
     "id": "resemom-2026-08-04-b35aeda3aa3b4fef",
     "title": "なぜ河合塾の東大英語は\"本番で崩れない\"のか…2人の名講師が明かす指導の全貌",
     "sourceId": "resemom",
