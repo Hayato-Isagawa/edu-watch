@@ -1,0 +1,91 @@
+name: Security Audit
+
+# 依存の脆弱性を週次で見る。
+#
+# Dependabot は直接依存にしか PR を作らないため、transitive 依存の advisory は
+# 誰にも報告されないまま残る。2026-08-04 の点検では「Dependabot PR 0 件」の
+# ファミリー 4 リポに 22 件が眠っていた。その穴を塞ぐのがこのワークフロー。
+
+on:
+  schedule:
+    # 毎週月曜 09:00 JST
+    - cron: "0 0 * * 1"
+  workflow_dispatch:
+  # 自分自身を編集する PR では走らせる。schedule だけだと、壊れていても
+  # マージして次の月曜まで気づけない。
+  pull_request:
+    paths:
+      - ".github/workflows/audit.yml"
+
+concurrency:
+  group: audit-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  audit:
+    name: npm audit
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      issues: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Setup Node.js
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v6
+        with:
+          node-version-file: ".tool-versions"
+
+      # npm audit は package-lock.json だけで解決する。node_modules は要らないので
+      # npm ci を挟まない(実測: lockfile のみで既知の advisory を検出できた)。
+      #
+      # high 未満では落とさない。意図的に受容している advisory があり、毎週赤いと
+      # 本当の検出を見落とす。受容の判断は package.json の overrides と当該 PR に残る。
+      - name: Audit
+        id: audit
+        run: |
+          set -uo pipefail
+          npm audit 2>&1 | tee /tmp/audit.txt || true
+          if npm audit --audit-level=high > /dev/null 2>&1; then
+            echo "failed=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "failed=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      # PR 実行では Issue を立てない。PR の赤で十分伝わる。
+      - name: Open an issue when high or critical is found
+        if: steps.audit.outputs.failed == 'true' && github.event_name != 'pull_request'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          set -euo pipefail
+          title="npm audit: high 以上の脆弱性"
+
+          # 同じ検出が数週間続くと毎週 Issue が増えるので、開いているものがあれば追記に留める
+          existing=$(gh issue list --state open --search "$title in:title" --json number --jq '.[0].number // empty')
+          if [ -n "$existing" ]; then
+            gh issue comment "$existing" --body "定期実行で継続して検出されました: ${RUN_URL}"
+            exit 0
+          fi
+
+          gh label create dependencies --color 0366d6 --description "依存関係" 2>/dev/null || true
+
+          {
+            echo "週次の Security Audit が high 以上を検出しました。"
+            echo
+            echo "moderate 以下は失敗させていないため、以下の一覧には受容済みのものも含まれます。"
+            echo
+            echo '```'
+            head -c 40000 /tmp/audit.txt
+            echo '```'
+            echo
+            echo "実行: ${RUN_URL}"
+          } > /tmp/body.md
+
+          gh issue create --title "$title" --label dependencies --body-file /tmp/body.md
+
+      - name: Fail the run when high or critical is found
+        if: steps.audit.outputs.failed == 'true'
+        run: exit 1
