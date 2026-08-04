@@ -153,12 +153,26 @@ body[data-menu="open"] {
   border-bottom: 1px solid var(--color-line);
 }
 
+/*
+ * 高さを bottom: 0 ではなく明示で指定する。
+ *
+ * このサイトではメニューが </header> の後ろにあるので bottom: 0 でも正しく
+ * 効くが、姉妹サイト(edu-evidence)ではメニューが header の子にあり、header の
+ * backdrop-filter が fixed 要素の包含ブロックを作るため、bottom: 0 が
+ * 「高さ 4rem の header の下端」を指して高さが 0 になっていた
+ * (edu-evidence #435)。
+ *
+ * ここは現状壊れていないが、UI を姉妹サイトに揃える過程で構造を寄せた瞬間に
+ * 同じ罠にかかる。高さを明示しておけば、包含ブロックが header でも
+ * ビューポートでも同じ結果になる。
+ */
 .mobile-menu {
   position: fixed;
   top: 4rem;
   left: 0;
   right: 0;
-  bottom: 0;
+  height: calc(100vh - 4rem);
+  height: calc(100dvh - 4rem);
   z-index: 50;
   background: var(--color-bg);
   overflow-y: auto;
