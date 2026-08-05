@@ -1,0 +1,21 @@
+// Cloudflare Workers (static assets) のデプロイ設定。
+//
+// Cloudflare Pages から移行した。Pages は今後もサポートされるが、投資・最適化・
+// 機能追加はすべて Workers に向けると公式が明言しているため。
+// https://developers.cloudflare.com/workers/static-assets/migration-guides/migrate-from-pages/
+//
+// このサイトは純粋な静的出力(SSR アダプタ・Pages Functions・_worker.js を持たない)
+// なので、assets だけを指定する「assets-only」構成になる。main は不要。
+//
+// custom domain (news.edu-evidence.org) は routes に書いていない。移行時点では
+// まだ Pages 側に紐づいており、同じホスト名を二重に要求するとデプロイが失敗する。
+// 切り替えが済んで安定してから routes を足す。
+{
+  "name": "edu-watch",
+  "compatibility_date": "2026-08-05",
+  "assets": {
+    "directory": "./dist",
+    // 未知のパスは 404.html を返す。Pages の既定挙動に合わせる。
+    "not_found_handling": "404-page"
+  }
+}

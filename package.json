@@ -62,7 +62,8 @@
     "textlint-rule-preset-ja-spacing": "^3.0.2",
     "textlint-rule-preset-ja-technical-writing": "^12.0.2",
     "textlint-rule-prh": "^6.1.0",
-    "typescript": "^5.9.3"
+    "typescript": "^5.9.3",
+    "wrangler": "^4.118.0"
   },
   "overrides": {
     "@babel/core": "^7.29.6",
