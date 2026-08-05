@@ -1,0 +1,4 @@
+# Workers にアップロードしない。Pages は自動で除外していたが Workers はしない。
+**/node_modules
+**/.DS_Store
+**/.git

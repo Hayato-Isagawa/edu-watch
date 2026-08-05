@@ -69,7 +69,9 @@ Sprint 1〜4(基盤構築・RSS 自動収集パイプライン・フロント実
 
 ## ホスティング
 
-Cloudflare Pages(GitHub main ブランチ連携で自動デプロイ)。
+Cloudflare Workers の静的アセット配信(Workers Builds が GitHub main を監視して自動デプロイ)。
+設定は `wrangler.jsonc`。2026-08-05 に Cloudflare Pages から移行した。
+`public/_headers` のセキュリティヘッダーは Workers でもそのまま解釈される。
 ドメイン: **news.edu-evidence.org**(edu-evidence.org のサブドメイン、CNAME)。
 メール: Cloudflare Email Routing で `news@edu-evidence.org` を個人 Gmail に転送。
 
