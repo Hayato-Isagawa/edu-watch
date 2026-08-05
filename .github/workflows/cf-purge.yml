@@ -23,9 +23,10 @@
 #   CLOUDFLARE_ACCOUNT_ID - Cloudflare account id
 #   CLOUDFLARE_ZONE_ID    - the shared edu-evidence.org zone id
 #
-# The token previously needed "Cloudflare Pages: Read" instead. If it has not
-# been re-scoped yet, the lookup below fails and the job falls back to a fixed
-# wait rather than erroring — the cache still gets purged, just less precisely.
+# The token previously needed "Cloudflare Pages: Read" instead; it was re-scoped
+# on 2026-08-05. The fallback below stays anyway: if the lookup ever fails (a
+# rotated or mis-scoped token), the job waits a fixed interval and purges rather
+# than erroring — the cache still gets purged, just less precisely.
 name: Purge Cloudflare cache on deploy
 
 on:

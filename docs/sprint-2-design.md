@@ -351,7 +351,7 @@ jobs:
 ### 7.3 バックアップ
 
 - リポジトリ自体が履歴(git log)なのでバックアップは不要
-- GitHub が消失した場合のみ Cloudflare Pages の成果物を参照する非常手段
+- GitHub が消失した場合のみ Cloudflare Workers にデプロイ済みの成果物を参照する非常手段
 
 ---
 
