@@ -75,6 +75,10 @@ Cloudflare Workers の静的アセット配信(Workers Builds が GitHub main �
 ドメイン: **news.edu-evidence.org**(edu-evidence.org のサブドメイン、CNAME)。
 メール: Cloudflare Email Routing で `news@edu-evidence.org` を個人 Gmail に転送。
 
+**Cloudflare のメールアドレス難読化は Workers では効かない**。Pages 配信時は `mailto:`
+が `/cdn-cgi/l/email-protection#…` に置換されていたが、Workers では生のアドレスが出る。
+不具合ではなく Scrape Shield の仕様で、受容すると決めている(edu-evidence ADR 0032)。
+
 ## コンテキスト管理
 
 Claude Code とのセッションは context 圧縮 / `/clear` / セッション終了を跨ぐことがある。重要な決定と進行状態は会話ではなくファイルに残す方針:

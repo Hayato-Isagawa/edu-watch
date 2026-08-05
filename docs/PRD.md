@@ -292,7 +292,7 @@ edu-evidence と完全に揃える。共通運用・共通デプロイ・共通�
 
 | 用途 | 選定 |
 |---|---|
-| ホスティング | Cloudflare Pages |
+| ホスティング | Cloudflare Workers(静的アセット配信) |
 | ドメイン | news.edu-evidence.org(CNAME) |
 | CI/CD | GitHub Actions(自動収集 + デプロイ) |
 | データストア(MVP) | リポジトリ内 JSON(src/data/articles/*.json)|
@@ -331,7 +331,7 @@ flowchart LR
   D --> E[重複除去]
   E --> F[src/data/articles/*.json に追記]
   F --> G[git commit & push]
-  G --> H[Cloudflare Pages 自動デプロイ]
+  G --> H[Workers Builds が自動デプロイ]
 ```
 
 - **cron 時刻**: 07:00 / 13:00 / 19:00 JST(3 回/日)
@@ -362,7 +362,7 @@ flowchart LR
 
 ### 9.4 監視
 
-- Cloudflare Pages のデプロイ失敗通知
+- Workers Builds のビルド失敗通知
 - RSS 取得の 404 / 構造変更 → Actions ログ通知
 - X API の投稿失敗 → Actions ログ通知
 - 週次で「取得ソース別記事数」レポートを自動生成(極端な減少 = ソース側の変更疑い)
@@ -374,7 +374,7 @@ flowchart LR
 ### 10.1 ドメイン
 
 - **news.edu-evidence.org**(Cloudflare Registrar で管理中の edu-evidence.org のサブドメイン)
-- Cloudflare Pages カスタムドメイン設定で CNAME 追加
+- Worker のカスタムドメイン設定でゾーンに追加
 
 ### 10.2 メール運用(Cloudflare Email Routing、無料)
 
@@ -419,7 +419,7 @@ edu-evidence の `public/_headers` を基礎とし、edu-watch 固有の外部�
 理由:
 
 - edu-watch の核となる価値は「中立性」と「信頼」。広告 / アフィリエイト / 有料プランはすべて中立性を損なう方向に作用する
-- 運用コストは Cloudflare Pages の無料枠 + GitHub Actions の無料枠で十分賄える(現時点の試算)
+- 運用コストは Cloudflare Workers の無料枠 + GitHub Actions の無料枠で十分賄える(静的アセットのリクエストは課金対象外)
 
 ### 11.2 将来の収益源
 
