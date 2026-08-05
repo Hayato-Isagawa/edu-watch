@@ -18,7 +18,7 @@ EduEvidence JP(edu-evidence.org)の姉妹サイト。文部科学省・国立教
 | UI | React 19 / Tailwind 4 |
 | 言語 | TypeScript |
 | バージョン管理 | mise(`.tool-versions` で Node 24.17.0 固定) |
-| ホスティング | Cloudflare Pages |
+| ホスティング | Cloudflare Workers(静的アセット配信) |
 | ドメイン | news.edu-evidence.org |
 
 ## セットアップ
