@@ -7,9 +7,10 @@
 // このサイトは純粋な静的出力(SSR アダプタ・Pages Functions・_worker.js を持たない)
 // なので、assets だけを指定する「assets-only」構成になる。main は不要。
 //
-// custom domain (news.edu-evidence.org) は routes に書いていない。移行時点では
-// まだ Pages 側に紐づいており、同じホスト名を二重に要求するとデプロイが失敗する。
-// 切り替えが済んで安定してから routes を足す。
+// custom domain (news.edu-evidence.org) を routes に持たせている。移行直後は
+// ホスト名がまだ Pages 側に紐づいており、二重に要求するとデプロイが失敗するため
+// 空にしていた。2026-08-06 に Pages プロジェクトを削除したので解禁した。
+// これで deploy 時にドメインの紐づけまで wrangler が面倒を見る。
 {
   "name": "edu-watch",
   "compatibility_date": "2026-08-05",
@@ -21,5 +22,6 @@
     "directory": "./dist",
     // 未知のパスは 404.html を返す。Pages の既定挙動に合わせる。
     "not_found_handling": "404-page"
-  }
+  },
+  "routes": [{ "pattern": "news.edu-evidence.org", "custom_domain": true }]
 }

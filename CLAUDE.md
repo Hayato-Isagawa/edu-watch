@@ -16,12 +16,12 @@
 
 ## 環境
 
-Node.js は `.tool-versions` で固定(`nodejs 24.17.0`)。[mise](https://mise.jdx.dev/) 前提。
+Node.js は `.tool-versions` で固定(`nodejs 24.19.0`)。[mise](https://mise.jdx.dev/) 前提。
 
 ```bash
 mise install               # Node 24 を導入
 npm ci                     # 依存復元
-npm run dev                # 開発サーバー(localhost:4321)
+npm run dev                # 開発サーバー(localhost:4323。ファミリー各リポで固定・4321 は未設定プロジェクト用に空けている)
 npm run build              # 本番ビルド
 npm run check              # Astro 型チェック
 npm run vrt                # ビジュアルリグレッションテスト(現 dist を撮影・比較。権威ある比較は CI、後述)
