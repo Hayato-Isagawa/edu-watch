@@ -1,5 +1,85 @@
 [
   {
+    "id": "kkn-2026-08-06-77bfc976cd1e6c3c",
+    "title": "市民参加講演など受付中～第45回全国学校図書館研究大会 札幌大会　８月10日から",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/kkf260807",
+    "publishedAt": "2026-08-06T22:00:31.000Z",
+    "collectedAt": "2026-08-07T01:28:27.070Z",
+    "summary": "「第45回全国学校図書館研究大会札幌大会」が8月10～12日、札幌コンベンションセンター（北海道札幌市白石区東札幌6条1丁目1－1）で開催される。教育関係者、司書教諭、学校司書、学校図書館に関心のある人が参加する全国大会 […]",
+    "categories": [
+      "研究・エビデンス"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-08-06-fe060322272817da",
+    "title": "｢旅｣と｢物語｣をテーマにコレクションを展示～佐野美術館",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/post_library/260727_5g",
+    "publishedAt": "2026-08-06T22:00:26.000Z",
+    "collectedAt": "2026-08-07T01:28:27.070Z",
+    "summary": "静岡県三島市の佐野美術館は創立60周年ならびに三島市制85周年を記念して、同美術館のコレクションを中心に、中世～近代の絵画や版画から｢旅｣と｢物語｣をテーマに展示する｢さのびコレクション　旅する昔ばなし－名所・山水・物語 […]",
+    "categories": [
+      "その他"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-08-06-f75afe59b65540cb",
+    "title": "江東区×NTT東、小学校で生成AI活用の実証実験を開始 授業支援と教員の負担軽減へ",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20260807o04",
+    "publishedAt": "2026-08-06T22:00:15.000Z",
+    "collectedAt": "2026-08-07T01:28:27.070Z",
+    "summary": "NTT東日本東京東支店は、江東区教育委員会（東京都）と連携し、7月から11月にかけて、生成AIを活用した実証実験を区内の小中学校3校で実施している。本実証実験では、童・教職員双方の生成AIリテラシー醸成に向けたGIGA端 […]",
+    "categories": [
+      "ICT / GIGA",
+      "政策・制度",
+      "研究・エビデンス"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-08-06-95ae3d0feb88abd6",
+    "title": "ガイアックス、校務特化の進路指導支援AI「Marvin」を提供開始",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20260807o02",
+    "publishedAt": "2026-08-06T22:00:08.000Z",
+    "collectedAt": "2026-08-07T01:28:27.070Z",
+    "summary": "ガイアックスはこのほど、学校教員向けの進路指導AIアシスタント「Marvin（マービン）」の提供を開始した。生徒の成績や面談記録などを基に、個に応じた声かけの助言を行うシステム。全国の教員が持つ進路指導ノウハウを学習させ […]",
+    "categories": [
+      "ICT / GIGA",
+      "教員・働き方"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-08-06-0aab392605ea6743",
+    "title": "千葉県印西市、全市立中3生へオンライン国際交流授業を本格導入　生成AIと実践交流で英語力強化",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20260807o03",
+    "publishedAt": "2026-08-06T22:00:04.000Z",
+    "collectedAt": "2026-08-07T01:28:27.070Z",
+    "summary": "印西市教育委員会（千葉県）は8月4日、グローバル人材の育成に向け、市内全中学校の3年生を対象とした「オンライン国際交流授業」を本格導入したと発表した。生成AIを活用した英会話アプリでの反復練習と、海外の同世代とのリアルタ […]",
+    "categories": [
+      "ICT / GIGA",
+      "政策・制度",
+      "国際・海外"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
     "id": "resemom-2026-08-06-faa567da0c9513ef",
     "title": "幸せになるためのジェンダー教育、埼玉県が9/19に講演会",
     "sourceId": "resemom",
