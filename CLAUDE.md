@@ -60,7 +60,11 @@ Sprint 1〜4(基盤構築・RSS 自動収集パイプライン・フロント実
 
 共有レイアウト・コンポーネント・`global.css` の改修による視覚回帰を、目視に頼らず差分画像で検出する仕組み(ADR 0060、edu-evidence ADR 0024 のミラー)。機能テスト(`e2e/`)とは別系統で併走する:
 
-- **設定**: `playwright.vrt.config.ts`(`testDir: vrt/`、desktop 1280 / mobile 390 の 2 projects、`maxDiffPixelRatio: 0.01`、アニメーション無効、port 4174)
+- **設定**: `playwright.vrt.config.ts`(`testDir: vrt/`、desktop 1280 / mobile 390 の 2 projects、`maxDiffPixelRatio: 0.001`、`retries: 0`、アニメーション無効、port 4174)
+- **閾値は実測で決めている**。同一ビルド同士の撮り比べは差分 0(閾値 0 で 24 件全通過 × 2 回)。
+  一方 `h2` の `letter-spacing` を 0.06em 変える実験では、旧閾値 0.01 だと 24 件中 3 件しか
+  落ちなかった(0.001 では 8 件)。**全画面撮影に対して 1% は緩すぎる**
+- **リトライは入れない**。差分が実測 0 なら、リトライは間欠的な問題を握り潰すだけになる
 - **対象**: `vrt/pages.spec.ts` がテンプレート代表 13 URL(トップ / ダイジェスト一覧・詳細 / アーカイブ一覧・詳細 / カテゴリ一覧・詳細 / ソース一覧・詳細 / about / 検索 / changelog / 404)をフルページ撮影。テンプレートを追加したら代表 URL を 1 行追記する
 - **ゲート**: `.github/workflows/vrt.yml` が `pull_request` の `paths` で `src/layouts/**`・`src/components/**`・`src/styles/**`・`astro.config.*`・`vrt/**`・`playwright.vrt.config.ts` に限定起動。記事データ・ダイジェストだけの PR では走らない(`workflow_dispatch` で手動実行可)
 - **比較方式(案A)**: CI 内で main と PR を両方ビルドし、同一 Linux 環境で撮影・比較する。ベースライン PNG はコミットしない(`vrt/__screenshots__/` は gitignore)。システムフォント描画の macOS↔Linux 差を回避するため
