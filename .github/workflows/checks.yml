@@ -64,3 +64,11 @@ jobs:
       - name: AI summary gate tests
         if: ${{ !cancelled() }}
         run: npm run test:ai-summary
+
+      # リセマム / 共同通信 / 教育家庭新聞の NG ワードフィルタ回帰ケース 97 件
+      # (ADR 0039 ほか)。判定関数そのものを assert する回帰スイートだが、
+      # `check:all` 経由でしか呼ばれず CI に載っていなかったため、フィルタを
+      # 壊しても誰も気づけない状態だった。ネットワークを使わず約 5 秒で終わる。
+      - name: Source filter regression
+        if: ${{ !cancelled() }}
+        run: npm run check:filter
