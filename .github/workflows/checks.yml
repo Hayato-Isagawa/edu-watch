@@ -1,0 +1,55 @@
+name: Checks
+
+# 型チェックと textlint が CI に無かった。どちらも `check:all` 経由でしか呼ばれず、
+# その `check:all` を実行するワークフローが存在しないため、ローカルで回した時
+# だけ効いていた。主コンテンツが週次ダイジェスト(Markdown)であることを考えると、
+# textlint が PR で効かないのは穴が大きい。
+#
+# 既存の check:tokens(e2e.yml)と check:excluded-ids(health-check.yml)は
+# 現在の配置のまま動かさない。ここには欠けていた 2 つだけを置く。
+#
+# このジョブはまだ required check に入っていない。required の contexts は
+# ["Playwright E2E", "Persistent denylist consistency"] のままなので、
+# 赤くはなるがマージは止まらない。昇格はリポジトリ設定側の作業。
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: checks-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  checks:
+    name: Type and text checks
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Setup Node.js
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v6
+        with:
+          node-version-file: ".tool-versions"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      # astro check は errors でのみ非ゼロ終了する(既定の minimumFailingSeverity=error)。
+      # 現在 hints が 27 件あるが落ちない。
+      - name: Type check
+        run: npm run check
+
+      # textlint の対象は src/content/digests/**/*.md。
+      # 片方が落ちても両方の結果が見えるように !cancelled() を付ける
+      # (edu-evidence の checks.yml と同じ扱い)。
+      - name: Text lint
+        if: ${{ !cancelled() }}
+        run: npm run check:text
