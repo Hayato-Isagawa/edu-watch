@@ -53,3 +53,14 @@ jobs:
       - name: Text lint
         if: ${{ !cancelled() }}
         run: npm run check:text
+
+      # W-1 AI 要約の事実確認ゲート(scripts/ai-summary/gate.test.mjs ほか)の
+      # 単体テスト。「HIGH 必須 fact 欠落で BLOCK」「全充足で PASS」という
+      # ADR 0054 の判定そのものを検証する。
+      #
+      # パイプライン本体は Ollama(localhost:11434)を要するため CI では回せない
+      # が、このテスト群はモデルを呼ばず 0.3 秒で終わる。ゲートが壊れたことに
+      # 誰も気づけない状態だったので、ここに載せる。
+      - name: AI summary gate tests
+        if: ${{ !cancelled() }}
+        run: npm run test:ai-summary
