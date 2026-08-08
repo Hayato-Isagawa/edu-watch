@@ -7,7 +7,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": ".claude/hooks/branch-guard.sh"
+            "command": "\"$CLAUDE_PROJECT_DIR\"/.claude/hooks/branch-guard.sh"
           }
         ]
       },
@@ -16,7 +16,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "node .claude/hooks/pre-edit-frontmatter-immutable.cjs",
+            "command": "node \"$CLAUDE_PROJECT_DIR\"/.claude/hooks/pre-edit-frontmatter-immutable.cjs",
             "timeout": 5
           }
         ]
@@ -28,7 +28,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "node .claude/hooks/post-edit-roundtrip-spot-check.cjs",
+            "command": "node \"$CLAUDE_PROJECT_DIR\"/.claude/hooks/post-edit-roundtrip-spot-check.cjs",
             "timeout": 5
           }
         ]
@@ -39,7 +39,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": ".claude/hooks/check-active-size.sh"
+            "command": "\"$CLAUDE_PROJECT_DIR\"/.claude/hooks/check-active-size.sh"
           }
         ]
       }
@@ -49,7 +49,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": ".claude/hooks/pre-compact.sh"
+            "command": "\"$CLAUDE_PROJECT_DIR\"/.claude/hooks/pre-compact.sh"
           }
         ]
       }
@@ -59,7 +59,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": ".claude/hooks/post-compact.sh"
+            "command": "\"$CLAUDE_PROJECT_DIR\"/.claude/hooks/post-compact.sh"
           }
         ]
       }
