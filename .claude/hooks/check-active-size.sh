@@ -18,7 +18,7 @@ Lost-in-Multi-Turn の防御ゾーンを超えています。
 docs/context-management.md「サイズ管理とアーカイブ運用」セクションの手順で、
 古いセッションブロックを .claude/state/archive/ に切り出してください。
 
-目標: 500〜1,000 行(推奨ゾーン)に戻す
+目標: 500 行以下(推奨ゾーン)に戻す
 EOF
   fi
 fi
