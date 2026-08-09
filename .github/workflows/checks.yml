@@ -72,3 +72,12 @@ jobs:
       - name: Source filter regression
         if: ${{ !cancelled() }}
         run: npm run check:filter
+
+      # 同じ理屈が .claude/hooks/ にも要る。frontmatter の不変性ガードと
+      # roundtrip 検査は、壊れても例外を出さず素通りするだけなので失敗が見えない。
+      # しかもフックは dist に入らないため E2E も VRT も届かず、コンテンツ検査も
+      # 「ガードが止めるはずだった改変」の後でしか気づけない。
+      # 2026-05-04 の導入以来 CI から一度も呼ばれていなかった。
+      - name: Hook regression tests
+        if: ${{ !cancelled() }}
+        run: npm run test:hooks
