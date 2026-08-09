@@ -8,9 +8,10 @@ name: Checks
 # 既存の check:tokens(e2e.yml)と check:excluded-ids(health-check.yml)は
 # 現在の配置のまま動かさない。ここには欠けていた 2 つだけを置く。
 #
-# このジョブはまだ required check に入っていない。required の contexts は
-# ["Playwright E2E", "Persistent denylist consistency"] のままなので、
-# 赤くはなるがマージは止まらない。昇格はリポジトリ設定側の作業。
+# **このジョブは required check に入っている**(2026-08-09 に API で実測。
+# contexts = ["Playwright E2E", "Persistent denylist consistency",
+# "Type and text checks"])。導入時のコメントは「まだ入っていない」のままだったが、
+# その後に昇格されており記述が古かった。赤ければマージは機械的に止まる。
 
 on:
   push:
@@ -72,3 +73,12 @@ jobs:
       - name: Source filter regression
         if: ${{ !cancelled() }}
         run: npm run check:filter
+
+      # 同じ理屈が .claude/hooks/ にも要る。frontmatter の不変性ガードと
+      # roundtrip 検査は、壊れても例外を出さず素通りするだけなので失敗が見えない。
+      # しかもフックは dist に入らないため E2E も VRT も届かず、コンテンツ検査も
+      # 「ガードが止めるはずだった改変」の後でしか気づけない。
+      # 2026-05-04 の導入以来 CI から一度も呼ばれていなかった。
+      - name: Hook regression tests
+        if: ${{ !cancelled() }}
+        run: npm run test:hooks
