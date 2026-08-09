@@ -162,3 +162,46 @@ test('Other tool names ignored', () => {
   const out = run(JSON.stringify({ tool_name: 'Bash', tool_input: {} }));
   assert.equal(out.exitCode, 0);
 });
+
+// --- CLI 配線 -----------------------------------------------------------
+//
+// 2026-08-09 の独立レビューで、`process.stdout.write(out.stdout)` を消しても
+// 既存テストが全て緑のままだと実測された。run() の戻り値だけを見ていると、
+// それが exit code と stdout になる経路が死んでも気づけない。
+// フックは本番では子プロセスとして起動される。
+
+const { spawnSync } = require('node:child_process');
+const path = require('node:path');
+const HOOK = path.join(__dirname, '..', 'pre-edit-frontmatter-immutable.cjs');
+
+const editDigest = (oldStr, newStr) =>
+  JSON.stringify({
+    tool_name: 'Edit',
+    tool_input: {
+      file_path: 'src/content/digests/2026-08-03.md',
+      old_string: oldStr,
+      new_string: newStr,
+    },
+  });
+
+const runCli = (payload) =>
+  spawnSync(process.execPath, [HOOK], { input: payload, encoding: 'utf8' });
+
+test('CLI: 保護フィールドの変更で permissionDecision を stdout に出す', () => {
+  const res = runCli(editDigest('weekStart: 2026-08-01', 'weekStart: 2026-09-01'));
+  assert.equal(res.status, 0);
+  const parsed = JSON.parse(res.stdout);
+  assert.equal(parsed.hookSpecificOutput.permissionDecision, 'ask');
+  assert.match(parsed.hookSpecificOutput.permissionDecisionReason, /weekStart/);
+});
+
+test('CLI: 変更が無ければ何も出さずに 0 で終わる', () => {
+  const res = runCli(editDigest('本文をすこし直した', '本文をもうすこし直した'));
+  assert.equal(res.status, 0);
+  assert.equal(res.stdout.trim(), '');
+});
+
+test('CLI: 壊れた入力でも落ちない', () => {
+  assert.equal(runCli('{not json').status, 0);
+  assert.equal(runCli('').status, 0);
+});

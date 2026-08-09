@@ -8,9 +8,10 @@ name: Checks
 # 既存の check:tokens(e2e.yml)と check:excluded-ids(health-check.yml)は
 # 現在の配置のまま動かさない。ここには欠けていた 2 つだけを置く。
 #
-# このジョブはまだ required check に入っていない。required の contexts は
-# ["Playwright E2E", "Persistent denylist consistency"] のままなので、
-# 赤くはなるがマージは止まらない。昇格はリポジトリ設定側の作業。
+# **このジョブは required check に入っている**(2026-08-09 に API で実測。
+# contexts = ["Playwright E2E", "Persistent denylist consistency",
+# "Type and text checks"])。導入時のコメントは「まだ入っていない」のままだったが、
+# その後に昇格されており記述が古かった。赤ければマージは機械的に止まる。
 
 on:
   push:
