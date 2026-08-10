@@ -206,6 +206,42 @@ test('CLI: 壊れた入力でも落ちない', () => {
   assert.equal(runCli('').status, 0);
 });
 
+// --- 判定 JSON が切れないこと --------------------------------------------
+//
+// **`process.exit()` は非同期の stdout を flush しない。** stdout がパイプのとき
+// write は非同期なので、直後に exit すると書き残しが捨てられ、判定 JSON が
+// ちょうど 65536B(パイプバッファ)で切れる。
+//
+// 切れた JSON は誰もエラーにしない。global ディスパッチャの isDecision() が
+// false を返し、「判定ではない付随出力」として捨てて exit 0 =
+// **ask が無音で消える**。このガードが防ごうとしている失敗そのもの。
+//
+// fmtVal は 1 値を 60 文字で丸めるが、**値の本数には上限が無い**ので、
+// relatedEvidenceUrls を多数持つ frontmatter の全文書き換えでこの大きさに届く。
+
+const manyUrls = (tag, count) =>
+  Array.from({ length: count }, (_, i) => `  - https://www.mext.go.jp/a/${tag}/id-${String(i).padStart(4, '0')}.html`).join('\n');
+
+test('CLI: 判定が 64KB を超えても stdout が切れない', () => {
+  const res = runCli(editDigest(manyUrls('2026-04', 1200), manyUrls('2026-05', 1200)));
+
+  assert.equal(res.status, 0);
+
+  // **JSON.parse を先に置く。** サイズ検査を先にすると、切断された stdout は
+  // ちょうど 65536B なので「フィクスチャが小さい」と読めるメッセージで落ち、
+  // **本数を増やす方向に誤誘導する**(この検査を書いた時に実際に踏んだ)。
+  // 末尾の固定文も見て、切れた JSON がたまたま構文的に閉じている場合を潰す。
+  const parsed = JSON.parse(res.stdout);
+  assert.equal(parsed.hookSpecificOutput.permissionDecision, 'ask');
+  assert.match(parsed.hookSpecificOutput.permissionDecisionReason, /ledger before applying\.$/);
+
+  // ここに来た時点で JSON は無傷。残る失敗は「フィクスチャが境界に届いていない」だけ。
+  assert.ok(
+    Buffer.byteLength(res.stdout) > 65536,
+    `フィクスチャがパイプバッファ(65536B)に届いていない(${Buffer.byteLength(res.stdout)}B)。URL の本数を増やすこと`,
+  );
+});
+
 // --------------------------------------------------------------- Write 対応
 //
 // Write は差分ではなくファイル全体が届くので、ディスク上の現物と突き合わせる。
