@@ -25,7 +25,7 @@
     "check:text:fix": "textlint --fix 'src/content/digests/**/*.md'",
     "check:all": "npm run check:tokens && npm run check && npm run check:text && npm run check:filter && npm run check:excluded-ids",
     "test:ai-summary": "node --test 'scripts/ai-summary/*.test.mjs'",
-    "test:hooks": "node scripts/assert-test-files.mjs '.claude/hooks/__tests__/*.test.cjs' && node scripts/assert-test-results.mjs 25 '.claude/hooks/__tests__/*.test.cjs'",
+    "test:hooks": "node scripts/assert-test-files.mjs '.claude/hooks/__tests__/*.test.cjs' && node scripts/assert-test-results.mjs 26 '.claude/hooks/__tests__/*.test.cjs'",
     "test:e2e": "npx playwright test",
     "test:e2e:ui": "npx playwright test --ui",
     "vrt": "npx playwright test --config playwright.vrt.config.ts",
