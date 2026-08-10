@@ -12,7 +12,7 @@
         ]
       },
       {
-        "matcher": "Edit|MultiEdit",
+        "matcher": "Edit|Write|MultiEdit",
         "hooks": [
           {
             "type": "command",

@@ -72,9 +72,29 @@ function evaluatePair(oldStr, newStr) {
   return diffMaps(captureProtectedFields(beforeFm), captureProtectedFields(afterFm));
 }
 
+// Write は差分ではなくファイル全体が届く。比較対象はディスク上の現物。
+// 読めない理由で挙動を分ける:
+//   ファイルが無い   → 新規作成。比較対象が無いので通す
+//   それ以外の失敗   → 検証できない。通さずに確認を出す(fail-safe)
+// これが無いと、Edit では捕捉される weekStart / publishedAt / articleId の改変が
+// Write による全文書き換えでは一切検知されない(edu-law から移植)。
+function evaluateWrite(filePath, content) {
+  let current;
+  try {
+    current = require('node:fs').readFileSync(filePath, 'utf8');
+  } catch (err) {
+    if (err && err.code === 'ENOENT') return [];
+    return [{ key: '__unreadable__', before: [String(err && err.code) || 'read error'], after: [] }];
+  }
+  return evaluatePair(current, content ?? '');
+}
+
 function evaluatePayload(toolName, toolInput) {
   if (toolName === 'Edit') {
     return evaluatePair(toolInput?.old_string ?? '', toolInput?.new_string ?? '');
+  }
+  if (toolName === 'Write') {
+    return evaluateWrite(String(toolInput?.file_path || ''), toolInput?.content ?? '');
   }
   if (toolName === 'MultiEdit') {
     const edits = Array.isArray(toolInput?.edits) ? toolInput.edits : [];
@@ -118,7 +138,7 @@ function run(inputOrRaw, _options = {}) {
   }
 
   const toolName = String(input?.tool_name || '');
-  if (!['Edit', 'MultiEdit'].includes(toolName)) return { exitCode: 0 };
+  if (!['Edit', 'Write', 'MultiEdit'].includes(toolName)) return { exitCode: 0 };
 
   const toolInput = input?.tool_input || {};
   const filePath = String(toolInput?.file_path || '');
