@@ -124,6 +124,11 @@ if (require.main === module) {
   process.stdin.on('end', () => {
     const out = run(data);
     if (out.stdout) process.stdout.write(out.stdout);
-    process.exit(Number.isInteger(out.exitCode) ? out.exitCode : 0);
+    // **`process.exit()` にしないこと。** stdout がパイプのとき write は非同期なので、
+    // 直後に exit すると書き残しが捨てられ、JSON がちょうど 65536B(パイプバッファ)
+    // で切れる。切れた JSON は誰もエラーにせず、global ディスパッチャは
+    // 「判定ではない付随出力」として捨てて exit 0 = **nudge が無音で消える**。
+    // exitCode を置くだけにして、Node に flush させる。
+    process.exitCode = Number.isInteger(out.exitCode) ? out.exitCode : 0;
   });
 }

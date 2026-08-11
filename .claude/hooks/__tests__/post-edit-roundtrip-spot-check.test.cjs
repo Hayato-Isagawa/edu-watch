@@ -100,3 +100,74 @@ test('Malformed JSON does not crash', () => {
 test('diffTokens: no-op returns empty', () => {
   assert.deepEqual(diffTokens('hello', 'hello'), []);
 });
+
+// --- CLI 配線 -------------------------------------------------------------
+//
+// ここまでのテストは run() の戻り値しか見ていない。それが stdout と exit code に
+// なる経路が死んでも全部緑のまま通る。フックは本番では子プロセスとして起動される。
+
+const { spawnSync } = require('node:child_process');
+const path = require('node:path');
+const HOOK = path.join(__dirname, '..', 'post-edit-roundtrip-spot-check.cjs');
+
+const runCli = (payload) =>
+  spawnSync(process.execPath, [HOOK], { input: payload, encoding: 'utf8' });
+
+const multiEdit = (edits) => JSON.stringify({
+  tool_name: 'MultiEdit',
+  tool_input: { file_path: 'src/content/digests/2026-08-03.md', edits },
+});
+
+test('CLI: additionalContext を stdout に出す', () => {
+  const res = runCli(multiEdit([{ old_string: 'N=200', new_string: 'N=800' }]));
+  assert.equal(res.status, 0);
+  const parsed = JSON.parse(res.stdout);
+  assert.match(parsed.hookSpecificOutput.additionalContext, /number/);
+});
+
+// --- 付随出力が切れないこと ------------------------------------------------
+//
+// **`process.exit()` は非同期の stdout を flush しない。** stdout がパイプのとき
+// write は非同期なので、直後に exit すると書き残しが捨てられ、JSON がちょうど
+// 65536B(パイプバッファ)で切れる。
+//
+// PostToolUse は additionalContext しか返さないので ask を落とすことは無いが、
+// 切れた JSON はディスパッチャが黙って捨てるので **nudge が無音で消える**。
+//
+// `fmtList` は 1 診断あたり 4 件で打ち切るが、**打ち切るのは件数だけ**で
+// 1 トークンの長さにも MultiEdit の編集数にも上限が無い。編集ごとに別の
+// 診断行が出るので、編集を重ねれば境界に届く(実測: 102 編集で 65,536B を跨ぐ。
+// 下のフィクスチャは 120 編集)。
+const longUrls = (tag, n) =>
+  Array.from(
+    { length: n },
+    (_, i) => `https://www.mext.go.jp/b_menu/houdou/${tag}/mext_syoto01-000028${String(i).padStart(4, '0')}_01.html`,
+  ).join(' ');
+
+const bigMultiEdit = (count) =>
+  multiEdit(Array.from({ length: count }, (_, i) => ({
+    old_string: longUrls(`before${i}`, 4),
+    new_string: longUrls(`after${i}`, 4),
+  })));
+
+test('CLI: 付随出力が 64KB を超えても stdout が切れない', () => {
+  const res = runCli(bigMultiEdit(120));
+
+  assert.equal(res.status, 0);
+
+  // **JSON.parse を先に置く。** サイズ検査を先にすると、切断された stdout は
+  // ちょうど 65536B なので「フィクスチャが小さい」と読めるメッセージで落ち、
+  // **本数を増やす方向に誤誘導する**。末尾の固定文も見て、切れた JSON が
+  // たまたま構文的に閉じている場合を潰す。
+  const parsed = JSON.parse(res.stdout);
+  assert.match(
+    parsed.hookSpecificOutput.additionalContext,
+    /ask the user before further edits\.$/,
+  );
+
+  // ここに来た時点で JSON は無傷。残る失敗は「フィクスチャが境界に届いていない」だけ。
+  assert.ok(
+    Buffer.byteLength(res.stdout) > 65536,
+    `フィクスチャがパイプバッファ(65536B)に届いていない(${Buffer.byteLength(res.stdout)}B)。編集の本数を増やすこと`,
+  );
+});
