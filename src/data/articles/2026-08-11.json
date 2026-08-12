@@ -15,6 +15,67 @@
     "language": "ja"
   },
   {
+    "id": "kkn-2026-08-11-0faa182300f58c8b",
+    "title": "Gemini搭載のGoogleマップ新機能「マップに相談」が日本で提供開始 会話形式で最適なプランを提案",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20260812o04",
+    "publishedAt": "2026-08-11T22:00:39.000Z",
+    "collectedAt": "2026-08-12T11:15:47.958Z",
+    "summary": "Googleは8月7日、生成AI「Gemini」を搭載したGoogleマップの会話型検索機能「マップに相談（Ask Maps）」を日本国内で順次提供開始すると発表した。自然な会話を通じて、従来は複数回の検索や多くのクチコ […]",
+    "categories": [
+      "ICT / GIGA"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-08-11-de050cca80f80d3a",
+    "title": "研究者のAI利用が文献検索や要約へ拡大 9割超が競争力への影響認めるも誤情報を懸念〜カクタス調査",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20260812o01",
+    "publishedAt": "2026-08-11T22:00:14.000Z",
+    "collectedAt": "2026-08-12T11:15:47.958Z",
+    "summary": "科学コミュニケーションやテクノロジー事業を展開するカクタス・コミュニケーションズは、日本の研究者らを対象に実施した「研究者のAIツール利用に関するアンケート」の調査結果を発表した。   ■AIは翻訳補助から研究 […]",
+    "categories": [
+      "ICT / GIGA",
+      "研究・エビデンス"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-08-11-32acbb4a254482f9",
+    "title": "『ミネルヴァ・ジュニア評伝選4　服部幸應　食を通じて人と文化を育む』永野淳太郎／著",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/post_library/260727_5l",
+    "publishedAt": "2026-08-11T22:00:10.000Z",
+    "collectedAt": "2026-08-12T11:15:47.958Z",
+    "summary": "食育の普及に尽力した生涯 テレビなど様々なメディアに出演し、公的機関の要職を務めるなど多方面で活躍した服部幸應氏。料理学校の校長として学生たちの人間としての成長を促し、｢食育｣のムーブメントを先導し普及に尽力した。その生 […]",
+    "categories": [
+      "教員・働き方"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-08-11-2a5fea8090f01480",
+    "title": "こどもDXの現在地と未来を議論する公開イベントを9/17に開催　白書の先行公開も〜こどもDX推進協会こどもDX推進協会",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20260812o03",
+    "publishedAt": "2026-08-11T22:00:10.000Z",
+    "collectedAt": "2026-08-12T11:15:47.958Z",
+    "summary": "一社・こどもDX推進協会は9月17日に、東京・丸の内のTokyo Innovation Base（TIB）にて、公開イベント「こどもDX オープン・ミートアップ in TIB」を開催する。 母子保健から保育、行政手続き、 […]",
+    "categories": [
+      "その他"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
     "id": "nikkyo-2026-08-11-4e7c526b157a71c8",
     "title": "『「統合的理解」「総合的発揮」　目標の方向性に位置付け』が2位にランクイン　記事ランキング　2026年8月3日～8月9日",
     "sourceId": "nikkyo",
