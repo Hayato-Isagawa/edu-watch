@@ -1,5 +1,51 @@
 [
   {
+    "id": "kkn-2026-08-13-b62cdf4f3ed95ae4",
+    "title": "AI型教材「キュビナ」に教科連動の探究学習プログラム搭載、教員向けツールから一元管理が可能に",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20260814o04",
+    "publishedAt": "2026-08-13T22:00:32.000Z",
+    "collectedAt": "2026-08-13T22:33:42.489Z",
+    "summary": "COMPASSはこのほど、AI型教材「キュビナ」に探究学習プログラムを新たに搭載した。導入している小中学校の教員は、普段利用している管理ツール「キュビナマネージャー」から同プログラムにアクセスできる。これにより、従来の教 […]",
+    "categories": [
+      "ICT / GIGA",
+      "教員・働き方"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-08-13-a0e2a1afbb6e842e",
+    "title": "大府市、教育メタバース活用の不登校支援が4年目に 個に応じた学びと居場所で参加率・満足度が向上",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20260814o01",
+    "publishedAt": "2026-08-13T22:00:02.000Z",
+    "collectedAt": "2026-08-13T22:33:42.489Z",
+    "summary": "愛知県大府市では、富士ソフトの教育メタバース「FAMcampus」を活用した長期欠席児童生徒支援事業が4年目の運用を迎えている。 全国的に不登校児童生徒数が過去最多を更新し続ける中、同市においても2019年からの6年間で […]",
+    "categories": [
+      "不登校"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-08-13-9d3204cd696e072a",
+    "title": "抑留から交流に至るまでの歩みを紹介～舞鶴引揚記念館",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/post_library/260727_5i",
+    "publishedAt": "2026-08-13T22:00:00.000Z",
+    "collectedAt": "2026-08-13T22:33:42.489Z",
+    "summary": "京都府舞鶴市の舞鶴引揚記念館は、令和8年度企画展として｢ウズベキスタンと舞鶴～抑留から交流へ、深まる絆～｣を10月25日まで開催中。 戦後、旧ソ連時代のウズベキスタンでの抑留の歴史は、時を越え、2026年5月27日、リシ […]",
+    "categories": [
+      "その他"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
     "id": "resemom-2026-08-13-c4219816eea29fa5",
     "title": "先生たちが苦労していること…最多は「保護者とのコミュニケーション」",
     "sourceId": "resemom",
