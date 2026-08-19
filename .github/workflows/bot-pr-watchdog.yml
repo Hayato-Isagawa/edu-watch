@@ -263,8 +263,8 @@ jobs:
             {
               echo "bot が立てた PR が **$(( age / 3600 )) 時間** open のままです。"
               echo
-              echo "健全時は作成からマージまで数分で終わります(実測 2026-08-19: PAT 昇格後の"
-              echo "\`auto-collect\` 154 件で最大 3.6 分、\`recheck-membership\` の健全側 11 件で最大 1.4 分)。"
+              echo "健全時は作成からマージまで数分で終わります(実測 2026-08-19: 既知の滞留を除いた"
+              echo "\`auto-collect\` 153 件で最大 3.6 分、\`recheck-membership\` の健全側 11 件で最大 1.4 分)。"
               echo "この時間まで残っているのは、PR 側の check が落ちているか保留のままである可能性が高いです。"
               echo
               echo "## 対象 PR"
