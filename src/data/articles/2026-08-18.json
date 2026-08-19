@@ -63,6 +63,20 @@
     "language": "ja"
   },
   {
+    "id": "mext-2026-08-18-41a2ab9d96144b24",
+    "title": "教育委員会月報　令和8年8月号",
+    "sourceId": "mext",
+    "sourceName": "文部科学省",
+    "sourceUrl": "https://www.mext.go.jp/b_menu/shuppan/geppou/mext_091001_00014.html",
+    "publishedAt": "2026-08-18T20:57:00.000Z",
+    "collectedAt": "2026-08-19T10:53:44.479Z",
+    "categories": [
+      "政策・制度"
+    ],
+    "layer": 1,
+    "language": "ja"
+  },
+  {
     "id": "mext-2026-08-18-a92029c9bc782a55",
     "title": "学生等のボランティア活動について（通知）を掲載しました",
     "sourceId": "mext",
@@ -149,6 +163,20 @@
       "研究・エビデンス"
     ],
     "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "mext-2026-08-18-438eb81f4e944dbb",
+    "title": "国際地理オリンピックに参加した生徒が銅メダルを獲得しました。また、国際的な科学技術コンテストで特に優秀な成績をおさめた生徒に対する文部科学大臣表彰等の受賞者を決定しました。",
+    "sourceId": "mext",
+    "sourceName": "文部科学省",
+    "sourceUrl": "https://www.mext.go.jp/b_menu/houdou/mext_01673.html",
+    "publishedAt": "2026-08-18T06:00:00.000Z",
+    "collectedAt": "2026-08-19T10:53:44.479Z",
+    "categories": [
+      "政策・制度"
+    ],
+    "layer": 1,
     "language": "ja"
   },
   {
