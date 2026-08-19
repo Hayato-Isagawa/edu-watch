@@ -68,6 +68,11 @@ jobs:
           # historical record; excluding the path stops the checker from re-flagging
           # this inherently ephemeral class (first seen #283; verified hard 404 on
           # 2026-06-16 against a control MEXT URL returning 200). See ADR 0056.
+          #
+          # Per-host rate limits live in lychee.toml at the repo root, which
+          # lychee reads by default. kyoiku-press.com is throttled there to one
+          # request per second; the 502s it reported came from being hit too
+          # fast, not from broken links. See ADR 0066.
           args: >-
             --no-progress
             --cache
