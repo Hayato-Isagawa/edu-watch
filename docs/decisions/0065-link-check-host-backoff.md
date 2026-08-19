@@ -4,7 +4,7 @@
 - 日付: 2026-08-19
 - 関連 issue: #511（#416 が同一現象の先行例）
 - 関連 ADR: 0055（kknews.co.jp の除外）、0056（MEXT 採用公告の除外）
-- 関連 PR: `fix/link-check-concurrency`
+- 関連 PR: #544
 
 ## 背景
 
