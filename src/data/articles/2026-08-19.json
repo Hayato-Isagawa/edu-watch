@@ -1,5 +1,51 @@
 [
   {
+    "id": "kkn-2026-08-19-58ed63e1b527703f",
+    "title": "MEME、地域クラブ向け集金システム「スクペイクラブ」を全国提供開始　部活動の地域展開を支援",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20260820o04",
+    "publishedAt": "2026-08-19T22:00:53.000Z",
+    "collectedAt": "2026-08-19T22:17:30.104Z",
+    "summary": "MEMEはこのほど、地域スポーツクラブや文化クラブ向けのキャッシュレス集金サービス「スクペイクラブ」の全国展開を本格的に開始した。 国のガイドラインに基づき部活動の地域展開が進む中、新たに受け皿となる地域クラブにおいては […]",
+    "categories": [
+      "政策・制度"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-08-19-6f05945e88f06117",
+    "title": "＜申込受付8/26まで＞東京学芸大学、社会人向け教員育成リカレントプログラムの受講生を募集、臨時・特別免許での入職も支援",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20260820o03",
+    "publishedAt": "2026-08-19T22:00:49.000Z",
+    "collectedAt": "2026-08-19T22:17:30.104Z",
+    "summary": "東京学芸大学は、神戸親和大学および認定NPO法人Teach For Japanと協働し、社会人を対象とした「教員・教育支援人材育成リカレント事業」の受講生を8月26日まで募集中。学校現場における教員不足が深刻化するなか、 […]",
+    "categories": [
+      "教員・働き方"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-08-19-5281499dfbb3ac7e",
+    "title": "生成AI利用で迷う家庭に指針 SHIFT AIが親子で考える「10か条」を公開　ルール共有は1割",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20260820o01",
+    "publishedAt": "2026-08-19T22:00:32.000Z",
+    "collectedAt": "2026-08-19T22:17:30.104Z",
+    "summary": "生成AI学習コミュニティを運営するSHIFT AIは8月17日、子供が安全かつ主体的にAIと付き合うための指南書「家庭のAIルール10か条」を公開した。AIを一律に禁止したり丸投げしたりするのではなく、家庭内で活用の基準 […]",
+    "categories": [
+      "ICT / GIGA",
+      "政策・制度"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
     "id": "resemom-2026-08-19-149875e9239d1b94",
     "title": "私大の授業料平均99万7,123円…初年度納入金は166万円",
     "sourceId": "resemom",
