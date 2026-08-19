@@ -66,20 +66,10 @@ jobs:
           # this inherently ephemeral class (first seen #283; verified hard 404 on
           # 2026-06-16 against a control MEXT URL returning 200). See ADR 0056.
           #
-          # Go easier on single hosts than lychee's defaults (10 concurrent /
-          # 50ms apart). kyoiku-press.com (日本教育新聞) is cited 305 times, more
-          # than any other domain here, and it answers a scattered handful of
-          # them with 502 on every run — a different handful each time, all of
-          # which serve 200 to sequential requests afterwards (#511, and again
-          # on the 2026-08-19 manual run). Nothing is actually broken; we are
-          # knocking too hard on one WordPress site.
-          #
-          # The values are measured, not guessed. Same dist, same lychee
-          # v0.24.2, three runs on 2026-08-19: the defaults left 5 unique 502s
-          # (47s), 4 concurrent / 200ms apart still left 3 (1m11s), and this
-          # setting left 0 (2m36s). A weekly job can afford the two minutes.
-          # Unlike --accept or --exclude, backing off costs no coverage: every
-          # URL is still checked. See ADR 0065.
+          # Per-host rate limits live in lychee.toml at the repo root, which
+          # lychee reads by default. kyoiku-press.com is throttled there to one
+          # request per second; the 502s it used to report were us knocking too
+          # hard, not broken links. See ADR 0065.
           args: >-
             --no-progress
             --cache
@@ -88,8 +78,6 @@ jobs:
             --accept 200,201,202,203,204,206,301,302,303,307,308,403,429,503
             --timeout 30
             --max-retries 2
-            --host-concurrency 1
-            --host-request-interval 1s
             --exclude 'kknews\.co\.jp'
             --exclude 'mext\.go\.jp/b_menu/saiyou/hijyoukin/'
             './dist/**/*.html'
