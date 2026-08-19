@@ -20,6 +20,9 @@ jobs:
     permissions:
       contents: read
       issues: write
+    # lychee は外部サイトのレイテンシに依存する。実測の最大は 15.2 分
+    # (2026-06-08、ADR 0055 で kknews.co.jp を除外して以降は 1〜2 分)。
+    timeout-minutes: 30
     steps:
       - name: Checkout
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1

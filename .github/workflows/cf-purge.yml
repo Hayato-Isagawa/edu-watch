@@ -45,6 +45,10 @@ jobs:
   purge:
     name: Wait for the Workers deploy, then purge cache
     runs-on: ubuntu-latest
+    # 内部で Workers Builds の完了を最大 10 分ポーリングし(seq 1 40 × sleep 15)、
+    # script tag を解決できないときは固定で 3 分待つ。20 分はその上限の約 2 倍。
+    # (実測の最大は Workers 移行後で 3.4 分)
+    timeout-minutes: 20
     steps:
       - name: Purge after deployment is live
         env:
