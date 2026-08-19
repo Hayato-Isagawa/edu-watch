@@ -160,12 +160,12 @@ export const collections = { digests };
    4. 確定した論旨をもとに markdown コメントを起こす(200〜500 字目安)
    5. 編集者が確認 → 微修正 → `sections[i].comment` に書き込み
 5. すべてのトピックが揃ったら、`summary` と `title` を執筆(書式は [digest-workflow.md](./digest-workflow.md)「執筆上の約束」を参照。**号全体を束ねる総括は置かない**。冒頭まえがきは [`ADR 0048`](decisions/0048-digest-drop-content-body.md) で廃止済み)
-6. PR 作成 → preview deploy で確認 → セルフレビュー後にマージ
+6. ローカルの開発サーバーで表示確認（[digest-workflow.md](./digest-workflow.md)「表示確認ゲート」。**編集者の目視 OK まで PR を起票しない**）→ PR 作成 → **マージは編集者**（rule 13）
 
 ### 5.2 編集の補助
 
 - VS Code(Astro 拡張)で frontmatter の型補完が効く(`content.config.ts` の Zod schema 由来)
-- preview deploy で表示確認
+- 表示確認はローカルの開発サーバー（port 4323）で行う。手順は [digest-workflow.md](./digest-workflow.md)「表示確認ゲート」が正典
 - 既存の archive ページや Pagefind 検索で記事 id を引きやすい
 - `.claude/agents/digest-fact-checker.md` が必須検証観点と出力フォーマットを定義
 
