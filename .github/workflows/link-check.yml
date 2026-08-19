@@ -81,8 +81,8 @@ jobs:
             --accept 200,201,202,203,204,206,301,302,303,307,308,403,429,503
             --timeout 30
             --max-retries 2
-            --host-concurrency 4
-            --host-request-interval 200ms
+            --host-concurrency 1
+            --host-request-interval 1s
             --exclude 'kknews\.co\.jp'
             --exclude 'mext\.go\.jp/b_menu/saiyou/hijyoukin/'
             './dist/**/*.html'
