@@ -45,6 +45,7 @@ jobs:
   purge:
     name: Wait for the Workers deploy, then purge cache
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     steps:
       - name: Purge after deployment is live
         env:

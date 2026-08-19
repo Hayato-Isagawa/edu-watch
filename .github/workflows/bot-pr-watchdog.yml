@@ -1,0 +1,198 @@
+name: Bot PR watchdog
+
+# bot が立てた PR が CI 失敗で滞留しても、誰も気づかない状態だった。
+#
+# fetch-news.yml / recheck-nikkyo-membership.yml は PR を作って auto-merge を
+# armed にするところまでで成功して終わる。その後 PR 側の required check が
+# 落ちると PR は open のまま残るが、workflow 自体は緑なので通知が出ない。
+#
+# 実測(2026-08-19): auto-collect は 60 件すべて作成から 1.7 分以内にマージ。
+# recheck-membership は 13 件中 2 件が滞留し、#167 が 8.5 時間、#539 が
+# 29.4 時間 open のままだった。健全時の最大 1.7 分に対して閾値 2 時間は
+# 70 倍以上のマージンがある。
+
+on:
+  schedule:
+    # 6 時間ごと。閾値 2 時間と合わせて、滞留は最長でも 8 時間で Issue になる。
+    - cron: "0 */6 * * *"
+  workflow_dispatch:
+    inputs:
+      stale_hours:
+        description: "この時間以上 open な bot PR を滞留とみなす(整数)"
+        required: false
+        default: "2"
+  # 自分自身を編集する PR では走らせる(audit.yml と同じ理由)。schedule と
+  # workflow_dispatch だけだと、壊れていても気づけないまま次の cron を待つ。
+  # しかも workflow_dispatch は既定ブランチに存在しないと起動できないため、
+  # マージ前に走らせる手段がこれしか無い。
+  #
+  # PR 実行は DRY_RUN で、検出まで行って Issue は立てない。
+  pull_request:
+    paths:
+      - ".github/workflows/bot-pr-watchdog.yml"
+
+concurrency:
+  group: bot-pr-watchdog
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+  issues: write
+  pull-requests: read
+
+jobs:
+  watchdog:
+    name: Detect stale bot PRs
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Detect and report
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          STALE_HOURS: ${{ inputs.stale_hours || '2' }}
+          DRY_RUN: ${{ github.event_name == 'pull_request' }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          set -euo pipefail
+
+          # STALE_HOURS は workflow_dispatch の入力で、そのまま $(( )) に渡すと
+          # 算術展開の中で配列添字経由のコマンド置換が起きうる。数値であることを
+          # 先に確かめる。
+          if ! [[ "${STALE_HOURS}" =~ ^[0-9]+$ ]]; then
+            echo "::error::stale_hours は 0 以上の整数で指定してください(受け取った値: ${STALE_HOURS})"
+            exit 1
+          fi
+
+          BOT_LABELS="auto-collect recheck-membership"
+
+          # ラベルが改名・削除されると `gh pr list --label` は永久に 0 件を返し、
+          # この workflow は「滞留なし」で緑になり続ける。検知できない緑を作らない
+          # ため、監視対象のラベルが実在することを先に確かめて、無ければ落とす。
+          existing_labels=$(gh label list --limit 200 --json name --jq '.[].name')
+          missing=""
+          for lbl in $BOT_LABELS; do
+            if ! grep -qxF "$lbl" <<< "$existing_labels"; then
+              missing="${missing} ${lbl}"
+            fi
+          done
+          if [ -n "$missing" ]; then
+            echo "::error::監視対象のラベルが見つかりません:${missing}"
+            echo "::error::bot workflow 側の --label 指定と揃っているか確認してください。"
+            exit 1
+          fi
+
+          # `gh pr list --label a --label b` は AND なので、OR にするには
+          # ラベルごとに引いて番号で重複排除する。
+          : > /tmp/prs.json
+          for lbl in $BOT_LABELS; do
+            gh pr list --state open --label "$lbl" --limit 100 \
+              --json number,title,url,createdAt,isDraft,mergeStateStatus,statusCheckRollup \
+              --jq '.[]' >> /tmp/prs.json
+          done
+          jq -s 'unique_by(.number)' /tmp/prs.json > /tmp/prs-unique.json
+          echo "open bot PRs: $(jq 'length' /tmp/prs-unique.json)"
+
+          # Issue の重複判定は open Issue の完全一致タイトルで行う。GitHub の
+          # 検索インデックスは反映が遅れることがあり、`--search ... in:title` に
+          # 頼ると連続実行で同じ Issue を二重に立てうる。
+          gh issue list --state open --limit 200 --json number,title > /tmp/issues.json
+
+          if [ "${DRY_RUN}" = "true" ]; then
+            echo "::notice::DRY_RUN — 検出まで行い、Issue は作成しません"
+          else
+            gh label create bot-pr-stale \
+              --description "bot PR の滞留検知(bot-pr-watchdog)" \
+              --color d73a4a \
+              --force >/dev/null 2>&1 || true
+          fi
+
+          now=$(date -u +%s)
+          threshold=$(( STALE_HOURS * 3600 ))
+          stale_count=0
+
+          while read -r number; do
+            pr=$(jq -c --argjson n "$number" '.[] | select(.number == $n)' /tmp/prs-unique.json)
+
+            created=$(jq -r '.createdAt' <<< "$pr")
+            created_epoch=$(date -u -d "$created" +%s)
+            age=$(( now - created_epoch ))
+            if [ "$age" -lt "$threshold" ]; then
+              echo "PR #${number}: age $(( age / 60 ))m < 閾値 ${STALE_HOURS}h — skip"
+              continue
+            fi
+
+            stale_count=$(( stale_count + 1 ))
+            title="bot-pr-watchdog: PR #${number} が滞留しています"
+
+            # タイトルに PR 番号が入るので、同じ PR で二重に Issue は立たない。
+            # 既にあれば何もしない(コメント連投を避ける)。
+            existing=$(jq -r --arg t "$title" \
+              'map(select(.title == $t)) | .[0].number // empty' /tmp/issues.json)
+            if [ -n "$existing" ]; then
+              echo "PR #${number}: 既存 Issue #${existing} があるので何もしない"
+              continue
+            fi
+
+            pr_url=$(jq -r '.url' <<< "$pr")
+            pr_title=$(jq -r '.title' <<< "$pr")
+            merge_state=$(jq -r '.mergeStateStatus' <<< "$pr")
+
+            # statusCheckRollup は CheckRun と StatusContext が混ざり、名前と URL の
+            # フィールドが違う(name/detailsUrl と context/targetUrl)。
+            # SUCCESS / SKIPPED 以外だけを拾う。
+            jq -r '
+              .statusCheckRollup[]?
+              | {
+                  name: (.name // .context),
+                  result: (.conclusion // .state // .status),
+                  link: (.detailsUrl // .targetUrl // "")
+                }
+              | select(.result != "SUCCESS" and .result != "SKIPPED")
+              | "- \(.name): \(.result) \(.link)"
+            ' <<< "$pr" > /tmp/checks.md
+            if [ ! -s /tmp/checks.md ]; then
+              echo "- (success / skipped 以外の check は無し)" > /tmp/checks.md
+            fi
+
+            {
+              echo "bot が立てた PR が **$(( age / 3600 )) 時間** open のままです。"
+              echo
+              echo "健全時は作成からマージまで数分で終わります(実測: \`auto-collect\` は 60 件すべて 1.7 分以内)。"
+              echo "この時間まで残っているのは、PR 側の check が落ちているか保留のままである可能性が高いです。"
+              echo
+              echo "## 対象 PR"
+              echo
+              echo "- ${pr_url}"
+              echo "- タイトル: ${pr_title}"
+              echo "- mergeStateStatus: \`${merge_state}\`"
+              echo
+              echo "## success / skipped でない check"
+              echo
+              cat /tmp/checks.md
+              echo
+              echo "## 対処"
+              echo
+              echo "1. 上の check を開き、失敗がコード起因かインフラ起因かを見る"
+              echo "2. インフラ起因(ネットワーク・apt・レジストリ等)なら \`gh run rerun <run-id> --failed\` で再実行する"
+              echo "3. コード起因なら原因を直す。bot の差分が原因なら PR を close して次回の cron に任せる"
+              echo "4. 解消したら本 Issue を close する"
+              echo
+              echo "検知した実行: ${RUN_URL}"
+            } > /tmp/body.md
+
+            if [ "${DRY_RUN}" = "true" ]; then
+              echo "PR #${number}: DRY_RUN のため Issue は作成しません。作成予定の内容:"
+              echo "--- title: ${title}"
+              sed 's/^/--- /' /tmp/body.md
+              continue
+            fi
+
+            gh issue create \
+              --title "$title" \
+              --label bot-pr-stale \
+              --body-file /tmp/body.md
+            echo "PR #${number}: Issue を作成しました"
+          done < <(jq -r '.[].number' /tmp/prs-unique.json)
+
+          echo "滞留と判定した PR: ${stale_count} 件"
