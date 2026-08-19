@@ -72,7 +72,14 @@ jobs:
           # them with 502 on every run — a different handful each time, all of
           # which serve 200 to sequential requests afterwards (#511, and again
           # on the 2026-08-19 manual run). Nothing is actually broken; we are
-          # knocking too hard on one WordPress site. See ADR 0065.
+          # knocking too hard on one WordPress site.
+          #
+          # The values are measured, not guessed. Same dist, same lychee
+          # v0.24.2, three runs on 2026-08-19: the defaults left 5 unique 502s
+          # (47s), 4 concurrent / 200ms apart still left 3 (1m11s), and this
+          # setting left 0 (2m36s). A weekly job can afford the two minutes.
+          # Unlike --accept or --exclude, backing off costs no coverage: every
+          # URL is still checked. See ADR 0065.
           args: >-
             --no-progress
             --cache
