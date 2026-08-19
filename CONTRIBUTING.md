@@ -15,7 +15,7 @@ EduWatch JP への貢献に興味を持っていただきありがとうござ�
 ### Pull Request を送る
 
 1. このリポジトリを fork
-2. ブランチを作成(`git checkout -b <type>/<short-description>` 形式)
+2. ブランチを作成(`git switch -c <type>/<short-description> --no-track origin/main` 形式)
 3. 変更をコミット
 4. push して PR を作成
 
@@ -77,7 +77,7 @@ git config core.hooksPath        # .githooks と表示されれば有効
 新規作業はフィーチャーブランチを切ってから始めてください。
 
 ```bash
-git checkout -b <type>/<short-description>
+git switch -c <type>/<short-description> --no-track origin/main
 # 例: feat/sprint-2-batch-2, fix/parser-edge-case, chore/deps-bump
 ```
 
