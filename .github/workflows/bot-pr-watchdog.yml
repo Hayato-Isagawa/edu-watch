@@ -7,20 +7,22 @@ name: Bot PR watchdog
 # 落ちると PR は open のまま残るが、workflow 自体は緑なので通知が出ない。
 #
 # 実測(2026-08-19):
-#   - auto-collect: PAT 昇格後(ADR 0042 / #141 以降)の 154 件で最大 3.6 分。
-#     全 189 件では 4 件が 2 時間を超えており、いずれも本 workflow が検知
-#     すべきだった滞留(#127 2.3h / #138 10.6h / #142 12.3h / #374 18.2h)。
+#   - auto-collect: 全 189 件のうち 4 件が 2 時間を超えており、いずれも本
+#     workflow が検知すべきだった滞留(#127 2.3h / #138 10.6h / #142 12.3h /
+#     #374 18.2h)。この 4 件を除くと、PAT 昇格後(ADR 0042 / #141 のマージ
+#     以降に作成)の 153 件で最大 3.6 分。
 #   - recheck-membership: 13 件中 2 件が滞留(#167 8.5h / #539 29.4h)。
 #     残り 11 件は最大 1.4 分。
 #
-# 閾値 2 時間は、現行レジームの最大 3.6 分に対して約 33 倍のマージン。
+# 閾値 2 時間は、健全側の最大 3.6 分に対して約 33 倍のマージン。
 
 on:
   schedule:
     # 6 時間ごと。閾値 2 時間と合わせると、cron が定刻に発火する前提では
-    # 滞留は 6〜8 時間で Issue になる。ただし GitHub の schedule は遅延する
-    # (本リポの実測で中央値 55 分・p90 130 分・最大 214 分)ので、これは
-    # 保証ではない。遅延が重なると 10 時間を超えることがある。
+    # 滞留は 6〜8 時間で Issue になる。ただし GitHub の schedule は大きく
+    # 遅延する。本リポの固定時刻 cron 全 263 実行の実測(2026-08-19)で
+    # 中央値 78 分・p90 223 分・最大 351 分(5.8 時間)。したがって
+    # 「8 時間以内」は保証ではなく、最悪で 14 時間程度まで伸びうる。
     - cron: "0 */6 * * *"
   workflow_dispatch:
     inputs:
@@ -38,6 +40,11 @@ on:
   pull_request:
     paths:
       - ".github/workflows/bot-pr-watchdog.yml"
+      # 下の「ガード 1」が監視している当のファイル。ここを入れないと、
+      # ラベルの改名が PR 段階で無検知のまま main に載り、次の cron まで
+      # 気づけない(その cron 自体が最大 5.8 時間遅れる)。
+      - ".github/workflows/fetch-news.yml"
+      - ".github/workflows/recheck-nikkyo-membership.yml"
 
 concurrency:
   # ref 別にする(他の workflow と同じ)。1 グループに束ねると、PR 実行の待機中に
@@ -97,14 +104,34 @@ jobs:
           # リポジトリに残っている場合を検知できない(open PR 0 件として素通りする)。
           # PR の author は PAT 経由で人間と同じになるため作者では bot を判別
           # できず、この workflow はラベルだけが頼りなので、実体と突き合わせる。
-          actual=$(for f in fetch-news recheck-nikkyo-membership; do
-                     grep -oE -- '--label "[^"]+"' ".github/workflows/${f}.yml" || true
-                   done | sed 's/--label "//; s/"//' | sort -u | tr '\n' ' ' | sed 's/ *$//')
-          expected=$(tr ' ' '\n' <<< "$BOT_LABELS" | sort -u | tr '\n' ' ' | sed 's/ *$//')
-          if [ -z "$actual" ]; then
-            echo "::error::bot workflow から --label を抽出できませんでした。抽出方法が実体と合っていません。"
+          # 対象はファイル名を並べず「PR を作る workflow」から導出する。
+          # 列挙にすると 3 本目の bot workflow が増えたとき、その PR は
+          # watchdog から見えず、ここも気づかない(ガード 1 が塞いだのと
+          # 同じ穴が残る)。
+          # 行頭の呼び出しだけを拾い、自分自身は除く。このファイルは
+          # `gh pr create` という文字列を(まさにこの grep として)含むので、
+          # 素朴に全文検索すると自分にマッチし、自分の正規表現の断片を
+          # ラベルとして抽出してしまう。
+          bot_files=$(grep -lE '^[[:space:]]*gh pr create' .github/workflows/*.yml \
+                        | grep -v '/bot-pr-watchdog\.yml$' | sort || true)
+          if [ -z "$bot_files" ]; then
+            echo "::error::PR を作る workflow が 1 本も見つかりません。抽出方法が実体と合っていません。"
             exit 1
           fi
+          : > /tmp/labels.txt
+          for f in $bot_files; do
+            # --label は "a,b,c" とカンマ区切りでも書ける(link-check.yml が実例)
+            labels=$(grep -oE -- '--label "[^"]+"' "$f" \
+                       | sed 's/--label "//; s/"$//' | tr ',' '\n' | grep -v '^$' || true)
+            if [ -z "$labels" ]; then
+              echo "::error::${f} から --label を抽出できませんでした。"
+              echo "::error::この workflow は PR を作るのにラベルを付けていないか、書き方が変わっています。"
+              exit 1
+            fi
+            printf '%s\n' "$labels" >> /tmp/labels.txt
+          done
+          actual=$(sort -u /tmp/labels.txt | grep -v '^$' | tr '\n' ' ' | sed 's/ *$//')
+          expected=$(tr ' ' '\n' <<< "$BOT_LABELS" | sort -u | tr '\n' ' ' | sed 's/ *$//')
           if [ "$actual" != "$expected" ]; then
             echo "::error::監視対象ラベルが bot workflow と食い違っています。"
             echo "::error::  bot workflow の実体: ${actual}"
@@ -173,6 +200,7 @@ jobs:
                   ]
                 }]' /tmp/prs-unique.json > /tmp/prs-dry.json
             mv /tmp/prs-dry.json /tmp/prs-unique.json
+            echo "合成 PR を 1 件足した後の対象: $(jq 'length' /tmp/prs-unique.json)"
           else
             gh label create bot-pr-stale \
               --description "bot PR の滞留検知(bot-pr-watchdog)" \
