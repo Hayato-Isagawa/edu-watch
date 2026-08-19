@@ -14,6 +14,11 @@ jobs:
   test:
     name: Playwright E2E
     runs-on: ubuntu-latest
+    # 律速はテストではなく Playwright / apt のインストール。実測(2026-08-19)で
+    # 成功実行の最大は 9.4 分だが、その 9.4 分自体が install-deps の停滞
+    # (通常 0.25 分 → 8.6 分)によるもので、テスト本体は 0.2 分しかかかっていない。
+    # 2026-05 には install だけで 16.15 分以上止まった実績がある。
+    timeout-minutes: 30
     steps:
       - name: Checkout
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1

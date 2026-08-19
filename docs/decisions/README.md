@@ -104,4 +104,5 @@ EduEvidence JP と共通の運営方針(植物モチーフブランド体系 / N
 - [0062. Cloudflare Web Analytics を手動スニペット方式で導入し CSP を最小限緩和する(edu-evidence ADR 0026 ミラー)](0062-web-analytics-beacon-and-csp.md)
 - [0063. Astro 7 へ移行し XSS advisory 3 件を解消する(edu-evidence ADR 0027 ミラー・edu-watch 差分あり)](0063-astro-7-migration.md)
 - [0064. 公開後の訂正を changelog で可視化し、書き換えた文の再照合を後段検証ゲートに加える](0064-post-publication-correction-policy.md)
-- [0065. リンクチェックで kyoiku-press.com だけレート制限を掛ける](0065-link-check-host-backoff.md)
+- [0065. bot PR の滞留を検知する。監視の起点はラベルに置き、全 job に timeout を宣言する](0065-bot-pr-stall-detection.md)
+- [0066. リンクチェックで kyoiku-press.com だけレート制限を掛ける](0066-link-check-host-backoff.md)

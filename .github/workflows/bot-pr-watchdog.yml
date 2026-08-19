@@ -1,0 +1,306 @@
+name: Bot PR watchdog
+
+# bot が立てた PR が CI 失敗で滞留しても、誰も気づかない状態だった。
+#
+# fetch-news.yml / recheck-nikkyo-membership.yml は PR を作って auto-merge を
+# armed にするところまでで成功して終わる。その後 PR 側の required check が
+# 落ちると PR は open のまま残るが、workflow 自体は緑なので通知が出ない。
+#
+# 実測(2026-08-19):
+#   - auto-collect: 全 189 件のうち 4 件が 2 時間を超えており、いずれも本
+#     workflow が検知すべきだった滞留(#127 2.3h / #138 10.6h / #142 12.3h /
+#     #374 18.2h)。この 4 件を除くと、PAT 昇格後(ADR 0042 / #141 のマージ
+#     以降に作成)の 153 件で最大 3.6 分。
+#   - recheck-membership: 13 件中 2 件が滞留(#167 8.5h / #539 29.4h)。
+#     残り 11 件は最大 1.4 分。
+#
+# 閾値 2 時間は、健全側の最大 3.6 分に対して約 33 倍のマージン。
+
+on:
+  schedule:
+    # 6 時間ごと。閾値 2 時間と合わせると、cron が定刻に発火する前提では
+    # 滞留は 6〜8 時間で Issue になる。ただし GitHub の schedule は大きく
+    # 遅延する。本リポの固定時刻 cron 全 263 実行の実測(2026-08-19)で
+    # 中央値 78 分・p90 223 分・最大 351 分(5.8 時間)。したがって
+    # 「8 時間以内」は保証ではなく、最悪で 14 時間程度まで伸びうる。
+    - cron: "0 */6 * * *"
+  workflow_dispatch:
+    inputs:
+      stale_hours:
+        description: "この時間以上 open な bot PR を滞留とみなす(0-168 の整数)"
+        required: false
+        default: "2"
+  # 自分自身を編集する PR では走らせる(audit.yml と同じ理由)。schedule と
+  # workflow_dispatch だけだと、壊れていても気づけないまま次の cron を待つ。
+  # しかも workflow_dispatch は既定ブランチに存在しないと起動できない
+  # (`gh workflow run --ref <branch>` は HTTP 404 を返す)ため、マージ前に
+  # 走らせる手段がこれしか無い。
+  #
+  # PR 実行は DRY_RUN で、検出まで行って Issue は立てない。
+  pull_request:
+    paths:
+      - ".github/workflows/bot-pr-watchdog.yml"
+      # 下の「ガード 1」が監視している当のファイル。ここを入れないと、
+      # ラベルの改名が PR 段階で無検知のまま main に載り、次の cron まで
+      # 気づけない(その cron 自体が最大 5.8 時間遅れる)。
+      - ".github/workflows/fetch-news.yml"
+      - ".github/workflows/recheck-nikkyo-membership.yml"
+
+concurrency:
+  # ref 別にする(他の workflow と同じ)。1 グループに束ねると、PR 実行の待機中に
+  # cron 実行が来たとき pending の側が黙って cancel される。
+  group: bot-pr-watchdog-${{ github.ref }}
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+  issues: write
+  pull-requests: read
+  # `gh pr list --json statusCheckRollup` が送る GraphQL は
+  # `CheckRun { checkSuite { workflowRun { workflow { name } } } }` まで辿るため、
+  # checks(CheckRun) / actions(workflowRun) / statuses(StatusContext) の read が要る。
+  # permissions ブロックを書いた時点で未記載のスコープは none になるので、
+  # 足りないと「open な bot PR が 1 件でもあるときだけ」GraphQL が
+  # Resource not accessible で落ちる = 仕事をすべき瞬間にだけ壊れる。
+  checks: read
+  statuses: read
+  actions: read
+
+jobs:
+  watchdog:
+    name: Detect stale bot PRs
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      # bot workflow の --label 指定を実体から読むために要る(下の突き合わせ)。
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Detect and report
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          STALE_HOURS: ${{ inputs.stale_hours || '2' }}
+          DRY_RUN: ${{ github.event_name == 'pull_request' }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          set -euo pipefail
+
+          # STALE_HOURS は workflow_dispatch の入力で、そのまま $(( )) に渡すと
+          # 算術展開の中で配列添字経由のコマンド置換が起きうる。桁数も縛る:
+          # 桁が多いと $(( S * 3600 )) が 64bit を回り込んで負値になり、
+          # 「全部 skip」で静かに緑になる。
+          if ! [[ "${STALE_HOURS}" =~ ^[0-9]{1,4}$ ]] || [ "${STALE_HOURS}" -gt 168 ]; then
+            echo "::error::stale_hours は 0〜168 の整数で指定してください(受け取った値: ${STALE_HOURS})"
+            exit 1
+          fi
+
+          BOT_LABELS="auto-collect recheck-membership"
+
+          # --- ガード 1: bot workflow が実際に付けるラベルと一致しているか ---
+          #
+          # ラベルの存在確認だけでは、bot 側が別のラベルを使い始めて古いラベルが
+          # リポジトリに残っている場合を検知できない(open PR 0 件として素通りする)。
+          # PR の author は PAT 経由で人間と同じになるため作者では bot を判別
+          # できず、この workflow はラベルだけが頼りなので、実体と突き合わせる。
+          # 対象はファイル名を並べず「PR を作る workflow」から導出する。
+          # 列挙にすると 3 本目の bot workflow が増えたとき、その PR は
+          # watchdog から見えず、ここも気づかない(ガード 1 が塞いだのと
+          # 同じ穴が残る)。
+          # 行頭の呼び出しだけを拾い、自分自身は除く。このファイルは
+          # `gh pr create` という文字列を(まさにこの grep として)含むので、
+          # 素朴に全文検索すると自分にマッチし、自分の正規表現の断片を
+          # ラベルとして抽出してしまう。
+          bot_files=$(grep -lE '^[[:space:]]*gh pr create' .github/workflows/*.yml \
+                        | grep -v '/bot-pr-watchdog\.yml$' | sort || true)
+          if [ -z "$bot_files" ]; then
+            echo "::error::PR を作る workflow が 1 本も見つかりません。抽出方法が実体と合っていません。"
+            exit 1
+          fi
+          : > /tmp/labels.txt
+          for f in $bot_files; do
+            # --label は "a,b,c" とカンマ区切りでも書ける(link-check.yml が実例)
+            labels=$(grep -oE -- '--label "[^"]+"' "$f" \
+                       | sed 's/--label "//; s/"$//' | tr ',' '\n' | grep -v '^$' || true)
+            if [ -z "$labels" ]; then
+              echo "::error::${f} から --label を抽出できませんでした。"
+              echo "::error::この workflow は PR を作るのにラベルを付けていないか、書き方が変わっています。"
+              exit 1
+            fi
+            printf '%s\n' "$labels" >> /tmp/labels.txt
+          done
+          actual=$(sort -u /tmp/labels.txt | grep -v '^$' | tr '\n' ' ' | sed 's/ *$//')
+          expected=$(tr ' ' '\n' <<< "$BOT_LABELS" | sort -u | tr '\n' ' ' | sed 's/ *$//')
+          if [ "$actual" != "$expected" ]; then
+            echo "::error::監視対象ラベルが bot workflow と食い違っています。"
+            echo "::error::  bot workflow の実体: ${actual}"
+            echo "::error::  BOT_LABELS:          ${expected}"
+            exit 1
+          fi
+
+          # --- ガード 2: そのラベルがリポジトリに実在するか ---
+          #
+          # 改名・削除されると `gh pr list --label` は永久に 0 件を返し、
+          # この workflow は「滞留なし」で緑になり続ける。
+          existing_labels=$(gh label list --limit 200 --json name --jq '.[].name')
+          missing=""
+          for lbl in $BOT_LABELS; do
+            if ! grep -qxF "$lbl" <<< "$existing_labels"; then
+              missing="${missing} ${lbl}"
+            fi
+          done
+          if [ -n "$missing" ]; then
+            echo "::error::監視対象のラベルが見つかりません:${missing}"
+            exit 1
+          fi
+
+          # `gh pr list --label a --label b` は AND なので、OR にするには
+          # ラベルごとに引いて番号で重複排除する。
+          # 件数は取得済みのデータから数える(`--jq '.[]'` は 1 行 1 オブジェクト)。
+          # 数えるためだけに gh を二度呼ぶと、その間に PR が増減して食い違う。
+          PR_LIMIT=100
+          : > /tmp/prs.json
+          for lbl in $BOT_LABELS; do
+            gh pr list --state open --label "$lbl" --limit "$PR_LIMIT" \
+              --json number,title,url,createdAt,mergeStateStatus,statusCheckRollup \
+              --jq '.[]' > /tmp/prs-one.json
+            n=$(grep -c '' /tmp/prs-one.json || true)
+            if [ "${n:-0}" -ge "$PR_LIMIT" ]; then
+              echo "::warning::ラベル ${lbl} の open PR が上限 ${PR_LIMIT} に達しました。取りこぼしがあります。"
+            fi
+            cat /tmp/prs-one.json >> /tmp/prs.json
+          done
+          jq -s 'unique_by(.number)' /tmp/prs.json > /tmp/prs-unique.json
+          echo "open bot PRs: $(jq 'length' /tmp/prs-unique.json)"
+
+          ISSUE_LIMIT=200
+          gh issue list --state open --limit "$ISSUE_LIMIT" --json number,title > /tmp/issues.json
+          if [ "$(jq 'length' /tmp/issues.json)" -ge "$ISSUE_LIMIT" ]; then
+            echo "::warning::open Issue が上限 ${ISSUE_LIMIT} に達しました。重複判定を取りこぼす可能性があります。"
+          fi
+
+          if [ "${DRY_RUN}" = "true" ]; then
+            echo "::notice::DRY_RUN — 検出まで行い、Issue は作成しません"
+            # open な bot PR が 0 件だと、この下のループ本体(経過時間の計算・
+            # 重複判定・rollup の整形・本文生成)が 1 行も実行されないまま緑になる。
+            # PR 実行はこの workflow 自身を検証するためのものなので、合成 PR を
+            # 1 件足して必ず通す。pending の CheckRun(conclusion が空文字)と
+            # StatusContext の両方を入れて、整形の分岐も踏ませる。
+            jq '. + [{
+                  number: 0,
+                  title: "(合成) DRY_RUN 用のダミー PR",
+                  url: "https://github.com/'"${GH_REPO}"'/pull/0",
+                  createdAt: "2000-01-01T00:00:00Z",
+                  mergeStateStatus: "BLOCKED",
+                  statusCheckRollup: [
+                    { name: "Playwright E2E", status: "IN_PROGRESS", conclusion: "", detailsUrl: "https://example.invalid/1" },
+                    { name: "Type and text checks", status: "COMPLETED", conclusion: "SUCCESS", detailsUrl: "https://example.invalid/2" },
+                    { context: "Workers Builds: edu-watch", state: "PENDING", targetUrl: "https://example.invalid/3" }
+                  ]
+                }]' /tmp/prs-unique.json > /tmp/prs-dry.json
+            mv /tmp/prs-dry.json /tmp/prs-unique.json
+            echo "合成 PR を 1 件足した後の対象: $(jq 'length' /tmp/prs-unique.json)"
+          else
+            gh label create bot-pr-stale \
+              --description "bot PR の滞留検知(bot-pr-watchdog)" \
+              --color d73a4a \
+              --force >/dev/null 2>&1 || true
+          fi
+
+          now=$(date -u +%s)
+          threshold=$(( STALE_HOURS * 3600 ))
+          stale_count=0
+
+          while read -r number; do
+            pr=$(jq -c --argjson n "$number" '.[] | select(.number == $n)' /tmp/prs-unique.json)
+
+            created=$(jq -r '.createdAt' <<< "$pr")
+            created_epoch=$(date -u -d "$created" +%s)
+            age=$(( now - created_epoch ))
+            if [ "$age" -lt "$threshold" ]; then
+              echo "PR #${number}: age $(( age / 60 ))m < 閾値 ${STALE_HOURS}h — skip"
+              continue
+            fi
+
+            stale_count=$(( stale_count + 1 ))
+            title="bot-pr-watchdog: PR #${number} が滞留しています"
+
+            # タイトルに PR 番号が入るので、同じ PR で二重に Issue は立たない。
+            # 既にあれば何もしない(コメント連投を避ける)。GitHub の検索
+            # インデックスは反映が遅れるので `--search in:title` は使わない。
+            existing=$(jq -r --arg t "$title" \
+              'map(select(.title == $t)) | .[0].number // empty' /tmp/issues.json)
+            if [ -n "$existing" ]; then
+              echo "PR #${number}: 既存 Issue #${existing} があるので何もしない"
+              continue
+            fi
+
+            pr_url=$(jq -r '.url' <<< "$pr")
+            pr_title=$(jq -r '.title' <<< "$pr")
+            merge_state=$(jq -r '.mergeStateStatus' <<< "$pr")
+
+            # statusCheckRollup は CheckRun と StatusContext が混ざり、名前と URL の
+            # フィールドが違う(name/detailsUrl と context/targetUrl)。
+            # また pending の CheckRun は conclusion が null ではなく空文字で来る。
+            # jq の `//` は空文字を真値として扱うので、素の `.conclusion // .status`
+            # だと結果欄が空になる — 滞留の最頻ケース(check が pending のまま)で
+            # 理由が消えるので、空文字を明示的に落としてから status に倒す。
+            jq -r '
+              .statusCheckRollup[]?
+              | {
+                  name: (.name // .context),
+                  result: ((.conclusion | select(. != "" and . != null)) // .state // .status),
+                  link: (.detailsUrl // .targetUrl // "")
+                }
+              | select(.result != "SUCCESS" and .result != "SKIPPED")
+              | "- \(.name): \(.result) \(.link)"
+            ' <<< "$pr" > /tmp/checks.md
+            if [ ! -s /tmp/checks.md ]; then
+              echo "- (success / skipped 以外の check は無し)" > /tmp/checks.md
+            fi
+
+            {
+              echo "bot が立てた PR が **$(( age / 3600 )) 時間** open のままです。"
+              echo
+              echo "健全時は作成からマージまで数分で終わります(実測 2026-08-19: 既知の滞留を除いた"
+              echo "\`auto-collect\` 153 件で最大 3.6 分、\`recheck-membership\` の健全側 11 件で最大 1.4 分)。"
+              echo "この時間まで残っているのは、PR 側の check が落ちているか保留のままである可能性が高いです。"
+              echo
+              echo "## 対象 PR"
+              echo
+              echo "- ${pr_url}"
+              echo "- タイトル: ${pr_title}"
+              echo "- mergeStateStatus: \`${merge_state}\`"
+              echo
+              echo "## success / skipped でない check"
+              echo
+              cat /tmp/checks.md
+              echo
+              echo "## 対処"
+              echo
+              echo "1. 上の check を開き、失敗がコード起因かインフラ起因かを見る"
+              echo "2. インフラ起因(ネットワーク・apt・レジストリ等)なら \`gh run rerun <run-id> --failed\` で再実行する"
+              echo "3. コード起因なら原因を直す。bot の差分が原因なら PR を close して次回の cron に任せる"
+              echo "4. 解消したら本 Issue を close する"
+              echo
+              echo "検知した実行: ${RUN_URL}"
+            } > /tmp/body.md
+
+            if [ "${DRY_RUN}" = "true" ]; then
+              echo "PR #${number}: DRY_RUN のため Issue は作成しません。作成予定の内容:"
+              echo "--- title: ${title}"
+              sed 's/^/--- /' /tmp/body.md
+              continue
+            fi
+
+            # stdin は読ませない。将来 gh が stdin を読むようになると
+            # while ループの入力を食い、2 件目以降が黙って処理されなくなる。
+            gh issue create \
+              --title "$title" \
+              --label bot-pr-stale \
+              --body-file /tmp/body.md < /dev/null
+            echo "PR #${number}: Issue を作成しました"
+          done < <(jq -r '.[].number' /tmp/prs-unique.json)
+
+          echo "滞留と判定した PR: ${stale_count} 件"
