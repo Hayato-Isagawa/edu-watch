@@ -42,7 +42,7 @@ jobs:
         with:
           path: .lycheecache
           key: lychee-${{ github.run_id }}
-          restore-keys: lychee-
+          restore-keys: coldprobe-do-not-match-
 
       - name: Run lychee
         id: lychee
