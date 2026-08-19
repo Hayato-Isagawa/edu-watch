@@ -83,7 +83,7 @@ export const collections = { digests };
 
 | フィールド | 型 | 必須 | 説明 |
 |---|---|---|---|
-| `title` | string | ◯ | 「2026 年 5 月第 1 週の論点」など、編集者が決める見出し |
+| `title` | string | ◯ | 「〈内容の列挙〉 — 2026 年 5 月第 1 週の論点」。書式は [digest-workflow.md](./digest-workflow.md)「執筆上の約束」が正典 |
 | `weekStart` | `YYYY-MM-DD` | ◯ | 集計対象週の月曜(JST) |
 | `weekEnd` | `YYYY-MM-DD` | ◯ | 集計対象週の日曜(JST) |
 | `publishedAt` | ISO8601 | ◯ | 公開タイムスタンプ(通常 weekEnd の翌金曜) |
@@ -159,13 +159,13 @@ export const collections = { digests };
    3. エージェントの判定(GO / REVISE / STOP)+ 修正提案を踏まえて、論旨を確定
    4. 確定した論旨をもとに markdown コメントを起こす(200〜500 字目安)
    5. 編集者が確認 → 微修正 → `sections[i].comment` に書き込み
-5. すべてのトピックが揃ったら、冒頭まえがき(全体を貫く論旨、100〜300 字)と `summary`、`title` を執筆
-6. PR 作成 → preview deploy で確認 → セルフレビュー後にマージ
+5. すべてのトピックが揃ったら、`summary` と `title` を執筆(書式は [digest-workflow.md](./digest-workflow.md)「執筆上の約束」を参照。**号全体を束ねる総括は置かない**。冒頭まえがきは [`ADR 0048`](decisions/0048-digest-drop-content-body.md) で廃止済み)
+6. ローカルの開発サーバーで表示確認（[digest-workflow.md](./digest-workflow.md)「表示確認ゲート」。**編集者の目視 OK まで PR を起票しない**）→ PR 作成 → **マージは編集者**（rule 13）
 
 ### 5.2 編集の補助
 
 - VS Code(Astro 拡張)で frontmatter の型補完が効く(`content.config.ts` の Zod schema 由来)
-- preview deploy で表示確認
+- 表示確認はローカルの開発サーバー（port 4323）で行う。手順は [digest-workflow.md](./digest-workflow.md)「表示確認ゲート」が正典
 - 既存の archive ページや Pagefind 検索で記事 id を引きやすい
 - `.claude/agents/digest-fact-checker.md` が必須検証観点と出力フォーマットを定義
 
