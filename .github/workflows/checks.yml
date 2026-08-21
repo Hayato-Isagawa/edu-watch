@@ -75,6 +75,18 @@ jobs:
         if: ${{ !cancelled() }}
         run: npm run check:filter
 
+      # link-check.yml の通知分岐。**壊れても静かに壊れる** — lychee は走り、レポートも
+      # アーティファクトに残り、job も緑のまま「通知だけ」が消える。姉妹リポ
+      # okinawa-in-data では open な Issue があると後続の検出を捨てており、2026-08-17 に
+      # 見つかった 404 が 2 日間どこにも出なかった(okinawa-in-data#107 / #110。
+      # このリポも同じコードを共有していた)。
+      # ワークフローに埋まっている run: ブロックを取り出し、gh をスタブして
+      # 「誰に」「何を」届けたかまで見る。シェルからは見えない YAML の配線
+      # (通知ステップに continue-on-error が無いこと等)も併せて固定している。
+      - name: Workflow logic regression tests
+        if: ${{ !cancelled() }}
+        run: npm run test:workflows
+
       # 同じ理屈が .claude/hooks/ にも要る。frontmatter の不変性ガードと
       # roundtrip 検査は、壊れても例外を出さず素通りするだけなので失敗が見えない。
       # しかもフックは dist に入らないため E2E も VRT も届かず、コンテンツ検査も

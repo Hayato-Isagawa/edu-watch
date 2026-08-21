@@ -25,9 +25,50 @@ npm run dev                # 開発サーバー(localhost:4323。ファミリー
 npm run build              # 本番ビルド
 npm run check              # Astro 型チェック
 npm run vrt                # ビジュアルリグレッションテスト(現 dist を撮影・比較。権威ある比較は CI、後述)
+npm run test:workflows     # link-check.yml の通知分岐の回帰テスト(下限つき・check:all に含む)
+npm run test:hooks         # .claude/hooks/ の回帰テスト(下限つき)
 ```
 
 `package.json` の `engines.node` は `>=24.0.0`。
+
+### `test:workflows` — link-check の通知分岐
+
+`link-check.yml` に埋め込まれた「検出をどう届けるか」の判定を固定する。**壊れても静かに壊れる** —
+lychee は走り、レポートもアーティファクトに残り、job も緑のまま**通知だけ**が消える。姉妹リポ
+okinawa-in-data では open な link-check Issue があると後続の検出を捨てており、2026-08-17 に
+見つかった 404 が 2 日間どこにも出なかった(okinawa-in-data#107 / #110。このリポも同じコードを
+共有していた)。
+
+テストはワークフローから `run:` ブロックを取り出して bash で走らせ、`gh` をスタブして渡された
+引数を全部記録する。**写しを置かないので、ワークフロー側を変えるとテスト対象も変わる** —
+数値や条件をテストに書き写さないこと(上限バイト数とレポートのファイル名はワークフローから
+読み取っている)。シェルからは見えない YAML の配線も併せて固定している:
+
+- 通知ステップに `continue-on-error` が**無い**こと(付くと `gh` の失敗が job に伝わらない)
+- `Run lychee` に `id: lychee` が**ある**こと(消えると `exit_code` が空文字になり毎週 Issue が立つ)
+- `Upload report` が job を落とさないこと(落ちると通知ステップの暗黙の `success()` が偽になる)
+- `output:` とシェルが読むファイル名が一致していること
+
+通知は 3 分岐。タイトルが実態と食い違わないようにしてある:
+
+| 状況 | タイトル |
+| --- | --- |
+| 検出あり | `Link check found problems` |
+| レポートを出せず終了 | `Link check could not produce a report` |
+| 1 本も見なかった | `Link check found no links to check` |
+
+3 つ目は `lychee-action` の `failIfEmpty`(既定 true)の経路。**lychee の終了コードを 0 のまま残して
+action だけが exit 1 する**ので、`exit_code` だけを見ていると通知が skip され、`continue-on-error`
+で job も緑になる＝週次チェックが恒久的に no-op になる。`steps.lychee.outcome` は
+`continue-on-error` 適用**前**の結果なので、そこで拾っている。
+
+`test:workflows` / `test:hooks` は `assert-test-files.mjs` / `assert-test-results.mjs` を通している。
+`node --test` は「glob が 0 件」「中身が空」「全件 skip」のどれでも exit 0 で終わるので、守って
+いるつもりのガードが no-op に落ちても気づけないため。
+
+**下限の決め方は口ごとに違う。** `test:workflows` は実測ちょうど(余裕ゼロ)なので、
+**テストを足したら下限も上げること**。`test:hooks` の下限は実数追随ではなく
+「1 ファイルを空にしても割る」境界値なので、実測と離れていてよい。
 
 ## プロジェクト構造
 
