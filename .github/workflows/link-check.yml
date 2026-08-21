@@ -84,70 +84,167 @@ jobs:
             --exclude 'kknews\.co\.jp'
             --exclude 'mext\.go\.jp/b_menu/saiyou/hijyoukin/'
             './dist/**/*.html'
+          # **既定値だが明示する。** 0 件の回を通知できるのは、この設定が true の
+          # ときに action が非ゼロ終了するからで(entrypoint.sh:63-70 / 103-105)、
+          # false にすると lychee も action も 0 終了 = 通知ステップが skip され、
+          # 週次チェックが恒久的に no-op になる。しかも**その設定方法は、0 件の回の
+          # Issue 本文に lychee 自身が書き込む**(`If this was expected, set
+          # 'failIfEmpty: false' in the args.`)ので、読み手が善意で踏みうる。
+          failIfEmpty: true
           fail: false
           format: markdown
           output: lychee-report.md
 
+      # **通知ステップを skip させないために continue-on-error を付ける。**
+      # 下の通知ステップの if: はステータス関数を含まないので、GitHub は暗黙に
+      # success() を前置する。ここが失敗すると job status が failure になり、
+      # アップロードの失敗という無関係な理由で通知だけが消える。
       - name: Upload report
         if: always()
+        continue-on-error: true
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
         with:
           name: lychee-report-${{ github.run_id }}
           path: lychee-report.md
           retention-days: 14
 
-      - name: Create Issue on broken links
-        if: steps.lychee.outputs.exit_code != '0'
+      # **exit_code だけでは足りない。** pin した action は `failIfEmpty`(既定 true)が
+      # 効いた回、つまり lychee が 1 本もリンクを見なかった回に、**lychee の終了コードを
+      # 0 のまま残して自分だけ exit 1 する**(entrypoint.sh:61-62 のコメントが明言。
+      # 98 行目で出力するのは lychee 自身のコードで、103-105 行目で action が exit 1)。
+      # その回は `exit_code != '0'` が偽なので通知が skip され、lychee は
+      # continue-on-error なので job も緑 — **週次チェックが恒久的に no-op になる**。
+      # outcome は continue-on-error を適用する**前**の結果なので、ここで拾える。
+      - name: Report broken links
+        if: steps.lychee.outputs.exit_code != '0' || steps.lychee.outcome == 'failure'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          LYCHEE_EXIT_CODE: ${{ steps.lychee.outputs.exit_code }}
+          LYCHEE_OUTCOME: ${{ steps.lychee.outcome }}
         run: |
           set -euo pipefail
-
-          if [ ! -s lychee-report.md ]; then
-            echo "lychee-report.md is missing or empty; skipping issue creation."
-            exit 0
-          fi
 
           # Ensure labels exist (idempotent)
           for label in automated link-check needs-human-review; do
             gh label create "$label" --force >/dev/null 2>&1 || true
           done
 
-          # Skip if an open Issue already tracks broken links
+          # 同じ検出が数週間続いても Issue を増やさない。ただし**黙って捨てない**。
+          # 以前はここで exit 0 していた。姉妹リポの okinawa-in-data で実害が出ている
+          # (2026-08-17 の run が検出した 404 は、既存 Issue を閉じるまでの 2 日間
+          # どこにも出なかった。握り潰す状態自体はその Issue が open だった 9 日間
+          # ずっと有効だった)。このリポは同じコードを共有していた。
+          # 判定と本文は scripts/__tests__/link-check-workflow.test.mjs が固定している。
           existing=$(gh issue list \
             --label link-check \
             --state open \
             --json number \
             --jq '.[0].number // empty')
 
-          if [ -n "$existing" ]; then
-            echo "Existing open link-check Issue #$existing found. Skipping creation."
-            exit 0
-          fi
-
           today=$(date -u +'%Y-%m-%d')
 
+          # 「読めるレポートが手元にあるか」を判定する。**空かどうかでは足りない。**
+          # pin している lychee-action(e747777)の entrypoint.sh は出力先を `mktemp` で
+          # 先に作るので、73 行目の `[ ! -f ]` フォールバックは決して真にならない。
+          # lychee が panic して 1 バイトも書かなくても、81 行目のフッタ
+          # (`[Full Github Actions output](...)`)だけが入った非空ファイルが残る。
+          # よって `-s` は「lychee が転んだ回」を取りこぼす。集計まで到達した回にしか
+          # 出ない `# Summary` を条件に足して、そこも拾う。
+          #
+          # ここを黙って exit 0 すると、lychee は continue-on-error なので job も緑になり、
+          # 「毎週走っているのに永久に何も出ない」状態が成立する。何が切れたかは
+          # 分からなくても、分からないこと自体を通知する。
+          #
+          # **判定は 1 回だけ。** タイトル・案内・本文が同じ答えを見るようにするため。
+          # 別々に書くと片方だけずれても動いてしまい、「リンク切れを見つけた」という
+          # タイトルの Issue に「レポートは出ませんでした」という中身が付く。
+          if [ -s lychee-report.md ] && grep -q '^# Summary' lychee-report.md; then
+            has_report=1
+          else
+            has_report=
+          fi
+
+          # 0 件の回は「lychee は正常終了(0)なのに action が失敗した」で一意に決まる。
+          # `fail: false` を渡しているので、最後に非ゼロで抜ける経路は failIfEmpty だけ
+          # (entrypoint.sh:103-109)。**レポート本文の文字列は読まない** — action 自身の
+          # シグナルを読む方が、写しにならず版差にも強い。
+          if [ "${LYCHEE_EXIT_CODE:-}" = "0" ] && [ "${LYCHEE_OUTCOME:-}" = "failure" ]; then
+            state=empty
+          elif [ -n "$has_report" ]; then
+            state=found
+          else
+            state=noreport
+          fi
+
+          if [ "$state" = "empty" ]; then
+            title="[auto] Link check found no links to check ($today)"
+            lead="週次の自動リンクチェックが**1 本もリンクを見ませんでした**。lychee 自体は正常に終わっていますが、検査対象が 0 件です。**リンク切れの有無は分かりません。**"
+            hint="多くは設定の問題です — ビルド出力の場所が変わった / 走査対象のパターンが合っていない / 除外が効きすぎている、など。lychee-action は既定(\`failIfEmpty\`)でこの状態を設定エラーとして扱います。**この状態が続くと、リンク切れが起きても誰も気づけません。**"
+            recheck="今回は 1 本も見ていないので、照合できる URL の一覧もありません。"
+            datelabel="実行日"
+          elif [ "$state" = "found" ]; then
+            title="[auto] Link check found problems ($today)"
+            lead="週次の自動リンクチェックが問題を検出しました。**リンク切れとは限りません** — 応答が返らないもの(タイムアウト)もここに出ます。内訳は下のレポートを参照してください。"
+            hint="一次情報の URL 変更・公的機関サイトのメンテナンス等が主な原因です。ニュースの出典リンクはこのサイトの中核なので、差し替えか代替リンクへの切り替えを検討してください。"
+            recheck="下のレポートに、この Issue の本文に無い URL が含まれていないか確認してください。"
+            datelabel="検出日"
+          else
+            title="[auto] Link check could not produce a report ($today)"
+            lead="週次の自動リンクチェックが**レポートを出せずに終了しました**(lychee の終了コード: ${LYCHEE_EXIT_CODE:-unknown})。**何が切れたかは分かりません。**"
+            hint="リンク切れの報告ではなく、**チェックそのものが完走しなかった**という報告です。run ログの \`Download and extract lychee\` / \`Install lychee\` と、lychee 本体が panic していないかを見てください。この状態が続くと、リンク切れが起きても誰も気づけません。"
+            recheck="今回はレポートが無いので、照合できる URL の一覧もありません。"
+            datelabel="実行日"
+          fi
+
+          # 本文の後半は新規 Issue でもコメントでも同じ。冒頭の案内だけが違う。
           {
-            echo "週次の自動リンクチェックでリンク切れを検出しました。"
             echo ""
             echo "- Workflow run: $RUN_URL"
-            echo "- 検出日 (UTC): $today"
-            echo ""
-            echo "一次情報の URL 変更・公的機関サイトのメンテナンス等、人間の判断が必要です。"
-            echo "修正が完了したらこの Issue を close してください。"
+            echo "- $datelabel (UTC): $today"
             echo ""
             echo "## lychee レポート"
             echo ""
-            head -c 60000 lychee-report.md
-            if [ "$(wc -c < lychee-report.md)" -gt 60000 ]; then
-              echo ""
-              echo ""
-              echo "_(レポートが長いため末尾を省略しました。全文は上記 Workflow run のアーティファクト \`lychee-report-*\` を参照してください)_"
+            if [ -n "$has_report" ]; then
+              head -c 60000 lychee-report.md
+              if [ "$(wc -c < lychee-report.md)" -gt 60000 ]; then
+                echo ""
+                echo ""
+                echo "_(レポートが長いため末尾を省略しました。全文は上記 Workflow run のアーティファクト \`lychee-report-*\` を参照してください)_"
+              fi
+            else
+              echo "_(このランではレポートが生成されませんでした)_"
             fi
+          } > report-body.md
+
+          if [ -n "$existing" ]; then
+            echo "Existing open link-check Issue #$existing found. Commenting instead of creating."
+
+            {
+              echo "**この Issue が open の間に、別の報告がありました。**"
+              echo ""
+              echo "$lead"
+              echo ""
+              echo "$hint"
+              echo ""
+              echo "この Issue を close するまで新しい Issue は立ちません。$recheck"
+              cat report-body.md
+            } > comment-body.md
+
+            gh issue comment "$existing" --body-file comment-body.md
+            exit 0
+          fi
+
+          {
+            echo "$lead"
+            echo ""
+            echo "$hint"
+            echo ""
+            echo "対応が終わったらこの Issue を close してください。"
+            cat report-body.md
           } > issue-body.md
 
           gh issue create \
-            --title "[auto] Broken links detected ($today)" \
+            --title "$title" \
             --body-file issue-body.md \
             --label "automated,link-check,needs-human-review"
