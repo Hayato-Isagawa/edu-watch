@@ -1,6 +1,7 @@
 ---
 import { getCollection } from "astro:content";
 import TopicBadge from "./TopicBadge.astro";
+import { splitDigestTitle } from "../lib/digest-title";
 
 const all = await getCollection("digests");
 const latest = [...all].sort((a, b) =>
@@ -40,9 +41,19 @@ function formatRange(from: string, to: string): string {
       <h3 class="mt-2 text-base sm:text-lg font-bold leading-snug">
         <a
           href={`/digest/${latest.id}/`}
-          class="link-underline text-ink"
+          class="text-ink"
         >
-          {latest.data.title}
+          <span class="link-underline">
+            {splitDigestTitle(latest.data.title).subject}
+          </span>
+          {splitDigestTitle(latest.data.title).week && (
+            <Fragment>
+              <br />
+              <span class="text-sm font-medium text-sub">
+                — {splitDigestTitle(latest.data.title).week}
+              </span>
+            </Fragment>
+          )}
         </a>
       </h3>
       <p class="mt-2 text-sm leading-relaxed text-sub line-clamp-3">

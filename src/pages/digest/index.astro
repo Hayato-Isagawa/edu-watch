@@ -2,6 +2,7 @@
 import { getCollection } from "astro:content";
 import Layout from "../../layouts/Layout.astro";
 import TopicBadge from "../../components/TopicBadge.astro";
+import { splitDigestTitle } from "../../lib/digest-title";
 
 const all = await getCollection("digests");
 const sorted = [...all].sort((a, b) =>
@@ -63,8 +64,18 @@ function formatRange(from: string, to: string): string {
               class="flex items-baseline justify-between gap-4 group"
             >
               <h2 class="font-bold text-base sm:text-lg">
-                <span class="text-ink link-underline">
-                  {entry.data.title}
+                <span class="text-ink">
+                  <span class="link-underline">
+                    {splitDigestTitle(entry.data.title).subject}
+                  </span>
+                  {splitDigestTitle(entry.data.title).week && (
+                    <Fragment>
+                      <br />
+                      <span class="text-sm font-medium text-sub">
+                        — {splitDigestTitle(entry.data.title).week}
+                      </span>
+                    </Fragment>
+                  )}
                 </span>
               </h2>
               <span class="text-xs font-mono text-sub whitespace-nowrap">

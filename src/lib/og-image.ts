@@ -1,6 +1,7 @@
 import satori from "satori";
 import type { ReactNode } from "react";
 import sharp from "sharp";
+import { splitDigestTitle } from "./digest-title";
 import { promises as fs } from "node:fs";
 import path from "node:path";
 
@@ -54,6 +55,7 @@ export async function generateOgImage(params: OgParams): Promise<Buffer> {
 
   const fontData = await loadNotoSansJpFont();
   const rangeLabel = formatRange(weekStart, weekEnd);
+  const { subject, week } = splitDigestTitle(title);
   const topicChips = (topics ?? []).slice(0, 4);
 
   const element = {
@@ -91,12 +93,36 @@ export async function generateOgImage(params: OgParams): Promise<Buffer> {
                 type: "div",
                 props: {
                   style: {
-                    fontSize: title.length > 22 ? "44px" : title.length > 14 ? "52px" : "60px",
+                    display: "flex",
+                    flexDirection: "column",
+                    // 分岐は subject の長さで判定する。このサイズで描かれるのは
+                    // 上段だけで、週は下で 32px 固定にしている。
+                    fontSize: subject.length > 22 ? "44px" : subject.length > 14 ? "52px" : "60px",
                     fontWeight: 900,
                     color: "#1a1a1a",
                     lineHeight: 1.2,
                   },
-                  children: title,
+                  children: [
+                    { type: "div", props: { children: subject } },
+                    ...(week
+                      ? [
+                          {
+                            type: "div",
+                            props: {
+                              // 週は副題。サイト内 (h1 / 一覧カード) と同じく 1 段小さく、
+                              // text-sub と同じ #6b6b66 で扱う。
+                              style: {
+                                marginTop: "8px",
+                                fontSize: "32px",
+                                fontWeight: 700,
+                                color: "#6b6b66",
+                              },
+                              children: `— ${week}`,
+                            },
+                          },
+                        ]
+                      : []),
+                  ],
                 },
               },
               {
