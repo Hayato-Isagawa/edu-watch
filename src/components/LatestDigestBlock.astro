@@ -41,13 +41,18 @@ function formatRange(from: string, to: string): string {
       <h3 class="mt-2 text-base sm:text-lg font-bold leading-snug">
         <a
           href={`/digest/${latest.id}/`}
-          class="link-underline text-ink"
+          class="text-ink"
         >
-          <span class="block">{splitDigestTitle(latest.data.title).subject}</span>
+          <span class="link-underline">
+            {splitDigestTitle(latest.data.title).subject}
+          </span>
           {splitDigestTitle(latest.data.title).week && (
-            <span class="block mt-0.5 text-sm font-medium text-sub">
-              — {splitDigestTitle(latest.data.title).week}
-            </span>
+            <Fragment>
+              <br />
+              <span class="text-sm font-medium text-sub">
+                — {splitDigestTitle(latest.data.title).week}
+              </span>
+            </Fragment>
           )}
         </a>
       </h3>

@@ -95,7 +95,9 @@ export async function generateOgImage(params: OgParams): Promise<Buffer> {
                   style: {
                     display: "flex",
                     flexDirection: "column",
-                    fontSize: title.length > 22 ? "44px" : title.length > 14 ? "52px" : "60px",
+                    // 分岐は subject の長さで判定する。このサイズで描かれるのは
+                    // 上段だけで、週は下で 32px 固定にしている。
+                    fontSize: subject.length > 22 ? "44px" : subject.length > 14 ? "52px" : "60px",
                     fontWeight: 900,
                     color: "#1a1a1a",
                     lineHeight: 1.2,

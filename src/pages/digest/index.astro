@@ -64,12 +64,17 @@ function formatRange(from: string, to: string): string {
               class="flex items-baseline justify-between gap-4 group"
             >
               <h2 class="font-bold text-base sm:text-lg">
-                <span class="text-ink link-underline">
-                  <span class="block">{splitDigestTitle(entry.data.title).subject}</span>
+                <span class="text-ink">
+                  <span class="link-underline">
+                    {splitDigestTitle(entry.data.title).subject}
+                  </span>
                   {splitDigestTitle(entry.data.title).week && (
-                    <span class="block mt-0.5 text-sm font-medium text-sub">
-                      — {splitDigestTitle(entry.data.title).week}
-                    </span>
+                    <Fragment>
+                      <br />
+                      <span class="text-sm font-medium text-sub">
+                        — {splitDigestTitle(entry.data.title).week}
+                      </span>
+                    </Fragment>
                   )}
                 </span>
               </h2>

@@ -10,7 +10,10 @@
 const SEPARATOR = " — ";
 
 export function splitDigestTitle(title: string): { subject: string; week: string } {
-  const i = title.indexOf(SEPARATOR);
+  // 最後の区切りで切る。旧書式 (総括 — 列挙 — 週) を貼り直したとき、indexOf だと
+  // 週の側に列挙まで流れ込み、32px の副題行に 40 字以上が載る。content.config.ts は
+  // min(1) しか見ておらず e2e / VRT も title を assert しないので、静かに通ってしまう。
+  const i = title.lastIndexOf(SEPARATOR);
   if (i < 0) return { subject: title, week: "" };
   return {
     subject: title.slice(0, i),
