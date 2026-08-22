@@ -1,6 +1,6 @@
 # 0034. OG 画像キャッシュ更新ポリシー(姉妹サイト ADR の edu-watch 適用)
 
-- 状態: 採用
+- 状態: 採用 / 動的 OG の `?v=` 版元は [`ADR 0067`](0067-og-cache-version-source.md) で上書き(静的 default OG・共通フレーム・SNS runbook は有効)
 - 日付: 2026-05-05
 - 関連 PR: 本 ADR と同一 PR で確定
 - 起点 ADR: ISAGAWA HAYATO Portfolio ADR 0003(共通フレーム + SNS runbook の元、PR #44 マージ済)

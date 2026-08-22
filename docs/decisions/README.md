@@ -106,3 +106,4 @@ EduEvidence JP と共通の運営方針(植物モチーフブランド体系 / N
 - [0064. 公開後の訂正を changelog で可視化し、書き換えた文の再照合を後段検証ゲートに加える](0064-post-publication-correction-policy.md)
 - [0065. bot PR の滞留を検知する。監視の起点はラベルに置き、全 job に timeout を宣言する](0065-bot-pr-stall-detection.md)
 - [0066. リンクチェックで kyoiku-press.com だけレート制限を掛ける](0066-link-check-host-backoff.md)
+- [0067. 動的 OG のキャッシュバスティングを単一の版数定数で行う](0067-og-cache-version-source.md)

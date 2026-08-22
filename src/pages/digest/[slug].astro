@@ -7,6 +7,7 @@ import { splitDigestTitle } from "../../lib/digest-title";
 import ArticleCard from "../../components/ArticleCard.astro";
 import TopicBadge from "../../components/TopicBadge.astro";
 import { getArticlesByIds, formatDayShort } from "../../lib/articles.ts";
+import { OG_DIGEST_VERSION } from "../../data/og-version";
 
 export async function getStaticPaths() {
   const all = await getCollection("digests");
@@ -93,6 +94,7 @@ function typeLabel(url: string): string | null {
   title={`${entry.data.title} — EduWatch JP 週次ダイジェスト`}
   description={entry.data.summary}
   ogImagePath={`/og/digest/${entry.id}.png`}
+  ogVersion={OG_DIGEST_VERSION}
   longForm
 >
   <article>
