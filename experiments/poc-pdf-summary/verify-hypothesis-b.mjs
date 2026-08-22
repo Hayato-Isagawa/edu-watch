@@ -8,7 +8,8 @@ import path from 'node:path';
 
 const slug = 'tsuuchi-r6-08-27';
 const sectionName = 'honbun';
-const repoRoot = '/Users/Hayato/edu-watch';
+// リポジトリ直下から実行する前提(絶対パスを埋め込まない)
+const repoRoot = process.cwd();
 
 const registryPath = path.join(repoRoot, 'scripts/ai-summary/registry.json');
 const registry = JSON.parse(await fs.readFile(registryPath, 'utf8'));

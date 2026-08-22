@@ -1,7 +1,7 @@
 # サプライチェーン攻撃影響調査結果 (2026-05)
 
 調査実施日: 2026-05-22
-調査対象プロジェクト: edu-watch (/Users/Hayato/edu-watch)
+調査対象プロジェクト: edu-watch
 調査範囲: 2026-05-18〜21 の Mini Shai-Hulud / TeamPCP / UNC6780 系インシデント (#1〜#6)
 
 ## サマリー
@@ -77,13 +77,13 @@
 - [ ] 不審な npm publish イベント(本プロジェクトは publish しない想定だが念のため)
 
 ## D. 開発者各自の手動確認 (横断調査で既に確認済み)
-- [x] Cursor で `nrwl.angular-console` v18.95.0 未インストール (確認済 2026-05-22)
-- [x] `~/Library/LaunchAgents/` 正常 (Canva / Google / CleanMyMac / ollama のみ、確認済)
-- [x] `~/.claude/setup.mjs` / `~/.vscode/setup.mjs` / `~/.cursor/setup.mjs` 不在 (確認済)
+- [x] 侵害されたエディタ拡張 `nrwl.angular-console` v18.95.0 未インストール (確認済 2026-05-22)
+- [x] ログイン項目 / LaunchAgents に不審な登録なし (確認済)
+- [x] エディタ・CLI の設定ディレクトリに `setup.mjs` 不在 (確認済)
 - [x] `/tmp/managed.pyz` / `/tmp/rope-*.pyz` / `/tmp/tmp.*.lock` 不在 (確認済)
 - [x] `~/.cache/.sys-update-check` 不在 (確認済)
 - [x] `python3 /tmp/managed.pyz` 等の不審プロセスなし (確認済)
-- [x] `~/.claude/settings.json` 等の C2 ドメイン痕跡なし (確認済)
+- [x] エージェント・エディタの設定ファイルに C2 ドメイン痕跡なし (確認済)
 
 ## E. 即時対応リスト (認証情報ローテーション)
 
