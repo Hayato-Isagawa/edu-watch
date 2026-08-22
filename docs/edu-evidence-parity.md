@@ -16,29 +16,29 @@ EduWatch JP の UI/UX 判断は姉妹サイト EduEvidence JP を起点として
 | Pagefind ベースの全文検索(`/search/` ページ + 結果 UI スタイル) | #43 | `src/pages/search.astro`、build script に `npx pagefind --site dist` |
 | ヘッダー検索アイコン + モバイルメニュー先頭の検索フォーム(`/search?q=...`) | #43 | edu-evidence と同じ |
 | `back-to-top` ボタン(スクロール 600px 超で出現、smooth scroll、reduced-motion 対応) | #44 | `<button id="back-to-top">` + `#back-to-top` CSS + ScrollY 監視スクリプト |
+| `/changelog` ページ(種別ラベル + 日付グループ + 該当ページへのリンク) | #57 | `src/pages/changelog.astro` |
+| ハンバーガー breakpoint を `lg`(1024px)に統一 | #80 | 同左(#80 以前は `md` にしていた。項目数が増えて `md` に収まらなくなった) |
+| 動的 OG 画像(Satori + Sharp で build 時生成、フォント同梱) | #88(ADR 0031) | `src/pages/og/` 一式。**edu-watch は digest 個別のみ**で、日次記事・ハブページは静的 default(ADR 0032) |
+| reading-progress バー(longForm ページ上端に 0 → 100%) | #402 | `<div id="reading-progress">` |
 
 ## 2. 意図的差(揃えない判断)
 
 | 項目 | edu-evidence | edu-watch | 理由 |
 |---|---|---|---|
-| reading-progress バー | `<div id="reading-progress">` を longForm 記事ページ上端に表示(0 → 100%) | 未実装 | edu-watch には記事詳細ページが存在しない(タイトルクリックは公式 URL に直飛び、ADR 0008) |
 | glossary tooltip | 用語に hover/click で `<aside class="glossary-bubble">` を浮かべる、`remark-glossary` で markdown 中の用語自動リンク | 未実装 | edu-watch は用語集を持たない(教育エビデンス用語は edu-evidence の責務) |
-| OG 画像の動的生成 | Satori + Sharp で 73 戦略 + 22 コラム分のサムネを build 時生成 | 未実装 | 中間ページが無いため記事単位の OG 画像が不要。サイト全体の OG は静的 1 枚で十分 |
+| **日次記事の** OG 画像の動的生成 | Satori + Sharp で戦略・コラム分のサムネを build 時生成 | 未実装 | 日次記事に中間ページが無い(タイトルクリックは公式 URL に直飛び、ADR 0008)ので記事単位の OG が要らない。**digest 個別の動的 OG は実装済み**(§1・ADR 0031)、ハブページは静的 default(ADR 0032) |
 | StrategyRow 風カード(左 3px の accent バー、見出し大、紙面カラム風) | 戦略一覧で多用 | ArticleCard で代替 | edu-watch のカードは新聞風(媒体バッジ + カテゴリバッジ + タイトル + 要約 3 行)が中心 |
-| ハンバーガー breakpoint | `lg`(1024px) | **`md`**(768px、Sprint 4 で `sm` → `md` に調整) | edu-evidence は項目 6 + 検索アイコンで lg が必要だが、edu-watch は項目 6 + 検索アイコンで `text-xs` + `gap-3` のままなら md に収まる。意図的差(2026-04-29) |
 | フッター 4 列 | Tier 別サイト構造に合わせて 4 列(指導法を探す / 学ぶ・読む / サイト) | **3 列**(ブランド+連絡先 / 探す / サイト) | edu-watch のページ数では 4 列だと余白が目立つ |
-| ヘッダー検索アイコンと並ぶ「カラム単位の主要動線」項目 | ホーム / 悩み / 指導法 / コラム / ガイド / サイトについて | カテゴリ / 媒体 / アーカイブ / サイトについて + 姉妹サイト | サイト構造が違う(エビデンスポータル vs ニュースアグリゲータ) |
+| ヘッダー検索アイコンと並ぶ「カラム単位の主要動線」項目 | ホーム / 悩み / 指導法 / コラム / ガイド / サイトについて | カテゴリ / 媒体 / アーカイブ / ダイジェスト / サイトについて + 姉妹サイト | サイト構造が違う(エビデンスポータル vs ニュースアグリゲータ) |
 | カテゴリ自動分類のキーワード網 | 戦略カードに紐付くタグセット | 教育ニュース用に拡充(政策・制度 / 研究・エビデンス / 教員・働き方 / ICT/GIGA…) | コンテンツ性質が違う、ADR 0014 で edu-watch 専用に最適化 |
 
 ## 3. 将来検討候補(条件次第で 1 へ昇格)
 
 実装を見送ったが、edu-watch のスコープが広がれば再検討する候補:
 
-- **reading-progress**: Sprint 4 の週次ダイジェストで長文ページを設ける場合
-- **glossary tooltip**: edu-watch が用語ノート(政策キーワード辞典 / 制度用語の解説)を持つ場合
-- **OG 画像の動的生成**: ADR 0008 を見直し、記事単位ページを設ける方針に転換した場合(現時点では計画なし)
+- **glossary tooltip**: edu-watch が用語ノート(政策キーワード辞典 / 制度用語の解説)を持つ場合。`global.css` に `.glossary-tip` のスタイルだけが持ち込みで残っているが、`remark-glossary` 依存も呼び出しも無い
+- **日次記事の OG 画像の動的生成**: ADR 0008 を見直し、記事単位ページを設ける方針に転換した場合(現時点では計画なし)
 - **StrategyRow 風カード**: 「特集」「シリーズ」「Pick of the week」のような中間概念を導入する場合
-- **`changelog.md` ページ**: edu-evidence の `/changelog`。現状は GitHub の Release 一覧で代替
 
 ## 4. 新規実装時の進め方
 
