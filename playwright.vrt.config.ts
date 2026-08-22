@@ -16,9 +16,9 @@ export default defineConfig({
   expect: {
     timeout: 30000,
     toHaveScreenshot: {
-      // 0.01(1%)は全画面撮影に対して緩すぎた。h2 の letter-spacing を
-      // 0.06em 変える実験では、旧閾値だと 24 件中 2 件しか落ちない。
-      // ノイズ側は実測 0 なので、その間に置く。
+      // 0.01(1%)は全画面撮影に対して緩すぎた。ノイズ側は実測 0 なので、その間に置く。
+      // 根拠の実測値(h2 の letter-spacing を 0.06em 変えたときの検出件数)は
+      // CLAUDE.md の VRT 節が正典。数値をここに写すと片方だけが古くなる。
       maxDiffPixelRatio: 0.001,
       animations: "disabled",
       caret: "hide",

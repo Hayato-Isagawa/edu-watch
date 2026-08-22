@@ -73,7 +73,7 @@ action だけが exit 1 する**ので、`exit_code` だけを見ていると通
 ## プロジェクト構造
 
 - `src/content/digests/` — 週次ダイジェスト(Markdown コレクション、本サイトの主コンテンツ)
-- `src/pages/` — index(トップ) / digest(一覧・詳細) / archive / categories / sources / search / about / changelog / 404 / og / rss.xml.ts
+- `src/pages/` — index(トップ) / digest(一覧・詳細) / archive / categories / sources / search / about / changelog / 404 / og / rss.xml.ts / design-tokens.json.ts
 - `src/layouts/Layout.astro` — 共通レイアウト(edu-evidence と統一のデザイントークン)
 - `src/styles/global.css` — デザインシステム(edu-evidence から持ち込み、将来共通化候補)
 - `public/_headers` — セキュリティヘッダー
@@ -81,7 +81,7 @@ action だけが exit 1 する**ので、`exit_code` だけを見ていると通
 
 ## 姉妹サイトとの関係
 
-- **edu-evidence.org**(本家): 戦略 74 本・コラム 30 本のストック型エビデンスポータル
+- **edu-evidence.org**(本家): 戦略 74 本・コラム 31 本のストック型エビデンスポータル
 - **news.edu-evidence.org**(本サイト): 日次の教育ニュース + 週次ダイジェスト(フロー型)
 
 Layout / styles / glossary / OG 画像ユーティリティは edu-evidence からコピー持ち込み。半年運用後に共通化(npm package 化など)を検討する。
@@ -106,8 +106,8 @@ Sprint 1〜4(基盤構築・RSS 自動収集パイプライン・フロント実
   一方 `h2` の `letter-spacing` を 0.06em 変える実験では、旧閾値 0.01 だと 24 件中 3 件しか
   落ちなかった(0.001 では 8 件)。**全画面撮影に対して 1% は緩すぎる**
 - **リトライは入れない**。差分が実測 0 なら、リトライは間欠的な問題を握り潰すだけになる
-- **対象**: `vrt/pages.spec.ts` がテンプレート代表 13 URL(トップ / ダイジェスト一覧・詳細 / アーカイブ一覧・詳細 / カテゴリ一覧・詳細 / ソース一覧・詳細 / about / 検索 / changelog / 404)をフルページ撮影。テンプレートを追加したら代表 URL を 1 行追記する
-- **ゲート**: `.github/workflows/vrt.yml` が `pull_request` の `paths` で `src/layouts/**`・`src/components/**`・`src/styles/**`・`astro.config.*`・`vrt/**`・`playwright.vrt.config.ts` に限定起動。記事データ・ダイジェストだけの PR では走らない(`workflow_dispatch` で手動実行可)
+- **対象**: `vrt/pages.spec.ts` がテンプレート代表 12 URL(トップ / ダイジェスト一覧・詳細 / アーカイブ一覧・詳細 / カテゴリ一覧・詳細 / ソース一覧・詳細 / about / 検索 / 404)をフルページ撮影。テンプレートを追加したら代表 URL を 1 行追記する。**`/changelog` は入れない** — PR ごとに先頭へ 1 件増えるので、内容の追加だけで必ず差分が出て本当の崩れが埋もれる(理由は同ファイル冒頭。`.github/workflows/vrt.yml` の `paths` でも `!src/pages/changelog.astro` で除外している)
+- **ゲート**: `.github/workflows/vrt.yml` が `pull_request` の `paths` で描画に効くパスに限定起動する。記事データ・ダイジェストだけの PR では走らない(`workflow_dispatch` で手動実行可)。**列挙の正典は同ファイルで、ここには写さない** — 写すと片方だけが古くなる
 - **比較方式(案A)**: CI 内で main と PR を両方ビルドし、同一 Linux 環境で撮影・比較する。ベースライン PNG はコミットしない(`vrt/__screenshots__/` は gitignore)。システムフォント描画の macOS↔Linux 差を回避するため
 - **ローカル**: `npm run vrt` で現在の `dist` を撮影・比較できる。権威ある 2 ビルド差分は CI 側
 - **required check 非対象**: 視覚変更 PR でしか起動しないため required には含めない。マージ可否は編集者判断(rule 13)
