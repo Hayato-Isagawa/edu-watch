@@ -73,7 +73,7 @@ action だけが exit 1 する**ので、`exit_code` だけを見ていると通
 ## プロジェクト構造
 
 - `src/content/digests/` — 週次ダイジェスト(Markdown コレクション、本サイトの主コンテンツ)
-- `src/pages/` — index(トップ) / digest(一覧・詳細) / archive / categories / sources / search / about / changelog / 404 / og / rss.xml.ts
+- `src/pages/` — index(トップ) / digest(一覧・詳細) / archive / categories / sources / search / about / changelog / 404 / og / rss.xml.ts / design-tokens.json.ts
 - `src/layouts/Layout.astro` — 共通レイアウト(edu-evidence と統一のデザイントークン)
 - `src/styles/global.css` — デザインシステム(edu-evidence から持ち込み、将来共通化候補)
 - `public/_headers` — セキュリティヘッダー
@@ -81,7 +81,7 @@ action だけが exit 1 する**ので、`exit_code` だけを見ていると通
 
 ## 姉妹サイトとの関係
 
-- **edu-evidence.org**(本家): 戦略 74 本・コラム 30 本のストック型エビデンスポータル
+- **edu-evidence.org**(本家): 戦略 74 本・コラム 31 本のストック型エビデンスポータル
 - **news.edu-evidence.org**(本サイト): 日次の教育ニュース + 週次ダイジェスト(フロー型)
 
 Layout / styles / glossary / OG 画像ユーティリティは edu-evidence からコピー持ち込み。半年運用後に共通化(npm package 化など)を検討する。
