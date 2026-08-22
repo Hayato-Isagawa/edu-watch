@@ -2,13 +2,16 @@
 import "../styles/global.css";
 import Logo from "../components/Logo.astro";
 import { OG_DEFAULT_VERSION } from "../data/og-version";
-interface Props {
+// ogImagePath と ogVersion は対で渡す。片方だけだと `astro check` が落ちる
+// (ページ個別の OG を出しながらキャッシュの版数を付け忘れる事故を型で止める。ADR 0067)
+type Props = {
   title?: string;
   description?: string;
-  ogImagePath?: string;
-  ogVersion?: string;
   longForm?: boolean;
-}
+} & (
+  | { ogImagePath: string; ogVersion: string }
+  | { ogImagePath?: undefined; ogVersion?: undefined }
+);
 const {
   title = "EduWatch JP — 教育ニュースを一次情報から追う",
   description = "文科省・国立教育政策研究所・OECD・EEF・主要新聞の教育面から、一次情報を日次で自動収集し、エビデンスの視点で整理する。EduEvidence JP 姉妹サイト。",
