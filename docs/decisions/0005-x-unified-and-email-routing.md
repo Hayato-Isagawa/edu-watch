@@ -39,7 +39,7 @@
 
 ### メール → **E) 3 エイリアス + Email Routing**
 
-Cloudflare Email Routing で 3 エイリアスを `eduevidence.jp@gmail.com` に転送:
+Cloudflare Email Routing で 3 エイリアスを**運営専用の Gmail アカウント**に転送(実アドレスは管理画面に保持):
 
 | エイリアス | 用途 |
 |---|---|

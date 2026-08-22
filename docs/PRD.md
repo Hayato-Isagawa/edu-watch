@@ -378,7 +378,7 @@ flowchart LR
 
 ### 10.2 メール運用(Cloudflare Email Routing、無料)
 
-edu-evidence.org のドメインメールとして以下 3 エイリアスを設定し、すべて運営専用 Gmail `eduevidence.jp@gmail.com` に転送する(個人 Gmail `harnet0119@gmail.com` とは分離):
+edu-evidence.org のドメインメールとして以下 3 エイリアスを設定し、すべて**運営専用の Gmail アカウント**に転送する(個人用の Gmail とは分離。実アドレスは Cloudflare Email Routing の管理画面に保持し、ここには書かない):
 
 - `contact@edu-evidence.org` — 読者・問い合わせ窓口(両サイト共通)
 - `news@edu-evidence.org` — edu-watch 関連(RSS 管理・ソース連絡・ダイジェスト配信問い合わせ)
@@ -387,14 +387,14 @@ edu-evidence.org のドメインメールとして以下 3 エイリアスを設
 運用上の補足:
 
 - **受信仕分け**: Gmail のフィルタで `to:contact@` / `to:news@` / `to:notify@` の 3 レーンに自動ラベル付け
-- **気付きやすさ**: 必要に応じて `eduevidence.jp@gmail.com` から `harnet0119@gmail.com` への "重要連絡のみ二次転送" を Gmail 側ルールで設定(初期はオフで OK)
+- **気付きやすさ**: 必要に応じて運営用から個人用への "重要連絡のみ二次転送" を Gmail 側ルールで設定(初期はオフで OK)
 - **送信**: Gmail の「別名送信」で `contact@edu-evidence.org` 等に偽装(SPF / DKIM 整備済み)
 - **将来の移行**: 問い合わせが月 20 通を超えた段階、または SaaS ブランド運営負荷が増えた段階で Google Workspace Business Starter($6/月)への移行を検討
 
 ### 10.2.1 運用メールの分離方針
 
-- **運営ブランド(edu-evidence / edu-watch)**: `eduevidence.jp@gmail.com`(専用)
-- **個人**: `harnet0119@gmail.com`(プライベートに近い連絡用途に限定)
+- **運営ブランド(edu-evidence / edu-watch)**: 運営専用アカウント
+- **個人**: 個人用アカウント(プライベートに近い連絡用途に限定)
 - **SaaS(将来別ブランド)**: 別途新規 Gmail を取得して 3 系統分離
 
 この分離により、将来の運営協力者追加時の引き継ぎ(専用 Gmail のパスワード共有のみで完了)と、生活とのバランス(個人メールの汚染回避)を両立する。
