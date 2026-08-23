@@ -1,5 +1,162 @@
 [
   {
+    "id": "kkn-2026-08-23-536922b7b5c622cb",
+    "title": "図書館活用を継続する組織と仕組みづくり～日本学校図書館学会　研修講座",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/post_library/260824_7a",
+    "publishedAt": "2026-08-23T22:00:59.000Z",
+    "collectedAt": "2026-08-23T22:14:19.269Z",
+    "summary": "日本学校図書館学会主催による｢2026学校図書館研修講座｣が7月24日、東京都荒川区立第三日暮里小学校で開催された。同校の村山貞則校長による実践発表、グループワーク、学校図書館見学、帝京大学の鎌田和宏教授による講義が行わ […]",
+    "categories": [
+      "教員・働き方"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-08-23-8e325b89b0f686be",
+    "title": "デジタル学生証は業務DXの要～震災後2時間で学生95％の安否確認～熊本高等専門学校",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/post_ict/260824_2a",
+    "publishedAt": "2026-08-23T22:00:58.000Z",
+    "collectedAt": "2026-08-23T22:14:19.269Z",
+    "summary": "求人倍率の高さでしばしば評価される高等専門学校だが、熊本高等専門学校は特に高く、本科は40倍、専攻科は100倍以上にものぼる。半導体教育や情報教育の強化が認められ、定員も増えているという。同校の情報教育セキュリティセンタ […]",
+    "categories": [
+      "ICT / GIGA"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-08-23-ef07f55016796b73",
+    "title": "LoiLo、教員向け「生成AIスキルカード」公開 8/31にオンライン体験イベントを開催",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20260824o04",
+    "publishedAt": "2026-08-23T22:00:57.000Z",
+    "collectedAt": "2026-08-23T22:14:19.269Z",
+    "summary": "LoiLoは、授業支援アプリ「ロイロノート・スクール」上で使える「生成AIスキルカード」を公開した。 本ツールはカードの項目を入力してPDF出力し、生成AIへアップロードするだけで適切な指示が出せる仕組み。教員がプロンプ […]",
+    "categories": [
+      "ICT / GIGA",
+      "教員・働き方"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-08-23-e4eb51a373be3e3d",
+    "title": "変わる修学旅行～物価高や人手不足など背景に～全国修学旅行研究大会",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/post_travel/260824_7c",
+    "publishedAt": "2026-08-23T22:00:51.000Z",
+    "collectedAt": "2026-08-23T22:14:19.269Z",
+    "summary": "コロナ禍以降、修学旅行を取り巻く環境が大きく変化するなか｢学びの集大成を図る修学旅行｣を主題に第43回全国修学旅行研究大会（主催＝公財・全国修学旅行研究協会）が7月24日、都内で開催された。 全修協報告～物価高騰などの環 […]",
+    "categories": [
+      "研究・エビデンス"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-08-23-c8c7a1b60fc43cc2",
+    "title": "AI時代の主体的な学びへの転換「第5回　学びの伴走者！生成AIからのフィードバック～福岡県筑前町の取組から～」中村学園大学教育学部　山本朋弘教授",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/post_ict/260824_1c",
+    "publishedAt": "2026-08-23T22:00:48.000Z",
+    "collectedAt": "2026-08-23T22:14:19.269Z",
+    "summary": "福岡県筑前町（宮崎敏宏教育長）は、町内全体での教育DXの推進を目的として、毎年6月に｢GIGAスクール甲子園08｣を開催している。今年度は6月18日に町内の小・中各校代表7学級による公開授業を実施。自己調整の質を高める｢ […]",
+    "categories": [
+      "ICT / GIGA"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-08-23-3cb749b30c379fb8",
+    "title": "県立学校でメディアプラットフォームを活用～学校の情報を特設メディアなどから発信～青森県",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/post_committee/260824_aomoriken2",
+    "publishedAt": "2026-08-23T22:00:48.000Z",
+    "collectedAt": "2026-08-23T22:14:19.269Z",
+    "summary": "青森県教育委員会は、メディアプラットフォーム｢note｣を活用し、県立学校66校や県教委の情報を発信するため8月5日、noteと連携協定を締結した。 県立学校と県教委に対し、法人向け高機能プラン｢note pro｣を無償 […]",
+    "categories": [
+      "政策・制度"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-08-23-3c99e66813cae9ca",
+    "title": "日野台高校と南平高校にデジタル教科書を導入～数学と理科を教材付きで～東京都",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/post_nyusatsu/260824_tokyo",
+    "publishedAt": "2026-08-23T22:00:41.000Z",
+    "collectedAt": "2026-08-23T22:14:19.269Z",
+    "summary": "東京都教育庁は、日野台高等学校と南平高等学校にデジタル教科書を導入するため希望制指名競争入札を7月9日に公示。八南教科書供給が落札。 数学は両校とも数研の｢改訂版　数学Ⅰ｣｢数学Ⅱ｣｢数学Ⅲ｣｢改訂版　数学A｣｢数学B｣ […]",
+    "categories": [
+      "ICT / GIGA",
+      "政策・制度"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-08-23-418ac304c9fc5a53",
+    "title": "小学校3校・中学校1校に教員用端末を導入～学習者用端末は共同調達～千葉県九十九里町",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/post_nyusatsu/260824_kuzyuukurimati",
+    "publishedAt": "2026-08-23T22:00:41.000Z",
+    "collectedAt": "2026-08-23T22:14:19.269Z",
+    "summary": "九十九里町教育委員会は、豊海小学校、片貝小学校、九十九里小学校、九十九里中学校に指導者用端末63台や学習用ソフトウェアを導入するにあたり、制限付き一般競争入札を7月23日に公示。 学習者用端末619台は、千葉県公立学校情 […]",
+    "categories": [
+      "ICT / GIGA",
+      "政策・制度",
+      "教員・働き方"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-08-23-a6c906201106c4e4",
+    "title": "私物スマホ、全面禁止でも約4割が利用～私物スマホ利用実態を調査",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/282n01",
+    "publishedAt": "2026-08-23T22:00:36.000Z",
+    "collectedAt": "2026-08-23T22:14:19.269Z",
+    "summary": "教職員の私物スマートフォン（以下、私物スマホ）利用における情報漏洩リスクや盗撮などの不祥事等を受けて、私物スマホの全面禁止や利用制限を行っている教育委員会は多い。一方で公用スマホは約83％以上が未導入であり、私物スマホ利 […]",
+    "categories": [
+      "政策・制度",
+      "教員・働き方"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-08-23-250851e7b50e81ce",
+    "title": "教育特化型生成AIで教員の生産性向上に寄与　シュライヒャー氏が講演",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/post_ict/260824_1b",
+    "publishedAt": "2026-08-23T22:00:33.000Z",
+    "collectedAt": "2026-08-23T22:14:19.269Z",
+    "summary": "7月30日、｢教育×生成AIシンポジウム－生成AI時代、学びはどこへ向かうのか－｣が東京大学およびオンラインで開催され、会場に1100人、オンラインで3000人以上が参加した。 主催は生成AIの活用を通じた教育課題の解決 […]",
+    "categories": [
+      "ICT / GIGA",
+      "研究・エビデンス",
+      "教員・働き方"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
     "id": "kkn-2026-08-23-4a83c2da2f74b652",
     "title": "＜8/31まで＞夏休み、使い終わったノートどうしてる？ ScanSnap主催「第4回 ノート感謝祭」をClearnoteにて開催中",
     "sourceId": "kkn",
