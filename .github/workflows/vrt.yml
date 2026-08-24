@@ -14,7 +14,7 @@ on:
       # ダイジェストは src/content にあるので、これらを足しても起動しない。
       # 記事は src/content ではなく src/data/articles/ にある(下記のとおり対象外)。
       - "src/pages/**"
-      # 更新履歴は PR ごとに 1 行増える(rule 8)。VRT の対象ページからは
+      # 更新履歴は PR ごとに 1 行増える。VRT の対象ページからは
       # 外してあるので、ここで走らせても得るものが無い。
       - "!src/pages/changelog.astro"
       # src/data/ は起動条件に入れない。articles/(自動収集した記事)と

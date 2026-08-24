@@ -1,6 +1,6 @@
 # 0043. fetch-news の JST 18:00 cron を JST 19:30 へ微調整(GitHub Actions ピーク帯遅延緩和)
 
-- 状態: 採用(0009 §決定の cron 式を更新)
+- 状態: 採用(0009 §決定の cron 式を上書き)
 - 日付: 2026-05-15
 - 関連 ADR: 0009(fetch-news ワークフロー PR フロー化、cron 日次 2 回)/ 0042(token 切替、required check 発火条件)
 - 関連 PR: TBD(本 ADR 起票 PR)

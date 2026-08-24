@@ -19,7 +19,7 @@ retry 別ファイル `summary-checked-raw.chunk2.md`(chunk 2 の raw のみを�
 
 chunk 2 の raw 入力にこれらは含まれない。出所は当時の `buildRetryPrompt` が不足リストに各 fact の `description`(答案数値を含む)を verbatim で渡していたこと = モデルが raw を読まず description をコピーするだけで grep 上「回収」と判定される循環回収。ADR 0046 §撤回トリガーが想定した事象であり、ADR 0057 D4(retryHint 化)で遮断した。
 
-## 3. 幻覚(欠陥B、本セッションで原文照合・rule 26b 適用)
+## 3. 幻覚(欠陥B、原文の前後段落まで照合して確認)
 
 `summary-checked-raw.chunk2.md` L29:「小学校・中学校共に **30歳以下**の教員の減少幅が大きくなっています」
 

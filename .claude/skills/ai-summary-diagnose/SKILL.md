@@ -163,7 +163,7 @@ ADR 0040 §C-7「Phase 2 採用判定固定」は obs-17 + obs-19 の 2 件で�
 ### active.md / ADR への記録
 
 - 本 skill を回した結果が ADR レベルの決定(C-7 数値 / 採用判定 / boundary schema 変更)に到達した場合は ADR 0040 / 0050 を改訂 PR で更新
-- 単発の修正(typo / 正規表現 1 箇所)なら active.md の「実装ノート」に Deviation として 1 行残す(memory rule 15)
+- 単発の修正(typo / 正規表現 1 箇所)なら active.md の「実装ノート」に Deviation として 1 行残す
 
 ## 典型対象(2026-05-22 時点の未解決)
 
@@ -173,14 +173,14 @@ ADR 0040 §C-7「Phase 2 採用判定固定」は obs-17 + obs-19 の 2 件で�
 2. **extract.mjs page marker root cause**: ADR 0050 ADR §「撤回 / 再検討の条件」で言及されている境界ずれ系の根因がまだ単一仮説に絞れていない。Phase 3 仮説 1 / 3 を併走して計測する案件
 3. **NFKC false positive**: 必須数値が「9,400 億円」と「９，４００億円」で grep miss する事象。Phase 4 の `--debug` モード追加が前提条件
 
-## 連動する Memory rules
+## 連動する運用規約
 
-- rule 2(正確性の徹底): observation の数値は推測禁止、3 試行の生データを残す
-- rule 3(エビデンス執筆の鉄則): 救出率の数値は一次研究(原文 PDF)で裏付け
-- rule 13(PR は作成までで止め、マージはユーザー): GHA からの自動マージ禁止(ai-summary.yml も同じ)
-- rule 17(マージ後の後処理): observation 採取後の branch 削除 + main pull は本 skill 実行後も必須
-- rule 19(コンテンツ編集はプランモード既定): observation md 編集前に Plan Mode 推奨
-- rule 22(セッション終了時の未 commit ファイルは WIP commit を提案): `tmp/ai-summary/<slug>/<section>/` は `.gitignore` だが、observation md は追跡対象
+- **正確性の徹底**: observation の数値は推測禁止、3 試行の生データを残す
+- **エビデンス執筆の鉄則**: 救出率の数値は一次研究(原文 PDF)で裏付け
+- **PR は作成までで止め、マージはユーザーが行う**: GHA からの自動マージ禁止(ai-summary.yml も同じ)
+- **マージ後の後処理**: observation 採取後の branch 削除 + main pull は本 skill 実行後も必須
+- **コンテンツ編集はプランモード既定**: observation md 編集前に Plan Mode 推奨
+- **セッション終了時に未コミットのファイルは WIP commit を提案**: `tmp/ai-summary/<slug>/<section>/` は `.gitignore` だが、observation md は追跡対象
 
 ## 関連
 

@@ -477,7 +477,10 @@ body[data-menu="open"] {
   font-weight: 600;
 }
 
-/* Article body shared by /strategies and /columns */
+/* 記事本文の組版。本サイトのテンプレートからは参照しておらず、ビルド出力の
+   HTML に 1 件も出ない。edu-evidence からのコピーで、本サイトの本文はダイジェスト
+   個別ページの .prose-digest が担う。姉妹サイトと同じ値を保つために残している
+   (ADR 0029 §本サイト固有の差分)。消すと同 ADR の決定を覆すことになる。 */
 .prose-article {
   font-size: 17px;
   line-height: 1.8;

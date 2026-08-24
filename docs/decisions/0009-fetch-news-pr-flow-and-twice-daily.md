@@ -1,6 +1,6 @@
 # 0009. fetch-news ワークフローを PR フロー化、cron を日次 2 回へ削減
 
-- 状態: 採用(0003 §6.1 と PR #18 / #19 の運用方針を上書き)
+- 状態: 採用(設計書 [`docs/sprint-2-design.md`](../sprint-2-design.md) §6.1 と PR #18 / #19 の運用方針を上書き) / §決定の cron 式は [`ADR 0043`](0043-fetch-news-cron-jst-1930-shift.md) で上書き
 - 日付: 2026-04-26
 - 関連 PR: #18(初版実装)、#19(短期回避策、本 ADR で撤回)、TBD(本 ADR の実装)
 
