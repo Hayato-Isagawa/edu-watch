@@ -191,7 +191,8 @@
       "教員・働き方"
     ],
     "layer": 2,
-    "language": "ja"
+    "language": "ja",
+    "requiresMembership": true
   },
   {
     "id": "resemom-2026-07-30-b0c29bbaa1558c0c",
