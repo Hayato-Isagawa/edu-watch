@@ -1,5 +1,144 @@
 [
   {
+    "id": "kkn-2026-08-24-9fb284f8fb82f8bd",
+    "title": "【第16回】KOSENから未来を創造　愛知県立高等専門学校「最短2029年4月開校を目指す」",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/post_ict/260824_3b",
+    "publishedAt": "2026-08-24T22:00:47.000Z",
+    "collectedAt": "2026-08-24T22:18:27.075Z",
+    "summary": "■地の利を生かす～デジタル人材を育成 愛知県は自動車、航空機、ロボットなどの分野で日本を代表する企業が集積し、日本一の｢ものづくり県｣とも言われる。産業集積地であることの強みを活かし、｢デジタルものづくり人材｣の育成を目 […]",
+    "categories": [
+      "その他"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-08-24-2a0dc63c8486284b",
+    "title": "SINET接続に向け新たな環境へ～サーバでゼロトラスト環境を構築～山梨県笛吹市",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/post_nyusatsu/260824_fuefukisi",
+    "publishedAt": "2026-08-24T22:00:45.000Z",
+    "collectedAt": "2026-08-24T22:18:27.075Z",
+    "summary": "笛吹市は、学校のネットワーク環境の改善を図るため事後審査型条件付き一般競争入札を7月21日に公示。   教育系ネットワークを学術情報ネットワーク｢SINET｣へ接続するため、データセンターまでのアクセス回線を調 […]",
+    "categories": [
+      "その他"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-08-24-a9044eb7bbd73e1f",
+    "title": "NPO法人eboard、特別支援教員向け「はじめてのAIワークショップ」を9/27に大阪で開催",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20260825o01",
+    "publishedAt": "2026-08-24T22:00:45.000Z",
+    "collectedAt": "2026-08-24T22:18:27.075Z",
+    "summary": "NPO法人eboardは、特別支援の教員等を対象とした「生成AIで”学びにくさ”に寄り添うデジタル教材作成：特別支援の先生のための、はじめてのAIワークショップ」の全国展開を開始し、その第1弾を9月27日に大阪にて無料開 […]",
+    "categories": [
+      "ICT / GIGA",
+      "教員・働き方"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-08-24-17795863960d2026",
+    "title": "音更町、小中学校16校に心の健康観察アプリ導入 1人1台端末で児童・生徒の変化早期把握へ",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20260825o04",
+    "publishedAt": "2026-08-24T22:00:38.000Z",
+    "collectedAt": "2026-08-24T22:18:27.075Z",
+    "summary": "北海道音更町教育委員会は今年度より、町立の小中学校16校を対象に、児童・生徒の心の健康状態を日常的に見守るデジタル健康観察サービス「LEBER for School」（提供元：リーバー）を導入。1人1台配備されている学習 […]",
+    "categories": [
+      "ICT / GIGA",
+      "政策・制度"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-08-24-4c58024cb59dd7f4",
+    "title": "市費負担教員の採用にAIによる面接を導入～多角的な人物評価が可能に～神奈川県鎌倉市",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/post_committee/260824_kamakurasi",
+    "publishedAt": "2026-08-24T22:00:35.000Z",
+    "collectedAt": "2026-08-24T22:18:27.075Z",
+    "summary": "鎌倉市は、市費負担教員の採用において、エンPeopleXが提供する｢エンPeopleX AI面接｣を導入することを8月3日に決定した。 これにより、候補者の回答内容に応じた対応が可能となり、より多角的な人物評価が行われる […]",
+    "categories": [
+      "ICT / GIGA",
+      "教員・働き方"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-08-24-fea9db7a9920dab3",
+    "title": "KOSEN FES2026～求人倍率800倍「FDE」とは",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/post_ict/260824_2b",
+    "publishedAt": "2026-08-24T22:00:35.000Z",
+    "collectedAt": "2026-08-24T22:18:27.075Z",
+    "summary": "国公私立高専合同説明会｢KOSEN FES2026｣が、東京会場（6月28日）と大阪会場（7月12日）で開催された。 東京会場には関東地区を中心に35高専が参加し、個別相談会、や模擬授業のほか、現役高専生・卒業生によるト […]",
+    "categories": [
+      "その他"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-08-24-1f002bba4b3d46d8",
+    "title": "小学生対象のプログラミング体験教室を実施～高校生が先生役となりサポート～三重県",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/post_committee/260834_mieken",
+    "publishedAt": "2026-08-24T22:00:35.000Z",
+    "collectedAt": "2026-08-24T22:18:27.075Z",
+    "summary": "三重県立神戸高等学校は、高校生が小学生に指導するプログラミング体験教室を7月20日に開催、27人の小学生が参加した。 ICT学習で得た知識を地域へ還元することなどが目的。同校の総合科学部の生徒が先生役となり、子供たちの学 […]",
+    "categories": [
+      "ICT / GIGA"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-08-24-8f9f573ccd36b57e",
+    "title": "氷見高校の生徒がデジタル無人販売所を運営～DX加速化推進事業～富山県",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/post_nyusatsu/260824_toyamaken",
+    "publishedAt": "2026-08-24T22:00:33.000Z",
+    "collectedAt": "2026-08-24T22:18:27.075Z",
+    "summary": "富山県教育委員会は、県立氷見高等学校で専門的な知見を有する事業者による講座を実施するため、公募型プロポーザルを7月23日に公示。 デジタル無人販売所の運営を通して、地域の事業所や各種団体と連携を図りながら、生徒がDXへの […]",
+    "categories": [
+      "政策・制度"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-08-24-32e795439e742452",
+    "title": "外部人材を小中学校の校長として登用～民間企業に在籍した状態でも勤務可能～堺市",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/post_committee/260824_sakasisi",
+    "publishedAt": "2026-08-24T22:00:31.000Z",
+    "collectedAt": "2026-08-24T22:18:27.075Z",
+    "summary": "堺市教育委員会は、外部人材を学校管理職として登用し、学校教育の活性化と学校マネジメント力の向上を図ることを目的に、市立小・中学校の校長を7月23日から8月21日まで募集した。 2027年4月1日から2028年3月31日ま […]",
+    "categories": [
+      "政策・制度",
+      "教員・働き方"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
     "id": "resemom-2026-08-24-82281f8a28f597df",
     "title": "小中高生「古民家フォト甲子園」9/4まで作品募集",
     "sourceId": "resemom",
