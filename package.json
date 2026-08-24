@@ -42,7 +42,7 @@
     "astro": "^7.2.4",
     "cheerio": "^1.2.0",
     "isomorphic-dompurify": "^3.22.0",
-    "marked": "^18.0.9",
+    "marked": "^18.0.10",
     "pdf-parse": "^2.4.5",
     "react": "^19.2.8",
     "react-dom": "^19.2.8",
