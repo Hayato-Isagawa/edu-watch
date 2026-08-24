@@ -1,6 +1,6 @@
 # 0003. 3 層ソース構成と日経除外
 
-- 状態: 採用
+- 状態: 採用 / 第 1 層の NIER 行は [`ADR 0012`](0012-nier-html-scraping.md) で、第 2 層は [`ADR 0007`](0007-tier2-shift-to-specialty-press.md) で上書き
 - 日付: 2026-04-24
 - 関連 PR: #1(Sprint 2 設計書)
 

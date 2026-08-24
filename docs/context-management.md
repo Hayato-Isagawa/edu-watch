@@ -67,7 +67,7 @@ Claude Code とのセッションは context window の上限に達すると圧�
 
 ### 採択された規約 / 仕組み(本セッション内で確定)
 
-- **memory rule N**: 規約名と要点
+- **<規約名>**: 要点(番号ではなく規約の内容を書く)
 - **CONTRIBUTING / ADR NNNN**: docs / ADR 化したもの
 
 ### 運用観測タスク(自動)
@@ -85,7 +85,7 @@ Claude Code とのセッションは context window の上限に達すると圧�
 - **本タスクで作成 / 変更**: PR 単位で記述。複数プロジェクトを並走したセッションでは `#### Project 1` のように 4 段見出しで分割可。
 - **検証**: 静的検証(check / build / test:e2e / check:filter:resemom など)+ 動的観測(cron / recheck / health-check 等の実行結果)を一覧。
 - **実装ノート(逸脱・判断・トレードオフ・未解決)**: Plan Mode で合意した仕様と実装中の判断の乖離を埋めるサブ節。Design decisions / Deviations / Tradeoffs / Open questions の 4 カテゴリを意識する。ADR ほど重くない判断を主対象とし、ADR で残すべき重大決定はそちらに昇格させる。逸脱なしの場合も「逸脱なし」と明示(空欄禁止)。由来は Anthropic Claude Code engineer Thariq Shihipar(@TRQ212)の 2026-05-18 X 投稿。
-- **採択された規約 / 仕組み**: memory rule、ADR、docs ガイドラインなど、後続セッションが参照する規約を明示。
+- **採択された規約 / 仕組み**: ADR・docs ガイドラインなど、後続セッションが参照する規約を明示。
 - **運用観測タスク(自動)**: edu-watch 固有。日次 cron / 週次 cron / 観測 routine など、自動的に走るジョブの schedule とトリガーを残す。edu-evidence 側の同欄は「サイト稼働状況」(ページ数・コラム数・カバレッジ)に置き換わる。
 - **Next Action**: 次セッションの起点。短期(優先順)/ 中長期 / 横断課題で分けてもよい。
 

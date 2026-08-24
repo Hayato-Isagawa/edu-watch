@@ -160,7 +160,7 @@ export const collections = { digests };
    4. 確定した論旨をもとに markdown コメントを起こす(200〜500 字目安)
    5. 編集者が確認 → 微修正 → `sections[i].comment` に書き込み
 5. すべてのトピックが揃ったら、`summary` と `title` を執筆(書式は [digest-workflow.md](./digest-workflow.md)「執筆上の約束」を参照。**号全体を束ねる総括は置かない**。冒頭まえがきは [`ADR 0048`](decisions/0048-digest-drop-content-body.md) で廃止済み)
-6. ローカルの開発サーバーで表示確認（[digest-workflow.md](./digest-workflow.md)「表示確認ゲート」。**編集者の目視 OK まで PR を起票しない**）→ PR 作成 → **マージは編集者**（rule 13）
+6. ローカルの開発サーバーで表示確認（[digest-workflow.md](./digest-workflow.md)「表示確認ゲート」。**編集者の目視 OK まで PR を起票しない**）→ PR 作成 → **マージは編集者**
 
 ### 5.2 編集の補助
 
@@ -171,7 +171,7 @@ export const collections = { digests };
 
 ### 5.3 サブエージェントによる事実検証(`digest-fact-checker`)
 
-ADR 0008(引用範囲遵守)/ ADR 0010(`collectedAt` 上書き禁止)/ ルール 2(正確性の徹底)を **編集ワークフローの中で構造的に守る** ため、執筆前ゲートとして `digest-fact-checker` を必須化する。
+ADR 0008(引用範囲遵守)/ ADR 0010(`collectedAt` 上書き禁止)と、数値・引用・帰属を一次資料で裏付ける原則を **編集ワークフローの中で構造的に守る** ため、執筆前ゲートとして `digest-fact-checker` を必須化する。
 
 - 配置: `.claude/agents/digest-fact-checker.md`
 - ツール: `Read / Grep / Glob / Bash / WebFetch / WebSearch`(編集系ツールは持たない)

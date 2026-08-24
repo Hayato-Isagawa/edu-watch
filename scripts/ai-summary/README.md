@@ -96,7 +96,7 @@ retry プロンプト(`buildRetryPrompt()`)は **循環回収を遮断**する(A
 3. 出力をブランチ `ai-summary/<slug>` に commit し、PR 起票
 4. PR 本文(`.github/PULL_REQUEST_TEMPLATE/ai-summary.md`)に: ソース URL / 抽出メタ / 要約 / fact-check 結果 / 監修チェックリスト
 5. 編集者は PR レビュー + 必要に応じて commit 追加(要約 md 修正)
-6. ユーザーマージで公開(memory rule 13: GHA からの自動マージは禁止)
+6. 編集者のマージで公開(GHA からの自動マージは禁止)
 
 ## experiments/poc-pdf-summary/ との関係
 
