@@ -47,7 +47,7 @@
     "react": "^19.2.8",
     "react-dom": "^19.2.8",
     "rss-parser": "^3.13.0",
-    "satori": "^0.29.0",
+    "satori": "^0.33.0",
     "sharp": "^0.35.3",
     "tailwindcss": "^4.2.2",
     "undici": "^8.9.0",
