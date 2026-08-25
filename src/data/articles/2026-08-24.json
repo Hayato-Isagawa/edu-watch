@@ -503,5 +503,19 @@
     "layer": 2,
     "language": "ja",
     "requiresMembership": true
+  },
+  {
+    "id": "mext-2026-08-24-3e16e6b3727e6794",
+    "title": "学校における持続可能な保健管理の在り方に関する調査検討会（第6回）議事録",
+    "sourceId": "mext",
+    "sourceName": "文部科学省",
+    "sourceUrl": "https://www.mext.go.jp/b_menu/shingi/chousa/shotou/199/gijiroku/mext_00004.html",
+    "publishedAt": "2026-08-24T00:00:00.000Z",
+    "collectedAt": "2026-08-25T10:58:34.288Z",
+    "categories": [
+      "政策・制度"
+    ],
+    "layer": 1,
+    "language": "ja"
   }
 ]
