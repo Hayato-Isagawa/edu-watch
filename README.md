@@ -14,7 +14,7 @@ EduEvidence JP(edu-evidence.org)の姉妹サイト。文部科学省・国立教
 
 | 項目 | 値 |
 |---|---|
-| フレームワーク | Astro 6 |
+| フレームワーク | Astro 7 |
 | UI | React 19 / Tailwind 4 |
 | 言語 | TypeScript |
 | バージョン管理 | mise(`.tool-versions` で Node 24.19.0 固定) |

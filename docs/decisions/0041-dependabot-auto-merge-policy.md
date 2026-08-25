@@ -90,5 +90,5 @@ ADR 0020 で導入した `data/denylist.json` の整合性検査は、依存更�
 - `.github/workflows/e2e.yml`(`Playwright E2E`)
 - `.github/workflows/health-check.yml`(`Persistent denylist consistency`、ADR 0020 で導入)
 - `.github/dependabot.yml`(`vite` major ignore あり、ADR 0006)
-- `~/.claude/templates/dependabot/`(本運用の標準形を雛形化)
+- `<運営者ローカルの Dependabot 雛形ディレクトリ>`(リポジトリ外。本運用の標準形を雛形化)
 - 姉妹サイト: edu-evidence ADR 0022、edu-law ADR 0004(同じ運用方針を 3 リポジトリ横断で採用)

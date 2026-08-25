@@ -2,7 +2,7 @@
 
 ## Status
 
-Accepted (2026-06-20)
+Accepted (2026-06-20)(0054 D1 の `summaryHit` スコープと strict の位置づけを上書き)
 
 ## Context
 
