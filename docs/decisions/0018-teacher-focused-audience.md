@@ -1,6 +1,6 @@
 # 0018. 対象読者を学校教員・教育関係者に統一する
 
-- 状態: 採用 / §「別 PR に分離する変更」は [`ADR 0019`](0019-retroactive-audience-cleanup-and-resemom-filter.md) で限定的に上書き
+- 状態: 採用(0007 の読者像を上書き) / §「別 PR に分離する変更」は [`ADR 0019`](0019-retroactive-audience-cleanup-and-resemom-filter.md) で限定的に上書き
 - 日付: 2026-05-01
 - 関連 ADR: 0007(第 2 層を教育専門紙へ転換)を上書き(読者像の再定義)
 - 関連 PR: TBD(本 ADR の実装)

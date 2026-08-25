@@ -85,6 +85,6 @@ PR #164(`fix/digest-04-split-tamagawa-hokkaido`、`記事 → 文 → 記事 →
 
 ## 参考
 
-- `~/.claude/plans/crispy-dreaming-stardust.md`(本 ADR の plan、ユーザー承認済)
+- `<運営者ローカルの計画メモ>`(リポジトリ外。本 ADR の plan、ユーザー承認済)
 - PR #164(supersede 済、`fix/digest-04-split-tamagawa-hokkaido`、commit `c0cba4e`)
 - `src/lib/articles.ts:104` `getArticlesByIds(ids: readonly string[])`(本 ADR 採用前から複数 id 対応済、再利用)

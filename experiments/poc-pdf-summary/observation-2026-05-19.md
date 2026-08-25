@@ -184,7 +184,7 @@ honbun の map / retry 両 step で +10% / +19% 超過(計 2 事例)を観測。
 
 - ADR 0040 §C-7「数値網羅性 — Phase 2 採用判定済」
 - observation-2026-05-17.md(中教審答申 73p PoC、本観測の前提となる基準)
-- `~/.claude/plans/structured-puzzling-fox.md`(W-2 計画、A 案で固定、セッション 61 ユーザー承認)
+- `<運営者ローカルの計画メモ>`(リポジトリ外。W-2 計画、A 案で固定、セッション 61 ユーザー承認)
 - `tsuuchi.pdf`(対象 PDF、文科省通知 中教審第251号踏まえ、sha256 = `8ea8327b99d04dfb244ade3e94a411705fe256285de7eb7450b4102ac47f3107`)
 - `extract-tsuuchi.mjs`(抽出実装、セッション 62-63)
 - `mapreduce-v4-tsuuchi.mjs`(map-reduce 実装、セッション 63)

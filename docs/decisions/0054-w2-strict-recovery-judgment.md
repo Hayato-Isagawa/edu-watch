@@ -2,7 +2,7 @@
 
 ## Status
 
-Accepted (2026-05-24)
+Accepted (2026-05-24) / D1 は [`ADR 0057`](0057-ai-summary-honest-gate.md) D3 で上書き(`summaryHit` を canonical `summary.md` のみに限定し、strict を公開可否の根拠から参考情報へ降格)
 
 ## Context
 

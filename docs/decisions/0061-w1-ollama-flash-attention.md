@@ -54,7 +54,7 @@ W-1 推論ホスト(ローカル Ollama daemon)で **`OLLAMA_FLASH_ATTENTION=1` 
 
 ## 結果 / 影響
 
-- **永続化**: `~/Library/LaunchAgents/com.hayato.ollama-flashattention.plist`(RunAtLoad で `launchctl setenv OLLAMA_FLASH_ATTENTION 1` + 旧 env の serve を pkill→supervisor が FA=1 で respawn)。Ollama.app にはネイティブ設定 UI / config.json が無いため LaunchAgent が唯一の永続手段。
+- **永続化**: `~/Library/LaunchAgents/com.<運営者>.ollama-flashattention.plist`(RunAtLoad で `launchctl setenv OLLAMA_FLASH_ATTENTION 1` + 旧 env の serve を pkill→supervisor が FA=1 で respawn)。Ollama.app にはネイティブ設定 UI / config.json が無いため LaunchAgent が唯一の永続手段。
 - **検証**: num_ctx=32768 でモデルロード後 `ollama ps` が `100% GPU` なら正常。`NN% CPU` が出たら env 未適用の退行 → Ollama.app を終了→再起動。
 - **コード変更なし**: パイプラインは推論ホストの daemon 設定に依存するのみ。`scripts/ai-summary/` は不変。
 - **品質**: FA は厳密アルゴリズムのため strict 基準(ADR 0054)への影響なし。

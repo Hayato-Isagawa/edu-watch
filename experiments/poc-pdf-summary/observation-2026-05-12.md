@@ -4,7 +4,7 @@
 
 ADR 0040 §C-7「post-process 数値 grep + 不足時 retry」運用機構の retry プロンプト戦略が、本体 PDF 固有の振る舞いか、概要版 PDF でも常態化するかを判定する。常態化が確認できた場合、retry プロンプト戦略変更を扱う次フェーズ ADR の起票判断を行う。
 
-判定基準(セッション 19 計画書 `~/.claude/plans/zazzy-weaving-snowglobe.md` 既定):
+判定基準(セッション 19 の計画書〈運営者ローカル・リポジトリ外〉が既定):
 
 - 常態化: retry 救出率 < 30%(retry 試行に対する recovered 数)
 - 改善: ≥ 70%
@@ -114,7 +114,7 @@ retry 救出率 0% は判定基準上「常態化」だが、上記の手検証�
 ## 参考
 
 - ADR 0040: `docs/decisions/0040-ai-assisted-summary-with-editor-supervision.md`
-- セッション 19 計画書: `~/.claude/plans/zazzy-weaving-snowglobe.md`
+- セッション 19 の計画書(運営者ローカル・リポジトリ外)
 - 本観測の生成物(`.gitignore` 配下、git 管理外): `summary-gaiyouban.md` / `summary-gaiyouban-checked.md` / `chunk-1-gaiyouban.md` / `metrics-gaiyouban.json` / `fact-check-gaiyouban-report.json` / `mapreduce-gaiyouban.log` / `fact-check-gaiyouban.log`
 - 本体観測の生成物(`.gitignore` 配下、git 管理外): `summary-v3.md` / `summary-v3-checked.md` / `chunk-{1..5}-v3.md` / `metrics-v3.json` / `fact-check-grep-report.json`
 - 本観測で git 管理化するファイル: `mapreduce-v3.mjs`(env 拡張) / `fact-check-grep.mjs`(env 拡張) / `required-facts-gaiyouban.json` / `chunk-ranges-gaiyouban.json` / 本ファイル

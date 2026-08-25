@@ -167,7 +167,7 @@ ADR の決定は **不変** が原則。決定が覆ったら新規 ADR を起�
 
 ### 日次 cron の監視
 
-`.github/workflows/fetch-news.yml`(Sprint 2 Batch 3 で実装予定)が日次で動く。失敗が連続した場合は active.md に記録し、原因を ADR にすべきか判断する。
+`.github/workflows/fetch-news.yml`(ADR 0009 / 0043)が日次 2 回動く。失敗が連続した場合は active.md に記録し、原因を ADR にすべきか判断する。
 
 ### ソース追加 / 除外の意思決定
 
@@ -192,7 +192,7 @@ ADR の決定は **不変** が原則。決定が覆ったら新規 ADR を起�
 2. 直近の git log / git status を確認
 3. 進行中の PR を `gh pr list` で確認
 4. 必要なら関連 ADR(`docs/decisions/`)に目を通す
-5. cron 失敗ログがあれば確認(Sprint 2 Batch 3 以降)
+5. cron 失敗ログがあれば確認
 
 ### セッション終了時
 

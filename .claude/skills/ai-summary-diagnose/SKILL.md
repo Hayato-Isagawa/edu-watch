@@ -9,7 +9,7 @@ origin: mattpocock/skills(/diagnose)を W-1 特化に書き換え
 ## いつ使うか
 
 - `node scripts/ai-summary/run-pipeline.mjs --slug ...` の出力が期待と違う(数値脱落、boundary ずれ、retry ループ、fact-check false positive、文字化け)
-- GHA workflow `ai-summary.yml` が成功しているのに編集者レビューで「数値が抜けている」「セクションが切れている」と指摘された
+- パイプラインは完走したのに編集者レビューで「数値が抜けている」「セクションが切れている」と指摘された
 - observation-2026-05-17 / -19 の網羅率を再現できない
 - ADR 0040 §C-7「真の救出率(strict)」が未計測の対象に対して計測したい
 
@@ -44,7 +44,7 @@ mattpocock/skills の `/diagnose`(再現 → 仮説 → 計測 → 修正 → �
 
 ### 決定性チェックリスト
 
-- [ ] `OLLAMA_BASE_URL` が固定(`http://localhost:11434` か GHA secret)
+- [ ] `OLLAMA_BASE_URL` が固定(既定の `http://localhost:11434`)
 - [ ] `mapreduce.mjs` の `temperature` が 0.0-0.2(現状 0.2 固定、ADR 0040 §C-5)
 - [ ] `num_ctx=32768` 固定(ADR 0040 §C-3)
 - [ ] gemma3:12b の `ollama pull` 後の sha256 を `observation-*.md` に控えてある
@@ -67,11 +67,11 @@ LLM 揺れで偶然救出される場合があるため、1 回成功 / 1 回失
 
 「Phase 1 のループで失敗を 100% 再現できる」状態を作る。再現できない症状は仮説検証ができないため、Phase 1 に戻る。
 
-### 観測項目 4 種(GHA / 編集者監修 連動)
+### 観測項目 4 種(実行 / 編集者監修 連動)
 
 W-1 では症状が次の 4 レイヤーに現れる。どこで失敗しているかを最初に切り分ける。
 
-1. **workflow success**: GHA `ai-summary.yml` の Job 失敗(self-hosted runner の Ollama 接続 / pdf-parse のメモリ等、コード以外の原因が混じる)
+1. **run 完走**: `run-pipeline.mjs` の実行失敗(ローカル Ollama への接続 / pdf-parse のメモリ等、コード以外の原因が混じる)
 2. **Issue 本文 registry entries**: PR 本文に `slug` / `section` / `pdfUrl` / `pdf sha256` が含まれているか(ADR 0050 §(5)PR テンプレ運用、トレーサビリティ確保)
 3. **ADR 0040 §C-6 + ADR 0050 監修**: 編集者が原文 PDF と突合した結果のメモが PR コメントにあるか(完全幻覚は出力単体では検出不能、ADR 0040 §C-6)
 4. **PR テンプレ link**: `.github/PULL_REQUEST_TEMPLATE/ai-summary.md` が正しく適用されているか(template が反映されていないと監修チェックリストが欠落)
@@ -177,7 +177,7 @@ ADR 0040 §C-7「Phase 2 採用判定固定」は obs-17 + obs-19 の 2 件で�
 
 - **正確性の徹底**: observation の数値は推測禁止、3 試行の生データを残す
 - **エビデンス執筆の鉄則**: 救出率の数値は一次研究(原文 PDF)で裏付け
-- **PR は作成までで止め、マージはユーザーが行う**: GHA からの自動マージ禁止(ai-summary.yml も同じ)
+- **PR は作成までで止め、マージはユーザーが行う**: GHA からの自動マージ禁止
 - **マージ後の後処理**: observation 採取後の branch 削除 + main pull は本 skill 実行後も必須
 - **コンテンツ編集はプランモード既定**: observation md 編集前に Plan Mode 推奨
 - **セッション終了時に未コミットのファイルは WIP commit を提案**: `tmp/ai-summary/<slug>/<section>/` は `.gitignore` だが、observation md は追跡対象

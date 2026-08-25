@@ -1,6 +1,6 @@
 # 0046. retry input source のデフォルトを raw chunk text 化(ADR 0040 §C-7 Phase 2 正式採用)
 
-- 状態: 採用
+- 状態: 採用 / §「撤回 / 再検討の条件」末尾のトリガーは [`ADR 0057`](0057-ai-summary-honest-gate.md) D4 が実行(上書きではない)
 - 日付: 2026-05-17
 - 関連 ADR: 0040(AI 補助 PDF 要約と編集者最終監修の運用、本 ADR で §C-7 Phase 2 採用判定済とする)/ 0045(fact-check retry の入力ソースを LLM map summary から raw chunk text へ切替、PoC 戦略文書、本 ADR は採用結論)
 - 関連 PR: #153(本 ADR 起票 PR)/ #155(本 ADR §決定 (1)(2) 実装、INPUT_SOURCE デフォルト raw 化 + ADR 0040 §C-7 ステータス更新)/ #152(PoC 実装、commit 67faa61、本 ADR の実証根拠)
