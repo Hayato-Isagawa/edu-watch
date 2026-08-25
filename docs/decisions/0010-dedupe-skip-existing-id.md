@@ -1,8 +1,8 @@
 # 0010. mergeDay は既存 id をスキップし collectedAt を初観測時刻で固定する
 
-- 状態: 採用(PR #18 で導入された `mergeDay` の上書き挙動を是正)
+- 状態: 採用(PR #18 で導入された `mergeDay` の上書き挙動を是正) / §A 副作用(保存済みの summary / title / categories は後から追従しない)には例外があり、恒常的なものは [`ADR 0022`](0022-recheck-nikkyo-membership.md) の `requiresMembership` 更新(本 ADR §更新 (2026-08-25))
 - 日付: 2026-04-27
-- 関連 PR: #18(初版実装)、TBD(本 ADR の実装)
+- 関連 PR: #18(初版実装)、#27(本 ADR の実装、commit `35eda47`)
 
 ## 背景
 
@@ -67,3 +67,13 @@ for (const a of newArticles) {
 ## 補足
 
 本 ADR では url:null 問題(各 parser が canonical_url を抽出できないケースが 98 件存在)には踏み込まない。これは別 PR で parser ごとに調査・修正する。
+
+## 更新 (2026-08-25)
+
+§A の副作用「一度保存した記事の summary / title / categories などが後から修正されても、その変更は edu-watch には追従されない」には例外がある。**`mergeDay` の決定そのものは変わっていない**(`src/lib/storage.ts` の `if (byId.has(a.id)) continue;` は本 ADR §決定のまま)が、保存済み記事は別経路で書き換え・削除されてきた。
+
+- **恒常的な経路**: [`ADR 0022`](0022-recheck-nikkyo-membership.md) の `applyMembershipUpdates`。週次 cron で `requiresMembership` を undefined / false → true に片方向更新する(`collectedAt` は保持)。`src/lib/storage.ts` の同関数の docstring も本 ADR の例外だと述べている
+- **遡及マイグレーション**: [`ADR 0014`](0014-categorize-overhaul-and-recategorization.md)(categories の再計算)/ [`ADR 0015`](0015-mext-education-scope-filter-and-data-cleanup.md) / [`ADR 0019`](0019-retroactive-audience-cleanup-and-resemom-filter.md) / [`ADR 0020`](0020-persistent-article-denylist.md) / [`ADR 0039`](0039-source-noise-filters-kkn-resemom.md) §遡及適用。**ADR に節を持たない削除もある**
+- **一覧をここに写さない。** 実績は `git log -- src/data/articles/` で引ける。大半は auto-collect と ADR 0022 の recheck による自動コミットで、それ以外が本節の対象(初回の `.gitkeep` コミットを除く)。数え上げを書くと即 stale 化する
+
+ADR 0022 §(4) の表は他フィールドの任意の更新を ❌ としているが、これは同節が「本 ADR の例外は以下に限定」と述べるとおり **ADR 0022 が作る例外の範囲**を定めたもので、他の ADR の決定を否定してはいない。実際 ADR 0014 は categories について「ロジック改善に伴う再計算は別概念」として再計算を実施している。
