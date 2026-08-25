@@ -5,7 +5,8 @@
  * 使い方: `npx tsx scripts/cleanup-resemom-filter-backfill.ts`
  *
  * `check-resemom-filter-all.ts` のレポート結果(2026-05-23 取得)に基づき、
- * 50 件の article ID を `src/data/articles/*.json` から除去する。
+ * `REMOVE_IDS` の article ID を `src/data/articles/*.json` から除去する。
+ * 件数は実行時に `REMOVE_IDS.size` として出力する(ここには書かない)。
  * digest で引用済みの 3 件(2026-04-25 digest #1 × 2 / 2026-05-11 digest #3 × 1)は
  * 一貫性のため削除対象から除外しているため、user 協議結果がそのまま反映される。
  *
@@ -26,14 +27,14 @@ const SCRIPT_DIR = fileURLToPath(new URL(".", import.meta.url));
 const ARTICLES_DIR = join(SCRIPT_DIR, "..", "src", "data", "articles");
 
 const REMOVE_IDS: ReadonlySet<string> = new Set([
-  // NG_PATTERNS 該当 (6 件) - ADR 0051 NG_PATTERNS に新規追加されたパターンで除外
+  // NG_PATTERNS 該当 - ADR 0051 NG_PATTERNS に新規追加されたパターンで除外
   "resemom-2026-05-11-7d7f1bce54f0a612",
   "resemom-2026-05-18-4cad112cf1f43a79",
   "resemom-2026-05-21-27b3673109d0d59f",
   "resemom-2026-05-21-a62693ad23006f73",
   "resemom-2026-05-21-c248008498e9f54f",
   "resemom-2026-05-21-66675b0872eb5cb8",
-  // 非教育判定 (44 件) - EDUCATION_PATTERNS 不一致
+  // 非教育判定 - EDUCATION_PATTERNS 不一致
   "resemom-2026-04-23-fb1ef83425a6cbca",
   "resemom-2026-04-24-6122ec8297d2518d",
   "resemom-2026-04-27-e0c339e5764c58d3",
