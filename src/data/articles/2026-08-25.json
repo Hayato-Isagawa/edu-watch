@@ -1,5 +1,142 @@
 [
   {
+    "id": "kkn-2026-08-25-e2f561a60bf84432",
+    "title": "第20回キッズデザイン賞、受賞286点を発表。新設「子どもの参加・参画」部門やAI活用など反映",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20260826o03",
+    "publishedAt": "2026-08-25T22:00:59.000Z",
+    "collectedAt": "2026-08-25T22:19:05.694Z",
+    "summary": "キッズデザイン協議会はこのほど、第20回キッズデザイン賞の受賞作品286点を発表した。本賞は、子供の安全・安心と健やかな成長発達に役立つ優れた製品やサービス、空間などを顕彰する制度。2007年の創設以来、累計応募数は78 […]",
+    "categories": [
+      "ICT / GIGA"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-08-25-c7e96c4165528e5e",
+    "title": "高校化学アプリ「Thoth」提供開始 忘却曲線で復習管理、誤答理由も解説　期間限定で全機能無料開放中",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20260826o02",
+    "publishedAt": "2026-08-25T22:00:58.000Z",
+    "collectedAt": "2026-08-25T22:19:05.694Z",
+    "summary": "教育ソフトウェア開発のTHOTHはこのほど、高校化学に特化したiPhone向け学習アプリ「Thoth – 高校化学の暗記と演習」の配信を開始した。高校化学全範囲の暗記と演習を網羅し、定期テストや共通テスト対策 […]",
+    "categories": [
+      "その他"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-08-25-7606e1a9b230e471",
+    "title": "高性能デスクトップPCや電子黒板など～高田高等学校にDX機器を導入～奈良県",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/post_nyusatsu/260824_naraken",
+    "publishedAt": "2026-08-25T22:00:57.000Z",
+    "collectedAt": "2026-08-25T22:19:05.694Z",
+    "summary": "奈良県教育委員会は、県立高田高等学校にDX機器を導入するにあたりオープンカウンターを7月23日に公示。タカダデンキが落札した。 高性能デスクトップPCはマウスコンピューターのLPI7U01B7BDAW101DEC相当でC […]",
+    "categories": [
+      "政策・制度"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-08-25-a2eaad268c0429a8",
+    "title": "『情報活用能力をどう育てるか　探究的な学びの基礎を養うためのカリキュラムと実践』高橋純、水谷年孝／編　春日井市立出川小学校、春日井市立高森台中学校、春日井市教育委員会／著",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/post_library/260824_7e",
+    "publishedAt": "2026-08-25T22:00:55.000Z",
+    "collectedAt": "2026-08-25T22:19:05.694Z",
+    "summary": "｢情報の時間｣出発点と実践 児童生徒の1人1台端末が当たり前となり、生成AIの活用が現場で試みられる今日、｢情報活用能力｣の育成はますます重要となっている。本書は情報技術のスキルの習得といった一面的なものではなく｢日常の […]",
+    "categories": [
+      "ICT / GIGA",
+      "政策・制度"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-08-25-98650a82511da451",
+    "title": "児童生徒用1人1台端末を共同調達～公立学校情報機器整備費補助事業を活用～広島県",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/post_nyusatsu/260824_hirosimaken",
+    "publishedAt": "2026-08-25T22:00:55.000Z",
+    "collectedAt": "2026-08-25T22:19:05.694Z",
+    "summary": "広島県GIGAスクール推進協議会は、文科省の公立学校情報機器整備費補助事業を活用し、児童生徒用1人1台端末の共同調達を検討するにあたり、情報提供依頼を7月15日に公示。 福山市の学校101校に3万6592台、府中市の学校 […]",
+    "categories": [
+      "ICT / GIGA",
+      "政策・制度"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-08-25-f4d67b94a401e6cf",
+    "title": "熱中症対策として飲料の自動販売機を設置～生徒主体で1年前から活動～兵庫県西宮市",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/post_committee/260824_nishinomiyasi",
+    "publishedAt": "2026-08-25T22:00:54.000Z",
+    "collectedAt": "2026-08-25T22:19:05.694Z",
+    "summary": "西宮市立深津中学校は、生徒会が熱中症対策の一環として、約1年前から要望してきた自動販売機を設置した。 アンケートでは設置について、生徒は賛成81％・反対12％、保護者は賛成68%・反対22％と賛成が大きく上回り、この結果 […]",
+    "categories": [
+      "その他"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-08-25-7b0cd49610e8c39b",
+    "title": "小中学校53校に教育ネットワーク機器を整備～安定したインターネット環境を構築～沖縄県那覇市",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/post_nyusatsu/260824_nahasi",
+    "publishedAt": "2026-08-25T22:00:53.000Z",
+    "collectedAt": "2026-08-25T22:19:05.694Z",
+    "summary": "那覇市教育委員会は、小学校36校、中学校17校に教育ネットワーク機器を整備するにあたり、制限付き一般競争入札を7月16日に公示。 Cisco Merakiクラウドコントローラ上で管理できることが条件。L3集約スイッチ（1 […]",
+    "categories": [
+      "政策・制度"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-08-25-2d8d86d2c78c3556",
+    "title": "おいしい献立写真　旬の食材は生きた教材～第15回「8月／ゴーヤの卵炒め」",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/post_health/260824_6c",
+    "publishedAt": "2026-08-25T22:00:52.000Z",
+    "collectedAt": "2026-08-25T22:19:05.694Z",
+    "summary": "下処理や調理のコツ～ゴーヤは冷凍保存にも 夏の容赦なく照りつける太陽のおかげで、りっぱな実をつける沖縄野菜の代表格のゴーヤは、育てやすく家庭栽培もされています。1本約200ｇ～250ｇ程あり、ビタミンＣがたっぷり含まれて […]",
+    "categories": [
+      "その他"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-08-25-1e9c25b1c88e3322",
+    "title": "「こども気温 教室」で熱中症から自らを守る",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/post_health/260824_4b",
+    "publishedAt": "2026-08-25T22:00:47.000Z",
+    "collectedAt": "2026-08-25T22:19:05.694Z",
+    "summary": "7月23日、東京都板橋区の淑徳小学校でサントリー｢GREEN DA・KA・RA｣主催｢こども気温　教室｣が開催された。対象は1～3年生。子供の熱中症リスクや水分補給の方法、日傘の安全な使い方を学び、屋外で実践する内容だ。 […]",
+    "categories": [
+      "その他"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
     "id": "nikkyo-2026-08-25-6e97191e91af2e76",
     "title": "調整授業時数「学校の自己責任にも」　日教組が緊急シンポ",
     "sourceId": "nikkyo",
