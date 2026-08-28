@@ -1,5 +1,83 @@
 [
   {
+    "id": "kkn-2026-08-27-9564f4663c95c597",
+    "title": "親子で和食の魅力を体験～参加者が昨年よりも大幅に増加～　子ども和食セッション",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/post_health/260824_6b",
+    "publishedAt": "2026-08-27T22:00:57.000Z",
+    "collectedAt": "2026-08-28T05:53:58.409Z",
+    "summary": "(一社)和食文化国民会議は㈻服部学園服部栄養専門学校との共催で、子供たちに｢和食｣に触れる機会を提供し、興味・関心を高めてもらうことを目的に、夏休み食育体験イベント｢子ども和食セッション｣を8月1日に東京・渋谷区の服部栄 […]",
+    "categories": [
+      "その他"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-08-27-1f0c3a2189539ea5",
+    "title": "9/1より無線機を用いた防災教育プログラムの無償貸与を開始、対象を高校やPTA、地域へ拡大〜アイコム",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20260828o04",
+    "publishedAt": "2026-08-27T22:00:45.000Z",
+    "collectedAt": "2026-08-28T05:53:58.409Z",
+    "summary": "無線通信機器大手のアイコムは、9月1日の「防災の日」より、高等学校やPTA、地域の防災組織などを対象とした「無線機を使った防災訓練の教育プログラム」の無償貸与を開始する。 本プログラムは、基地局の被災などによりスマートフ […]",
+    "categories": [
+      "その他"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-08-27-feaff948eb389148",
+    "title": "高校生・大学生の86％ が生成AI時代も「英語力必要」留学の価値「不変」8割超〜Mirai Bridge調べ",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20260828o01",
+    "publishedAt": "2026-08-27T22:00:41.000Z",
+    "collectedAt": "2026-08-28T05:53:58.409Z",
+    "summary": "生成AIが急速に普及するなかでも、高校生や大学生の多くが英語力の重要性を認識し、海外留学の価値を感じていることが、オーストラリア留学支援サービス「Mirai Bridge」を展開するラグザスの意識調査で分かった。全体の約 […]",
+    "categories": [
+      "ICT / GIGA",
+      "国際・海外"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-08-27-676b7ab327f86935",
+    "title": "大学教員のAI活用が拡大、6割超が授業や評価方法を見直しへ〜デジタル・ナレッジ「大学のAI活用実態調査」から",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20260828o03",
+    "publishedAt": "2026-08-27T22:00:14.000Z",
+    "collectedAt": "2026-08-28T05:53:58.409Z",
+    "summary": "デジタル・ナレッジが運営するeラーニング戦略研究所はこのほど、大学における生成AI活用の実態に関する調査報告書を公開した。調査によると、大学教員の86.1%が校務、70.4%が授業準備、91.3%が研究活動でAIを利用し […]",
+    "categories": [
+      "ICT / GIGA",
+      "研究・エビデンス",
+      "教員・働き方"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-08-27-879000dcd41dbda5",
+    "title": "小中学生の夏休み学習「自主性」重視8割超 習慣化や伴走が鍵、生成AI活用も拡大〜Duolingo調べ",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20260828o02",
+    "publishedAt": "2026-08-27T22:00:00.000Z",
+    "collectedAt": "2026-08-28T05:53:58.409Z",
+    "summary": "語学アプリなどを展開するDuolingoは、小中学生の子供を持つ保護者を対象に実施した「夏休みの子供の学習に関する調査」の結果を発表した。学校から出される宿題とは別に、子供が自ら取り組む「自主的な学習」を重視する保護者が […]",
+    "categories": [
+      "ICT / GIGA"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
     "id": "resemom-2026-08-27-ea9f6f324ab8f9ca",
     "title": "行知学園、東京・大阪にインター開校へ…説明会8-9月",
     "sourceId": "resemom",
