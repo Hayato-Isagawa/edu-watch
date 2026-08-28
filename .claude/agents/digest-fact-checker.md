@@ -1,7 +1,7 @@
 ---
 name: digest-fact-checker
 description: edu-watch の週次ダイジェスト(`src/content/digests/*.md`)のコメント執筆前に、編集者の主張・引用予定の数値・人物・日付を **一次資料で検証する** ゲート。Sprint 4 の編集ワークフロー(意見提示 → 事実検証 → ドラフト → 確認 → 書き込み)の「事実検証」ステップを担う。**MUST BE USED before drafting any new digest section comment**.
-model: claude-opus-4-8
+model: opus
 effort: max
 tools: Read, Grep, Glob, Bash, WebFetch, WebSearch
 ---
