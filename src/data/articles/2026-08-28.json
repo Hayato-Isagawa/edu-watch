@@ -1,5 +1,77 @@
 [
   {
+    "id": "mext-2026-08-28-976985795f5c159e",
+    "title": "「学校と保護者・地域住民等とのより良い関係構築のためのガイドライン」を作成しました。",
+    "sourceId": "mext",
+    "sourceName": "文部科学省",
+    "sourceUrl": "https://www.mext.go.jp/a_menu/shotou/hatarakikata/mext_00013.html",
+    "publishedAt": "2026-08-28T08:00:00.000Z",
+    "collectedAt": "2026-08-28T21:12:35.606Z",
+    "categories": [
+      "政策・制度"
+    ],
+    "layer": 1,
+    "language": "ja"
+  },
+  {
+    "id": "mext-2026-08-28-0e3d7cd855f44332",
+    "title": "「秩序ある共生社会の実現に向けた日本語教育支援総合パッケージ」を取りまとめました",
+    "sourceId": "mext",
+    "sourceName": "文部科学省",
+    "sourceUrl": "https://www.mext.go.jp/a_menu/shotou/clarinet/003/1320860_00001.html",
+    "publishedAt": "2026-08-28T07:01:00.000Z",
+    "collectedAt": "2026-08-28T21:12:35.606Z",
+    "categories": [
+      "政策・制度"
+    ],
+    "layer": 1,
+    "language": "ja"
+  },
+  {
+    "id": "mext-2026-08-28-5efc54be9a7b95d1",
+    "title": "秩序ある共生社会の実現に向けた日本語教育の充実について（通知）(令和8年8月28日)",
+    "sourceId": "mext",
+    "sourceName": "文部科学省",
+    "sourceUrl": "https://www.mext.go.jp/b_menu/hakusho/2026/mext_000016.html",
+    "publishedAt": "2026-08-28T07:00:00.000Z",
+    "collectedAt": "2026-08-28T21:12:35.606Z",
+    "categories": [
+      "政策・制度"
+    ],
+    "layer": 1,
+    "language": "ja"
+  },
+  {
+    "id": "mext-2026-08-28-c52d7118bc62b223",
+    "title": "外国人児童生徒等の就学の促進について（通知）(令和8年8月28日)",
+    "sourceId": "mext",
+    "sourceName": "文部科学省",
+    "sourceUrl": "https://www.mext.go.jp/b_menu/hakusho/2026/mext_00017.html",
+    "publishedAt": "2026-08-28T06:55:00.000Z",
+    "collectedAt": "2026-08-28T21:12:35.606Z",
+    "categories": [
+      "政策・制度"
+    ],
+    "layer": 1,
+    "language": "ja"
+  },
+  {
+    "id": "resemom-2026-08-28-a16387ceb0543587",
+    "title": "千葉県、豪雨被災の児童生徒を支援…授業料減免や学用品給与など",
+    "sourceId": "resemom",
+    "sourceName": "リセマム",
+    "sourceUrl": "https://resemom.jp/article/2026/08/28/87338.html",
+    "publishedAt": "2026-08-28T06:45:03.000Z",
+    "collectedAt": "2026-08-28T21:12:35.606Z",
+    "summary": "千葉県教育委員会は2026年8月27日、「令和8年8月千葉豪雨」で被災した児童生徒への支援について公表した。県立学校に在籍する被災児童生徒が安心して学び続けられるよう、授業料の減免や教科書・学用品の給与、奨学金、心のケアなどの支援を行う。",
+    "categories": [
+      "政策・制度",
+      "研究・エビデンス"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
     "id": "mext-2026-08-28-cecb9dbac4e737c6",
     "title": "高等専門学校の機能強化に関する中間整理",
     "sourceId": "mext",
