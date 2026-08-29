@@ -574,9 +574,9 @@ const typeLabel: Record<string, { label: string; color: string }> = {
             {entry.items.map((item) => {
               const t = typeLabel[item.type] ?? typeLabel.add;
               return (
-                <li class="flex gap-3 items-baseline text-sm leading-relaxed">
+                <li class="flex gap-3 items-start text-sm leading-[1.625em]">
                   <span
-                    class={`font-mono text-xs uppercase tracking-widest shrink-0 ${t.color}`}
+                    class={`font-mono text-xs leading-[inherit] uppercase tracking-widest shrink-0 ${t.color}`}
                   >
                     {t.label}
                   </span>
