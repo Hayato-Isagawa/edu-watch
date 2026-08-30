@@ -1,0 +1,48 @@
+[
+  {
+    "id": "kkn-2026-08-30-ebe593cc7a22f5c0",
+    "title": "AIを活用した英単語学習機能「うぐ単」がベータ版として無料提供開始〜教育測定研究所",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20260830o03",
+    "publishedAt": "2026-08-30T01:00:43.000Z",
+    "collectedAt": "2026-08-30T14:54:54.315Z",
+    "summary": "教育測定研究所は、AIを活用した英語ライティング・スピーキング学習サービス「UGUIS.AI」内で、新たに英単語学習機能「うぐ単（ウグタン）」のベータ版を無料で提供開始した。英検準1級から5級までの厳選された約5,000 […]",
+    "categories": [
+      "ICT / GIGA",
+      "研究・エビデンス"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-08-30-1cf4db1e785f531e",
+    "title": "名古屋商科大学、総合・推薦選抜合格者も対象の最大360万円給付「特別奨学生入試」を11月に受付開始",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20260830o01",
+    "publishedAt": "2026-08-30T01:00:29.000Z",
+    "collectedAt": "2026-08-30T14:54:54.315Z",
+    "summary": "名古屋商科大学は、2027年度入学者選抜において、4年間で最大360万円を給費する返還不要の「特別奨学生入試」を実施する。出願期間は11月11日から12月1日までで、試験は12月6日に行われる。募集学部は、国際学部、経営 […]",
+    "categories": [
+      "その他"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-08-30-dd6035f4f74f6daa",
+    "title": "IIBC、TOEIC「デジタル受験票」2027年7月に導入開始、不正対策と安定運用に向けアプリで本人確認へ",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20260830o04",
+    "publishedAt": "2026-08-30T01:00:17.000Z",
+    "collectedAt": "2026-08-30T14:54:54.315Z",
+    "summary": "TOEICを実施・運営する国際ビジネスコミュニケーション協会（IIBC）は、TOEIC Listening & Reading公開テストにおける「デジタル受験票」の運用を2027年7月から開始すると発表した。20 […]",
+    "categories": [
+      "その他"
+    ],
+    "layer": 2,
+    "language": "ja"
+  }
+]
