@@ -67,7 +67,7 @@
     "textlint-rule-prh": "^6.1.0",
     "tsx": "^4.23.12",
     "typescript": "^5.9.3",
-    "wrangler": "^4.125.0"
+    "wrangler": "^4.127.0"
   },
   "overrides": {
     "@babel/core": "^7.29.6",
