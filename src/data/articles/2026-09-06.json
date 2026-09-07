@@ -1,5 +1,39 @@
 [
   {
+    "id": "nikkyo-2026-09-06-c7b11c2009c5e8b3",
+    "title": "中学「情報・技術科」　教員育成へ免許取得・研修を強化",
+    "sourceId": "nikkyo",
+    "sourceName": "日本教育新聞",
+    "sourceUrl": "https://www.kyoiku-press.com/post-315232/",
+    "publishedAt": "2026-09-06T23:50:00.000Z",
+    "collectedAt": "2026-09-07T15:57:29.046Z",
+    "summary": "現職教員が登壇し、授業実践を紹介した 　次期学習指導要領では、中学校に新教科「情報・技術」が創設される。生成AIやプログラミングなど情報教育を大幅に充実し、デジタルを活用したものづくりも強化する。一方…",
+    "categories": [
+      "ICT / GIGA",
+      "政策・制度",
+      "教員・働き方"
+    ],
+    "layer": 2,
+    "language": "ja",
+    "requiresMembership": true
+  },
+  {
+    "id": "nikkyo-2026-09-06-70e02021877a0dc5",
+    "title": "体育館の空調整備率　令和１３年度までに１００％へ　文科省、目標を４年前倒し",
+    "sourceId": "nikkyo",
+    "sourceName": "日本教育新聞",
+    "sourceUrl": "https://www.kyoiku-press.com/post-315128/",
+    "publishedAt": "2026-09-06T23:50:00.000Z",
+    "collectedAt": "2026-09-07T15:57:29.046Z",
+    "summary": "体育館の空調設備の設置率を令和１７年度までに１００％にする目標について、文科省は４年前倒しする。今回の熊本地震は真夏に発生し、体育館の空調設備の重要性が指摘されていた。未整備の自治体に対し、整備予定…",
+    "categories": [
+      "政策・制度"
+    ],
+    "layer": 2,
+    "language": "ja",
+    "requiresMembership": true
+  },
+  {
     "id": "kkn-2026-09-06-d5fbf4443cbcb351",
     "title": "河合塾、仙台と福岡で教員向けシンポジウムを開催〜生徒の資質・能力を可視化し成長を促す指導法を共有",
     "sourceId": "kkn",
