@@ -1,5 +1,67 @@
 [
   {
+    "id": "kkn-2026-09-07-54bb5458615406e5",
+    "title": "全校SLAが被災した学校図書館の備品などを支援～集中募集12月25日まで",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/post_library/kkf260911",
+    "publishedAt": "2026-09-07T22:00:52.000Z",
+    "collectedAt": "2026-09-07T23:53:12.340Z",
+    "summary": "（公社）全国学校図書館協議会（全国SLA）では、寄附金をもとに、大規模災害で被災した学校図書館への支援事業を行っている。   2026年熊本地震、2025年大船渡市大規模林野火災、台風15号に伴う竜巻、2024 […]",
+    "categories": [
+      "その他"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-09-07-95141138688fbd66",
+    "title": "岐阜県山県市×TFJ、学校を統廃合せずに地域全体で子供を育む教育へ連携協定を締結",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20260908o01",
+    "publishedAt": "2026-09-07T22:00:46.000Z",
+    "collectedAt": "2026-09-07T23:53:12.340Z",
+    "summary": "岐阜県山県市は9月1日、認定NPO法人Teach For Japan（TFJ）と連携協定を締結した。同市は少子化が進む中、市内の小中学校を統廃合せず、地域全体で子供の学びを支える新しい公教育のモデル構築を目指す。 &nb […]",
+    "categories": [
+      "その他"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-09-07-0ae5bbdb1de92ce2",
+    "title": "JST、ディープテック・スタートアップ国際展開プログラム第5回公募の新規3課題を決定",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20260908o03",
+    "publishedAt": "2026-09-07T22:00:22.000Z",
+    "collectedAt": "2026-09-07T23:53:12.340Z",
+    "summary": "科学技術振興機構（JST）は9月4日、大学発新産業創出基金事業「ディープテック・スタートアップ国際展開プログラム（D-Global）」の第5回公募における新規採択課題3件を決定し公表した。     ■ […]",
+    "categories": [
+      "研究・エビデンス"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-09-07-39ca44adb16b9c0a",
+    "title": "日本学術会議、次期学習指導要領に向け5つの改善事項を提言、算数・数学教育の在り方見解を公表",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20260908o02",
+    "publishedAt": "2026-09-07T22:00:11.000Z",
+    "collectedAt": "2026-09-07T23:53:12.340Z",
+    "summary": "日本学術会議数理科学委員会数学教育分科会は9月4日、初等中等教育における算数・数学教育の改善に関する見解を公表した。AIやデータサイエンスが普及する現代社会を踏まえ、次期学習指導要領の策定に向けた5つの改善事項を提言して […]",
+    "categories": [
+      "ICT / GIGA",
+      "政策・制度",
+      "研究・エビデンス"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
     "id": "nikkyo-2026-09-07-eae9abd58e29f25d",
     "title": "普通教室の大型掲示装置、整備率に地域差",
     "sourceId": "nikkyo",
