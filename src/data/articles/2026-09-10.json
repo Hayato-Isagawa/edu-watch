@@ -1,5 +1,51 @@
 [
   {
+    "id": "kkn-2026-09-10-55debb53be21f57a",
+    "title": "NPO法人ReBit、小中学校向けLGBTQ無料教材「Ally Teacher’s Tool Kit」をリニューアル公開",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20260911o02",
+    "publishedAt": "2026-09-10T22:00:36.000Z",
+    "collectedAt": "2026-09-10T23:36:48.937Z",
+    "summary": "認定NPO法人ReBitは、小中学校の教員がLGBTQに関する授業を行うための無料教材「Ally Teacher’s Tool Kit」のリニューアル版を公開した。小学校高学年向けと中学校向けの2種類があり、ウェブサイト […]",
+    "categories": [
+      "教員・働き方"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-09-10-155ba4120a9d7e8c",
+    "title": "光村図書×筑波大、デジタル教科書の支援機能が多様な子供の学びをどう支えるか共同研究を開始",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20260911o01",
+    "publishedAt": "2026-09-10T22:00:32.000Z",
+    "collectedAt": "2026-09-10T23:36:48.937Z",
+    "summary": "光村図書出版と筑波大学はこのほど、デジタル教科書の有効性を検証する共同研究を開始した。デジタル教科書には、音声読み上げ、文字サイズの変更、背景色の調整といった支援機能が備わっている。本研究では、読むことや理解することに困 […]",
+    "categories": [
+      "ICT / GIGA",
+      "研究・エビデンス"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-09-10-067833f0581fe2d7",
+    "title": "大日本図書×東大生AIベンチャー「アウターク」が共同開発　小中学生向けAI解説アプリ「パシャレク」",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20260911o04",
+    "publishedAt": "2026-09-10T22:00:26.000Z",
+    "collectedAt": "2026-09-10T23:36:48.937Z",
+    "summary": "大日本図書はこのほど、AI解説アプリ「パシャレク」をリリースした。東京大学発のAIベンチャー企業であるアウタークとの共同開発。 家庭学習において発生しやすい「解き方がわからない」「誤答をそのまま放置してしまう」といった問 […]",
+    "categories": [
+      "ICT / GIGA"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
     "id": "nikkyo-2026-09-10-7a278fd2eeac035a",
     "title": "学校の授業で使える教材公開　日本AED財団",
     "sourceId": "nikkyo",
