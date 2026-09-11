@@ -26,13 +26,33 @@ on:
       # 落ちていた(2026-08-08: desktop 9601→9755px, mobile 11775→11971px)。
       # 視覚回帰ではなくコンテンツ増加なので、赤が常態化して VRT のシグナルが読めなくなる。
       #
-      # 描画に効くデータをここに置くなら、そのパスだけを個別に足すこと。
+      # 同じ理由で、src/content と src/data は**ベースライン側へ運ぶ素材**でもある
+      # (下の Build baseline ステップ、ADR 0068)。src/pages を触る PR に記事の増加が
+      # 波及しても、両側に同じ記事が入るので差分にならない。運ぶ以上ここに残すと
+      # 「起動はするが構造上ぜったいに差分が出ない」トリガになるので載せない。
       - "src/lib/**"
       - "astro.config.*"
       - "vrt/**"
       - "playwright.vrt.config.ts"
       - ".github/workflows/vrt.yml"
+      # 依存の更新も描画を変える。astro / tailwind の bump は package.json と
+      # package-lock.json しか触らないので、ここに無いと VRT が一度も走らない
+      # (edu-evidence ADR 0035 と同じ判断)。lock はキャレット範囲内の更新も拾うので、
+      # package.json より広い。ベースラインは lock を運ばないので、比較に残るのは
+      # 依存の差だけになる。
+      #
+      # **ただし gate にはならない。** VRT は required check ではなく、
+      # dependabot-auto-merge.yml の `gh pr merge --auto` は required しか待たない。
+      # 非 major の bump は VRT の結果が出る前にマージされる。得られるのは事後に
+      # check の色と(7 日間の)差分画像が残ることだけ。major はオートマージされないので、
+      # そこでは事前に効く。
+      - "package-lock.json"
   workflow_dispatch:
+    inputs:
+      neutral:
+        description: "ベースラインに PR のコンテンツを持ち込む(既定)。false にすると main そのままで撮る"
+        type: boolean
+        default: true
 
 concurrency:
   group: vrt-${{ github.ref }}
@@ -46,7 +66,7 @@ jobs:
     name: Visual Regression
     runs-on: ubuntu-latest
     # e2e と同じ理由。こちらは Playwright をキャッシュせず毎回入れるうえ、
-    # ビルドを 2 回(PR と main)回すので、インストール停滞の影響を最も強く受ける。
+    # ビルドを 2 回(PR と main。degraded では 3 回)回すので、インストール停滞の影響を最も強く受ける。
     # 実測の最大は 5.3 分だが、それは平常時の値でしかない。
     timeout-minutes: 45
     steps:
@@ -73,12 +93,108 @@ jobs:
       - name: Stash PR build
         run: mv dist dist-pr
 
-      - name: Build main (baseline)
+      # ベースラインは「main のコード x PR のコンテンツ」で撮る。描画に入る素材の
+      # 側を PR に揃えると、比較に残る差分がコード由来だけになる(ADR 0068)。
+      # 揃えないと、記事の自動収集で一覧が伸びただけの赤が出続ける。
+      - name: Build baseline (main code x PR content)
+        id: baseline
+        env:
+          # pull_request では github.event.inputs が無いので 'true' に落ちる。
+          # `inputs.neutral == false` と書かないこと — GitHub の式は型が違うと
+          # 数値に寄せるので、null と false が等しくなって既定が反転する。
+          VRT_NEUTRAL: ${{ github.event.inputs.neutral || 'true' }}
         run: |
+          set -euo pipefail
           git worktree add /tmp/edu-watch-main origin/main
           npm --prefix /tmp/edu-watch-main ci
-          npm --prefix /tmp/edu-watch-main run build
+
+          if [ "$VRT_NEUTRAL" = "false" ]; then
+            echo "::notice title=VRT baseline raw::neutral=false: main そのままでベースラインを撮る。コンテンツ由来の差分も出る"
+            npm --prefix /tmp/edu-watch-main run build
+            # 他の 2 経路と同じく mode を先に書く。mv が落ちたときだけ相が
+            # 空になる、という非対称を作らない。
+            echo "mode=raw" >> "$GITHUB_OUTPUT"
+            mv /tmp/edu-watch-main/dist dist-main
+            exit 0
+          fi
+
+          # 運ぶ素材の allowlist。**ここに無いものは運ばない**:
+          #   - src/lib / src/plugins / src/pages / src/components / src/layouts /
+          #     astro.config.* — 検査対象そのもの
+          #   - package.json / package-lock.json — 依存バンプの視覚影響は VRT が
+          #     見るべきもの(edu-evidence ADR 0027 が Astro 7 移行を VRT で検証した)。上の
+          #     paths に lock を載せているのはそのため(edu-evidence ADR 0035)
+          #   - public/ — `find src/content -type f ! -name "*.md"` が 0 件で、
+          #     コンテンツ編集者が画像を持ち込む経路が無い。public にあるのは
+          #     ブランド資産(logo.svg / og-image.png / favicon)と配信設定
+          #     (_headers / _redirects / robots.txt)で、いずれもコード側
+          #
+          # --delete は必須。PR が消した md が main 側に残ると、消えたはずの
+          # カードがベースラインにだけ描かれて、それ自体が差分になる。
+          rsync -a --delete src/content/ /tmp/edu-watch-main/src/content/
+          rsync -a --delete src/data/ /tmp/edu-watch-main/src/data/
+          # スキーマはコンテンツと同伴させる。別々にすると PR のフロントマターを
+          # main の zod が弾いてビルドが落ちる。
+          cp src/content.config.ts /tmp/edu-watch-main/src/content.config.ts
+
+          # **|| はビルドコマンドだけに掛ける。** 上の npm ci や rsync まで巻き込むと、
+          # ネットワーク断・disk full・pagefind の異常終了が「degraded で続行」に
+          # 落ちて、インフラ障害が緑で通る。
+          build_rc=0
+          npm --prefix /tmp/edu-watch-main run build || build_rc=$?
+
+          if [ "$build_rc" -ne 0 ]; then
+            echo "::warning title=VRT baseline degraded::main のコードで PR のコンテンツをビルドできなかった。main 自身のコンテンツで撮り直す。この run の差分にはコンテンツ由来の差分が混ざる"
+            git -C /tmp/edu-watch-main checkout -- .
+            git -C /tmp/edu-watch-main clean -fd
+            # git clean は -x が無いと gitignore 済みを消さない。Astro の content
+            # layer キャッシュが残ると、撮り直しに PR のコンテンツが混入する。
+            rm -rf /tmp/edu-watch-main/dist /tmp/edu-watch-main/.astro \
+                   /tmp/edu-watch-main/node_modules/.astro /tmp/edu-watch-main/node_modules/.vite
+            # ここで落ちたら main 自体が壊れている。set -e で job を落とす。
+            npm --prefix /tmp/edu-watch-main run build
+            echo "mode=degraded" >> "$GITHUB_OUTPUT"
+          else
+            echo "mode=neutral" >> "$GITHUB_OUTPUT"
+          fi
+
           mv /tmp/edu-watch-main/dist dist-main
+
+      # 比較の前に置く。後ろに置くと if: always() が要るうえ、比較ステップが
+      # クラッシュした回に書かれない。
+      - name: Report baseline mode
+        env:
+          MODE: ${{ steps.baseline.outputs.mode }}
+        run: |
+          set -euo pipefail
+          case "$MODE" in
+            neutral)
+              cat >> "$GITHUB_STEP_SUMMARY" <<'EOF'
+          ### VRT ベースライン: neutral (main のコード x PR のコンテンツ)
+
+          差分はコード / CSS 由来。ただし `.astro` に直接書かれた散文・数値は、
+          実体がコンテンツでも中立化されない (ADR 0068)。
+          EOF
+              ;;
+            degraded)
+              cat >> "$GITHUB_STEP_SUMMARY" <<'EOF'
+          ### VRT ベースライン: degraded (コンテンツ中立化に失敗)
+
+          main のコードで PR のコンテンツをビルドできなかった。PR が
+          `src/content.config.ts` か `src/data/` の形を変えていて、main のページが
+          それを前提にしていない可能性が高い。
+
+          **この run の差分にはコンテンツ由来の差分が混ざる。赤を見た目の回帰として読まないこと。**
+          EOF
+              ;;
+            *)
+              cat >> "$GITHUB_STEP_SUMMARY" <<'EOF'
+          ### VRT ベースライン: raw (main そのまま)
+
+          コンテンツ由来の差分も出る。手動実行で neutral=false を選んだとき用。
+          EOF
+              ;;
+          esac
 
       - name: Capture baseline from main
         env:
@@ -94,7 +210,14 @@ jobs:
         if: failure()
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
         with:
-          name: vrt-report
+          # 赤い run で人が実際にクリックするのは artifact であって summary では
+          # ないので、相を名前にも出す。
+          #
+          # **三項で「neutral のときだけ素の名前」にはできない。** GitHub の式は
+          # 空文字を falsy として扱うので、`X == 'neutral' && '' || format(...)` は
+          # 常に右辺を返す。常時サフィックスにして、ベースラインステップが mode を
+          # 書く前に落ちた run も名前で分かるようにする。
+          name: vrt-report-${{ steps.baseline.outputs.mode || 'nobaseline' }}
           path: |
             playwright-report/
             test-results/
