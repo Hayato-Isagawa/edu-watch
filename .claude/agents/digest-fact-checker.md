@@ -1,6 +1,6 @@
 ---
 name: digest-fact-checker
-description: edu-watch の週次ダイジェスト(`src/content/digests/*.md`)のコメント執筆前に、編集者の主張・引用予定の数値・人物・日付を **一次資料で検証する** ゲート。Sprint 4 の編集ワークフロー(意見提示 → 事実検証 → ドラフト → 確認 → 書き込み)の「事実検証」ステップを担う。**MUST BE USED before drafting any new digest section comment**.
+description: edu-watch の週次ダイジェスト(`src/content/digests/*.md`)のコメント執筆前に、編集者の主張・引用予定の数値・人物・日付を **一次資料で検証する** ゲート。編集ワークフロー(意見提示 → 事実検証 → ドラフト → 確認 → 書き込み)の「事実検証」ステップを担う。**MUST BE USED before drafting any new digest section comment**.
 model: opus
 effort: max
 tools: Read, Grep, Glob, Bash, WebFetch, WebSearch
@@ -183,8 +183,6 @@ GO / REVISE / STOP
 - `CLAUDE.md`(リポジトリルート)
 - `docs/sprint-4-design.md`(Sprint 4 設計書、§5 編集ワークフロー)
 - `docs/decisions/0008-citation-scope-policy.md`(引用範囲遵守 5 要件)
-- `docs/decisions/0014-categorize-overhaul-and-recategorization.md`(categorize 改善)
-- `docs/decisions/0015-mext-education-scope-filter-and-data-cleanup.md`(データ品質)
 - `src/data/articles/*.json`(既存記事の事実関係)
 - `src/content/digests/*.md`(過去ダイジェストの先例)
 - 学校と家庭の役割境界(教師は何でも屋ではない。家庭・地域の責任を明示する)
@@ -197,23 +195,3 @@ GO / REVISE / STOP
   `WebSearch` / `WebFetch` はあたり付けまでに留める
 - **編集者の論旨を勝手に書き換えない**。修正提案は具体的な書き換え案で示すが、最終判断は編集者に委ねる
 - **政治性・党派性の判断で個別案件にバイアスをかけない**(ADR 0008 中立性ポリシーの遵守)
-
-## 使い方の想定
-
-```
-digest-fact-checker を使って、nikkyo-2026-04-23-3235d84dcd5fd3ec
-(都教委 働き方改革有識者会議)について、以下の論旨で書きたい。
-事実検証してほしい:
-
-- 委員 3 名は妥当か疑問
-- 萩原智子委員のプール管理アウトソーシング提案
-- プール水道料金で教員個人賠償の事案(川崎市・千葉市)
-- 東京都カスハラ防止条例 2025 年 4 月施行
-```
-
-エージェントは:
-1. 都教委の press release を `curl` で取得して確認(委員構成)
-2. 萩原智子委員の発言を媒体記事 / 都の公式資料で確認
-3. プール賠償事案は WebSearch で当たりを付け、**自治体名・年月・金額は発表元の生テキストで照合**
-4. 東京都カスハラ防止条例の成立日・施行日を一次資料で確認
-5. 編集者に判定と修正提案を返す
