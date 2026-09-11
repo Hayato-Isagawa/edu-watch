@@ -3,7 +3,7 @@
 - 状態: 採用
 - 日付: 2026-09-11
 - 関連 PR: `ci/vrt-content-neutral-baseline`
-- 関連 ADR: [`ADR 0060`](0060-visual-regression-testing.md)(VRT の導入) / edu-evidence ADR 0034(コンテンツ中立ベースライン・原本) / edu-evidence ADR 0035(依存 bump で VRT を起動) / edu-evidence ADR 0036(`threshold: 0`) / edu-law の `playwright.vrt.config.ts`(閾値の実測)
+- 関連 ADR: [`ADR 0060`](0060-visual-regression-testing.md)(VRT の導入) / edu-evidence ADR 0034(コンテンツ中立ベースライン・原本) / edu-evidence ADR 0035(依存 bump で VRT を起動) / edu-evidence ADR 0036(`threshold: 0`。edu-evidence PR #570 で採用) / edu-law の `playwright.vrt.config.ts`(閾値の実測)
 
 ## 背景
 

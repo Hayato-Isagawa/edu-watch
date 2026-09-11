@@ -31,7 +31,7 @@ npm run test:hooks         # .claude/hooks/ の回帰テスト(下限つき)
 
 `package.json` の `engines.node` は `>=24.0.0`。
 
-### `test:workflows` — link-check の通知分岐
+### `test:workflows` — link-check の通知分岐と VRT のベースライン配線
 
 `link-check.yml` に埋め込まれた「検出をどう届けるか」の判定を固定する。**壊れても静かに壊れる** —
 lychee は走り、レポートもアーティファクトに残り、job も緑のまま**通知だけ**が消える。姉妹リポ

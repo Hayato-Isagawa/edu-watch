@@ -66,7 +66,7 @@ jobs:
     name: Visual Regression
     runs-on: ubuntu-latest
     # e2e と同じ理由。こちらは Playwright をキャッシュせず毎回入れるうえ、
-    # ビルドを 2 回(PR と main)回すので、インストール停滞の影響を最も強く受ける。
+    # ビルドを 2 回(PR と main。degraded では 3 回)回すので、インストール停滞の影響を最も強く受ける。
     # 実測の最大は 5.3 分だが、それは平常時の値でしかない。
     timeout-minutes: 45
     steps:
