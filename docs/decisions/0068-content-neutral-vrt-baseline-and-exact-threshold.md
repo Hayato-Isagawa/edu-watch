@@ -53,7 +53,11 @@ VRT が見るべきもの)と `public/`(ブランド資産と配信設定)は運
 `threshold: 0` は撮影の安定化ループの収束条件でもあるので、CI で測ってから置く。この PR は描画を
 変えないので、PR 自身の VRT run が「同一 dist の撮り比べ」になる。
 
-(実装後に記入: run ID / 回数 / 通過数 / 収束失敗の件数 / 各 run の baseline `origin/main` SHA)
+`workflow_dispatch` で本ブランチの VRT を 3 回まわした(run 34583178723 / 34583566456 / 34583957327)。
+3 回とも `MODE: neutral`、ベースラインの `origin/main` は `be807ee` で不変、撮影 24 / 比較 24 が全通過、
+"Failed to take two consecutive stable screenshots" は 0 件。手元(macOS)でも同一 `dist` の撮り比べで 24 / 24。
+(姉妹リポでは完全一致が通らなかった例がある — okinawa-in-data の点線下線、portfolio の丸ボタンの円周 —
+が、このリポにはその要素が無い。)
 
 ## 帰結
 
