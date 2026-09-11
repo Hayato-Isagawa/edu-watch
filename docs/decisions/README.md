@@ -116,3 +116,4 @@ EduEvidence JP と共通の運営方針(植物モチーフブランド体系 / N
 - [0065. bot PR の滞留を検知する。監視の起点はラベルに置き、全 job に timeout を宣言する](0065-bot-pr-stall-detection.md)
 - [0066. リンクチェックで kyoiku-press.com だけレート制限を掛ける](0066-link-check-host-backoff.md)
 - [0067. 動的 OG のキャッシュバスティングを単一の版数定数で行う](0067-og-cache-version-source.md)
+- [0068. VRT のベースラインを「main のコード × PR のコンテンツ」で撮り、判定を `threshold: 0` にする](0068-content-neutral-vrt-baseline-and-exact-threshold.md)
