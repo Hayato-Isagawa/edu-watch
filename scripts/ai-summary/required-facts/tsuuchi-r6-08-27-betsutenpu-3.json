@@ -3,10 +3,7 @@
     "id": "budget-request-1.58T",
     "description": "令和7年度概算要求 1兆5,807億円",
     "severity": "CRITICAL",
-    "patterns": [
-      "1\\s*兆\\s*5,?807\\s*億",
-      "15,?807\\s*億"
-    ],
+    "patterns": ["1\\s*兆\\s*5,?807\\s*億", "15,?807\\s*億"],
     "sourceChunks": [1]
   },
   {
@@ -20,10 +17,7 @@
     "id": "salary-improvement-232",
     "description": "教師の処遇改善 +232億円",
     "severity": "CRITICAL",
-    "patterns": [
-      "232\\s*億",
-      "処遇改善[\\s\\S]{0,30}232"
-    ],
+    "patterns": ["232\\s*億", "処遇改善[\\s\\S]{0,30}232"],
     "sourceChunks": [1]
   },
   {
@@ -51,20 +45,14 @@
     "id": "class-size-35-3086",
     "description": "35人学級推進(小6) +3,086人",
     "severity": "HIGH",
-    "patterns": [
-      "3,?086\\s*人",
-      "35\\s*人学級[\\s\\S]{0,80}3,?086"
-    ],
+    "patterns": ["3,?086\\s*人", "35\\s*人学級[\\s\\S]{0,80}3,?086"],
     "sourceChunks": [1]
   },
   {
     "id": "class-teacher-allowance-3000",
     "description": "学級担任への加算 月額3,000円",
     "severity": "HIGH",
-    "patterns": [
-      "学級担任[\\s\\S]{0,30}3,?000\\s*円",
-      "月額\\s*3,?000\\s*円"
-    ],
+    "patterns": ["学級担任[\\s\\S]{0,30}3,?000\\s*円", "月額\\s*3,?000\\s*円"],
     "sourceChunks": [1]
   },
   {

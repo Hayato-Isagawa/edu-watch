@@ -16,7 +16,10 @@ import { fileURLToPath } from "node:url";
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const REPO = path.resolve(HERE, "../..");
-const WORKFLOW = fs.readFileSync(path.join(REPO, ".github/workflows/vrt.yml"), "utf8");
+const WORKFLOW = fs.readFileSync(
+  path.join(REPO, ".github/workflows/vrt.yml"),
+  "utf8"
+);
 
 /** `- name:` から次の `- name:` までを 1 ステップとして切り出す。 */
 function step(name) {
@@ -49,12 +52,18 @@ test("ベースラインが PR の素材を --delete 付きで運んでいる", 
   for (const dir of CARRIED) {
     assert.match(
       b,
-      new RegExp(`^ +rsync -a --delete ${dir}/ /tmp/edu-watch-main/${dir}/$`, "m"),
-      `${dir} を運んでいない、または --delete が落ちている`,
+      new RegExp(
+        `^ +rsync -a --delete ${dir}/ /tmp/edu-watch-main/${dir}/$`,
+        "m"
+      ),
+      `${dir} を運んでいない、または --delete が落ちている`
     );
   }
   // スキーマを同伴させないと、PR のフロントマターを main の zod が弾く。
-  assert.match(b, /^ +cp src\/content\.config\.ts \/tmp\/edu-watch-main\/src\/content\.config\.ts$/m);
+  assert.match(
+    b,
+    /^ +cp src\/content\.config\.ts \/tmp\/edu-watch-main\/src\/content\.config\.ts$/m
+  );
 });
 
 test("素材を運ぶのがベースラインのビルドより前である", () => {
@@ -65,7 +74,9 @@ test("素材を運ぶのがベースラインのビルドより前である", ()
   const neutralPath = b.split('if [ "$VRT_NEUTRAL" = "false" ]')[1] ?? "";
   const afterRawBranch = neutralPath.split("\n          fi\n")[1] ?? "";
   assert.ok(afterRawBranch, "raw 分岐の後ろが読めない");
-  const build = afterRawBranch.indexOf("npm --prefix /tmp/edu-watch-main run build");
+  const build = afterRawBranch.indexOf(
+    "npm --prefix /tmp/edu-watch-main run build"
+  );
   assert.ok(build > 0, "中立化経路にビルドが無い");
   for (const carry of [
     "rsync -a --delete src/content/",
@@ -106,12 +117,12 @@ test("src/ の各ディレクトリが 運ぶ / 監視する / 描画外 のど�
     (d) =>
       !CARRIED.includes(d) &&
       !NOT_RENDERED.includes(d) &&
-      !watched.some((p) => p === d || p.startsWith(`${d}/`)),
+      !watched.some((p) => p === d || p.startsWith(`${d}/`))
   );
   assert.deepEqual(
     unassigned,
     [],
-    "運びも監視もしていないディレクトリがある。ベースラインへ運ぶか、paths に足すか、NOT_RENDERED に理由つきで入れること",
+    "運びも監視もしていないディレクトリがある。ベースラインへ運ぶか、paths に足すか、NOT_RENDERED に理由つきで入れること"
   );
 });
 
@@ -122,7 +133,7 @@ test("運ぶディレクトリは paths に載っていない", () => {
   for (const dir of CARRIED) {
     assert.ok(
       !watched.some((p) => p === dir || p.startsWith(`${dir}/`)),
-      `${dir} を運びながら paths でも起動している`,
+      `${dir} を運びながら paths でも起動している`
     );
   }
 });
@@ -131,7 +142,9 @@ test("degraded への分岐がビルドコマンドだけに掛かっている",
   const b = runBody("Build baseline (main code x PR content)");
   // 広く掛けると npm ci の失敗・ネットワーク断・pagefind の異常終了まで
   // 「degraded で続行」に落ちて、インフラ障害が緑で通る。
-  const tolerated = [...b.matchAll(/^ +(.*?) \|\| .*$/gm)].map((m) => m[1].trim());
+  const tolerated = [...b.matchAll(/^ +(.*?) \|\| .*$/gm)].map((m) =>
+    m[1].trim()
+  );
   assert.deepEqual(tolerated, ["npm --prefix /tmp/edu-watch-main run build"]);
 });
 
@@ -139,8 +152,16 @@ test("degraded 側の撮り直しは失敗を握りつぶさない", () => {
   const b = step("Build baseline (main code x PR content)");
   const fallback = b.split('if [ "$build_rc" -ne 0 ]')[1] ?? "";
   assert.ok(fallback, "degraded 分岐が無い");
-  assert.doesNotMatch(fallback, /run build \|\|/, "撮り直しの失敗が握りつぶされている");
-  assert.match(fallback, /npm --prefix \/tmp\/edu-watch-main run build/, "撮り直しが無い");
+  assert.doesNotMatch(
+    fallback,
+    /run build \|\|/,
+    "撮り直しの失敗が握りつぶされている"
+  );
+  assert.match(
+    fallback,
+    /npm --prefix \/tmp\/edu-watch-main run build/,
+    "撮り直しが無い"
+  );
   // 握りつぶさないことは set -e に依存している。
   assert.match(b, /^ +set -euo pipefail$/m, "set -euo pipefail が落ちている");
 });
@@ -150,7 +171,10 @@ test("degraded の復元が Astro のキャッシュまで消している", () =
   const fallback = b.split('if [ "$build_rc" -ne 0 ]')[1] ?? "";
   // git clean は -x が無いと gitignore 済みを消さない。残ると PR のコンテンツで
   // 描かれたページがベースラインに混入する = 静かな緑。
-  for (const cache of ["/tmp/edu-watch-main/.astro", "/tmp/edu-watch-main/node_modules/.astro"]) {
+  for (const cache of [
+    "/tmp/edu-watch-main/.astro",
+    "/tmp/edu-watch-main/node_modules/.astro",
+  ]) {
     assert.ok(fallback.includes(cache), `${cache} を消していない`);
   }
   assert.match(fallback, /git -C \/tmp\/edu-watch-main checkout -- \./);
@@ -160,13 +184,18 @@ test("degraded の復元が Astro のキャッシュまで消している", () =
 test("neutral の既定が式の型変換で反転しない", () => {
   // GitHub の式は型が違うと数値に寄せるので、`inputs.neutral == false` は
   // pull_request（null）でも真になり、既定が raw に反転する。
-  assert.match(WORKFLOW, /VRT_NEUTRAL: \$\{\{ github\.event\.inputs\.neutral \|\| 'true' \}\}/);
+  assert.match(
+    WORKFLOW,
+    /VRT_NEUTRAL: \$\{\{ github\.event\.inputs\.neutral \|\| 'true' \}\}/
+  );
   // 式の中だけを見る。コメントで「こう書くな」と書いてある行に当たらないように。
-  const expressions = [...WORKFLOW.matchAll(/\$\{\{([^}]*)\}\}/g)].map((m) => m[1]);
+  const expressions = [...WORKFLOW.matchAll(/\$\{\{([^}]*)\}\}/g)].map(
+    (m) => m[1]
+  );
   assert.deepEqual(
     expressions.filter((e) => /inputs\.neutral\s*==/.test(e)),
     [],
-    "型変換で反転する書き方になっている",
+    "型変換で反転する書き方になっている"
   );
 });
 
@@ -174,10 +203,22 @@ test("main と PR を撮り比べる形が保たれている", () => {
   const capture = step("Capture baseline from main");
   const compare = step("Compare PR against baseline");
   assert.match(capture, /VRT_DIST: dist-main/);
-  assert.match(capture, /--update-snapshots/, "ベースライン撮影が撮り直しになっていない");
+  assert.match(
+    capture,
+    /--update-snapshots/,
+    "ベースライン撮影が撮り直しになっていない"
+  );
   assert.match(compare, /VRT_DIST: dist-pr/);
-  assert.doesNotMatch(compare, /--update-snapshots/, "比較が撮り直しになっている");
-  assert.doesNotMatch(WORKFLOW, /continue-on-error/, "vrt.yml に continue-on-error が付いている");
+  assert.doesNotMatch(
+    compare,
+    /--update-snapshots/,
+    "比較が撮り直しになっている"
+  );
+  assert.doesNotMatch(
+    WORKFLOW,
+    /continue-on-error/,
+    "vrt.yml に continue-on-error が付いている"
+  );
 });
 
 test("artifact 名にベースラインの相が出る", () => {
@@ -187,7 +228,7 @@ test("artifact 名にベースラインの相が出る", () => {
   const upload = step("Upload VRT report");
   assert.match(
     upload,
-    /^ {10}name: vrt-report-\$\{\{ steps\.baseline\.outputs\.mode \|\| 'nobaseline' \}\}$/m,
+    /^ {10}name: vrt-report-\$\{\{ steps\.baseline\.outputs\.mode \|\| 'nobaseline' \}\}$/m
   );
 });
 
@@ -195,6 +236,6 @@ test("相の報告が比較より前にある", () => {
   // 後ろに置くと if: always() が要るうえ、比較がクラッシュした回に書かれない。
   assert.ok(
     WORKFLOW.indexOf("- name: Report baseline mode") <
-      WORKFLOW.indexOf("- name: Compare PR against baseline"),
+      WORKFLOW.indexOf("- name: Compare PR against baseline")
   );
 });

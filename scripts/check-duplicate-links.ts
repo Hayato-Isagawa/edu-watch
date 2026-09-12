@@ -19,10 +19,14 @@ const DATA_DIR = path.resolve(import.meta.dirname, "../src/data/articles");
 const FILENAME_PATTERN = /^\d{4}-\d{2}-\d{2}\.json$/;
 
 async function main() {
-  const entries = (await readdir(DATA_DIR)).filter((n) => FILENAME_PATTERN.test(n)).sort();
+  const entries = (await readdir(DATA_DIR))
+    .filter((n) => FILENAME_PATTERN.test(n))
+    .sort();
   const all: Article[] = [];
   for (const name of entries) {
-    const list = ArticleList.parse(JSON.parse(await readFile(path.join(DATA_DIR, name), "utf8")));
+    const list = ArticleList.parse(
+      JSON.parse(await readFile(path.join(DATA_DIR, name), "utf8"))
+    );
     all.push(...list);
   }
   console.log(`[duplicate-links] total articles: ${all.length}`);
@@ -46,17 +50,19 @@ async function main() {
   }
 
   console.log(
-    `[duplicate-links] same-day duplicate groups: ${sameDayDups.length}(計 ${sameDayDups.reduce((acc, g) => acc + g.length - 1, 0)} 件削除候補)`,
+    `[duplicate-links] same-day duplicate groups: ${sameDayDups.length}(計 ${sameDayDups.reduce((acc, g) => acc + g.length - 1, 0)} 件削除候補)`
   );
   console.log(
-    `[duplicate-links] cross-day duplicate groups: ${crossDayDups.length}(計 ${crossDayDups.reduce((acc, g) => acc + g.length - 1, 0)} 件削除候補)`,
+    `[duplicate-links] cross-day duplicate groups: ${crossDayDups.length}(計 ${crossDayDups.reduce((acc, g) => acc + g.length - 1, 0)} 件削除候補)`
   );
 
   console.log("\n--- same-day duplicates(同日内、即削除推奨) ---");
   for (const g of sameDayDups) {
     console.log(`\n  [${g[0].sourceId}] ${g[0].sourceUrl}`);
     for (const a of g) {
-      console.log(`    ${a.publishedAt.slice(0, 10)}  ${a.id}  ${a.title.slice(0, 60)}`);
+      console.log(
+        `    ${a.publishedAt.slice(0, 10)}  ${a.id}  ${a.title.slice(0, 60)}`
+      );
     }
   }
 
@@ -64,7 +70,9 @@ async function main() {
   for (const g of crossDayDups) {
     console.log(`\n  [${g[0].sourceId}] ${g[0].sourceUrl}`);
     for (const a of g) {
-      console.log(`    ${a.publishedAt.slice(0, 10)}  ${a.id}  ${a.title.slice(0, 60)}`);
+      console.log(
+        `    ${a.publishedAt.slice(0, 10)}  ${a.id}  ${a.title.slice(0, 60)}`
+      );
     }
   }
 }

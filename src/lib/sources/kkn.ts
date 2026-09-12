@@ -102,7 +102,8 @@ export const kkn: SourceParser = {
         title,
         url,
         publishedAt: published.toISOString(),
-        summary: item.contentSnippet?.trim() || item.content?.trim() || undefined,
+        summary:
+          item.contentSnippet?.trim() || item.content?.trim() || undefined,
       });
     }
     return results;

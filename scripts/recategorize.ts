@@ -22,7 +22,9 @@ const FILENAME_PATTERN = /^\d{4}-\d{2}-\d{2}\.json$/;
 
 async function main() {
   const dryRun = process.argv.includes("--dry-run");
-  const entries = (await readdir(DATA_DIR)).filter((n) => FILENAME_PATTERN.test(n)).sort();
+  const entries = (await readdir(DATA_DIR))
+    .filter((n) => FILENAME_PATTERN.test(n))
+    .sort();
 
   let totalRead = 0;
   let totalChanged = 0;
@@ -37,10 +39,15 @@ async function main() {
     const updated: Article[] = list.map((a) => {
       totalRead++;
       for (const c of a.categories) before.set(c, (before.get(c) ?? 0) + 1);
-      const next = categorize({ title: a.title, summary: a.summary, sourceId: a.sourceId });
+      const next = categorize({
+        title: a.title,
+        summary: a.summary,
+        sourceId: a.sourceId,
+      });
       for (const c of next) after.set(c, (after.get(c) ?? 0) + 1);
       const changed =
-        next.length !== a.categories.length || next.some((c, i) => c !== a.categories[i]);
+        next.length !== a.categories.length ||
+        next.some((c, i) => c !== a.categories[i]);
       if (changed) {
         totalChanged++;
         fileChanged = true;
@@ -55,12 +62,19 @@ async function main() {
   }
 
   const fmt = (m: Map<string, number>) =>
-    [...m.entries()].sort((a, b) => b[1] - a[1]).map(([k, v]) => `  ${v}\t${k}`).join("\n");
+    [...m.entries()]
+      .sort((a, b) => b[1] - a[1])
+      .map(([k, v]) => `  ${v}\t${k}`)
+      .join("\n");
 
   console.log(`[recategorize] files read: ${entries.length}`);
   console.log(`[recategorize] articles read: ${totalRead}`);
-  console.log(`[recategorize] articles changed: ${totalChanged}${dryRun ? " (dry-run, NOT written)" : ""}`);
-  console.log("\n=== before (counts include duplicates across categories[]) ===");
+  console.log(
+    `[recategorize] articles changed: ${totalChanged}${dryRun ? " (dry-run, NOT written)" : ""}`
+  );
+  console.log(
+    "\n=== before (counts include duplicates across categories[]) ==="
+  );
   console.log(fmt(before));
   console.log("\n=== after ===");
   console.log(fmt(after));

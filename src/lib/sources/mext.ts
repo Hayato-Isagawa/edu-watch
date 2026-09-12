@@ -106,7 +106,10 @@ const EDUCATION_INCLUDE_PATTERNS: readonly RegExp[] = [
   /多文化共生/,
 ];
 
-export function isMextEducationRelevant(title: string, summary?: string): boolean {
+export function isMextEducationRelevant(
+  title: string,
+  summary?: string
+): boolean {
   const haystack = summary ? `${title}\n${summary}` : title;
   if (EXPLICIT_EXCLUDE_PATTERNS.some((re) => re.test(haystack))) return false;
   return EDUCATION_INCLUDE_PATTERNS.some((re) => re.test(haystack));
@@ -127,7 +130,8 @@ export const mext: SourceParser = {
       const pubRaw = item.isoDate ?? item.pubDate;
       if (!title || !url || !pubRaw) continue;
 
-      const summary = item.contentSnippet?.trim() || item.content?.trim() || undefined;
+      const summary =
+        item.contentSnippet?.trim() || item.content?.trim() || undefined;
       if (!isMextEducationRelevant(title, summary)) continue;
 
       const published = new Date(pubRaw);

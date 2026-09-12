@@ -17,7 +17,10 @@ function fileForDate(dataDir: string, yyyyMmDd: string): string {
 }
 
 /** 指定日の記事を読み込む。ファイル不在時は `[]`。 */
-export async function loadDay(dataDir: string, yyyyMmDd: string): Promise<ArticleType[]> {
+export async function loadDay(
+  dataDir: string,
+  yyyyMmDd: string
+): Promise<ArticleType[]> {
   try {
     const buf = await readFile(fileForDate(dataDir, yyyyMmDd), "utf8");
     return ArticleList.parse(JSON.parse(buf));
@@ -34,7 +37,7 @@ export async function loadDay(dataDir: string, yyyyMmDd: string): Promise<Articl
 export async function loadRange(
   dataDir: string,
   fromDate: string,
-  toDate: string,
+  toDate: string
 ): Promise<ArticleType[]> {
   let entries: string[];
   try {
@@ -68,7 +71,7 @@ export async function loadRange(
 export async function mergeDay(
   dataDir: string,
   yyyyMmDd: string,
-  newArticles: ArticleType[],
+  newArticles: ArticleType[]
 ): Promise<{ added: number; total: number }> {
   await mkdir(dataDir, { recursive: true });
   const existing = await loadDay(dataDir, yyyyMmDd);
@@ -81,13 +84,13 @@ export async function mergeDay(
     added++;
   }
   const merged = [...byId.values()].sort((a, b) =>
-    b.publishedAt.localeCompare(a.publishedAt),
+    b.publishedAt.localeCompare(a.publishedAt)
   );
   const validated = ArticleList.parse(merged);
   await writeFile(
     fileForDate(dataDir, yyyyMmDd),
     JSON.stringify(validated, null, 2) + "\n",
-    "utf8",
+    "utf8"
   );
   return { added, total: validated.length };
 }
@@ -110,7 +113,7 @@ export async function mergeDay(
 export async function applyMembershipUpdates(
   dataDir: string,
   yyyyMmDd: string,
-  updates: ReadonlyMap<string, true>,
+  updates: ReadonlyMap<string, true>
 ): Promise<{ changed: number; total: number }> {
   if (updates.size === 0) {
     const existing = await loadDay(dataDir, yyyyMmDd);
@@ -130,13 +133,13 @@ export async function applyMembershipUpdates(
   if (changed === 0) return { changed: 0, total: existing.length };
 
   const sorted = [...updated].sort((a, b) =>
-    b.publishedAt.localeCompare(a.publishedAt),
+    b.publishedAt.localeCompare(a.publishedAt)
   );
   const validated = ArticleList.parse(sorted);
   await writeFile(
     fileForDate(dataDir, yyyyMmDd),
     JSON.stringify(validated, null, 2) + "\n",
-    "utf8",
+    "utf8"
   );
   return { changed, total: validated.length };
 }

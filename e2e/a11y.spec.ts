@@ -24,7 +24,9 @@ const known = knownIssues as KnownIssues;
 
 test.describe("a11y: axe-core 自動監査", () => {
   for (const { name, path } of targets) {
-    test(`${name} (${path}) — 既知違反以外に critical/serious の違反がない`, async ({ page }) => {
+    test(`${name} (${path}) — 既知違反以外に critical/serious の違反がない`, async ({
+      page,
+    }) => {
       await page.goto(path);
       const results = await new AxeBuilder({ page })
         .withTags(wcagTags)

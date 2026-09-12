@@ -19,7 +19,7 @@ const DATA_DIR = path.resolve("src/data/articles");
 async function main(): Promise<number> {
   const denylist = await loadExcludedIds();
   console.log(
-    `[check:excluded-ids] loaded ${denylist.ids.length} entries (schemaVersion ${denylist.schemaVersion})`,
+    `[check:excluded-ids] loaded ${denylist.ids.length} entries (schemaVersion ${denylist.schemaVersion})`
   );
 
   const violations: { id: string; date: string; title: string }[] = [];
@@ -44,7 +44,7 @@ async function main(): Promise<number> {
 
   if (violations.length > 0) {
     console.error(
-      `[check:excluded-ids] FAIL: ${violations.length} denylisted ID(s) still present in article JSON`,
+      `[check:excluded-ids] FAIL: ${violations.length} denylisted ID(s) still present in article JSON`
     );
     for (const v of violations) {
       console.error(`  - ${v.id} (${v.date}): ${v.title}`);
@@ -52,7 +52,9 @@ async function main(): Promise<number> {
     return 1;
   }
 
-  console.log(`[check:excluded-ids] OK: no denylisted IDs present in article JSON`);
+  console.log(
+    `[check:excluded-ids] OK: no denylisted IDs present in article JSON`
+  );
   return 0;
 }
 

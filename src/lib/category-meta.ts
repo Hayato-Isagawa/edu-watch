@@ -27,7 +27,8 @@ export const CATEGORY_META: readonly CategoryMeta[] = [
   {
     category: "ICT / GIGA",
     slug: "ict-giga",
-    description: "GIGA スクール、1 人 1 台端末、生成 AI、デジタル教科書、校務 DX。",
+    description:
+      "GIGA スクール、1 人 1 台端末、生成 AI、デジタル教科書、校務 DX。",
   },
   {
     category: "政策・制度",
@@ -52,16 +53,21 @@ export const CATEGORY_META: readonly CategoryMeta[] = [
   {
     category: "その他",
     slug: "other",
-    description: "上記カテゴリに該当しない記事。学校現場の取り組み、地域行事など。",
+    description:
+      "上記カテゴリに該当しない記事。学校現場の取り組み、地域行事など。",
   },
 ];
 
 const BY_CATEGORY = new Map<string, CategoryMeta>(
-  CATEGORY_META.map((m) => [m.category, m]),
+  CATEGORY_META.map((m) => [m.category, m])
 );
-const BY_SLUG = new Map<string, CategoryMeta>(CATEGORY_META.map((m) => [m.slug, m]));
+const BY_SLUG = new Map<string, CategoryMeta>(
+  CATEGORY_META.map((m) => [m.slug, m])
+);
 
-export function getCategoryMetaByName(name: ArticleCategory): CategoryMeta | undefined {
+export function getCategoryMetaByName(
+  name: ArticleCategory
+): CategoryMeta | undefined {
   return BY_CATEGORY.get(name);
 }
 

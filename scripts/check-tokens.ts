@@ -119,7 +119,8 @@ for (const f of findings) {
 }
 
 for (const [rule, list] of byRule) {
-  const why = RULES.find((r) => r.id === rule)?.why ?? "定義されていないトークン";
+  const why =
+    RULES.find((r) => r.id === rule)?.why ?? "定義されていないトークン";
   console.error(`\n✗ ${rule} — ${why}`);
   for (const f of list.slice(0, 20)) {
     console.error(`    ${f.file}:${f.line}  ${f.text}`);

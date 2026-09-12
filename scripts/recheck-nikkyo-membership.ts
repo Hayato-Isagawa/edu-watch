@@ -55,7 +55,13 @@ async function probe(article: Article): Promise<ProbeResult> {
       signal: controller.signal,
     });
     if (!res.ok) {
-      return { id: article.id, date, url: article.sourceUrl, outcome: "skipped", reason: `http ${res.status}` };
+      return {
+        id: article.id,
+        date,
+        url: article.sourceUrl,
+        outcome: "skipped",
+        reason: `http ${res.status}`,
+      };
     }
     const html = await res.text();
     const aStart = html.indexOf("<article");
@@ -83,7 +89,7 @@ async function probe(article: Article): Promise<ProbeResult> {
 
 async function probeWithLimit(
   articles: readonly Article[],
-  parallelism: number,
+  parallelism: number
 ): Promise<ProbeResult[]> {
   const results: ProbeResult[] = [];
   let cursor = 0;
@@ -95,7 +101,10 @@ async function probeWithLimit(
       results.push(r);
     }
   }
-  const workers = Array.from({ length: Math.min(parallelism, articles.length) }, worker);
+  const workers = Array.from(
+    { length: Math.min(parallelism, articles.length) },
+    worker
+  );
   await Promise.all(workers);
   return results;
 }
@@ -110,20 +119,20 @@ async function main(): Promise<number> {
   const today = new Date().toISOString().slice(0, 10);
   const fromDate = shiftDate(today, -LOOKBACK_DAYS);
   console.log(
-    `[recheck-nikkyo] start range ${fromDate} → ${today} (lookback ${LOOKBACK_DAYS} days)`,
+    `[recheck-nikkyo] start range ${fromDate} → ${today} (lookback ${LOOKBACK_DAYS} days)`
   );
 
   const all = await loadRange(DATA_DIR, fromDate, today);
   const candidates = all.filter(
-    (a) => a.sourceId === "nikkyo" && a.requiresMembership !== true,
+    (a) => a.sourceId === "nikkyo" && a.requiresMembership !== true
   );
   const alreadyTrue = all.filter(
-    (a) => a.sourceId === "nikkyo" && a.requiresMembership === true,
+    (a) => a.sourceId === "nikkyo" && a.requiresMembership === true
   ).length;
   console.log(
     `[recheck-nikkyo] candidates=${candidates.length} alreadyTrue=${alreadyTrue} (out of ${
       all.filter((a) => a.sourceId === "nikkyo").length
-    } nikkyo articles in range)`,
+    } nikkyo articles in range)`
   );
 
   if (candidates.length === 0) {
@@ -138,7 +147,7 @@ async function main(): Promise<number> {
   console.log(
     `[recheck-nikkyo] probe done: paywalled=${paywalled.length} free=${
       results.length - paywalled.length - skipped.length
-    } skipped=${skipped.length}`,
+    } skipped=${skipped.length}`
   );
   for (const s of skipped) {
     console.warn(`[recheck-nikkyo] skipped ${s.id}: ${s.reason ?? "unknown"}`);
@@ -158,15 +167,19 @@ async function main(): Promise<number> {
 
   let totalChanged = 0;
   for (const [date, updates] of byDate) {
-    const { changed, total } = await applyMembershipUpdates(DATA_DIR, date, updates);
+    const { changed, total } = await applyMembershipUpdates(
+      DATA_DIR,
+      date,
+      updates
+    );
     totalChanged += changed;
     console.log(
-      `[recheck-nikkyo] ${date}: changed ${changed} (file total ${total})`,
+      `[recheck-nikkyo] ${date}: changed ${changed} (file total ${total})`
     );
   }
 
   console.log(
-    `[recheck-nikkyo] done: ${totalChanged} article(s) flipped to requiresMembership=true across ${byDate.size} day file(s)`,
+    `[recheck-nikkyo] done: ${totalChanged} article(s) flipped to requiresMembership=true across ${byDate.size} day file(s)`
   );
   return 0;
 }

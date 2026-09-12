@@ -33,7 +33,10 @@ export function getAllArticles(): Article[] {
  * 指定基準日(JST)から `days` 日前までに publishedAt がある記事を返す。
  * 並びは publishedAt 降順。
  */
-export function getRecentArticles(days: number, today: Date = new Date()): Article[] {
+export function getRecentArticles(
+  days: number,
+  today: Date = new Date()
+): Article[] {
   const all = loadAllSorted();
   const cutoffMs = today.getTime() - days * 24 * 60 * 60 * 1000;
   return all.filter((a) => new Date(a.publishedAt).getTime() >= cutoffMs);
@@ -80,13 +83,17 @@ export function formatDateJst(iso: string): string {
  * 並びは publishedAt 降順。
  */
 export function getArticlesByDate(yyyyMmDdJst: string): Article[] {
-  return loadAllSorted().filter((a) => formatDateJst(a.publishedAt) === yyyyMmDdJst);
+  return loadAllSorted().filter(
+    (a) => formatDateJst(a.publishedAt) === yyyyMmDdJst
+  );
 }
 
 /**
  * 指定カテゴリ名に該当する記事を新しい順で返す。
  */
-export function getArticlesByCategory(category: Article["categories"][number]): Article[] {
+export function getArticlesByCategory(
+  category: Article["categories"][number]
+): Article[] {
   return loadAllSorted().filter((a) => a.categories.includes(category));
 }
 

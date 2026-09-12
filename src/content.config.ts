@@ -22,7 +22,7 @@ const digests = defineCollection({
           articleIds: z.array(z.string().min(1)).min(1),
           heading: z.string().min(1),
           comment: z.string().min(1),
-        }),
+        })
       )
       .default([]),
     relatedEvidenceUrls: z

@@ -10,7 +10,10 @@
  * フィルタを更新したら本スクリプトのケースも追加し、過剰除外 / 漏れの両方を
  * 回帰防止する。
  */
-import { isExcludedByTitle, isEducationallyRelevant } from "../src/lib/sources/resemom.ts";
+import {
+  isExcludedByTitle,
+  isEducationallyRelevant,
+} from "../src/lib/sources/resemom.ts";
 
 interface Case {
   title: string;
@@ -142,7 +145,8 @@ const CASES: readonly Case[] = [
     reason: "ADR 0039 / 留学フェア",
   },
   {
-    title: "一人暮らしの学生が「親に感謝」した瞬間は？…Studyplusトレンド研究所調査",
+    title:
+      "一人暮らしの学生が「親に感謝」した瞬間は？…Studyplusトレンド研究所調査",
     expected: true,
     reason: "ADR 0039 / Studyplus 系学生意識調査",
   },
@@ -169,7 +173,8 @@ const CASES: readonly Case[] = [
     reason: "ADR 0051 / 国際交流プログラム参加募集(ジュニア大使)",
   },
   {
-    title: "東京六大学野球、勝ち点3明大のスタメン…進学校・強豪校など多彩な出身校",
+    title:
+      "東京六大学野球、勝ち点3明大のスタメン…進学校・強豪校など多彩な出身校",
     expected: true,
     reason:
       "ADR 0051 / 六大学野球関連。「進学校」内の「学校」substring が EDUCATION_PATTERNS を誤通過するため NG 側で先に弾く",
@@ -198,12 +203,14 @@ const CASES: readonly Case[] = [
   {
     title: "JAXA「油井宇宙飛行士ミッション報告会」5/19",
     expected: true,
-    reason: "ADR 0023 narrow / (JAXA|宇宙飛行士)+報告会 で一般公開イベントを捕捉",
+    reason:
+      "ADR 0023 narrow / (JAXA|宇宙飛行士)+報告会 で一般公開イベントを捕捉",
   },
   {
     title: "スポーツ通訳士の仕事を紹介…元プロ野球選手ら登壇5/24",
     expected: true,
-    reason: "ADR 0023 narrow / プロ(野球|...)+選手+登壇 で保護者向けイベントを捕捉",
+    reason:
+      "ADR 0023 narrow / プロ(野球|...)+選手+登壇 で保護者向けイベントを捕捉",
   },
   {
     title: "GW明けは子供のやる気低下を実感…実際にケアは3割以下",
@@ -328,7 +335,7 @@ for (const c of CASES) {
     failures.push(
       `  expected=${c.expected} actual=${actual}\n` +
         `  title : ${c.title}\n` +
-        `  reason: ${c.reason}`,
+        `  reason: ${c.reason}`
     );
   }
 }
@@ -343,14 +350,14 @@ for (const c of EDU_CASES) {
       `  expected=${c.expected} actual=${actual} (EDU)\n` +
         `  title  : ${c.title}\n` +
         `  summary: ${c.summary ?? "(none)"}\n` +
-        `  reason : ${c.reason}`,
+        `  reason : ${c.reason}`
     );
   }
 }
 
 const total = CASES.length + EDU_CASES.length;
 console.log(
-  `[check:filter:resemom] ${passed} passed, ${failed} failed (${total} cases: ${CASES.length} NG + ${EDU_CASES.length} EDU)`,
+  `[check:filter:resemom] ${passed} passed, ${failed} failed (${total} cases: ${CASES.length} NG + ${EDU_CASES.length} EDU)`
 );
 if (failed > 0) {
   console.error("\n[check:filter:resemom] FAILURES:");

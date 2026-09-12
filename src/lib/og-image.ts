@@ -20,7 +20,7 @@ const FONT_PATH = path.resolve(
   process.cwd(),
   "scripts",
   "fonts",
-  "noto-sans-jp-bold.bin",
+  "noto-sans-jp-bold.bin"
 );
 
 let inProcessFontData: ArrayBuffer | null = null;
@@ -31,7 +31,7 @@ async function loadNotoSansJpFont(): Promise<ArrayBuffer> {
   const buf = await fs.readFile(FONT_PATH);
   const data = buf.buffer.slice(
     buf.byteOffset,
-    buf.byteOffset + buf.byteLength,
+    buf.byteOffset + buf.byteLength
   ) as ArrayBuffer;
   inProcessFontData = data;
   return data;
@@ -97,7 +97,12 @@ export async function generateOgImage(params: OgParams): Promise<Buffer> {
                     flexDirection: "column",
                     // 分岐は subject の長さで判定する。このサイズで描かれるのは
                     // 上段だけで、週は下で 32px 固定にしている。
-                    fontSize: subject.length > 22 ? "44px" : subject.length > 14 ? "52px" : "60px",
+                    fontSize:
+                      subject.length > 22
+                        ? "44px"
+                        : subject.length > 14
+                          ? "52px"
+                          : "60px",
                     fontWeight: 900,
                     color: "#1a1a1a",
                     lineHeight: 1.2,

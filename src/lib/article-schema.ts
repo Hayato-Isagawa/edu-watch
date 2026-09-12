@@ -45,11 +45,9 @@ export type RawArticle = z.infer<typeof RawArticle>;
  * シリアライズされる最終形。
  */
 export const Article = z.object({
-  id: z
-    .string()
-    .regex(/^[a-z0-9-]+-\d{4}-\d{2}-\d{2}-[0-9a-f]{16}$/, {
-      message: "id must be <sourceId>-<yyyy-mm-dd>-<16-hex-hash>",
-    }),
+  id: z.string().regex(/^[a-z0-9-]+-\d{4}-\d{2}-\d{2}-[0-9a-f]{16}$/, {
+    message: "id must be <sourceId>-<yyyy-mm-dd>-<16-hex-hash>",
+  }),
   title: z.string().min(1),
   sourceId: z.string().min(1),
   sourceName: z.string().min(1),

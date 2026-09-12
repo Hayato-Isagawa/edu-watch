@@ -51,11 +51,13 @@ async function main(): Promise<number> {
         normalizedCount++;
       } catch (err) {
         console.error(
-          `[fetch-news] ${source.sourceId} schema validation failed for ${raw.url}: ${err}`,
+          `[fetch-news] ${source.sourceId} schema validation failed for ${raw.url}: ${err}`
         );
       }
     }
-    console.log(`[fetch-news] ${source.sourceId} ok: ${normalizedCount} articles`);
+    console.log(
+      `[fetch-news] ${source.sourceId} ok: ${normalizedCount} articles`
+    );
   }
 
   const withinDeduped = dedupeWithin(collected);
@@ -71,14 +73,14 @@ async function main(): Promise<number> {
   const { kept, dropped } = filterByDenylist(newOnly, denySet);
   for (const a of dropped) {
     console.log(
-      `[fetch-news] denylist dropped ${a.id} (${denylist.reasons[a.id] ?? "no reason"})`,
+      `[fetch-news] denylist dropped ${a.id} (${denylist.reasons[a.id] ?? "no reason"})`
     );
   }
 
   console.log(
     `[fetch-news] collected=${collected.length} within-dedupe=${withinDeduped.length} ` +
       `vs-history=${newOnly.length} vs-denylist=${kept.length} ` +
-      `(history lookback ${HISTORY_LOOKBACK_DAYS} days, denylist size ${denylist.ids.length})`,
+      `(history lookback ${HISTORY_LOOKBACK_DAYS} days, denylist size ${denylist.ids.length})`
   );
 
   const byDate = groupByPublishedDate(kept);
@@ -90,19 +92,19 @@ async function main(): Promise<number> {
   }
 
   console.log(
-    `[fetch-news] done: added ${totalAdded} new articles across ${byDate.size} day file(s)`,
+    `[fetch-news] done: added ${totalAdded} new articles across ${byDate.size} day file(s)`
   );
 
   // 過半数失敗で終了コード 1
   if (failedCount * 2 > sources.length) {
     console.error(
-      `[fetch-news] FAIL: ${failedCount}/${sources.length} sources failed (>= 50%)`,
+      `[fetch-news] FAIL: ${failedCount}/${sources.length} sources failed (>= 50%)`
     );
     return 1;
   }
   if (failedCount > 0) {
     console.warn(
-      `[fetch-news] WARN: ${failedCount}/${sources.length} sources failed (< 50%, exit 0)`,
+      `[fetch-news] WARN: ${failedCount}/${sources.length} sources failed (< 50%, exit 0)`
     );
   }
   return 0;

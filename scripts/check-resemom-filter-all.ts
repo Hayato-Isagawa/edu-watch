@@ -66,7 +66,10 @@ function collectDigestReferencedIds(): Map<string, Set<string>> {
   return byDigest;
 }
 
-function digestsCiting(articleId: string, byDigest: Map<string, Set<string>>): string[] {
+function digestsCiting(
+  articleId: string,
+  byDigest: Map<string, Set<string>>
+): string[] {
   const hits: string[] = [];
   for (const [digest, ids] of byDigest) {
     if (ids.has(articleId)) hits.push(digest);
@@ -100,7 +103,9 @@ for (const file of files) {
 }
 
 const ngOnly = allResemom.filter((v) => v.ngExcluded);
-const notRelevantOnly = allResemom.filter((v) => !v.ngExcluded && v.notRelevant);
+const notRelevantOnly = allResemom.filter(
+  (v) => !v.ngExcluded && v.notRelevant
+);
 const excluded = allResemom.filter((v) => v.ngExcluded || v.notRelevant);
 const kept = allResemom.filter((v) => !v.ngExcluded && !v.notRelevant);
 
@@ -121,15 +126,22 @@ console.log(`resemom 総記事数: ${allResemom.length}`);
 console.log("");
 console.log(`削減対象 (新フィルタで弾かれる既存記事): ${excluded.length} 件`);
 console.log(`  - NG_PATTERNS 該当: ${ngOnly.length} 件`);
-console.log(`  - 非教育 (EDUCATION_PATTERNS 不一致): ${notRelevantOnly.length} 件`);
+console.log(
+  `  - 非教育 (EDUCATION_PATTERNS 不一致): ${notRelevantOnly.length} 件`
+);
 console.log(`維持対象: ${kept.length} 件`);
-const rate = allResemom.length > 0 ? ((excluded.length / allResemom.length) * 100).toFixed(1) : "n/a";
+const rate =
+  allResemom.length > 0
+    ? ((excluded.length / allResemom.length) * 100).toFixed(1)
+    : "n/a";
 console.log(`削減率: ${rate}%`);
 console.log("");
 console.log(`【ダイジェスト引用チェック】`);
 console.log(`  ダイジェスト数: ${digestRefs.size} 本`);
 console.log(`  全引用 article ID 数: ${allDigestIds.size}`);
-console.log(`  削減対象のうちダイジェスト引用済み: ${excludedButCited.length} 件 (>0 なら削除前に要協議)`);
+console.log(
+  `  削減対象のうちダイジェスト引用済み: ${excludedButCited.length} 件 (>0 なら削除前に要協議)`
+);
 console.log("");
 
 console.log(`=== NG_PATTERNS 該当 (${ngOnly.length} 件) ===`);
@@ -159,7 +171,9 @@ for (const [date, count] of [...byDate.entries()].sort()) {
 console.log("");
 
 if (excludedButCited.length > 0) {
-  console.log(`=== !! 警告: ダイジェスト引用済みの削減対象 (${excludedButCited.length} 件) ===`);
+  console.log(
+    `=== !! 警告: ダイジェスト引用済みの削減対象 (${excludedButCited.length} 件) ===`
+  );
   for (const v of excludedButCited) {
     const cited = digestsCiting(v.article.id, digestRefs);
     console.log(`  [${v.date}] ${v.article.id} ${v.article.title}`);
@@ -167,5 +181,7 @@ if (excludedButCited.length > 0) {
     console.log(`    除外理由: ${v.ngExcluded ? "NG_PATTERNS" : "非教育"}`);
   }
 } else {
-  console.log("=== ダイジェスト引用チェック結果: クリア (削減対象は digest に引用されていない) ===");
+  console.log(
+    "=== ダイジェスト引用チェック結果: クリア (削減対象は digest に引用されていない) ==="
+  );
 }

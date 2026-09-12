@@ -18,7 +18,7 @@ import { isExcludedByTitle as isResemomExcluded } from "../src/lib/sources/resem
 const DATA_DIR = path.resolve(import.meta.dirname, "../src/data/articles");
 const DENYLIST_PATH = path.resolve(
   import.meta.dirname,
-  "../src/data/excluded-article-ids.json",
+  "../src/data/excluded-article-ids.json"
 );
 const FILENAME_PATTERN = /^\d{4}-\d{2}-\d{2}\.json$/;
 
@@ -84,7 +84,11 @@ async function main() {
     if (kept.length !== list.length) {
       if (!dryRun) {
         const validated = ArticleList.parse(kept);
-        await writeFile(file, JSON.stringify(validated, null, 2) + "\n", "utf8");
+        await writeFile(
+          file,
+          JSON.stringify(validated, null, 2) + "\n",
+          "utf8"
+        );
         filesRewritten++;
       }
     }
@@ -94,9 +98,7 @@ async function main() {
 
   let denylistAdded = 0;
   if (!dryRun) {
-    const newIds = droppedRows
-      .filter((r) => !r.inDenylist)
-      .map((r) => r.id);
+    const newIds = droppedRows.filter((r) => !r.inDenylist).map((r) => r.id);
     const updatedIds = [...new Set([...denylist.ids, ...newIds])].sort();
     const updatedReasons = { ...denylist.reasons };
     for (const r of droppedRows) {
@@ -114,7 +116,7 @@ async function main() {
     await writeFile(
       DENYLIST_PATH,
       JSON.stringify(updated, null, 2) + "\n",
-      "utf8",
+      "utf8"
     );
     denylistAdded = newIds.length;
   }
@@ -122,12 +124,14 @@ async function main() {
   console.log(`[clean-kkn-resemom] files read: ${entries.length}`);
   console.log(`[clean-kkn-resemom] articles read: ${totalRead}`);
   console.log(`[clean-kkn-resemom] dropped (kkn, new):       ${kknDropped}`);
-  console.log(`[clean-kkn-resemom] dropped (resemom, new):   ${resemomDropped}`);
   console.log(
-    `[clean-kkn-resemom] dropped (already in denylist): ${alreadyInDenylist}`,
+    `[clean-kkn-resemom] dropped (resemom, new):   ${resemomDropped}`
   );
   console.log(
-    `[clean-kkn-resemom] articles dropped total: ${totalDropped}${dryRun ? " (dry-run, NOT written)" : ""}`,
+    `[clean-kkn-resemom] dropped (already in denylist): ${alreadyInDenylist}`
+  );
+  console.log(
+    `[clean-kkn-resemom] articles dropped total: ${totalDropped}${dryRun ? " (dry-run, NOT written)" : ""}`
   );
   if (!dryRun) {
     console.log(`[clean-kkn-resemom] files rewritten: ${filesRewritten}`);

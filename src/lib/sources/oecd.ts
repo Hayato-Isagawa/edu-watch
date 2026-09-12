@@ -48,7 +48,7 @@ const rss = new Parser({
 export function summarizeOecdDescription(rawDescription: string): string {
   const withoutMoreLink = rawDescription.replace(
     /\s*<a[^>]*class="more-link"[^>]*>.*?<\/a>\s*$/i,
-    "",
+    ""
   );
   const withoutTags = withoutMoreLink.replace(/<[^>]+>/g, "");
   const decoded = withoutTags
@@ -90,9 +90,13 @@ export const oecd: SourceParser = {
 
       const rawDescription =
         (typeof item.content === "string" ? item.content : undefined) ??
-        (typeof item.contentSnippet === "string" ? item.contentSnippet : undefined) ??
+        (typeof item.contentSnippet === "string"
+          ? item.contentSnippet
+          : undefined) ??
         "";
-      const summary = rawDescription ? summarizeOecdDescription(rawDescription) : undefined;
+      const summary = rawDescription
+        ? summarizeOecdDescription(rawDescription)
+        : undefined;
 
       results.push({
         title,
