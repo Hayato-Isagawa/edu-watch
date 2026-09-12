@@ -1,0 +1,12 @@
+{
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "ignorePatterns": ["src/data/articles/**", "experiments/**"],
+  "rules": {
+    "no-irregular-whitespace": [
+      "warn",
+      {
+        "skipComments": true
+      }
+    ]
+  }
+}

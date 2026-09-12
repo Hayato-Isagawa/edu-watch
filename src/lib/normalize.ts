@@ -20,6 +20,8 @@ const TRACKING_PARAMS_PATTERN =
  */
 export function canonicalizeUrl(input: string): string {
   const url = new URL(input);
+  // 反復中に delete するので、先に配列へ写す（外すと削除の直後の要素を飛ばす）。
+  // oxlint-disable-next-line unicorn/no-useless-spread
   for (const key of [...url.searchParams.keys()]) {
     if (TRACKING_PARAMS_PATTERN.test(key)) {
       url.searchParams.delete(key);
@@ -35,9 +37,16 @@ export function canonicalizeUrl(input: string): string {
  * 記事 id の生成。`<sourceId>-<yyyy-mm-dd>-<16-hex-hash>` 形式。
  * ハッシュは canonicalizeUrl 済みの URL を SHA-256 して先頭 16 桁を採る。
  */
-export function generateArticleId(sourceId: string, publishedAt: string, url: string): string {
+export function generateArticleId(
+  sourceId: string,
+  publishedAt: string,
+  url: string
+): string {
   const date = publishedAt.slice(0, 10);
-  const hash = createHash("sha256").update(canonicalizeUrl(url)).digest("hex").slice(0, 16);
+  const hash = createHash("sha256")
+    .update(canonicalizeUrl(url))
+    .digest("hex")
+    .slice(0, 16);
   return `${sourceId}-${date}-${hash}`;
 }
 
@@ -49,7 +58,9 @@ export function normalize(
   raw: RawArticle,
   parser: Pick<SourceParser, "sourceId" | "sourceName" | "layer" | "language">,
   collectedAt: string = new Date().toISOString(),
-  categoriesFor: (raw: RawArticle & { sourceId: string }) => Article["categories"],
+  categoriesFor: (
+    raw: RawArticle & { sourceId: string }
+  ) => Article["categories"]
 ): Article {
   const canonicalUrl = canonicalizeUrl(raw.url);
   const article: Article = {

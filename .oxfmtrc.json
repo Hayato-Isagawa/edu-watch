@@ -1,0 +1,28 @@
+{
+  "$schema": "./node_modules/oxfmt/configuration_schema.json",
+  "printWidth": 80,
+  "semi": true,
+  "singleQuote": false,
+  "tabWidth": 2,
+  "trailingComma": "es5",
+  "sortPackageJson": false,
+  "ignorePatterns": [
+    "**/*.md",
+    "**/*.yml",
+    "**/*.yaml",
+    "**/*.html",
+    "**/*.css",
+    "**/*.scss",
+    "wrangler.jsonc",
+    "src/data/articles/**",
+    "experiments/**"
+  ],
+  "overrides": [
+    {
+      "files": ["*.jsonc"],
+      "options": {
+        "trailingComma": "none"
+      }
+    }
+  ]
+}

@@ -117,3 +117,4 @@ EduEvidence JP と共通の運営方針(植物モチーフブランド体系 / N
 - [0066. リンクチェックで kyoiku-press.com だけレート制限を掛ける](0066-link-check-host-backoff.md)
 - [0067. 動的 OG のキャッシュバスティングを単一の版数定数で行う](0067-og-cache-version-source.md)
 - [0068. VRT のベースラインを「main のコード × PR のコンテンツ」で撮り、判定を `threshold: 0` にする](0068-content-neutral-vrt-baseline-and-exact-threshold.md)
+- [0069. lint と整形に oxlint / oxfmt を採用する(edu-evidence ADR 0037 ミラー)](0069-oxlint-and-oxfmt.md)
