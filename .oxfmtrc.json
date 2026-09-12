@@ -16,13 +16,5 @@
     "wrangler.jsonc",
     "src/data/articles/**",
     "experiments/**"
-  ],
-  "overrides": [
-    {
-      "files": ["*.jsonc"],
-      "options": {
-        "trailingComma": "none"
-      }
-    }
   ]
 }

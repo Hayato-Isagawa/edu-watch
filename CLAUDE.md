@@ -24,7 +24,7 @@ npm ci                     # 依存復元
 npm run dev                # 開発サーバー(localhost:4323。ファミリー各リポで固定・4321 は未設定プロジェクト用に空けている)
 npm run build              # 本番ビルド
 npm run lint               # oxlint(correctness ルール。warning でも止める。.astro は frontmatter と <script> を見る)
-npm run format             # oxfmt で整形(.ts/.js/.json 等。.astro / .md / .yml / .css / .html / wrangler.jsonc / src/data/articles は対象外。ADR 0069)
+npm run format             # oxfmt で整形(.ts/.js/.json 等。.astro / .md / .yml / .css / .html / wrangler.jsonc / src/data/articles / experiments は対象外。ADR 0069)
 npm run format:check       # 同上の差分検査(CI はこちら)
 npm run check              # Astro 型チェック
 npm run vrt                # ビジュアルリグレッションテスト(現 dist を撮影・比較。権威ある比較は CI、後述)

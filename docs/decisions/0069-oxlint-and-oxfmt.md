@@ -31,7 +31,8 @@
 
 - `.oxlintrc.json`: 既定カテゴリ（correctness）。`no-irregular-whitespace` は `skipComments: true`（コメント内の
   全角空白は日本語の例示で、`.claude/hooks/pre-edit-frontmatter-immutable.cjs` に実在する）。`ignorePatterns` は
-  oxfmt と同じ
+  生成物 2 つ（`src/data/articles/**` / `experiments/**`）で oxfmt と共通。`.md` / `.yml` / `.css` は oxlint の
+  対象外なので、oxfmt 側の除外は要らない
 - 導入時の warning は 6 件。未使用の import 3 件と `new Array(n)` 1 件は直した。`src/lib/normalize.ts` の
   `[...url.searchParams.keys()]` は `unicorn/no-useless-spread` の偽陽性（反復中に `delete` するので先に配列へ
   写す必要がある。外すと削除の直後の要素を飛ばす）で、理由つきの inline ignore にした。残る 1 件は
@@ -54,7 +55,8 @@
   - `src/data/articles/**` — `fetch-news.yml` の bot が `JSON.stringify` で書く生成物。整形すると毎週の収集 PR に差分が混じる
   - `experiments/**` — 大部分が gitignore で、追跡分は実験の記録
 - `npm run format` = `oxfmt`、`npm run format:check` = `oxfmt --check`（CI）
-- 初回整形は同じ PR の別コミット（`style: format with oxfmt`）。整形前後で `npm run build` の `dist` は
+- 初回整形は同じ PR の別コミット（`style: format with oxfmt`）。lint 修正で触った 5 ファイルだけは第 1 コミットで
+  整形も同時に入っている。整形前後で `npm run build` の `dist` は
   `design-tokens.json`（`generatedAt`）を除き byte 一致
 
 ### CI
