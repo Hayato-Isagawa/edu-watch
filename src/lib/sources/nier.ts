@@ -49,7 +49,9 @@ async function fetchHtml(url: string): Promise<string> {
       signal: controller.signal,
     });
     if (!res.ok) {
-      throw new Error(`NIER index fetch failed: ${res.status} ${res.statusText}`);
+      throw new Error(
+        `NIER index fetch failed: ${res.status} ${res.statusText}`
+      );
     }
     return await res.text();
   } finally {
@@ -81,14 +83,24 @@ export const nier: SourceParser = {
       const $li = $(li);
       const title = $li.find("a.c-newslist__link").first().text().trim();
       const href = $li.find("a.c-newslist__link").first().attr("href")?.trim();
-      const datetimeAttr = $li.find("time.c-newslist__date").first().attr("datetime")?.trim();
-      const category = $li.find(".c-newslist__category").first().attr("data-category")?.trim();
+      const datetimeAttr = $li
+        .find("time.c-newslist__date")
+        .first()
+        .attr("datetime")
+        ?.trim();
+      const category = $li
+        .find(".c-newslist__category")
+        .first()
+        .attr("data-category")
+        ?.trim();
       if (!title || !href || !datetimeAttr) return;
 
       // NIER のトップページは複数の <ul class="c-newslist"> セクションに同じ記事を
       // 異なる href で再掲することがあるため、URL に加えて (title + 日付) でも
       // dedupe する
-      const url = href.startsWith("http") ? href : new URL(href, ORIGIN).toString();
+      const url = href.startsWith("http")
+        ? href
+        : new URL(href, ORIGIN).toString();
       const titleKey = `${title}|${datetimeAttr}`;
       if (seenUrls.has(url) || seenTitleKeys.has(titleKey)) return;
       seenUrls.add(url);

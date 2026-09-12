@@ -52,7 +52,9 @@ export function detectMembershipFromArticleScope(scope: string): boolean {
   return false;
 }
 
-async function detectMembershipRequired(url: string): Promise<boolean | undefined> {
+async function detectMembershipRequired(
+  url: string
+): Promise<boolean | undefined> {
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), ARTICLE_FETCH_TIMEOUT_MS);
   try {
@@ -63,10 +65,12 @@ async function detectMembershipRequired(url: string): Promise<boolean | undefine
     if (!res.ok) return undefined;
     const html = await res.text();
     const articleStart = html.indexOf("<article");
-    const articleEnd = articleStart >= 0 ? html.indexOf("</article>", articleStart) : -1;
-    const scope = articleStart >= 0 && articleEnd > articleStart
-      ? html.slice(articleStart, articleEnd)
-      : html;
+    const articleEnd =
+      articleStart >= 0 ? html.indexOf("</article>", articleStart) : -1;
+    const scope =
+      articleStart >= 0 && articleEnd > articleStart
+        ? html.slice(articleStart, articleEnd)
+        : html;
     return detectMembershipFromArticleScope(scope);
   } catch {
     return undefined;
@@ -83,7 +87,12 @@ export const nikkyo: SourceParser = {
 
   async fetch(): Promise<RawArticle[]> {
     const feed = await rss.parseURL(FEED_URL);
-    const drafts: { title: string; url: string; publishedAt: string; summary?: string }[] = [];
+    const drafts: {
+      title: string;
+      url: string;
+      publishedAt: string;
+      summary?: string;
+    }[] = [];
     for (const item of feed.items) {
       const title = item.title?.trim();
       const url = item.link?.trim();
@@ -97,11 +106,14 @@ export const nikkyo: SourceParser = {
         title,
         url,
         publishedAt: published.toISOString(),
-        summary: item.contentSnippet?.trim() || item.content?.trim() || undefined,
+        summary:
+          item.contentSnippet?.trim() || item.content?.trim() || undefined,
       });
     }
 
-    const memberships = await Promise.all(drafts.map((d) => detectMembershipRequired(d.url)));
+    const memberships = await Promise.all(
+      drafts.map((d) => detectMembershipRequired(d.url))
+    );
     return drafts.map((d, i) => {
       const requiresMembership = memberships[i];
       return requiresMembership === true

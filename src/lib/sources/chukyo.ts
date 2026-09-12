@@ -21,7 +21,8 @@ export const chukyo: SourceParser = {
   async fetch(): Promise<RawArticle[]> {
     const mextArticles = await mext.fetch();
     return mextArticles.filter(
-      (a) => KEYWORD_PATTERN.test(a.title) || KEYWORD_PATTERN.test(a.summary ?? ""),
+      (a) =>
+        KEYWORD_PATTERN.test(a.title) || KEYWORD_PATTERN.test(a.summary ?? "")
     );
   },
 };

@@ -19,7 +19,9 @@ const FILENAME_PATTERN = /^\d{4}-\d{2}-\d{2}\.json$/;
 
 async function main() {
   const dryRun = process.argv.includes("--dry-run");
-  const entries = (await readdir(DATA_DIR)).filter((n) => FILENAME_PATTERN.test(n)).sort();
+  const entries = (await readdir(DATA_DIR))
+    .filter((n) => FILENAME_PATTERN.test(n))
+    .sort();
 
   let totalRead = 0;
   let totalDropped = 0;
@@ -48,7 +50,11 @@ async function main() {
       totalDropped += list.length - kept.length;
       if (!dryRun) {
         const validated = ArticleList.parse(kept);
-        await writeFile(file, JSON.stringify(validated, null, 2) + "\n", "utf8");
+        await writeFile(
+          file,
+          JSON.stringify(validated, null, 2) + "\n",
+          "utf8"
+        );
         filesRewritten++;
       }
     }
@@ -57,7 +63,7 @@ async function main() {
   console.log(`[clean-mext] files read: ${entries.length}`);
   console.log(`[clean-mext] articles read: ${totalRead}`);
   console.log(
-    `[clean-mext] articles dropped: ${totalDropped}${dryRun ? " (dry-run, NOT written)" : ""}`,
+    `[clean-mext] articles dropped: ${totalDropped}${dryRun ? " (dry-run, NOT written)" : ""}`
   );
   if (!dryRun) {
     console.log(`[clean-mext] files rewritten: ${filesRewritten}`);

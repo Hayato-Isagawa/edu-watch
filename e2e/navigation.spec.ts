@@ -21,7 +21,9 @@ test.describe("ナビゲーション", () => {
     await expect(page.locator("body")).toHaveAttribute("data-menu", "closed");
   });
 
-  test("モバイルメニューに 4 つのセクション(Explore / About / Sister Sites / Display)が表示される", async ({ page }) => {
+  test("モバイルメニューに 4 つのセクション(Explore / About / Sister Sites / Display)が表示される", async ({
+    page,
+  }) => {
     await page.setViewportSize({ width: 375, height: 812 });
     await page.goto("/");
     await page.locator("#menu-toggle").click();
@@ -33,7 +35,9 @@ test.describe("ナビゲーション", () => {
     await expect(titles.nth(3)).toContainText("Display");
   });
 
-  test("モバイルメニューを開くと検索 input にフォーカスが移る", async ({ page }) => {
+  test("モバイルメニューを開くと検索 input にフォーカスが移る", async ({
+    page,
+  }) => {
     await page.setViewportSize({ width: 375, height: 812 });
     await page.goto("/");
     await page.locator("#menu-toggle").click();
@@ -42,7 +46,9 @@ test.describe("ナビゲーション", () => {
     expect(focusedId).toBe("mobile-menu-search-input");
   });
 
-  test("検索 input から submit すると /search?q= に遷移する", async ({ page }) => {
+  test("検索 input から submit すると /search?q= に遷移する", async ({
+    page,
+  }) => {
     await page.setViewportSize({ width: 375, height: 812 });
     await page.goto("/");
     await page.locator("#menu-toggle").click();
@@ -58,11 +64,15 @@ test.describe("ナビゲーション", () => {
     await page.goto("/");
     const header = page.locator("header.site-header");
     await expect(header).toBeVisible();
-    const position = await header.evaluate((el) => getComputedStyle(el).position);
+    const position = await header.evaluate(
+      (el) => getComputedStyle(el).position
+    );
     expect(position).toBe("sticky");
   });
 
-  test("ページ上部へ戻るボタンが 600px スクロール後に表示される", async ({ page }) => {
+  test("ページ上部へ戻るボタンが 600px スクロール後に表示される", async ({
+    page,
+  }) => {
     await page.goto("/");
     const btn = page.locator("#back-to-top");
     await expect(btn).toHaveAttribute("data-state", "hidden");

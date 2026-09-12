@@ -30,17 +30,19 @@ export const ExcludedIdsFile = z.object({
 });
 export type ExcludedIdsFile = z.infer<typeof ExcludedIdsFile>;
 
-export const DEFAULT_DENYLIST_PATH = path.resolve("src/data/excluded-article-ids.json");
+export const DEFAULT_DENYLIST_PATH = path.resolve(
+  "src/data/excluded-article-ids.json"
+);
 
 export async function loadExcludedIds(
-  filePath: string = DEFAULT_DENYLIST_PATH,
+  filePath: string = DEFAULT_DENYLIST_PATH
 ): Promise<ExcludedIdsFile> {
   const buf = await readFile(filePath, "utf8");
   const parsed = ExcludedIdsFile.parse(JSON.parse(buf));
   const idSet = new Set(parsed.ids);
   if (idSet.size !== parsed.ids.length) {
     throw new Error(
-      `[excluded-ids] duplicate ids in ${filePath} (${parsed.ids.length} entries, ${idSet.size} unique)`,
+      `[excluded-ids] duplicate ids in ${filePath} (${parsed.ids.length} entries, ${idSet.size} unique)`
     );
   }
   for (const id of parsed.ids) {
@@ -53,7 +55,7 @@ export async function loadExcludedIds(
 
 export function filterByDenylist<T extends Pick<Article, "id">>(
   articles: readonly T[],
-  excludedIds: ReadonlySet<string>,
+  excludedIds: ReadonlySet<string>
 ): { kept: T[]; dropped: T[] } {
   const kept: T[] = [];
   const dropped: T[] = [];

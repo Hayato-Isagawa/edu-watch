@@ -15,7 +15,7 @@
 //
 // 使い方: node scripts/assert-test-results.mjs <min-pass> "<glob>"
 
-import { spawnSync } from 'node:child_process';
+import { spawnSync } from "node:child_process";
 
 // **`process.exit()` を使わない。** stdout がパイプのとき write は非同期なので、
 // 直後に exit すると書き残しが捨てられ、中継した TAP がちょうど 65536B
@@ -33,46 +33,57 @@ function main() {
     return 2;
   }
 
-  const res = spawnSync(process.execPath, ['--test', '--test-reporter=tap', pattern], {
-    encoding: 'utf8',
-    stdio: ['ignore', 'pipe', 'inherit'],
-  });
+  const res = spawnSync(
+    process.execPath,
+    ["--test", "--test-reporter=tap", pattern],
+    {
+      encoding: "utf8",
+      stdio: ["ignore", "pipe", "inherit"],
+    }
+  );
 
-  process.stdout.write(res.stdout ?? '');
+  process.stdout.write(res.stdout ?? "");
 
   if (res.error) {
-    console.error(`[assert-test-results] テストランナーを起動できませんでした: ${res.error.message}`);
+    console.error(
+      `[assert-test-results] テストランナーを起動できませんでした: ${res.error.message}`
+    );
     return 1;
   }
 
   const count = (label) => {
-    const m = (res.stdout ?? '').match(new RegExp(`^# ${label} (\\d+)$`, 'm'));
+    const m = (res.stdout ?? "").match(new RegExp(`^# ${label} (\\d+)$`, "m"));
     return m ? Number(m[1]) : null;
   };
 
-  const pass = count('pass');
-  const fail = count('fail');
-  const skipped = count('skipped');
-  const todo = count('todo');
+  const pass = count("pass");
+  const fail = count("fail");
+  const skipped = count("skipped");
+  const todo = count("todo");
 
   if (pass === null || fail === null) {
-    console.error('[assert-test-results] TAP の集計行を読めませんでした。');
+    console.error("[assert-test-results] TAP の集計行を読めませんでした。");
     return 1;
   }
 
   const problems = [];
   if (fail > 0) problems.push(`${fail} 件が失敗`);
-  if (pass < minPass) problems.push(`pass ${pass} 件が下限 ${minPass} を下回る`);
+  if (pass < minPass)
+    problems.push(`pass ${pass} 件が下限 ${minPass} を下回る`);
   if (skipped) problems.push(`${skipped} 件が skip されている`);
   if (todo) problems.push(`${todo} 件が todo になっている`);
 
   if (problems.length) {
-    console.error(`[assert-test-results] ${problems.join(' / ')}`);
-    console.error('[assert-test-results] テストが消えた・skip されたままになっていないか確認してください。');
+    console.error(`[assert-test-results] ${problems.join(" / ")}`);
+    console.error(
+      "[assert-test-results] テストが消えた・skip されたままになっていないか確認してください。"
+    );
     return 1;
   }
 
-  console.log(`[assert-test-results] pass ${pass} 件(下限 ${minPass})、skip / todo なし`);
+  console.log(
+    `[assert-test-results] pass ${pass} 件(下限 ${minPass})、skip / todo なし`
+  );
   return 0;
 }
 

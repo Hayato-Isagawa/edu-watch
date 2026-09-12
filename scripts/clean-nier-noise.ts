@@ -24,12 +24,16 @@ interface FileBuf {
 
 async function main() {
   const dryRun = process.argv.includes("--dry-run");
-  const entries = (await readdir(DATA_DIR)).filter((n) => FILENAME_PATTERN.test(n)).sort();
+  const entries = (await readdir(DATA_DIR))
+    .filter((n) => FILENAME_PATTERN.test(n))
+    .sort();
 
   const files: FileBuf[] = [];
   let totalRead = 0;
   for (const name of entries) {
-    const list = ArticleList.parse(JSON.parse(await readFile(path.join(DATA_DIR, name), "utf8")));
+    const list = ArticleList.parse(
+      JSON.parse(await readFile(path.join(DATA_DIR, name), "utf8"))
+    );
     files.push({ name, list });
     totalRead += list.length;
   }
@@ -47,7 +51,9 @@ async function main() {
   }
 
   // (2) 同 publishedAt 日 + 同 title の nier 重複を 1 件残し
-  const allNier = files.flatMap((f) => f.list.filter((a) => a.sourceId === "nier"));
+  const allNier = files.flatMap((f) =>
+    f.list.filter((a) => a.sourceId === "nier")
+  );
   const groups = new Map<string, Article[]>();
   for (const a of allNier) {
     const key = `${a.publishedAt.slice(0, 10)}|${a.title}`;
@@ -60,7 +66,8 @@ async function main() {
   for (const list of groups.values()) {
     if (list.length < 2) continue;
     const sorted = [...list].sort(
-      (a, b) => a.collectedAt.localeCompare(b.collectedAt) || a.id.localeCompare(b.id),
+      (a, b) =>
+        a.collectedAt.localeCompare(b.collectedAt) || a.id.localeCompare(b.id)
     );
     for (const a of sorted.slice(1)) {
       dropIds.add(a.id);
@@ -76,14 +83,14 @@ async function main() {
   if (!dryRun) {
     for (const f of files) {
       const original = ArticleList.parse(
-        JSON.parse(await readFile(path.join(DATA_DIR, f.name), "utf8")),
+        JSON.parse(await readFile(path.join(DATA_DIR, f.name), "utf8"))
       );
       if (original.length === f.list.length) continue;
       const validated = ArticleList.parse(f.list);
       await writeFile(
         path.join(DATA_DIR, f.name),
         JSON.stringify(validated, null, 2) + "\n",
-        "utf8",
+        "utf8"
       );
       filesRewritten++;
     }
@@ -92,23 +99,27 @@ async function main() {
   console.log(`[clean-nier] files read: ${entries.length}`);
   console.log(`[clean-nier] articles read: ${totalRead}`);
   console.log(
-    `[clean-nier] dropped (job postings):       ${droppedJob.length}`,
+    `[clean-nier] dropped (job postings):       ${droppedJob.length}`
   );
   console.log(
-    `[clean-nier] dropped (same-day duplicates): ${droppedDup.length}`,
+    `[clean-nier] dropped (same-day duplicates): ${droppedDup.length}`
   );
   console.log(
-    `[clean-nier] articles dropped total: ${totalDropped}${dryRun ? " (dry-run, NOT written)" : ""}`,
+    `[clean-nier] articles dropped total: ${totalDropped}${dryRun ? " (dry-run, NOT written)" : ""}`
   );
   if (!dryRun) console.log(`[clean-nier] files rewritten: ${filesRewritten}`);
 
   console.log("\n--- dropped (job postings) ---");
   for (const a of droppedJob) {
-    console.log(`  ${a.publishedAt.slice(0, 10)}\t${a.id}\t${a.title.slice(0, 70)}`);
+    console.log(
+      `  ${a.publishedAt.slice(0, 10)}\t${a.id}\t${a.title.slice(0, 70)}`
+    );
   }
   console.log("\n--- dropped (same-day duplicates) ---");
   for (const a of droppedDup) {
-    console.log(`  ${a.publishedAt.slice(0, 10)}\t${a.id}\t${a.title.slice(0, 70)}`);
+    console.log(
+      `  ${a.publishedAt.slice(0, 10)}\t${a.id}\t${a.title.slice(0, 70)}`
+    );
   }
 }
 

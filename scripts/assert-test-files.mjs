@@ -11,12 +11,12 @@
 //
 // 使い方: node scripts/assert-test-files.mjs "<glob>"
 
-import { globSync } from 'node:fs';
+import { globSync } from "node:fs";
 
 const pattern = process.argv[2];
 
 if (!pattern) {
-  console.error('usage: assert-test-files.mjs <glob>');
+  console.error("usage: assert-test-files.mjs <glob>");
   process.exit(2);
 }
 
@@ -24,7 +24,9 @@ const files = globSync(pattern);
 
 if (files.length === 0) {
   console.error(`[assert-test-files] no test files matched: ${pattern}`);
-  console.error('[assert-test-files] テストが移動・改名されていないか確認してください。');
+  console.error(
+    "[assert-test-files] テストが移動・改名されていないか確認してください。"
+  );
   process.exit(1);
 }
 

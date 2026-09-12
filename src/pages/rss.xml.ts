@@ -5,7 +5,7 @@ import type { APIContext } from "astro";
 export async function GET(context: APIContext) {
   const digests = await getCollection("digests");
   const sorted = [...digests].sort((a, b) =>
-    b.data.publishedAt.localeCompare(a.data.publishedAt),
+    b.data.publishedAt.localeCompare(a.data.publishedAt)
   );
 
   return rss({

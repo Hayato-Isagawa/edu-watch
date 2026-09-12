@@ -30,6 +30,14 @@ import { nikkyo } from "./nikkyo.ts";
 import { kkn } from "./kkn.ts";
 import { kyodo } from "./kyodo.ts";
 
-export const sources: SourceParser[] = [mext, chukyo, nier, oecd, resemom, nikkyo, kkn];
+export const sources: SourceParser[] = [
+  mext,
+  chukyo,
+  nier,
+  oecd,
+  resemom,
+  nikkyo,
+  kkn,
+];
 
 export { mext, chukyo, nier, oecd, resemom, nikkyo, kkn, kyodo };

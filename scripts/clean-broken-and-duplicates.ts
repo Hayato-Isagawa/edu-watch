@@ -37,7 +37,9 @@ const TARGET_IDS = new Set<string>([
 
 async function main() {
   const dryRun = process.argv.includes("--dry-run");
-  const entries = (await readdir(DATA_DIR)).filter((n) => FILENAME_PATTERN.test(n)).sort();
+  const entries = (await readdir(DATA_DIR))
+    .filter((n) => FILENAME_PATTERN.test(n))
+    .sort();
 
   let totalRead = 0;
   let totalDropped = 0;
@@ -63,7 +65,11 @@ async function main() {
       totalDropped += list.length - kept.length;
       if (!dryRun) {
         const validated = ArticleList.parse(kept);
-        await writeFile(file, JSON.stringify(validated, null, 2) + "\n", "utf8");
+        await writeFile(
+          file,
+          JSON.stringify(validated, null, 2) + "\n",
+          "utf8"
+        );
         filesRewritten++;
       }
     }
@@ -72,7 +78,7 @@ async function main() {
   console.log(`[clean-broken] files read: ${entries.length}`);
   console.log(`[clean-broken] articles read: ${totalRead}`);
   console.log(
-    `[clean-broken] articles dropped: ${totalDropped}${dryRun ? " (dry-run, NOT written)" : ""}`,
+    `[clean-broken] articles dropped: ${totalDropped}${dryRun ? " (dry-run, NOT written)" : ""}`
   );
   if (!dryRun) {
     console.log(`[clean-broken] files rewritten: ${filesRewritten}`);
@@ -85,7 +91,7 @@ async function main() {
   const expected = TARGET_IDS.size;
   if (totalDropped !== expected) {
     console.warn(
-      `\n⚠ expected ${expected} drops but processed ${totalDropped}. 一部 id が見つかっていない可能性があります。`,
+      `\n⚠ expected ${expected} drops but processed ${totalDropped}. 一部 id が見つかっていない可能性があります。`
     );
   }
 }

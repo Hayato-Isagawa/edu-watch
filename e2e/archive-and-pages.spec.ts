@@ -17,7 +17,9 @@ const targets: PageTarget[] = [
 
 test.describe("主要ページのスモーク", () => {
   for (const { name, path, expectInH1 } of targets) {
-    test(`${name} (${path}) — 200 + 主要見出しが描画される`, async ({ page }) => {
+    test(`${name} (${path}) — 200 + 主要見出しが描画される`, async ({
+      page,
+    }) => {
       const response = await page.goto(path);
       expect(response?.status()).toBe(200);
       await expect(page.locator("h1").first()).toContainText(expectInH1);

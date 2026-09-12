@@ -23,6 +23,9 @@ mise install               # Node 24 を導入
 npm ci                     # 依存復元
 npm run dev                # 開発サーバー(localhost:4323。ファミリー各リポで固定・4321 は未設定プロジェクト用に空けている)
 npm run build              # 本番ビルド
+npm run lint               # oxlint(correctness ルール。warning でも止める。.astro は frontmatter と <script> を見る)
+npm run format             # oxfmt で整形(.ts/.js/.json 等。.astro / .md / .yml / .css / .html / wrangler.jsonc / src/data/articles / experiments は対象外。ADR 0069)
+npm run format:check       # 同上の差分検査(CI はこちら)
 npm run check              # Astro 型チェック
 npm run vrt                # ビジュアルリグレッションテスト(現 dist を撮影・比較。権威ある比較は CI、後述)
 npm run test:workflows     # link-check.yml の通知分岐と VRT の配線の回帰テスト(下限つき・check:all に含む)
@@ -61,7 +64,7 @@ okinawa-in-data では open な link-check Issue があると後続の検出を�
 PR のコンテンツ」で撮る配線(ADR 0068)も、**壊れても CI は緑のまま**だから — 運ぶ素材を 1 つ
 落としても、テストは走り、多くのページは通る。一番腐りやすいのは運ぶ素材の allowlist なので、
 `src/` の実ディレクトリを走査して「運ぶ・`paths` で監視する・描画に入らないと明言する」の
-三択を強制している。**テストを足したら `package.json` の下限(現在 63、実測ちょうど)も上げること。**
+三択を強制している。**テストを足したら `package.json` の下限(現在 64、実測ちょうど)も上げること。**
 
 3 つ目は `lychee-action` の `failIfEmpty`(既定 true)の経路。**lychee の終了コードを 0 のまま残して
 action だけが exit 1 する**ので、`exit_code` だけを見ていると通知が skip され、`continue-on-error`

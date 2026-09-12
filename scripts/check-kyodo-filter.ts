@@ -106,12 +106,14 @@ for (const c of CASES) {
     failures.push(
       `  expected=${c.expected} actual=${actual}\n` +
         `  title : ${c.title}\n` +
-        `  reason: ${c.reason}`,
+        `  reason: ${c.reason}`
     );
   }
 }
 
-console.log(`[check:filter:kyodo] ${passed} passed, ${failed} failed (${CASES.length} cases)`);
+console.log(
+  `[check:filter:kyodo] ${passed} passed, ${failed} failed (${CASES.length} cases)`
+);
 if (failed > 0) {
   console.error("\n[check:filter:kyodo] FAILURES:");
   for (const f of failures) console.error(f);

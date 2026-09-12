@@ -13,10 +13,7 @@
     "id": "club-activity-guideline",
     "description": "部活動ガイドライン 休養日・活動時間 遵守徹底",
     "severity": "HIGH",
-    "patterns": [
-      "部活動ガイドライン",
-      "休養日[\\s\\S]{0,20}活動時間"
-    ],
+    "patterns": ["部活動ガイドライン", "休養日[\\s\\S]{0,20}活動時間"],
     "sourceChunks": [1]
   },
   {
@@ -83,10 +80,7 @@
     "id": "next-gen-dx-r7",
     "description": "次世代校務DX環境整備支援 R7~",
     "severity": "HIGH",
-    "patterns": [
-      "次世代校務 ?DX",
-      "次世代[\\s\\S]{0,15}校務[\\s\\S]{0,15}DX"
-    ],
+    "patterns": ["次世代校務 ?DX", "次世代[\\s\\S]{0,15}校務[\\s\\S]{0,15}DX"],
     "sourceChunks": [1]
   }
 ]

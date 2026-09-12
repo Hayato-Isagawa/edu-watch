@@ -107,7 +107,16 @@ const RULES: CategoryRule[] = [
   },
   {
     category: "国際・海外",
-    patterns: [/OECD/i, /PISA/i, /EEF/i, /TALIS/i, /ユネスコ/, /UNESCO/i, /国際比較/, /海外/],
+    patterns: [
+      /OECD/i,
+      /PISA/i,
+      /EEF/i,
+      /TALIS/i,
+      /ユネスコ/,
+      /UNESCO/i,
+      /国際比較/,
+      /海外/,
+    ],
   },
   {
     category: "教員・働き方",
@@ -151,7 +160,7 @@ const SOURCE_DEFAULTS: Record<string, ArticleCategory> = {
 const MAX_CATEGORIES = 3;
 
 export function categorize(
-  input: Pick<RawArticle, "title" | "summary"> & { sourceId?: string },
+  input: Pick<RawArticle, "title" | "summary"> & { sourceId?: string }
 ): ArticleCategory[] {
   const text = `${input.title} ${input.summary ?? ""}`;
   const matched: ArticleCategory[] = [];
@@ -163,6 +172,8 @@ export function categorize(
   }
   if (matched.length > 0) return matched;
 
-  const sourceDefault = input.sourceId ? SOURCE_DEFAULTS[input.sourceId] : undefined;
+  const sourceDefault = input.sourceId
+    ? SOURCE_DEFAULTS[input.sourceId]
+    : undefined;
   return sourceDefault ? [sourceDefault] : ["その他"];
 }

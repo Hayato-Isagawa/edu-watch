@@ -29,7 +29,7 @@ async function main() {
     for (const r of raw.slice(0, 3)) {
       const normalized = normalize(r, source, collectedAt, categorize);
       console.log(
-        `  [${normalized.categories.join(",")}] ${normalized.title.slice(0, 50)}... (${normalized.publishedAt.slice(0, 10)})`,
+        `  [${normalized.categories.join(",")}] ${normalized.title.slice(0, 50)}... (${normalized.publishedAt.slice(0, 10)})`
       );
     }
     console.log();

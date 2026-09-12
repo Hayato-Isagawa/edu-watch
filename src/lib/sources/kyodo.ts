@@ -68,7 +68,8 @@ export const kyodo: SourceParser = {
       const pubRaw = item.isoDate ?? item.pubDate;
       if (!title || !url || !pubRaw) continue;
 
-      const summary = item.contentSnippet?.trim() || item.content?.trim() || undefined;
+      const summary =
+        item.contentSnippet?.trim() || item.content?.trim() || undefined;
       if (!isEducationRelated(title, summary)) continue;
 
       const published = new Date(pubRaw);

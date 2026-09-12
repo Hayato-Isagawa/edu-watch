@@ -49,6 +49,17 @@ jobs:
       - name: Type check
         run: npm run check
 
+      # oxlint / oxfmt(ADR 0069)。warning でも exit 0 なので --deny-warnings で止める。
+      # oxfmt は .astro を扱えない。.md / .yml / .css / .html / wrangler.jsonc /
+      # src/data/articles / experiments は .oxfmtrc.json の ignorePatterns で外してある。
+      - name: Lint (oxlint)
+        if: ${{ !cancelled() }}
+        run: npm run lint
+
+      - name: Format check (oxfmt)
+        if: ${{ !cancelled() }}
+        run: npm run format:check
+
       # textlint の対象は src/content/digests/**/*.md。
       # 片方が落ちても両方の結果が見えるように !cancelled() を付ける
       # (edu-evidence の checks.yml と同じ扱い)。

@@ -16,12 +16,14 @@ async function main() {
   console.log(`[smoke] got ${raw.length} raw articles`);
 
   const collectedAt = new Date().toISOString();
-  const normalized = raw.slice(0, 5).map((r) => normalize(r, mext, collectedAt, categorize));
+  const normalized = raw
+    .slice(0, 5)
+    .map((r) => normalize(r, mext, collectedAt, categorize));
 
   console.log(`[smoke] normalized first ${normalized.length}:`);
   for (const a of normalized) {
     console.log(
-      `  [${a.categories.join(",")}] ${a.title.slice(0, 40)}... (${a.publishedAt.slice(0, 10)})`,
+      `  [${a.categories.join(",")}] ${a.title.slice(0, 40)}... (${a.publishedAt.slice(0, 10)})`
     );
   }
 }

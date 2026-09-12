@@ -22,7 +22,7 @@ export const GET: APIRoute = async ({ props }) => {
       weekStart: string;
       weekEnd: string;
       topics?: string[];
-    },
+    }
   );
 
   return new Response(new Uint8Array(png), {

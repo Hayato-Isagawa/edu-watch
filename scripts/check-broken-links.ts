@@ -24,7 +24,9 @@ interface CheckResult {
   finalUrl?: string;
 }
 
-async function probe(url: string): Promise<{ status: number | "timeout" | "error"; finalUrl?: string }> {
+async function probe(
+  url: string
+): Promise<{ status: number | "timeout" | "error"; finalUrl?: string }> {
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), TIMEOUT_MS);
   try {
@@ -44,15 +46,20 @@ async function probe(url: string): Promise<{ status: number | "timeout" | "error
     }
     return { status: res.status, finalUrl: res.url };
   } catch (err) {
-    if (err instanceof Error && err.name === "AbortError") return { status: "timeout" };
+    if (err instanceof Error && err.name === "AbortError")
+      return { status: "timeout" };
     return { status: "error" };
   } finally {
     clearTimeout(timer);
   }
 }
 
-async function pool<T, R>(items: T[], concurrency: number, worker: (item: T) => Promise<R>): Promise<R[]> {
-  const results: R[] = new Array(items.length);
+async function pool<T, R>(
+  items: T[],
+  concurrency: number,
+  worker: (item: T) => Promise<R>
+): Promise<R[]> {
+  const results: R[] = Array.from({ length: items.length });
   let next = 0;
   async function run() {
     while (true) {
@@ -72,20 +79,30 @@ async function main() {
       ? parseInt(process.argv[concurrencyArg + 1], 10)
       : DEFAULT_CONCURRENCY;
 
-  const entries = (await readdir(DATA_DIR)).filter((n) => FILENAME_PATTERN.test(n)).sort();
+  const entries = (await readdir(DATA_DIR))
+    .filter((n) => FILENAME_PATTERN.test(n))
+    .sort();
   const all: Article[] = [];
   for (const name of entries) {
-    const list = ArticleList.parse(JSON.parse(await readFile(path.join(DATA_DIR, name), "utf8")));
+    const list = ArticleList.parse(
+      JSON.parse(await readFile(path.join(DATA_DIR, name), "utf8"))
+    );
     all.push(...list);
   }
 
-  console.log(`[broken-links] checking ${all.length} articles (concurrency=${concurrency})...`);
+  console.log(
+    `[broken-links] checking ${all.length} articles (concurrency=${concurrency})...`
+  );
   const startedAt = Date.now();
 
-  const results = await pool<Article, CheckResult>(all, concurrency, async (a) => {
-    const r = await probe(a.sourceUrl);
-    return { article: a, status: r.status, finalUrl: r.finalUrl };
-  });
+  const results = await pool<Article, CheckResult>(
+    all,
+    concurrency,
+    async (a) => {
+      const r = await probe(a.sourceUrl);
+      return { article: a, status: r.status, finalUrl: r.finalUrl };
+    }
+  );
 
   const elapsed = ((Date.now() - startedAt) / 1000).toFixed(1);
 
@@ -100,7 +117,9 @@ async function main() {
   }
 
   console.log(`[broken-links] done in ${elapsed}s`);
-  console.log(`[broken-links] OK:     ${all.length - broken.length - errors.length}`);
+  console.log(
+    `[broken-links] OK:     ${all.length - broken.length - errors.length}`
+  );
   console.log(`[broken-links] broken: ${broken.length} (4xx/5xx)`);
   console.log(`[broken-links] errors: ${errors.length} (timeout/network)`);
 
@@ -108,7 +127,7 @@ async function main() {
     console.log("\n--- broken links (4xx/5xx) ---");
     for (const r of broken) {
       console.log(
-        `  ${r.status}  ${r.article.publishedAt.slice(0, 10)}  ${r.article.id}\n        ${r.article.sourceUrl}\n        ${r.article.title.slice(0, 80)}`,
+        `  ${r.status}  ${r.article.publishedAt.slice(0, 10)}  ${r.article.id}\n        ${r.article.sourceUrl}\n        ${r.article.title.slice(0, 80)}`
       );
     }
   }
@@ -117,7 +136,7 @@ async function main() {
     console.log("\n--- errors (timeout/network) ---");
     for (const r of errors) {
       console.log(
-        `  ${r.status}  ${r.article.publishedAt.slice(0, 10)}  ${r.article.id}\n        ${r.article.sourceUrl}\n        ${r.article.title.slice(0, 80)}`,
+        `  ${r.status}  ${r.article.publishedAt.slice(0, 10)}  ${r.article.id}\n        ${r.article.sourceUrl}\n        ${r.article.title.slice(0, 80)}`
       );
     }
   }

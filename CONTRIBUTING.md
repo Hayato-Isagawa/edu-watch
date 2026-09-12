@@ -55,6 +55,7 @@ ci: schedule fetch-news cron at 07:00/13:00/19:00 JST
 | `docs` | ドキュメントのみの変更 |
 | `chore` | ビルド設定 / 依存更新 / 非機能的変更 |
 | `refactor` | 挙動を変えないリファクタ |
+| `style` | 整形のみ(挙動もドキュメントも変えない) |
 | `perf` | パフォーマンス改善 |
 | `ci` | GitHub Actions / 自動化関連 |
 

@@ -83,19 +83,19 @@ const total = allResemom.length;
 const passed = allResemom.filter((v) => !v.ngExcluded && !v.notRelevant);
 const ngOnly = allResemom.filter((v) => v.ngExcluded);
 const notRelevantOnly = allResemom.filter(
-  (v) => !v.ngExcluded && v.notRelevant,
+  (v) => !v.ngExcluded && v.notRelevant
 );
 const excludedCount = ngOnly.length + notRelevantOnly.length;
 
 console.log(
-  `\n=== resemom 記事 新フィルタ検証 (${TARGET_DATES[0]} 〜 ${TARGET_DATES[TARGET_DATES.length - 1]}) ===\n`,
+  `\n=== resemom 記事 新フィルタ検証 (${TARGET_DATES[0]} 〜 ${TARGET_DATES[TARGET_DATES.length - 1]}) ===\n`
 );
 console.log(`総件数             : ${total}`);
 console.log(`通過               : ${passed.length}`);
 console.log(`NG 除外            : ${ngOnly.length}`);
 console.log(`非教育キーワード除外: ${notRelevantOnly.length}`);
 console.log(
-  `合計除外           : ${excludedCount} (${total > 0 ? ((excludedCount / total) * 100).toFixed(1) : "0.0"}%)\n`,
+  `合計除外           : ${excludedCount} (${total > 0 ? ((excludedCount / total) * 100).toFixed(1) : "0.0"}%)\n`
 );
 
 console.log(`--- NG 除外詳細 (NG_PATTERNS + ADR 0051 追加分) ---`);
@@ -107,7 +107,7 @@ for (const v of ngOnly) {
 }
 
 console.log(
-  `\n--- 非教育キーワード除外詳細 (EDUCATION_PATTERNS 不一致、過剰除外チェック対象) ---`,
+  `\n--- 非教育キーワード除外詳細 (EDUCATION_PATTERNS 不一致、過剰除外チェック対象) ---`
 );
 if (notRelevantOnly.length === 0) {
   console.log("(該当なし)");
@@ -116,7 +116,9 @@ for (const v of notRelevantOnly) {
   console.log(`[${v.date}] ${v.article.title}`);
   if (v.article.summary) {
     const snippet = v.article.summary.slice(0, 140).replace(/\s+/g, " ");
-    console.log(`  summary: ${snippet}${v.article.summary.length > 140 ? "..." : ""}`);
+    console.log(
+      `  summary: ${snippet}${v.article.summary.length > 140 ? "..." : ""}`
+    );
   }
 }
 

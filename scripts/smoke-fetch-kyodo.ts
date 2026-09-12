@@ -10,15 +10,19 @@ import { categorize } from "../src/lib/categorize.ts";
 async function main() {
   console.log(`[smoke] fetching from ${kyodo.sourceName}...`);
   const raw = await kyodo.fetch();
-  console.log(`[smoke] got ${raw.length} raw articles (after education-keyword filter)`);
+  console.log(
+    `[smoke] got ${raw.length} raw articles (after education-keyword filter)`
+  );
 
   const collectedAt = new Date().toISOString();
-  const normalized = raw.slice(0, 5).map((r) => normalize(r, kyodo, collectedAt, categorize));
+  const normalized = raw
+    .slice(0, 5)
+    .map((r) => normalize(r, kyodo, collectedAt, categorize));
 
   console.log(`[smoke] normalized first ${normalized.length}:`);
   for (const a of normalized) {
     console.log(
-      `  [${a.categories.join(",")}] ${a.title.slice(0, 50)}... (${a.publishedAt.slice(0, 10)})`,
+      `  [${a.categories.join(",")}] ${a.title.slice(0, 50)}... (${a.publishedAt.slice(0, 10)})`
     );
   }
 }

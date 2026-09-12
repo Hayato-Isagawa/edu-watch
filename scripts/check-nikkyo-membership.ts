@@ -88,13 +88,13 @@ for (const c of CASES) {
     failures.push(
       `  expected=${c.expected} actual=${actual}\n` +
         `  case  : ${c.name}\n` +
-        `  reason: ${c.reason}`,
+        `  reason: ${c.reason}`
     );
   }
 }
 
 console.log(
-  `[check:membership:nikkyo] ${passed} passed, ${failed} failed (${CASES.length} cases)`,
+  `[check:membership:nikkyo] ${passed} passed, ${failed} failed (${CASES.length} cases)`
 );
 if (failed > 0) {
   console.error("\n[check:membership:nikkyo] FAILURES:");

@@ -37,14 +37,14 @@ const FONT_PATH = path.resolve(
   process.cwd(),
   "scripts",
   "fonts",
-  "noto-sans-jp-bold.bin",
+  "noto-sans-jp-bold.bin"
 );
 
 async function loadNotoSansJpFont(): Promise<ArrayBuffer> {
   const buf = await fs.readFile(FONT_PATH);
   return buf.buffer.slice(
     buf.byteOffset,
-    buf.byteOffset + buf.byteLength,
+    buf.byteOffset + buf.byteLength
   ) as ArrayBuffer;
 }
 

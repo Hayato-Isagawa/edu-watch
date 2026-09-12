@@ -31,7 +31,8 @@ const SUMMARY_CASES: readonly SummaryCase[] = [
     assert: (actual) => {
       if (actual.includes("<")) return `< が残っている: ${actual}`;
       if (actual.includes("More")) return `末尾 More が残っている: ${actual}`;
-      if (!actual.startsWith("By Andreas Schleicher")) return `本文が削れている: ${actual}`;
+      if (!actual.startsWith("By Andreas Schleicher"))
+        return `本文が削れている: ${actual}`;
       return null;
     },
   },
@@ -49,7 +50,8 @@ const SUMMARY_CASES: readonly SummaryCase[] = [
     label: "200 字超は切り詰めて末尾 … を付与",
     input: `<p>${"a".repeat(300)}</p>`,
     assert: (actual) => {
-      if (actual.length !== 201) return `長さ ${actual.length}(期待: 201 = 200 + …)`;
+      if (actual.length !== 201)
+        return `長さ ${actual.length}(期待: 201 = 200 + …)`;
       if (!actual.endsWith("…")) return `末尾が … でない: ${actual.slice(-3)}`;
       return null;
     },
@@ -59,7 +61,8 @@ const SUMMARY_CASES: readonly SummaryCase[] = [
     input: "<p>Short summary under the limit.</p>",
     assert: (actual) => {
       if (actual.endsWith("…")) return `不要な … が付与された: ${actual}`;
-      if (actual !== "Short summary under the limit.") return `想定外: ${actual}`;
+      if (actual !== "Short summary under the limit.")
+        return `想定外: ${actual}`;
       return null;
     },
   },
@@ -91,7 +94,7 @@ for (const c of SUMMARY_CASES) {
 }
 
 console.log(
-  `[check:fetch:oecd] unit: ${unitPassed} passed, ${unitFailed} failed (${SUMMARY_CASES.length} cases)`,
+  `[check:fetch:oecd] unit: ${unitPassed} passed, ${unitFailed} failed (${SUMMARY_CASES.length} cases)`
 );
 if (unitFailed > 0) {
   console.error("\n[check:fetch:oecd] UNIT FAILURES:");
@@ -99,20 +102,24 @@ if (unitFailed > 0) {
   process.exit(1);
 }
 
-console.log(`\n[check:fetch:oecd] fetching ${oecd.sourceId} live feed (smoke) ...`);
+console.log(
+  `\n[check:fetch:oecd] fetching ${oecd.sourceId} live feed (smoke) ...`
+);
 let articles;
 try {
   articles = await oecd.fetch();
 } catch (err) {
   console.error(
-    `[check:fetch:oecd] FETCH FAILED: ${err instanceof Error ? err.message : String(err)}`,
+    `[check:fetch:oecd] FETCH FAILED: ${err instanceof Error ? err.message : String(err)}`
   );
   process.exit(1);
 }
 
 console.log(`[check:fetch:oecd] fetched ${articles.length} articles`);
 if (articles.length === 0) {
-  console.error("[check:fetch:oecd] FAIL: 0 articles returned (feed empty or parser broken)");
+  console.error(
+    "[check:fetch:oecd] FAIL: 0 articles returned (feed empty or parser broken)"
+  );
   process.exit(1);
 }
 
@@ -142,12 +149,12 @@ for (const a of articles) {
 
 for (const a of articles.slice(0, 5)) {
   console.log(
-    `\n  title : ${a.title}\n  url   : ${a.url}\n  pub   : ${a.publishedAt}\n  sumLen: ${a.summary?.length ?? 0}`,
+    `\n  title : ${a.title}\n  url   : ${a.url}\n  pub   : ${a.publishedAt}\n  sumLen: ${a.summary?.length ?? 0}`
   );
 }
 
 console.log(
-  `\n[check:fetch:oecd] smoke: ${smokePassed} passed, ${smokeFailed} failed (${articles.length} articles)`,
+  `\n[check:fetch:oecd] smoke: ${smokePassed} passed, ${smokeFailed} failed (${articles.length} articles)`
 );
 
 if (smokeFailed > 0) {

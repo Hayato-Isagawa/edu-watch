@@ -9,6 +9,8 @@
 
 ## 検証
 
+- [ ] `npm run lint`
+- [ ] `npm run format:check`
 - [ ] `npm run check`
 - [ ] `npm run build`
 - [ ] ローカルの目視確認(該当する場合)

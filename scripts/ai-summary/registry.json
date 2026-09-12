@@ -27,7 +27,11 @@
           "section": "betsutenpu-2",
           "label": "別添資料2",
           "desc": "上記通知に添付された別添資料２「教師を取り巻く環境整備に関する総合的な推進パッケージ」",
-          "boundary": { "fromAtKey": "betsutenpu2", "fromOffset": 1, "toBeforeKey": "betsutenpu3" },
+          "boundary": {
+            "fromAtKey": "betsutenpu2",
+            "fromOffset": 1,
+            "toBeforeKey": "betsutenpu3"
+          },
           "chunkRanges": "chunk-ranges/tsuuchi-r6-08-27-betsutenpu-2.json",
           "requiredFacts": "required-facts/tsuuchi-r6-08-27-betsutenpu-2.json"
         },

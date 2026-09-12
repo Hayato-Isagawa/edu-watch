@@ -38,7 +38,7 @@ export async function dedupeAgainstHistory(
     dataDir: string;
     lookbackDays: number;
     today?: string;
-  },
+  }
 ): Promise<Article[]> {
   const today = options.today ?? new Date().toISOString().slice(0, 10);
   const fromDate = shiftDate(today, -options.lookbackDays);

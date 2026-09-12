@@ -109,6 +109,10 @@ console.log(`対象 ID 数: ${REMOVE_IDS.size}`);
 console.log(`実削除件数: ${totalRemoved}`);
 console.log(`変更ファイル数: ${touchedFiles}`);
 if (totalRemoved !== REMOVE_IDS.size) {
-  console.warn(`!! 警告: 対象 ID 数 (${REMOVE_IDS.size}) と実削除件数 (${totalRemoved}) が一致しません`);
-  console.warn(`!! 既に削除済みの場合 (冪等性で no-op) か、ID 誤記の可能性があります`);
+  console.warn(
+    `!! 警告: 対象 ID 数 (${REMOVE_IDS.size}) と実削除件数 (${totalRemoved}) が一致しません`
+  );
+  console.warn(
+    `!! 既に削除済みの場合 (冪等性で no-op) か、ID 誤記の可能性があります`
+  );
 }

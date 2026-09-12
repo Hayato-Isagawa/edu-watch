@@ -11,7 +11,7 @@
  * is ignored), so always exits 0 with additionalContext payload via stdout.
  */
 
-'use strict';
+"use strict";
 
 const URL_RE = /\bhttps?:\/\/[^\s)>"']+/gi;
 const DOI_RE = /\b10\.\d{4,9}\/[^\s)>"']+/gi;
@@ -21,18 +21,20 @@ const NUMBER_RE = /\b\d[\d.,]*\d\b/g;
 
 const TARGET_PATH_RE = /(?:^|\/)src\/content\/digests\/[^/]+\.(md|mdx)$/i;
 
-const KINDS = ['number', 'url', 'doi', 'dp_id', 'effect_size'];
+const KINDS = ["number", "url", "doi", "dp_id", "effect_size"];
 
 function extractTokens(s) {
-  const src = String(s ?? '');
+  const src = String(s ?? "");
   const dpIds = src.match(DP_ID_RE) || [];
-  const stripped = src.replace(DP_ID_RE, ' ');
+  const stripped = src.replace(DP_ID_RE, " ");
   return {
-    number: new Set((stripped.match(NUMBER_RE) || []).map(x => x.trim())),
-    url: new Set((src.match(URL_RE) || []).map(x => x.trim())),
-    doi: new Set((src.match(DOI_RE) || []).map(x => x.trim())),
-    dp_id: new Set(dpIds.map(x => x.trim())),
-    effect_size: new Set((src.match(EFFECT_SIZE_RE) || []).map(x => x.trim().toLowerCase())),
+    number: new Set((stripped.match(NUMBER_RE) || []).map((x) => x.trim())),
+    url: new Set((src.match(URL_RE) || []).map((x) => x.trim())),
+    doi: new Set((src.match(DOI_RE) || []).map((x) => x.trim())),
+    dp_id: new Set(dpIds.map((x) => x.trim())),
+    effect_size: new Set(
+      (src.match(EFFECT_SIZE_RE) || []).map((x) => x.trim().toLowerCase())
+    ),
   };
 }
 
@@ -41,8 +43,8 @@ function diffTokens(beforeS, afterS) {
   const after = extractTokens(afterS);
   const result = [];
   for (const k of KINDS) {
-    const added = [...after[k]].filter(x => !before[k].has(x));
-    const removed = [...before[k]].filter(x => !after[k].has(x));
+    const added = [...after[k]].filter((x) => !before[k].has(x));
+    const removed = [...before[k]].filter((x) => !after[k].has(x));
     if (added.length || removed.length) {
       result.push({ kind: k, added, removed });
     }
@@ -51,14 +53,14 @@ function diffTokens(beforeS, afterS) {
 }
 
 function evaluatePayload(toolName, toolInput) {
-  if (toolName === 'Edit') {
-    return diffTokens(toolInput?.old_string ?? '', toolInput?.new_string ?? '');
+  if (toolName === "Edit") {
+    return diffTokens(toolInput?.old_string ?? "", toolInput?.new_string ?? "");
   }
-  if (toolName === 'MultiEdit') {
+  if (toolName === "MultiEdit") {
     const edits = Array.isArray(toolInput?.edits) ? toolInput.edits : [];
     const merged = [];
     for (const e of edits) {
-      merged.push(...diffTokens(e?.old_string ?? '', e?.new_string ?? ''));
+      merged.push(...diffTokens(e?.old_string ?? "", e?.new_string ?? ""));
     }
     return merged;
   }
@@ -66,9 +68,9 @@ function evaluatePayload(toolName, toolInput) {
 }
 
 function fmtList(items) {
-  if (!items.length) return '∅';
-  const head = items.slice(0, 4).join(', ');
-  const tail = items.length > 4 ? ` (+${items.length - 4} more)` : '';
+  if (!items.length) return "∅";
+  const head = items.slice(0, 4).join(", ");
+  const tail = items.length > 4 ? ` (+${items.length - 4} more)` : "";
   return head + tail;
 }
 
@@ -78,27 +80,34 @@ function buildContext(diffs, filePath) {
     if (d.added.length) lines.push(`  + ${d.kind}: ${fmtList(d.added)}`);
     if (d.removed.length) lines.push(`  - ${d.kind}: ${fmtList(d.removed)}`);
   }
-  lines.push('');
-  lines.push('Before continuing, briefly state which source article supports each');
-  lines.push('numeric or URL change. If unsure, ask the user before further edits.');
-  return lines.join('\n');
+  lines.push("");
+  lines.push(
+    "Before continuing, briefly state which source article supports each"
+  );
+  lines.push(
+    "numeric or URL change. If unsure, ask the user before further edits."
+  );
+  return lines.join("\n");
 }
 
 function run(inputOrRaw, _options = {}) {
   let input;
   try {
-    input = typeof inputOrRaw === 'string'
-      ? (inputOrRaw.trim() ? JSON.parse(inputOrRaw) : {})
-      : (inputOrRaw || {});
+    input =
+      typeof inputOrRaw === "string"
+        ? inputOrRaw.trim()
+          ? JSON.parse(inputOrRaw)
+          : {}
+        : inputOrRaw || {};
   } catch {
     return { exitCode: 0 };
   }
 
-  const toolName = String(input?.tool_name || '');
-  if (!['Edit', 'MultiEdit'].includes(toolName)) return { exitCode: 0 };
+  const toolName = String(input?.tool_name || "");
+  if (!["Edit", "MultiEdit"].includes(toolName)) return { exitCode: 0 };
 
   const toolInput = input?.tool_input || {};
-  const filePath = String(toolInput?.file_path || '');
+  const filePath = String(toolInput?.file_path || "");
   if (!TARGET_PATH_RE.test(filePath)) return { exitCode: 0 };
 
   const diffs = evaluatePayload(toolName, toolInput);
@@ -107,7 +116,7 @@ function run(inputOrRaw, _options = {}) {
   const additionalContext = buildContext(diffs, filePath);
   const stdout = JSON.stringify({
     hookSpecificOutput: {
-      hookEventName: 'PostToolUse',
+      hookEventName: "PostToolUse",
       additionalContext,
     },
   });
@@ -118,10 +127,12 @@ function run(inputOrRaw, _options = {}) {
 module.exports = { run, extractTokens, diffTokens, TARGET_PATH_RE };
 
 if (require.main === module) {
-  let data = '';
-  process.stdin.setEncoding('utf8');
-  process.stdin.on('data', c => { data += c; });
-  process.stdin.on('end', () => {
+  let data = "";
+  process.stdin.setEncoding("utf8");
+  process.stdin.on("data", (c) => {
+    data += c;
+  });
+  process.stdin.on("end", () => {
     const out = run(data);
     if (out.stdout) process.stdout.write(out.stdout);
     // **`process.exit()` にしないこと。** stdout がパイプのとき write は非同期なので、
