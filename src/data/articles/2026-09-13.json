@@ -1,0 +1,111 @@
+[
+  {
+    "id": "kkn-2026-09-13-6129bbf7991b74e9",
+    "title": "電気通信大、エンタメ分野の研究教育拠点「エンタテインメント創造研究教育センター」を発足 9/29に記念セレモニー開催",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20260914o02",
+    "publishedAt": "2026-09-13T22:00:43.000Z",
+    "collectedAt": "2026-09-13T23:50:13.718Z",
+    "summary": "電気通信大学は、ゲームを中心としたエンタテインメント分野を工学・理学の視点から研究・教育・社会実装するための拠点「エンタテインメント創造研究教育センター（CEREC）」を発足した。これに伴い9月29日に「エンタテインメン […]",
+    "categories": [
+      "研究・エビデンス"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-09-13-873033f9239bbe55",
+    "title": "特別支援教育向けICT教材eboardが自治体一括申請を開始。無償アカウントの発行・管理が容易に",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20260914o01",
+    "publishedAt": "2026-09-13T22:00:41.000Z",
+    "collectedAt": "2026-09-13T23:50:13.718Z",
+    "summary": "NPO法人eboardはこのほど、特別支援教育で利用するICT教材「eboard」の無償アカウントについて、自治体や教育委員会による一括申請の受付を開始した。これまでは1校ごとの申請が必要だったが、教育委員会が一括申請す […]",
+    "categories": [
+      "ICT / GIGA",
+      "政策・制度"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-09-13-07e30b648720c5d3",
+    "title": "静大×SB×LINEヤフー、小学校で生成AIの仕組みやリスクを学ぶ授業を実施　教材は11月公開",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20260914o04",
+    "publishedAt": "2026-09-13T22:00:30.000Z",
+    "collectedAt": "2026-09-13T23:50:13.718Z",
+    "summary": "LINEヤフー、ソフトバンク、静岡大学は9月9日、板橋区立上板橋第二小学校の5年生49人を対象に、共同開発中の情報モラル教材「AI情報訓練」を用いた授業を実施した。       ■広がるAI […]",
+    "categories": [
+      "ICT / GIGA"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-09-13-16b90d46912adb5d",
+    "title": "日出学園、放課後自習室を刷新　新たな企業と連携し『学び続ける生徒』を育成",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/post_ict/hinodegakuen2026",
+    "publishedAt": "2026-09-13T22:00:10.000Z",
+    "collectedAt": "2026-09-13T23:50:13.718Z",
+    "summary": "2024年度に創立90周年を迎えた日出学園（千葉県市川市）。同校では幼稚園から高等学校まで15年間の一貫教育で一人ひとりに寄り添う教育を目指している。このうち日出学園中学校・高等学校では、自ら学ぶ力を中学校時代から身に付 […]",
+    "categories": [
+      "その他"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-09-13-84b3bc5db5adb467",
+    "title": "明星大学、データとAIを活用した大学運営に向けデータ基盤を検証、全学展開を見据えた取組を始動",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20260914o03",
+    "publishedAt": "2026-09-13T22:00:08.000Z",
+    "collectedAt": "2026-09-13T23:50:13.718Z",
+    "summary": "明星大学は9月10日、データとAIを組織的に活用した大学運営を目指し、Microsoft Fabricを活用したデータ基盤構築の概念実証（PoC）を実施したと発表。将来的な全学展開を見据え、まずは複数のシステムやファイル […]",
+    "categories": [
+      "ICT / GIGA",
+      "研究・エビデンス"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-09-13-5a3992844212eddb",
+    "title": "高校生が開発した授業録音・見直しシステム 不登校支援や復習活用に向けトライアル校を募集",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20260913o03",
+    "publishedAt": "2026-09-13T01:00:26.000Z",
+    "collectedAt": "2026-09-13T23:50:13.718Z",
+    "summary": "スタディメーターは9月7日、同社が支援する学生ビジネスコミュニティ「First off Projects」所属の高校生が開発した「授業議事録システム」のトライアル版を公開し、試験導入を行う中学校や高等学校などの教育機関の […]",
+    "categories": [
+      "不登校"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-09-13-e819093147109d43",
+    "title": "兵庫県多可町、教員の負担軽減と情報管理一元化へＳｋｙと校務スマート化支援アプリの実証研究開始",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20260913o02",
+    "publishedAt": "2026-09-13T01:00:08.000Z",
+    "collectedAt": "2026-09-13T23:50:13.718Z",
+    "summary": "多可町教育委員会（兵庫県）は、教員による私用スマートフォンの利用課題に対応するため、Ｓｋｙと共同で実証研究を開始した。近年、学校現場では行事の写真撮影や連絡に私用スマホが使われることがあり、情報セキュリティリスクや管理の […]",
+    "categories": [
+      "政策・制度",
+      "研究・エビデンス",
+      "教員・働き方"
+    ],
+    "layer": 2,
+    "language": "ja"
+  }
+]
