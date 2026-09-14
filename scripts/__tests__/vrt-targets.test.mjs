@@ -27,9 +27,9 @@
 // **残る穴は spec の書き方そのもの。** 第 2 引数での上書き / 実行時 skip / import 元の
 // 差し替え / `emulateMedia` でのテーマ上書き、のいずれも撮影件数を変えずに値だけを
 // ずらせる(実測)。ワークフロー側は、2026-09-14 時点で、`run:` が複数行のステップの
-// 本文を「行頭のコマンド名の列挙」と「行の形」でしか見ておらず、絶対パスや変数展開で
-// 始まる行での dist / src の差し替えは捕まえていなかった。**列挙が尽きている保証は
-// 無い**ので、`vrt/pages.spec.ts` 冒頭に注意書きを置いてある。
+// 本文を「行頭のコマンド名の列挙」と「行の形」でしか見ておらず、Build baseline の
+// 本文では絶対パスや変数展開で始まる行での dist / src の差し替えを捕まえていなかった。
+// **列挙が尽きている保証は無い**ので、`vrt/pages.spec.ts` 冒頭に注意書きを置いてある。
 
 import test from "node:test";
 import assert from "node:assert/strict";
@@ -305,7 +305,11 @@ test("VRT が main と PR の 2 ビルドを撮り比べている", () => {
   // すると、そういうステップも一緒に捨てて緑のままになる(2026-09-14 時点で実測)。
   const stepsBlock = jobs.split(/^ {4}steps:\n/m)[1];
   assert.ok(stepsBlock, "steps: が無い");
-  const steps = stepsBlock.split(/^(?= {6}- )/m).filter((s) => s.trim());
+  // 最初のステップより前に置かれたコメントは、どのステップにも付かない塊になるので
+  // 先に落とす(ステップ間のコメントは次のステップの塊に入る)。
+  const steps = stripComments(stepsBlock)
+    .split(/^(?= {6}- )/m)
+    .filter((s) => s.trim());
   assert.deepEqual(
     steps.filter((s) => stepName(s) === null),
     [],

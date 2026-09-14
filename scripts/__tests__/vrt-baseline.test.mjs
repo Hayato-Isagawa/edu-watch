@@ -73,6 +73,14 @@ test("ベースラインが PR の素材を --delete 付きで運んでいる", 
   // なる)。列挙するのは行頭のコマンド名で拾える行だけで、絶対パス(`/usr/bin/rsync`)や
   // 変数展開(`$R`)で始まる行は 2026-09-14 時点では捕まえていなかった。
   const lines = runBody("Build baseline (main code x PR content)").split("\n");
+  // 行末の `\` はコメントの中では継続にならない(bash はコメントを行末まで読む)。
+  // 下の繋ぎはそれを区別しないので、`# … \` の次の行が繋がれて列挙から消える。
+  // 解析せずに、その形の行を書けないことにする。
+  assert.deepEqual(
+    lines.filter((l) => /#.*\\$/.test(l)),
+    [],
+    "コメントを含む行が \\ で終わっている"
+  );
   const joined = [];
   for (const raw of lines) {
     const l = raw.trim();
