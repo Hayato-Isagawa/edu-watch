@@ -201,6 +201,39 @@ test("VRT が config と spec の変更で起動する", () => {
       `${pattern} が打ち消されている`
     );
   }
+  // **起動条件そのものも見る。** `paths` の末尾に `- "!**"` を足す(最後に一致した
+  // パターンが勝つので全部が打ち消される)/ `branches` を別の名前にする / `paths-ignore`
+  // を足す / `types` を絞る、のどれでも VRT が起動しなくなるが、上の 2 パターンの
+  // 検査は緑のままだった(2026-09-14 時点で実測)。列挙の正典は `vrt.yml` なので
+  // 肯定の path は写さず、否定の path と `branches` とキー集合だけを固定する。
+  // `branches` はこのファイルの他の固定と同じく綴りごと(`[main]`)固定する。
+  const on = WORKFLOW.split(/^on:\n/m)[1]?.split(/^\w/m)[0];
+  assert.ok(on, "on: が無い");
+  assert.deepEqual(keysAt(on, 2).sort(), ["pull_request", "workflow_dispatch"]);
+  const pullRequest = on
+    .split(/^ {2}pull_request:\n/m)[1]
+    ?.split(/^ {2}\w/m)[0];
+  assert.ok(pullRequest, "on.pull_request が無い");
+  assert.deepEqual(keysAt(pullRequest, 4).sort(), ["branches", "paths"]);
+  assert.match(
+    pullRequest,
+    /^ {4}branches: \[main\]$/m,
+    "pull_request.branches を `branches: [main]` の綴りで書くこと"
+  );
+  // path の行は「クォート 1 組で囲んだ 1 行」の綴りだけを許す。シングルクォート /
+  // 行末コメント / ブロックスカラーでも YAML では同じ値になるが、否定の抽出は綴りを
+  // 見るので、許さない綴りは値を見る前に赤にする(許すと `- '!**'` が素通りした。
+  // 2026-09-14 時点で実測)。
+  const pathLines = pullRequest.match(/^ {6}-.*$/gm) ?? [];
+  const pathValues = pathLines.map((l) => {
+    const m = l.match(/^ {6}- (["'])([^"']*)\1$/);
+    assert.ok(m, `paths の行はクォート 1 組の 1 行で書くこと: ${l.trim()}`);
+    return m[2];
+  });
+  assert.deepEqual(
+    pathValues.filter((v) => v.startsWith("!")),
+    ["!src/pages/changelog.astro"]
+  );
 });
 
 /** 指定インデントに在るマッピングのキー。クォートとコロン前の空白は `stepKeys` と同じ扱い */
