@@ -201,6 +201,28 @@ test("VRT が config と spec の変更で起動する", () => {
       `${pattern} が打ち消されている`
     );
   }
+  // **起動条件そのものも見る。** `paths` の末尾に `- "!**"` を足す(最後に一致した
+  // パターンが勝つので全部が打ち消される)/ `branches` を別の名前にする / `paths-ignore`
+  // や `types` を足す、のどれでも VRT は一度も起動しなくなるが、上の 2 パターンの
+  // 検査は緑のままだった(2026-09-14 時点で実測)。列挙の正典は `vrt.yml` なので
+  // 肯定の path は写さず、否定の path と `branches` とキー集合だけを固定する。
+  const on = WORKFLOW.split(/^on:\n/m)[1]?.split(/^\w/m)[0];
+  assert.ok(on, "on: が無い");
+  assert.deepEqual(keysAt(on, 2).sort(), ["pull_request", "workflow_dispatch"]);
+  const pullRequest = on
+    .split(/^ {2}pull_request:\n/m)[1]
+    ?.split(/^ {2}\w/m)[0];
+  assert.ok(pullRequest, "on.pull_request が無い");
+  assert.deepEqual(keysAt(pullRequest, 4).sort(), ["branches", "paths"]);
+  assert.match(
+    pullRequest,
+    /^ {4}branches: \[main\]$/m,
+    "pull_request.branches が [main] ではない"
+  );
+  assert.deepEqual(
+    [...pullRequest.matchAll(/^ {6}- "(![^"]*)"$/gm)].map((m) => m[1]),
+    ["!src/pages/changelog.astro"]
+  );
 });
 
 /** 指定インデントに在るマッピングのキー。クォートとコロン前の空白は `stepKeys` と同じ扱い */
