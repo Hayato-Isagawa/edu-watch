@@ -27,9 +27,9 @@
 // **残る穴は spec の書き方そのもの。** 第 2 引数での上書き / 実行時 skip / import 元の
 // 差し替え / `emulateMedia` でのテーマ上書き、のいずれも撮影件数を変えずに値だけを
 // ずらせる(実測)。ワークフロー側は、2026-09-14 時点で、`run:` が複数行のステップの
-// 本文を形(`vrt-baseline.test.mjs` の運ぶ行の列挙・報告ステップの行の形)でしか見て
-// おらず、glob や変数で綴りを隠した dist の差し替えは捕まえていなかった。**列挙が
-// 尽きている保証は無い**ので、`vrt/pages.spec.ts` 冒頭に注意書きを置いてある。
+// 本文を「行頭のコマンド名の列挙」と「行の形」でしか見ておらず、絶対パスや変数展開で
+// 始まる行での dist / src の差し替えは捕まえていなかった。**列挙が尽きている保証は
+// 無い**ので、`vrt/pages.spec.ts` 冒頭に注意書きを置いてある。
 
 import test from "node:test";
 import assert from "node:assert/strict";
@@ -275,12 +275,13 @@ test("VRT が main と PR の 2 ビルドを撮り比べている", () => {
   // 順序入れ替え)で赤になる。マッピングのキー順に意味は無いので、
   // **ステップの塊に切ってから、その中に何が在るかを見る**。
   // **撮影 2 ステップの外側も見る。** job / workflow レベルの `env:`(`NODE_OPTIONS` で
-  // 両撮影に細工する)、`defaults:`(`shell: bash {0}` で失敗を握り潰す)、前段のステップ
+  // 両撮影に細工する)、`defaults:`(`shell` を差し替えて `-e` を外す)、前段のステップ
   // (`rsync -a --delete dist-main/ dist-pr/` を 1 つ挟む・`Checkout PR` に `ref:` を足して
   // PR 側を main にする)は、撮影 2 ステップを丸ごと固定しても素通りした(2026-09-14
-  // 時点で実測)。マッピングのキー集合とステップの並びを固定し、`run:` が 1 行の
-  // ステップは完全一致にする。複数行の `run:`(Build baseline / Report baseline mode)の
-  // 中身は `vrt-baseline.test.mjs` が見る。
+  // 時点で実測)。マッピングのキー集合・ステップの並び・各ステップのキー集合・
+  // `uses:` の action を固定し、`run:` が 1 行のステップは完全一致にする。複数行の
+  // `run:`(Build baseline / Report baseline mode)の本文は、2026-09-14 時点では
+  // `vrt-baseline.test.mjs` が行の列挙と形で見ていた。
   assert.deepEqual(keysAt(WORKFLOW, 0).sort(), [
     "concurrency",
     "jobs",
@@ -298,8 +299,17 @@ test("VRT が main と PR の 2 ビルドを撮り比べている", () => {
     "timeout-minutes",
   ]);
 
-  const steps = WORKFLOW.split(/^(?= {6}- )/m).filter(
-    (s) => stepName(s) !== null
+  // **`steps:` の下の塊は全部 `- name:` で始まっていなければならない。** name の無い
+  // ステップ(`- run: …`)や `-   name:` / `- { name: … }` のような綴りは、name で
+  // 引く下の検査から丸ごと消える。paths の `- "…"` を除くために null を捨てる形に
+  // すると、そういうステップも一緒に捨てて緑のままになる(2026-09-14 時点で実測)。
+  const stepsBlock = jobs.split(/^ {4}steps:\n/m)[1];
+  assert.ok(stepsBlock, "steps: が無い");
+  const steps = stepsBlock.split(/^(?= {6}- )/m).filter((s) => s.trim());
+  assert.deepEqual(
+    steps.filter((s) => stepName(s) === null),
+    [],
+    "name の無いステップがある"
   );
   assert.deepEqual(steps.map(stepName), [
     "Checkout PR",
@@ -315,6 +325,36 @@ test("VRT が main と PR の 2 ビルドを撮り比べている", () => {
     "Upload VRT report",
   ]);
   const byName = new Map(steps.map((s) => [stepName(s), s]));
+  // 各ステップのキー集合。`shell:` / `working-directory:` / `env:` を足すだけで
+  // 本文を変えずに挙動を変えられるので、撮影 2 ステップ以外も固定する。
+  assert.deepEqual(
+    steps.map((s) => [stepName(s), stepKeys(s).sort()]),
+    [
+      ["Checkout PR", ["name", "uses", "with"]],
+      ["Setup Node.js", ["name", "uses", "with"]],
+      ["Install dependencies", ["name", "run"]],
+      ["Install Playwright browser", ["name", "run"]],
+      ["Build PR branch", ["name", "run"]],
+      ["Stash PR build", ["name", "run"]],
+      ["Build baseline (main code x PR content)", ["env", "id", "name", "run"]],
+      ["Report baseline mode", ["env", "name", "run"]],
+      ["Capture baseline from main", ["env", "name", "run"]],
+      ["Compare PR against baseline", ["env", "name", "run"]],
+      ["Upload VRT report", ["if", "name", "uses", "with"]],
+    ]
+  );
+  // `uses:` は action の名前まで固定する(sha は Dependabot が bump するので見ない)。
+  for (const [name, action] of [
+    ["Checkout PR", "actions/checkout@"],
+    ["Setup Node.js", "actions/setup-node@"],
+    ["Upload VRT report", "actions/upload-artifact@"],
+  ]) {
+    const uses = byName.get(name).match(/^ {8}uses\s*:[ \t]*(\S+)/m)?.[1] ?? "";
+    assert.ok(
+      uses.startsWith(action),
+      `${name} の uses が ${action} で始まっていない`
+    );
+  }
   // 1 行の `run:` は完全一致。`Install dependencies` を `npm ci && git checkout
   // origin/main -- src/…` にすると PR 側のビルドが main のコードになる。
   for (const [name, tokens] of [
@@ -326,15 +366,9 @@ test("VRT が main と PR の 2 ビルドを撮り比べている", () => {
     ["Build PR branch", ["npm", "run", "build"]],
     ["Stash PR build", ["mv", "dist", "dist-pr"]],
   ]) {
-    assert.deepEqual(stepKeys(byName.get(name)).sort(), ["name", "run"]);
     assert.deepEqual(runTokens(byName.get(name)), tokens, name);
   }
   // `Checkout PR` は `with: ref: …` で PR 以外を取り出せるので、`with` の中身まで固定する。
-  assert.deepEqual(stepKeys(byName.get("Checkout PR")).sort(), [
-    "name",
-    "uses",
-    "with",
-  ]);
   assert.deepEqual(blockLines(byName.get("Checkout PR"), "with"), [
     "fetch-depth: 0",
   ]);

@@ -64,29 +64,39 @@ test("ベースラインが PR の素材を --delete 付きで運んでいる", 
     b,
     /^ +cp src\/content\.config\.ts \/tmp\/edu-watch-main\/src\/content\.config\.ts$/m
   );
-  // **運ぶ行はこの 3 行だけ、と数でも固定する。** 上の 3 つが在ることしか見ないと、
-  // `rsync -a --delete src/ /tmp/edu-watch-main/src/` を 1 行足して描画コードごと
-  // 運ぶ(= ベースラインが PR のコードになり、比較が恒久的に緑)変異が緑のまま通る
-  // (2026-09-14 時点で実測)。
-  const carries = runBody("Build baseline (main code x PR content)")
-    .split("\n")
-    .map((l) => l.trim())
-    .filter((l) => /^(rsync|cp|mv|ln)\b/.test(l));
+  // **ファイルと worktree を動かす行は、この列挙と完全一致させる。** 上の 3 つが在る
+  // ことしか見ないと、`rsync -a --delete src/ /tmp/edu-watch-main/src/` や
+  // `git -C /tmp/edu-watch-main checkout "$GITHUB_SHA" -- src` を 1 行足して描画コード
+  // ごと運ぶ(= ベースラインが PR のコードになる)変異で、ガードは緑のままだった
+  // (2026-09-14 時点で実測)。`origin/main` を `HEAD` に変える 1 トークンの変異も同じ
+  // (pull_request の checkout はマージコミットなので「main のコード」が PR のコードに
+  // なる)。列挙するのは行頭のコマンド名で拾える行だけで、絶対パス(`/usr/bin/rsync`)や
+  // 変数展開(`$R`)で始まる行は 2026-09-14 時点では捕まえていなかった。
+  const lines = runBody("Build baseline (main code x PR content)").split("\n");
+  const joined = [];
+  for (const raw of lines) {
+    const l = raw.trim();
+    if (joined.length && joined[joined.length - 1].endsWith("\\")) {
+      joined[joined.length - 1] =
+        joined[joined.length - 1].slice(0, -1).trim() + " " + l;
+    } else {
+      joined.push(l);
+    }
+  }
+  const carries = joined.filter((l) =>
+    /^(rsync|cp|mv|ln|rm|tar|git)\b/.test(l)
+  );
   assert.deepEqual(carries, [
+    "git worktree add /tmp/edu-watch-main origin/main",
     "mv /tmp/edu-watch-main/dist dist-main", // raw(neutral=false)の早期 exit
     "rsync -a --delete src/content/ /tmp/edu-watch-main/src/content/",
     "rsync -a --delete src/data/ /tmp/edu-watch-main/src/data/",
     "cp src/content.config.ts /tmp/edu-watch-main/src/content.config.ts",
+    "git -C /tmp/edu-watch-main checkout -- .",
+    "git -C /tmp/edu-watch-main clean -fd",
+    "rm -rf /tmp/edu-watch-main/dist /tmp/edu-watch-main/.astro /tmp/edu-watch-main/node_modules/.astro /tmp/edu-watch-main/node_modules/.vite",
     "mv /tmp/edu-watch-main/dist dist-main",
   ]);
-  // **worktree の参照先も固定する。** `origin/main` を `HEAD` に変えると、pull_request の
-  // checkout はマージコミットなので「main のコード」が PR のコードになる。1 トークンの
-  // 変更で、運ぶ 3 行は無傷のまま比較が恒久的に緑になる(2026-09-14 時点で実測)。
-  assert.match(
-    b,
-    /^ +git worktree add \/tmp\/edu-watch-main origin\/main$/m,
-    "ベースラインの worktree が origin/main を指していない"
-  );
 });
 
 test("素材を運ぶのがベースラインのビルドより前である", () => {
@@ -121,9 +131,10 @@ test("相を報告するステップと、その出力元が存在する", () =>
   // artifact 名は nobaseline に落ちる。どちらも赤くならない。
   assert.match(b, /^ {8}id: baseline$/m, "id: baseline が無い");
   // **報告のステップはファイルを動かさない。** ここは撮影 2 ステップの直前に在り、
-  // heredoc の外に `rsync -a --delete dist-m*/ dist-p*/` を 1 行足せば(glob なので
-  // `dist-pr` の文字列は現れない)2 ステップとも同じビルドを撮る。summary を書く
-  // 以外の入出力はこのステップに要らないので、heredoc の外の行を形で固定する。
+  // heredoc の外に `rsync -a --delete dist-m*/ dist-p*/` を 1 行足しても(glob なので
+  // `dist-pr` の文字列は現れない)ガードは緑のままだった(2026-09-14 時点で実測)。
+  // summary を書く以外の入出力はこのステップに要らないので、heredoc の外の行を形で
+  // 固定する。
   const outside = [];
   let inHeredoc = false;
   for (const raw of runBody("Report baseline mode").split("\n")) {
