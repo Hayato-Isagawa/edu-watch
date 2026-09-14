@@ -334,7 +334,7 @@ test("比較設定が VRT ジョブの環境でも同じ値になる", async () 
 
 test("撮影の断面とリトライが固定されている", () => {
   // **断面が減っても件数は減らない。** mobile の viewport を desktop と同じにする /
-  // `colorScheme` を両方 light にすると、48 件は撮り続けたまま同じ画像を 2 度撮る
+  // `colorScheme` を 4 つとも light にすると、48 件は撮り続けたまま同じ画像を 2 度撮る
   // ことになり、モバイルやダークの崩れは一切写らなくなる(`targets` の path 重複を
   // 禁じているのと同じ形)。viewport も `colorScheme` も `--list --reporter=json` の
   // `config.projects[]` に入らないので、config を import して見る。
@@ -359,16 +359,30 @@ test("撮影の断面とリトライが固定されている", () => {
   // `prefers-color-scheme` より先に見るので、`storageState` で `localStorage.theme`
   // を注入すると、上の deepEqual を通したまま `-dark` の 2 断面が light を描く
   // (実測)。トップレベルでも project 単位でも置けるので両方見る。
+  // **`contextOptions` も同じ口。** `use.storageState` が未設定なら Playwright は
+  // `use.contextOptions.storageState` をそのまま既定値にする(`playwright/lib/index.js`
+  // の `storageState` fixture)ので、綴りを変えただけで上の固定を素通りする(実測)。
+  // 個別キーを追いかけずに `contextOptions` 自体を未設定に固定する。
   assert.equal(
     vrtConfig.use?.storageState,
     undefined,
     "use.storageState が設定されている"
+  );
+  assert.equal(
+    vrtConfig.use?.contextOptions,
+    undefined,
+    "use.contextOptions が設定されている"
   );
   for (const project of vrtConfig.projects) {
     assert.equal(
       project.use?.storageState,
       undefined,
       `${project.name} が storageState を設定している`
+    );
+    assert.equal(
+      project.use?.contextOptions,
+      undefined,
+      `${project.name} が contextOptions を設定している`
     );
   }
   // リトライは入れない(理由は config のコメント)。増やすと、安定化ループでも
