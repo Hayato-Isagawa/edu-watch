@@ -25,8 +25,8 @@ import { targets as pages, shotOptions } from "./targets.mjs";
 // **テーマも同じ死角にある。** `page.emulateMedia({ colorScheme: "light" })` を
 // この関数の中に 1 行足すと、config の 4 projects はそのままなのに `-dark` の
 // 断面が light に化ける(実測: ガードは 76/76 緑のまま)。**ここでメディアを
-// 上書きしないこと。** config 側の `storageState` / `contextOptions` による同型の
-// 上書きは config を読むガードが固定しているが、そのガードは spec の中までは見ない。
+// 上書きしないこと。** config 側の `use`(`storageState` / `javaScriptEnabled` 等)による
+// 同型の上書きは config を読むガードが丸ごと固定しているが、spec の中までは見ない。
 
 for (const p of pages) {
   test(p.name, async ({ page }) => {

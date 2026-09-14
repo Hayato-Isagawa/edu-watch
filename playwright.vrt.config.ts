@@ -49,11 +49,11 @@ export default defineConfig({
   // 断面は viewport × テーマ の 4 つ。**テーマは `data-theme` を直接立てず
   // `colorScheme` で与える** — `Layout.astro` の起動スクリプトが
   // localStorage → `prefers-color-scheme` の順に見て `data-theme` を決めるので、
-  // エミュレーションを使えばその経路ごと撮れる。**`storageState` はここに置かない** —
-  // `localStorage.theme = "light"` を注入した state を渡すと localStorage が先に勝ち、
-  // `colorScheme: "dark"` の project がそのまま light を描く(実測)。`storageState` と
-  // `contextOptions` が未設定であることは `scripts/__tests__/vrt-targets.test.mjs` が
-  // 固定している。
+  // エミュレーションを使えばその経路ごと撮れる。**`use` にはこれ以上何も置かない** —
+  // `storageState` で `localStorage.theme = "light"` を注入すれば localStorage が先に勝ち、
+  // `javaScriptEnabled: false` や `launchOptions` で JS を止めれば `data-theme` 自体が
+  // 立たず、どちらも `colorScheme: "dark"` の project がそのまま light を描く(実測)。
+  // `use` の中身は `scripts/__tests__/vrt-targets.test.mjs` が丸ごと固定している。
   //
   // ダークを撮るまで **1 枚も写っていなかった**。ダーク側は `[data-theme="dark"]` で
   // 色トークンを 11 宣言まとめて差し替える形(テンプレートに `dark:` 変種は無く、

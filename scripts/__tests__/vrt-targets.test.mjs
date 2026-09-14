@@ -19,9 +19,10 @@
 // ブラウザも webServer も起動しない)。
 //
 // **列挙で見えないものは、値そのものを固定する。** `fullPage` を落とす / 比較設定を
-// 緩める / 断面(viewport)を潰す / 比較そのものを消す(`ignoreSnapshots`・
-// `updateSnapshots`)/ ワークフローの比較ステップを撮り直しにする — いずれも
-// 撮影件数を減らさないので `--list` からは見えない。
+// 緩める / 断面(viewport・`colorScheme`)を潰す / `use` でテーマを立てる JS を止める /
+// 比較そのものを消す(`ignoreSnapshots`・`updateSnapshots`・`webServer` を main の dist に
+// 固定する)/ ワークフローの撮影コマンドに CLI フラグを足す・ステップを skip する —
+// いずれも撮影件数を減らさないので `--list` からは見えない。
 //
 // **残る穴は spec の書き方そのもの。** 第 2 引数での上書き / 実行時 skip / import 元の
 // 差し替え / `emulateMedia` でのテーマ上書き、のいずれも撮影件数を変えずに値だけを
@@ -200,6 +201,42 @@ test("VRT が config と spec の変更で起動する", () => {
   }
 });
 
+/** ステップ(`      - ` 始まりの塊)が持つキー。順序は見ない(マッピングのキー順に意味は無い) */
+function stepKeys(step) {
+  return [...step.matchAll(/^(?: {6}- | {8})([\w-]+):/gm)].map((m) => m[1]);
+}
+
+/** ステップ内の `key:` の下にぶら下がる行(インデント 10)を trim して返す */
+function blockLines(step, key) {
+  const m = step.match(
+    new RegExp(`^ {8}${key}:[^\\n]*\\n((?: {10}.*\\n?)*)`, "m")
+  );
+  return m
+    ? m[1]
+        .split("\n")
+        .map((l) => l.trim())
+        .filter(Boolean)
+    : [];
+}
+
+/**
+ * ステップの `run:` を空白区切りのトークンにして返す。`run: cmd` / `run: "cmd"` /
+ * `run: 'cmd'` / `run: |`(次行以降)を同じに扱う。ブロックスカラーで非空行が
+ * 2 行以上あれば `null`(1 行目が正しくても 2 行目で結果を握り潰せるため)。
+ */
+function runTokens(step) {
+  const m = step.match(/^ {8}run:[ \t]*(.*)$/m);
+  if (!m) return null;
+  let value = m[1].trim();
+  if (value === "|" || value === ">") {
+    const lines = blockLines(step, "run");
+    if (lines.length !== 1) return null;
+    value = lines[0];
+  }
+  value = value.replace(/^(["'])(.*)\1$/, "$2");
+  return value.split(/\s+/).filter(Boolean);
+}
+
 test("VRT が main と PR の 2 ビルドを撮り比べている", () => {
   // 比較ステップを消すとベースライン撮影だけが残り、**恒久的に緑**になる。
   //
@@ -220,28 +257,44 @@ test("VRT が main と PR の 2 ビルドを撮り比べている", () => {
   assert.ok(baseline, "main の dist を撮るステップが無い");
   assert.ok(compare, "PR の dist を撮るステップが無い");
 
-  for (const [label, step] of [
-    ["ベースライン撮影", baseline],
-    ["比較", compare],
+  // **撮影コマンドは完全一致で固定する。** 部分一致だと、後ろに `--project desktop
+  // --project mobile` を足して dark だけ落とす / `--ignore-snapshots` で比較を消す /
+  // `-u`(`--update-snapshots` の短縮形)を足す、のいずれも緑のまま通る(実測)。
+  // 撮り直しの指定はベースライン側にだけ在る — 比較側に付くと毎回上書きになり、
+  // 差分が出ることが無くなる。
+  //
+  // **ステップに在るキーも固定する。** `if:` で比較を skip する / `shell: bash {0}` +
+  // 2 行目の `true` で失敗を握り潰す / `env:` に `NODE_OPTIONS` を足す、はどれも
+  // コマンド行を変えずに比較を無効にできる(実測)。`run:` は `run: cmd` / クォート /
+  // `run: |` の等価な書き方を同じに扱い、ブロックスカラーは非空行がちょうど 1 行で
+  // あることを要求する。
+  const PLAYWRIGHT = [
+    "npx",
+    "playwright",
+    "test",
+    "--config",
+    "playwright.vrt.config.ts",
+  ];
+  for (const [label, step, dist, args] of [
+    ["ベースライン撮影", baseline, "dist-main", ["--update-snapshots"]],
+    ["比較", compare, "dist-pr", []],
   ]) {
-    assert.match(
-      step,
-      /npx playwright test --config playwright\.vrt\.config\.ts/,
-      `${label}が VRT の config を使っていない`
+    assert.deepEqual(
+      stepKeys(step).sort(),
+      ["env", "name", "run"],
+      `${label}のキー`
+    );
+    assert.deepEqual(
+      blockLines(step, "env"),
+      [`VRT_DIST: ${dist}`],
+      `${label}の env`
+    );
+    assert.deepEqual(
+      runTokens(step),
+      [...PLAYWRIGHT, ...args],
+      `${label}のコマンド`
     );
   }
-  // 撮り直しの指定はベースライン側にだけ在る。比較側に付くと毎回上書きになり、
-  // 差分が出ることが無くなる。
-  assert.match(
-    baseline,
-    /--update-snapshots/,
-    "ベースライン撮影が撮り直しになっていない"
-  );
-  assert.doesNotMatch(
-    compare,
-    /--update-snapshots/,
-    "比較が撮り直しになっている"
-  );
 
   // 撮ってから比べる。逆順だとベースラインが無い状態で比較が走る。
   assert.ok(
@@ -319,16 +372,24 @@ test("比較設定が VRT ジョブの環境でも同じ値になる", async () 
     assert.equal(config.retries, vrtConfig.retries);
     assert.equal(config.ignoreSnapshots, vrtConfig.ignoreSnapshots);
     assert.equal(config.updateSnapshots, vrtConfig.updateSnapshots);
+    // `use` はキーを選ばず丸ごと比べる。上の「断面」テストが固定した `use` に
+    // `VRT_DIST ? … : undefined` の形で 1 キー足すだけで、既定環境では同じに見えて
+    // VRT ジョブでだけ JS が切れる(実測)。
+    assert.deepEqual(config.use, vrtConfig.use);
     const shape = (c) =>
       c.projects
-        .map((p) => ({
-          name: p.name,
-          expect: p.expect,
-          theme: p.use.colorScheme,
-          ...p.use.viewport,
-        }))
+        .map((p) => ({ name: p.name, expect: p.expect, use: p.use }))
         .sort((a, b) => a.name.localeCompare(b.name));
     assert.deepEqual(shape(config), shape(vrtConfig));
+  }
+  // **配信する dist が `VRT_DIST` に追従していること。** `webServer.command` が
+  // `dist-main` を固定で配信すると、2 ステップとも同じビルドを撮って恒久的に緑になる
+  // (実測)。config は `VRT_DIST ?? "dist"` を埋めているので、その値が出ていることを見る。
+  for (const [dist, config] of [
+    ["dist-main", variants[0]],
+    ["dist-pr", variants[1]],
+  ]) {
+    assert.equal(config.webServer.command, `npx serve ${dist} -l 4174`);
   }
 });
 
@@ -340,51 +401,41 @@ test("撮影の断面とリトライが固定されている", () => {
   // `config.projects[]` に入らないので、config を import して見る。
   // **並び順は見ない。** projects の順序は撮るものを変えないので、入れ替えただけで
   // 赤くするのは偽陽性になる。
+  //
+  // **`use` はキーを追いかけず丸ごと固定する。** viewport と `colorScheme` を保った
+  // まま `-dark` の 2 断面を light にする書き方が `use` の中に何通りもある —
+  // `storageState` で `localStorage.theme` を注入する(`Layout.astro` は localStorage を
+  // `prefers-color-scheme` より先に見る)/ `contextOptions.storageState` に綴りを変える
+  // (`use.storageState` が未設定なら Playwright はそこを既定値にする)/
+  // `javaScriptEnabled: false` や `launchOptions.args` の `--blink-settings=scriptEnabled=false`
+  // で `data-theme` を立てるスクリプトごと止める(ダークは `[data-theme="dark"]` でしか
+  // 定義していない)。いずれも実測で light を描いた。1 つずつ `undefined` を見る形は
+  // 綴りが増えるたびに負けるので、`expect.toHaveScreenshot` と同じく余分なキーが
+  // あれば赤になる形にする。
+  assert.deepEqual(vrtConfig.use, { baseURL: "http://localhost:4174" });
   assert.deepEqual(
     vrtConfig.projects
-      .map((p) => ({
-        name: p.name,
-        theme: p.use.colorScheme,
-        ...p.use.viewport,
-      }))
+      .map((p) => ({ name: p.name, use: p.use }))
       .sort((a, b) => a.name.localeCompare(b.name)),
     [
-      { name: "desktop", theme: "light", width: 1280, height: 800 },
-      { name: "desktop-dark", theme: "dark", width: 1280, height: 800 },
-      { name: "mobile", theme: "light", width: 390, height: 844 },
-      { name: "mobile-dark", theme: "dark", width: 390, height: 844 },
+      {
+        name: "desktop",
+        use: { viewport: { width: 1280, height: 800 }, colorScheme: "light" },
+      },
+      {
+        name: "desktop-dark",
+        use: { viewport: { width: 1280, height: 800 }, colorScheme: "dark" },
+      },
+      {
+        name: "mobile",
+        use: { viewport: { width: 390, height: 844 }, colorScheme: "light" },
+      },
+      {
+        name: "mobile-dark",
+        use: { viewport: { width: 390, height: 844 }, colorScheme: "dark" },
+      },
     ]
   );
-  // **`colorScheme` だけでは足りない。** `Layout.astro` は localStorage の `theme` を
-  // `prefers-color-scheme` より先に見るので、`storageState` で `localStorage.theme`
-  // を注入すると、上の deepEqual を通したまま `-dark` の 2 断面が light を描く
-  // (実測)。トップレベルでも project 単位でも置けるので両方見る。
-  // **`contextOptions` も同じ口。** `use.storageState` が未設定なら Playwright は
-  // `use.contextOptions.storageState` をそのまま既定値にする(`playwright/lib/index.js`
-  // の `storageState` fixture)ので、綴りを変えただけで上の固定を素通りする(実測)。
-  // 個別キーを追いかけずに `contextOptions` 自体を未設定に固定する。
-  assert.equal(
-    vrtConfig.use?.storageState,
-    undefined,
-    "use.storageState が設定されている"
-  );
-  assert.equal(
-    vrtConfig.use?.contextOptions,
-    undefined,
-    "use.contextOptions が設定されている"
-  );
-  for (const project of vrtConfig.projects) {
-    assert.equal(
-      project.use?.storageState,
-      undefined,
-      `${project.name} が storageState を設定している`
-    );
-    assert.equal(
-      project.use?.contextOptions,
-      undefined,
-      `${project.name} が contextOptions を設定している`
-    );
-  }
   // リトライは入れない(理由は config のコメント)。増やすと、安定化ループでも
   // 収まらなかった問題まで握り潰す。
   assert.equal(vrtConfig.retries, 0);
