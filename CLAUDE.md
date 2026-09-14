@@ -72,7 +72,7 @@ VRT 自身では捕まえられない — VRT は `paths` に載る PR でしか
 撮影対象は `vrt/targets.mjs` にデータとして持ち、spec とテストが同じ配列を読む。件数は
 `playwright test --list` の実出力と突き合わせ、`src/pages/` のテンプレートと 1 対 1 で対応することを
 要求する(`/changelog` だけ除外)。**残る穴は spec の書き方そのもの**(`toHaveScreenshot` の第 2 引数での
-上書き・実行時 `test.skip(条件)`・import 元の差し替え)で、`vrt/pages.spec.ts` 冒頭に注意書きがある。
+上書き・実行時 `test.skip(条件)`・import 元の差し替え・`emulateMedia` でのテーマ上書き)で、`vrt/pages.spec.ts` 冒頭に注意書きがある。
 
 3 つ目は `lychee-action` の `failIfEmpty`(既定 true)の経路。**lychee の終了コードを 0 のまま残して
 action だけが exit 1 する**ので、`exit_code` だけを見ていると通知が skip され、`continue-on-error`
@@ -118,14 +118,14 @@ Sprint 1〜4(基盤構築・RSS 自動収集パイプライン・フロント実
 
 共有レイアウト・コンポーネント・`global.css` の改修による視覚回帰を、目視に頼らず差分画像で検出する仕組み(ADR 0060、edu-evidence ADR 0024 のミラー)。機能テスト(`e2e/`)とは別系統で併走する:
 
-- **設定**: `playwright.vrt.config.ts`(`testDir: vrt/`、desktop 1280 / mobile 390 の 2 projects、`threshold: 0` + `maxDiffPixels: 0`、`retries: 0`、アニメーション無効、port 4174)
+- **設定**: `playwright.vrt.config.ts`(`testDir: vrt/`、desktop 1280 / mobile 390 × light / dark の 4 projects(テーマは `colorScheme` のエミュレーションで与える。理由は同ファイルのコメント)、`threshold: 0` + `maxDiffPixels: 0`、`retries: 0`、アニメーション無効、port 4174)
 - **閾値は実測で決めている**。同一ビルド同士の撮り比べは差分 0(閾値 0 で 24 件全通過 × 2 回)。
   一方 `h2` の `letter-spacing` を 0.06em 変える実験では、旧閾値 0.01 だと 24 件中 3 件しか
   落ちなかった(0.001 では 8 件)。**全画面撮影に対して 1% は緩すぎる**。
   その後 ADR 0068 で比率そのものをやめた — 許容量がページの長さに比例して長いページほど甘く、
   pixelmatch の既定 `threshold: 0.2` 未満の色差は比率を下げても数えられないため(edu-law の実測)
 - **リトライは入れない**。差分が実測 0 なら、リトライは間欠的な問題を握り潰すだけになる
-- **対象**: `vrt/targets.mjs` の 12 URL(トップ / ダイジェスト一覧・詳細 / アーカイブ一覧・詳細 / カテゴリ一覧・詳細 / ソース一覧・詳細 / about / 検索 / 404)を `vrt/pages.spec.ts` がフルページ撮影(`src/pages/` のテンプレート 13 本と 1 対 1)。テンプレートを追加したら代表 URL を 1 行追記する — 忘れると `test:workflows` が赤にする。ダークテーマは撮っていない。**`/changelog` は入れない** — PR ごとに先頭へ 1 件増えるので、内容の追加だけで必ず差分が出て本当の崩れが埋もれる(理由は同ファイル冒頭。`.github/workflows/vrt.yml` の `paths` でも `!src/pages/changelog.astro` で除外している)
+- **対象**: `vrt/targets.mjs` の 12 URL(トップ / ダイジェスト一覧・詳細 / アーカイブ一覧・詳細 / カテゴリ一覧・詳細 / ソース一覧・詳細 / about / 検索 / 404)を `vrt/pages.spec.ts` がフルページ撮影(`src/pages/` のテンプレート 13 本と 1 対 1)。テンプレートを追加したら代表 URL を 1 行追記する — 忘れると `test:workflows` が赤にする。ダーク断面は #655 で追加(それまで 1 枚も撮っていなかった)。**`/changelog` は入れない** — PR ごとに先頭へ 1 件増えるので、内容の追加だけで必ず差分が出て本当の崩れが埋もれる(理由は同ファイル冒頭。`.github/workflows/vrt.yml` の `paths` でも `!src/pages/changelog.astro` で除外している)
 - **ゲート**: `.github/workflows/vrt.yml` が `pull_request` の `paths` で描画に効くパスに限定起動する。記事データ・ダイジェストだけの PR では走らない(`workflow_dispatch` で手動実行可)。依存 bump(`package-lock.json`)では走るが、auto-merge は required しか待たないので非 major では事後の記録にしかならない。**列挙の正典は同ファイルで、ここには写さない** — 写すと片方だけが古くなる
 - **比較方式(案A + コンテンツ中立)**: CI 内で main と PR を両方ビルドし、同一 Linux 環境で撮影・比較する。ベースライン PNG はコミットしない(`vrt/__screenshots__/` は gitignore)。システムフォント描画の macOS↔Linux 差を回避するため。
   **main 側は「main のコード × PR のコンテンツ」でビルドする**(`src/content` / `src/data` / `src/content.config.ts` を運ぶ)。記事の自動収集で一覧が伸びただけの赤を消すため(ADR 0068)。運ぶ素材の allowlist と degraded 経路は `scripts/__tests__/vrt-baseline.test.mjs` が固定している(`test:workflows` の口)

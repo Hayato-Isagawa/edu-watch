@@ -46,9 +46,37 @@ export default defineConfig({
   use: {
     baseURL: "http://localhost:4174",
   },
+  // 断面は viewport × テーマ の 4 つ。**テーマは `data-theme` を直接立てず
+  // `colorScheme` で与える** — `Layout.astro` の起動スクリプトが
+  // localStorage → `prefers-color-scheme` の順に見て `data-theme` を決めるので、
+  // エミュレーションを使えばその経路ごと撮れる。localStorage が空なら
+  // `prefers-color-scheme` に落ちる — **だから `storageState` をここに置かない**。
+  // `localStorage.theme = "light"` を注入した state を渡すと、`colorScheme: "dark"` の
+  // project がそのまま light を描く(実測)。未設定であることは
+  // `scripts/__tests__/vrt-targets.test.mjs` が固定している。
+  //
+  // ダークを撮るまで **1 枚も写っていなかった**。ダーク側は `[data-theme="dark"]` で
+  // 色トークンを 11 宣言まとめて差し替える形(テンプレートに `dark:` 変種は無く、
+  // `@variant dark` は定義だけ)なので、**全ページの見た目が変わるのにピクセル検査は
+  // 1 度も通っていない**状態だった。`e2e/` もテーマを切り替えていないので、ダークの
+  // コントラストも崩れも、どのゲートにも写っていなかった。
   projects: [
-    { name: "desktop", use: { viewport: { width: 1280, height: 800 } } },
-    { name: "mobile", use: { viewport: { width: 390, height: 844 } } },
+    {
+      name: "desktop",
+      use: { viewport: { width: 1280, height: 800 }, colorScheme: "light" },
+    },
+    {
+      name: "desktop-dark",
+      use: { viewport: { width: 1280, height: 800 }, colorScheme: "dark" },
+    },
+    {
+      name: "mobile",
+      use: { viewport: { width: 390, height: 844 }, colorScheme: "light" },
+    },
+    {
+      name: "mobile-dark",
+      use: { viewport: { width: 390, height: 844 }, colorScheme: "dark" },
+    },
   ],
   webServer: {
     // serve は devDependencies に入れてある。入れずに npx で呼ぶと CI が
