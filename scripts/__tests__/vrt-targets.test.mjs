@@ -26,9 +26,10 @@
 //
 // **残る穴は spec の書き方そのもの。** 第 2 引数での上書き / 実行時 skip / import 元の
 // 差し替え / `emulateMedia` でのテーマ上書き、のいずれも撮影件数を変えずに値だけを
-// ずらせる(実測)。ワークフロー側も、撮影 2 ステップの外(job レベルの `env` / 前段で
-// dist を差し替えるステップ)は見ていない。**列挙が尽きている保証は無い**ので、
-// `vrt/pages.spec.ts` 冒頭に注意書きを置いてある。
+// ずらせる(実測)。ワークフロー側は、2026-09-14 時点で、`run:` が複数行のステップの
+// 本文を「行頭のコマンド名の列挙」と「行の形」でしか見ておらず、Build baseline の
+// 本文では絶対パスや変数展開で始まる行での dist / src の差し替えを捕まえていなかった。
+// **列挙が尽きている保証は無い**ので、`vrt/pages.spec.ts` 冒頭に注意書きを置いてある。
 
 import test from "node:test";
 import assert from "node:assert/strict";
@@ -202,6 +203,24 @@ test("VRT が config と spec の変更で起動する", () => {
   }
 });
 
+/** 指定インデントに在るマッピングのキー。クォートとコロン前の空白は `stepKeys` と同じ扱い */
+function keysAt(text, indent) {
+  return [
+    ...text.matchAll(new RegExp(`^ {${indent}}(["']?)([\\w-]+)\\1\\s*:`, "gm")),
+  ].map((m) => m[2]);
+}
+
+/** ステップの `name:`(位置は問わない・クォートは剥がす)。無ければ null */
+function stepName(step) {
+  const m = step.match(/^(?: {6}- | {8})name\s*:[ \t]*(.*)$/m);
+  return m ? m[1].trim().replace(/^(["'])(.*)\1$/, "$2") : null;
+}
+
+/** YAML のコメント行を落とす(`run: |` の中の shell コメントも同じ形なので一緒に落ちる) */
+function stripComments(text) {
+  return text.replace(/^\s*#.*$/gm, "");
+}
+
 /**
  * ステップ(`      - ` 始まりの塊)が持つキー。順序は見ない(マッピングのキー順に
  * 意味は無い)。`"if":` のようにクォートしたキーも `if :` のようにコロンの前に空白を
@@ -216,7 +235,7 @@ function stepKeys(step) {
 /** ステップ内の `key:` の下にぶら下がる行(インデント 10)を trim して返す */
 function blockLines(step, key) {
   const m = step.match(
-    new RegExp(`^ {8}${key}:[^\\n]*\\n((?: {10}.*\\n?)*)`, "m")
+    new RegExp(`^(?: {6}- | {8})${key}:[^\\n]*\\n((?: {10}.*\\n?)*)`, "m")
   );
   return m
     ? m[1]
@@ -232,7 +251,7 @@ function blockLines(step, key) {
  * 2 行以上あれば `null`(1 行目が正しくても 2 行目で結果を握り潰せるため)。
  */
 function runTokens(step) {
-  const m = step.match(/^ {8}run:[ \t]*(.*)$/m);
+  const m = step.match(/^(?: {6}- | {8})run:[ \t]*(.*)$/m);
   if (!m) return null;
   let value = m[1].trim();
   if (/^[|>][+-]?$/.test(value)) {
@@ -255,7 +274,122 @@ test("VRT が main と PR の 2 ビルドを撮り比べている", () => {
   // 書き方(`run:` をクォートする / `run: |` のブロックスカラー / `env:` と `run:` の
   // 順序入れ替え)で赤になる。マッピングのキー順に意味は無いので、
   // **ステップの塊に切ってから、その中に何が在るかを見る**。
-  const steps = WORKFLOW.split(/^(?= {6}- )/m);
+  // **撮影 2 ステップの外側も見る。** job / workflow レベルの `env:`(`NODE_OPTIONS` で
+  // 両撮影に細工する)、`defaults:`(`shell` を差し替えて `-e` を外す)、前段のステップ
+  // (`rsync -a --delete dist-main/ dist-pr/` を 1 つ挟む・`Checkout PR` に `ref:` を足して
+  // PR 側を main にする)は、撮影 2 ステップを丸ごと固定しても素通りした(2026-09-14
+  // 時点で実測)。マッピングのキー集合・ステップの並び・各ステップのキー集合・
+  // `uses:` の action を固定し、`run:` が 1 行のステップは完全一致にする。複数行の
+  // `run:`(Build baseline / Report baseline mode)の本文は、2026-09-14 時点では
+  // `vrt-baseline.test.mjs` が行の列挙と形で見ていた。
+  assert.deepEqual(keysAt(WORKFLOW, 0).sort(), [
+    "concurrency",
+    "jobs",
+    "name",
+    "on",
+    "permissions",
+  ]);
+  const jobs = WORKFLOW.split(/^jobs:\n/m)[1];
+  assert.ok(jobs, "jobs: が無い");
+  assert.deepEqual(keysAt(jobs, 2), ["vrt"]);
+  assert.deepEqual(keysAt(jobs, 4).sort(), [
+    "name",
+    "runs-on",
+    "steps",
+    "timeout-minutes",
+  ]);
+
+  // **`steps:` の下の塊は全部 `- name:` で始まっていなければならない。** name の無い
+  // ステップ(`- run: …`)や `-   name:` / `- { name: … }` のような綴りは、name で
+  // 引く下の検査から丸ごと消える。paths の `- "…"` を除くために null を捨てる形に
+  // すると、そういうステップも一緒に捨てて緑のままになる(2026-09-14 時点で実測)。
+  const stepsBlock = jobs.split(/^ {4}steps:\n/m)[1];
+  assert.ok(stepsBlock, "steps: が無い");
+  // 最初のステップより前に置かれたコメントは、どのステップにも付かない塊になるので
+  // 先に落とす(ステップ間のコメントは次のステップの塊に入る)。
+  const steps = stripComments(stepsBlock)
+    .split(/^(?= {6}- )/m)
+    .filter((s) => s.trim());
+  assert.deepEqual(
+    steps.filter((s) => stepName(s) === null),
+    [],
+    "name の無いステップがある"
+  );
+  assert.deepEqual(steps.map(stepName), [
+    "Checkout PR",
+    "Setup Node.js",
+    "Install dependencies",
+    "Install Playwright browser",
+    "Build PR branch",
+    "Stash PR build",
+    "Build baseline (main code x PR content)",
+    "Report baseline mode",
+    "Capture baseline from main",
+    "Compare PR against baseline",
+    "Upload VRT report",
+  ]);
+  const byName = new Map(steps.map((s) => [stepName(s), s]));
+  // 各ステップのキー集合。`shell:` / `working-directory:` / `env:` を足すだけで
+  // 本文を変えずに挙動を変えられるので、撮影 2 ステップ以外も固定する。
+  assert.deepEqual(
+    steps.map((s) => [stepName(s), stepKeys(s).sort()]),
+    [
+      ["Checkout PR", ["name", "uses", "with"]],
+      ["Setup Node.js", ["name", "uses", "with"]],
+      ["Install dependencies", ["name", "run"]],
+      ["Install Playwright browser", ["name", "run"]],
+      ["Build PR branch", ["name", "run"]],
+      ["Stash PR build", ["name", "run"]],
+      ["Build baseline (main code x PR content)", ["env", "id", "name", "run"]],
+      ["Report baseline mode", ["env", "name", "run"]],
+      ["Capture baseline from main", ["env", "name", "run"]],
+      ["Compare PR against baseline", ["env", "name", "run"]],
+      ["Upload VRT report", ["if", "name", "uses", "with"]],
+    ]
+  );
+  // `uses:` は action の名前まで固定する(sha は Dependabot が bump するので見ない)。
+  for (const [name, action] of [
+    ["Checkout PR", "actions/checkout@"],
+    ["Setup Node.js", "actions/setup-node@"],
+    ["Upload VRT report", "actions/upload-artifact@"],
+  ]) {
+    const uses = byName.get(name).match(/^ {8}uses\s*:[ \t]*(\S+)/m)?.[1] ?? "";
+    assert.ok(
+      uses.startsWith(action),
+      `${name} の uses が ${action} で始まっていない`
+    );
+  }
+  // 1 行の `run:` は完全一致。`Install dependencies` を `npm ci && git checkout
+  // origin/main -- src/…` にすると PR 側のビルドが main のコードになる。
+  for (const [name, tokens] of [
+    ["Install dependencies", ["npm", "ci"]],
+    [
+      "Install Playwright browser",
+      ["npx", "playwright", "install", "chromium", "--with-deps"],
+    ],
+    ["Build PR branch", ["npm", "run", "build"]],
+    ["Stash PR build", ["mv", "dist", "dist-pr"]],
+  ]) {
+    assert.deepEqual(runTokens(byName.get(name)), tokens, name);
+  }
+  // `Checkout PR` は `with: ref: …` で PR 以外を取り出せるので、`with` の中身まで固定する。
+  assert.deepEqual(blockLines(byName.get("Checkout PR"), "with"), [
+    "fetch-depth: 0",
+  ]);
+  // dist-pr / dist-main に触るステップの集合(コメントは除く)。前段に dist を差し替える
+  // ステップを足すと、名前の並びとここの両方で赤になる。glob や変数で綴りを隠した
+  // 差し替えはここでは捕まらない(名前の並びだけが捕まえる)。
+  const mentioning = (needle) =>
+    steps.filter((s) => stripComments(s).includes(needle)).map(stepName);
+  assert.deepEqual(mentioning("dist-pr"), [
+    "Stash PR build",
+    "Compare PR against baseline",
+  ]);
+  assert.deepEqual(mentioning("dist-main"), [
+    "Build baseline (main code x PR content)",
+    "Capture baseline from main",
+  ]);
+
   // **撮るステップは 2 つだけ、と数で固定する。** 比較の前に「`VRT_DIST: "dist-pr"` で
   // `--update-snapshots`」の 3 つ目を挟むと、最初に見つかった 1 つだけを検査する形では
   // 元の比較ステップだけが通り、実行順は撮り直し → 同じ dist と比較で恒久的に緑になる
