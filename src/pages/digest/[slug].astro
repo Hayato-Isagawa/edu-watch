@@ -59,6 +59,34 @@ function formatPublished(iso: string): string {
   return publishedFormatter.format(new Date(iso));
 }
 
+// digest 詳細の Article JSON-LD(edu-evidence のコラムと同じ形)。NewsArticle にしないのは、
+// 本文が報道ではなく一次情報を引いた論点整理だから。
+const siteUrl = "https://news.edu-evidence.org";
+const pageUrl = `${siteUrl}/digest/${entry.id}/`;
+const articleJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  headline: entry.data.title,
+  description: entry.data.summary,
+  datePublished: entry.data.publishedAt,
+  author: {
+    "@type": "Person",
+    name: "Isagawa Hayato",
+    url: `${siteUrl}/about/`,
+    sameAs: ["https://github.com/Hayato-Isagawa"],
+  },
+  publisher: {
+    "@type": "Organization",
+    name: "EduWatch JP",
+    url: siteUrl,
+    logo: `${siteUrl}/logo.svg`,
+  },
+  mainEntityOfPage: pageUrl,
+  url: pageUrl,
+  inLanguage: "ja",
+  keywords: entry.data.topics.join(", "),
+};
+
 function siteLabel(url: string): string | null {
   let host: string;
   try {
@@ -96,6 +124,7 @@ function typeLabel(url: string): string | null {
   ogImagePath={`/og/digest/${entry.id}.png`}
   ogVersion={OG_DIGEST_VERSION}
   longForm
+  pageJsonLd={articleJsonLd}
 >
   <article>
     <header class="pt-10 sm:pt-14 md:pt-20 lg:pt-28 pb-10 sm:pb-14 md:pb-20 border-b border-line">

@@ -8,6 +8,8 @@ type Props = {
   title?: string;
   description?: string;
   longForm?: boolean;
+  /** ページ種別ごとの JSON-LD(digest 詳細の Article 等)。head に 1 本追加する */
+  pageJsonLd?: object;
 } & (
   | { ogImagePath: string; ogVersion: string }
   | { ogImagePath?: undefined; ogVersion?: undefined }
@@ -18,6 +20,7 @@ const {
   ogImagePath,
   ogVersion,
   longForm = false,
+  pageJsonLd,
 } = Astro.props;
 const siteUrl = "https://news.edu-evidence.org";
 const canonicalUrl = new URL(Astro.url.pathname, siteUrl).href;
@@ -85,6 +88,20 @@ const escapeLd = (obj: object): string => JSON.stringify(obj).replace(/</g, "\\u
         inLanguage: "ja",
       })}
     />
+    <script
+      type="application/ld+json"
+      set:html={escapeLd({
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        name: "EduWatch JP",
+        alternateName: "edu-watch",
+        url: siteUrl,
+        logo: `${siteUrl}/logo.svg`,
+        parentOrganization: { "@type": "Organization", name: "EduEvidence JP", url: "https://edu-evidence.org" },
+        sameAs: ["https://x.com/edu_evidence_jp"],
+      })}
+    />
+    {pageJsonLd && <script type="application/ld+json" set:html={escapeLd(pageJsonLd)} />}
 
     <!-- Cloudflare Web Analytics -->
     <script
