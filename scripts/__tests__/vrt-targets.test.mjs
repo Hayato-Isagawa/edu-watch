@@ -6,7 +6,7 @@
 // PR では VRT の中のガードも走らない。ここは required check「Type and text checks」の
 // `test:workflows` ステップで常に走る(`vrt-baseline.test.mjs` と同じ口)。
 //
-// 撮影が減っても**表向きは何も起きない**。落ちるテストが 24 件から 12 件になるだけで、
+// 撮影が減っても**表向きは何も起きない**。落ちるテストが 48 件から 24 件になるだけで、
 // 残った分は緑のまま通り、`npm run vrt` の終了コードも 0 のまま。CI からは「VRT は
 // 通った」としか見えない。
 //
@@ -24,8 +24,9 @@
 // 撮影件数を減らさないので `--list` からは見えない。
 //
 // **残る穴は spec の書き方そのもの。** 第 2 引数での上書き / 実行時 skip / import 元の
-// 差し替え、のいずれも撮影件数を変えずに値だけをずらせる。**列挙が尽きている
-// 保証は無い**ので、`vrt/pages.spec.ts` 冒頭に注意書きを置いてある。
+// 差し替え / `emulateMedia` でのテーマ上書き、のいずれも撮影件数を変えずに値だけを
+// ずらせる(実測)。**列挙が尽きている保証は無い**ので、`vrt/pages.spec.ts` 冒頭に
+// 注意書きを置いてある。
 
 import test from "node:test";
 import assert from "node:assert/strict";
@@ -150,7 +151,12 @@ test("Playwright が撮る予定のものが撮影対象と一致する", () => 
     if (!byProject.has(shot.project)) byProject.set(shot.project, []);
     byProject.get(shot.project).push(shot.name);
   }
-  assert.deepEqual([...byProject.keys()].sort(), ["desktop", "mobile"]);
+  assert.deepEqual([...byProject.keys()].sort(), [
+    "desktop",
+    "desktop-dark",
+    "mobile",
+    "mobile-dark",
+  ]);
   const expected = targets.map((t) => t.name).sort();
   for (const [project, names] of byProject) {
     assert.deepEqual(
@@ -315,32 +321,70 @@ test("比較設定が VRT ジョブの環境でも同じ値になる", async () 
     assert.equal(config.updateSnapshots, vrtConfig.updateSnapshots);
     const shape = (c) =>
       c.projects
-        .map((p) => ({ name: p.name, expect: p.expect, ...p.use.viewport }))
+        .map((p) => ({
+          name: p.name,
+          expect: p.expect,
+          theme: p.use.colorScheme,
+          ...p.use.viewport,
+        }))
         .sort((a, b) => a.name.localeCompare(b.name));
     assert.deepEqual(shape(config), shape(vrtConfig));
   }
 });
 
 test("撮影の断面とリトライが固定されている", () => {
-  // **断面が減っても件数は減らない。** mobile の viewport を desktop と同じにすると、
-  // 24 件は撮り続けたまま同じ画像を 2 度撮ることになり、モバイルの崩れは一切写らなく
-  // なる(`targets` の path 重複を禁じているのと同じ形)。viewport は
-  // `--list --reporter=json` の `config.projects[]` に入らないので、config を import
-  // して見る。
+  // **断面が減っても件数は減らない。** mobile の viewport を desktop と同じにする /
+  // `colorScheme` を 4 つとも light にすると、48 件は撮り続けたまま同じ画像を 2 度撮る
+  // ことになり、モバイルやダークの崩れは一切写らなくなる(`targets` の path 重複を
+  // 禁じているのと同じ形)。viewport も `colorScheme` も `--list --reporter=json` の
+  // `config.projects[]` に入らないので、config を import して見る。
   // **並び順は見ない。** projects の順序は撮るものを変えないので、入れ替えただけで
   // 赤くするのは偽陽性になる。
-  //
-  // ダークテーマ(`data-theme="dark"`)は撮っていない。断面を足すときはここと
-  // 「Playwright が撮る予定のものが撮影対象と一致する」の project 名を一緒に直す。
   assert.deepEqual(
     vrtConfig.projects
-      .map((p) => ({ name: p.name, ...p.use.viewport }))
+      .map((p) => ({
+        name: p.name,
+        theme: p.use.colorScheme,
+        ...p.use.viewport,
+      }))
       .sort((a, b) => a.name.localeCompare(b.name)),
     [
-      { name: "desktop", width: 1280, height: 800 },
-      { name: "mobile", width: 390, height: 844 },
+      { name: "desktop", theme: "light", width: 1280, height: 800 },
+      { name: "desktop-dark", theme: "dark", width: 1280, height: 800 },
+      { name: "mobile", theme: "light", width: 390, height: 844 },
+      { name: "mobile-dark", theme: "dark", width: 390, height: 844 },
     ]
   );
+  // **`colorScheme` だけでは足りない。** `Layout.astro` は localStorage の `theme` を
+  // `prefers-color-scheme` より先に見るので、`storageState` で `localStorage.theme`
+  // を注入すると、上の deepEqual を通したまま `-dark` の 2 断面が light を描く
+  // (実測)。トップレベルでも project 単位でも置けるので両方見る。
+  // **`contextOptions` も同じ口。** `use.storageState` が未設定なら Playwright は
+  // `use.contextOptions.storageState` をそのまま既定値にする(`playwright/lib/index.js`
+  // の `storageState` fixture)ので、綴りを変えただけで上の固定を素通りする(実測)。
+  // 個別キーを追いかけずに `contextOptions` 自体を未設定に固定する。
+  assert.equal(
+    vrtConfig.use?.storageState,
+    undefined,
+    "use.storageState が設定されている"
+  );
+  assert.equal(
+    vrtConfig.use?.contextOptions,
+    undefined,
+    "use.contextOptions が設定されている"
+  );
+  for (const project of vrtConfig.projects) {
+    assert.equal(
+      project.use?.storageState,
+      undefined,
+      `${project.name} が storageState を設定している`
+    );
+    assert.equal(
+      project.use?.contextOptions,
+      undefined,
+      `${project.name} が contextOptions を設定している`
+    );
+  }
   // リトライは入れない(理由は config のコメント)。増やすと、安定化ループでも
   // 収まらなかった問題まで握り潰す。
   assert.equal(vrtConfig.retries, 0);
@@ -348,7 +392,7 @@ test("撮影の断面とリトライが固定されている", () => {
 
 test("全ページをフルページで撮っている", () => {
   // `fullPage` を落とすとビューポート内(1280x800 / 390x844)しか撮らなくなるが、
-  // 24 件は走り続けて全部緑のまま通る。config の `expect.toHaveScreenshot` には
+  // 48 件は走り続けて全部緑のまま通る。config の `expect.toHaveScreenshot` には
   // 置けない値なので、`vrt/targets.mjs` にデータとして持たせてここで固定する。
   assert.deepEqual(shotOptions, { fullPage: true });
 });
