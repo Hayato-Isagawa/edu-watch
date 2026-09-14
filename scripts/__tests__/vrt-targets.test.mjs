@@ -26,8 +26,9 @@
 //
 // **残る穴は spec の書き方そのもの。** 第 2 引数での上書き / 実行時 skip / import 元の
 // 差し替え / `emulateMedia` でのテーマ上書き、のいずれも撮影件数を変えずに値だけを
-// ずらせる(実測)。**列挙が尽きている保証は無い**ので、`vrt/pages.spec.ts` 冒頭に
-// 注意書きを置いてある。
+// ずらせる(実測)。ワークフロー側も、撮影 2 ステップの外(job レベルの `env` / 前段で
+// dist を差し替えるステップ)は見ていない。**列挙が尽きている保証は無い**ので、
+// `vrt/pages.spec.ts` 冒頭に注意書きを置いてある。
 
 import test from "node:test";
 import assert from "node:assert/strict";
@@ -201,9 +202,14 @@ test("VRT が config と spec の変更で起動する", () => {
   }
 });
 
-/** ステップ(`      - ` 始まりの塊)が持つキー。順序は見ない(マッピングのキー順に意味は無い) */
+/**
+ * ステップ(`      - ` 始まりの塊)が持つキー。順序は見ない(マッピングのキー順に
+ * 意味は無い)。`"if":` のようにクォートしたキーも同じキーなので剥がして返す。
+ */
 function stepKeys(step) {
-  return [...step.matchAll(/^(?: {6}- | {8})([\w-]+):/gm)].map((m) => m[1]);
+  return [...step.matchAll(/^(?: {6}- | {8})(["']?)([\w-]+)\1:/gm)].map(
+    (m) => m[2]
+  );
 }
 
 /** ステップ内の `key:` の下にぶら下がる行(インデント 10)を trim して返す */
@@ -228,7 +234,7 @@ function runTokens(step) {
   const m = step.match(/^ {8}run:[ \t]*(.*)$/m);
   if (!m) return null;
   let value = m[1].trim();
-  if (value === "|" || value === ">") {
+  if (/^[|>][+-]?$/.test(value)) {
     const lines = blockLines(step, "run");
     if (lines.length !== 1) return null;
     value = lines[0];
@@ -249,13 +255,23 @@ test("VRT が main と PR の 2 ビルドを撮り比べている", () => {
   // 順序入れ替え)で赤になる。マッピングのキー順に意味は無いので、
   // **ステップの塊に切ってから、その中に何が在るかを見る**。
   const steps = WORKFLOW.split(/^(?= {6}- )/m);
-  const stepFor = (dist) =>
-    steps.find((step) => step.includes(`VRT_DIST: ${dist}`));
-
-  const baseline = stepFor("dist-main");
-  const compare = stepFor("dist-pr");
+  // **撮るステップは 2 つだけ、と数で固定する。** 比較の前に「`VRT_DIST: "dist-pr"` で
+  // `--update-snapshots`」の 3 つ目を挟むと、最初に見つかった 1 つだけを検査する形では
+  // 元の比較ステップだけが通り、実行順は撮り直し → 同じ dist と比較で恒久的に緑になる
+  // (実測)。`playwright test` を呼ぶステップも `VRT_DIST` を持つステップも、下で
+  // 検査する 2 つと同じ集合でなければならない。
+  const stepsFor = (needle) => steps.filter((step) => step.includes(needle));
+  const [baseline, ...moreBaseline] = stepsFor("VRT_DIST: dist-main");
+  const [compare, ...moreCompare] = stepsFor("VRT_DIST: dist-pr");
   assert.ok(baseline, "main の dist を撮るステップが無い");
   assert.ok(compare, "PR の dist を撮るステップが無い");
+  assert.deepEqual(
+    [...moreBaseline, ...moreCompare],
+    [],
+    "撮るステップが 3 つ以上ある"
+  );
+  assert.deepEqual(stepsFor("VRT_DIST"), [baseline, compare]);
+  assert.deepEqual(stepsFor("playwright test"), [baseline, compare]);
 
   // **撮影コマンドは完全一致で固定する。** 部分一致だと、後ろに `--project desktop
   // --project mobile` を足して dark だけ落とす / `--ignore-snapshots` で比較を消す /
@@ -364,23 +380,18 @@ test("比較設定が VRT ジョブの環境でも同じ値になる", async () 
   for (const env of [{ VRT_DIST: "dist-main" }, { VRT_DIST: "dist-pr" }]) {
     variants.push(await readConfig(env));
   }
+  //
+  // **フィールドを選んで比べない。** `expect` と `use` だけを比べる形だと、`shard` /
+  // `grepInvert` / `webServer.cwd` に `VRT_DIST ? … : undefined` を書くだけで、既定環境
+  // では同じに見えて VRT ジョブでだけ撮影が減る・404 ページを撮る(実測)。`VRT_DIST` で
+  // 変わってよいのは `webServer.command` に埋まる dist 名だけなので、それを除いた
+  // config 全体を `deepEqual` する。
+  const withoutDist = (c) => ({
+    ...c,
+    webServer: { ...c.webServer, command: undefined },
+  });
   for (const config of variants) {
-    assert.deepEqual(
-      config.expect.toHaveScreenshot,
-      vrtConfig.expect.toHaveScreenshot
-    );
-    assert.equal(config.retries, vrtConfig.retries);
-    assert.equal(config.ignoreSnapshots, vrtConfig.ignoreSnapshots);
-    assert.equal(config.updateSnapshots, vrtConfig.updateSnapshots);
-    // `use` はキーを選ばず丸ごと比べる。上の「断面」テストが固定した `use` に
-    // `VRT_DIST ? … : undefined` の形で 1 キー足すだけで、既定環境では同じに見えて
-    // VRT ジョブでだけ JS が切れる(実測)。
-    assert.deepEqual(config.use, vrtConfig.use);
-    const shape = (c) =>
-      c.projects
-        .map((p) => ({ name: p.name, expect: p.expect, use: p.use }))
-        .sort((a, b) => a.name.localeCompare(b.name));
-    assert.deepEqual(shape(config), shape(vrtConfig));
+    assert.deepEqual(withoutDist(config), withoutDist(vrtConfig));
   }
   // **配信する dist が `VRT_DIST` に追従していること。** `webServer.command` が
   // `dist-main` を固定で配信すると、2 ステップとも同じビルドを撮って恒久的に緑になる
@@ -413,10 +424,11 @@ test("撮影の断面とリトライが固定されている", () => {
   // 綴りが増えるたびに負けるので、`expect.toHaveScreenshot` と同じく余分なキーが
   // あれば赤になる形にする。
   assert.deepEqual(vrtConfig.use, { baseURL: "http://localhost:4174" });
+  // project も `name` と `use` を選ばず丸ごと。`-dark` の 2 つにだけ `testMatch` で
+  // 別の spec(`emulateMedia` で light に上書きしたもの)を向けると、テスト名が同じなので
+  // `--list` の突き合わせも通る(実測)。
   assert.deepEqual(
-    vrtConfig.projects
-      .map((p) => ({ name: p.name, use: p.use }))
-      .sort((a, b) => a.name.localeCompare(b.name)),
+    [...vrtConfig.projects].sort((a, b) => a.name.localeCompare(b.name)),
     [
       {
         name: "desktop",
@@ -439,6 +451,31 @@ test("撮影の断面とリトライが固定されている", () => {
   // リトライは入れない(理由は config のコメント)。増やすと、安定化ループでも
   // 収まらなかった問題まで握り潰す。
   assert.equal(vrtConfig.retries, 0);
+  // **`webServer` も丸ごと。** `command` だけ固定しても `cwd: "/tmp"` を足せば serve が
+  // 404 ページを返し、2 ステップとも同じ白いページを撮って恒久的に緑になる(実測)。
+  assert.deepEqual(vrtConfig.webServer, {
+    command: "npx serve dist -l 4174",
+    port: 4174,
+    reuseExistingServer: !process.env.CI,
+  });
+  // **config のキー集合と reporter も固定する。** `globalSetup` やカスタム reporter は
+  // `--list` では実行されず、そこから dist の起動スクリプトを書き換えれば `-dark` は
+  // light を描く(実測)。ガードは `--reporter=json` で列挙するので、config の reporter は
+  // ガードの中では読み込まれもしない。
+  assert.deepEqual(Object.keys(vrtConfig).sort(), [
+    "expect",
+    "forbidOnly",
+    "fullyParallel",
+    "projects",
+    "reporter",
+    "retries",
+    "snapshotPathTemplate",
+    "testDir",
+    "use",
+    "webServer",
+    "workers",
+  ]);
+  assert.equal(vrtConfig.reporter, "html");
 });
 
 test("全ページをフルページで撮っている", () => {
