@@ -204,10 +204,11 @@ test("VRT が config と spec の変更で起動する", () => {
 
 /**
  * ステップ(`      - ` 始まりの塊)が持つキー。順序は見ない(マッピングのキー順に
- * 意味は無い)。`"if":` のようにクォートしたキーも同じキーなので剥がして返す。
+ * 意味は無い)。`"if":` のようにクォートしたキーも `if :` のようにコロンの前に空白を
+ * 置いたキーも YAML では同じキーなので、同じ名前で返す。
  */
 function stepKeys(step) {
-  return [...step.matchAll(/^(?: {6}- | {8})(["']?)([\w-]+)\1:/gm)].map(
+  return [...step.matchAll(/^(?: {6}- | {8})(["']?)([\w-]+)\1\s*:/gm)].map(
     (m) => m[2]
   );
 }
@@ -458,10 +459,10 @@ test("撮影の断面とリトライが固定されている", () => {
     port: 4174,
     reuseExistingServer: !process.env.CI,
   });
-  // **config のキー集合と reporter も固定する。** `globalSetup` やカスタム reporter は
-  // `--list` では実行されず、そこから dist の起動スクリプトを書き換えれば `-dark` は
-  // light を描く(実測)。ガードは `--reporter=json` で列挙するので、config の reporter は
-  // ガードの中では読み込まれもしない。
+  // **config のキー集合と reporter も固定する。** `globalSetup` やカスタム reporter から
+  // dist の起動スクリプトを書き換えれば `-dark` は light を描く(実測)。ガードの `--list`
+  // は `globalSetup` を実行せず、reporter は `--reporter=json` の指定が config の値を
+  // 上書きするので、どちらもガードの中では動かない。
   assert.deepEqual(Object.keys(vrtConfig).sort(), [
     "expect",
     "forbidOnly",
