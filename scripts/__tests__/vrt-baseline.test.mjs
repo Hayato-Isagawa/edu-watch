@@ -64,6 +64,29 @@ test("ベースラインが PR の素材を --delete 付きで運んでいる", 
     b,
     /^ +cp src\/content\.config\.ts \/tmp\/edu-watch-main\/src\/content\.config\.ts$/m
   );
+  // **運ぶ行はこの 3 行だけ、と数でも固定する。** 上の 3 つが在ることしか見ないと、
+  // `rsync -a --delete src/ /tmp/edu-watch-main/src/` を 1 行足して描画コードごと
+  // 運ぶ(= ベースラインが PR のコードになり、比較が恒久的に緑)変異が緑のまま通る
+  // (2026-09-14 時点で実測)。
+  const carries = runBody("Build baseline (main code x PR content)")
+    .split("\n")
+    .map((l) => l.trim())
+    .filter((l) => /^(rsync|cp|mv|ln)\b/.test(l));
+  assert.deepEqual(carries, [
+    "mv /tmp/edu-watch-main/dist dist-main", // raw(neutral=false)の早期 exit
+    "rsync -a --delete src/content/ /tmp/edu-watch-main/src/content/",
+    "rsync -a --delete src/data/ /tmp/edu-watch-main/src/data/",
+    "cp src/content.config.ts /tmp/edu-watch-main/src/content.config.ts",
+    "mv /tmp/edu-watch-main/dist dist-main",
+  ]);
+  // **worktree の参照先も固定する。** `origin/main` を `HEAD` に変えると、pull_request の
+  // checkout はマージコミットなので「main のコード」が PR のコードになる。1 トークンの
+  // 変更で、運ぶ 3 行は無傷のまま比較が恒久的に緑になる(2026-09-14 時点で実測)。
+  assert.match(
+    b,
+    /^ +git worktree add \/tmp\/edu-watch-main origin\/main$/m,
+    "ベースラインの worktree が origin/main を指していない"
+  );
 });
 
 test("素材を運ぶのがベースラインのビルドより前である", () => {
@@ -97,6 +120,32 @@ test("相を報告するステップと、その出力元が存在する", () =>
   // id が無いと steps.baseline.outputs.mode が常に空になり、summary は raw、
   // artifact 名は nobaseline に落ちる。どちらも赤くならない。
   assert.match(b, /^ {8}id: baseline$/m, "id: baseline が無い");
+  // **報告のステップはファイルを動かさない。** ここは撮影 2 ステップの直前に在り、
+  // heredoc の外に `rsync -a --delete dist-m*/ dist-p*/` を 1 行足せば(glob なので
+  // `dist-pr` の文字列は現れない)2 ステップとも同じビルドを撮る。summary を書く
+  // 以外の入出力はこのステップに要らないので、heredoc の外の行を形で固定する。
+  const outside = [];
+  let inHeredoc = false;
+  for (const raw of runBody("Report baseline mode").split("\n")) {
+    const l = raw.trim();
+    if (inHeredoc) {
+      if (l === "EOF") inHeredoc = false;
+      continue;
+    }
+    if (l.endsWith("<<'EOF'")) {
+      inHeredoc = true;
+      outside.push(l);
+      continue;
+    }
+    if (l) outside.push(l);
+  }
+  for (const l of outside) {
+    assert.match(
+      l,
+      /^(set -euo pipefail|case "\$MODE" in|[\w*]+\)|;;|esac|cat >> "\$GITHUB_STEP_SUMMARY" <<'EOF')$/,
+      `Report baseline mode に summary 以外の行がある: ${l}`
+    );
+  }
 });
 
 test("失敗の握りつぶしが || 以外の形でも入っていない", () => {
