@@ -1,0 +1,89 @@
+---
+// ページの URL を共有するボタン。Web Share API が使える環境ではシェアシートを開き、
+// 無ければ Clipboard API でリンクをコピーする。どちらも無い環境では失敗表示だけ出す
+// (execCommand へのフォールバックは足さない)。
+// 状態は data-state(idle / copied / failed)で持ち、文言の切り替えは CSS 側で行う。
+interface Props {
+  url: string;
+  title: string;
+}
+const { url, title } = Astro.props;
+---
+
+<div class="share-link" data-state="idle">
+  <button
+    type="button"
+    class="share-link-button"
+    data-share-url={url}
+    data-share-title={title}
+  >
+    <svg
+      class="w-4 h-4"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      aria-hidden="true"
+    >
+      <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
+      <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
+    </svg>
+    <span class="share-link-label" data-when="idle">リンクをコピー</span>
+    <span class="share-link-label" data-when="share">このページを共有</span>
+    <span class="share-link-label" data-when="copied">コピーしました</span>
+    <span class="share-link-label" data-when="failed">コピーできませんでした</span>
+  </button>
+  <span class="share-link-status sr-only" role="status" aria-live="polite"></span>
+</div>
+
+<script is:inline>
+  (function () {
+    const root = document.querySelector(".share-link");
+    const button = root && root.querySelector(".share-link-button");
+    const status = root && root.querySelector(".share-link-status");
+    if (!root || !button || !status) return;
+    const url = button.dataset.shareUrl;
+    const title = button.dataset.shareTitle;
+    // シェアシートはタッチ端末だけに出す。PC のシェアシートは対象アプリが少なく、
+    // 職員室での用途はリンクを貼ることなので、PC ではコピーを既定にする。
+    const canShare =
+      typeof navigator.share === "function" &&
+      (typeof navigator.canShare !== "function" || navigator.canShare({ url })) &&
+      window.matchMedia("(pointer: coarse)").matches;
+    if (canShare) root.dataset.mode = "share";
+    let timer = 0;
+    const setState = (state, message) => {
+      root.dataset.state = state;
+      status.textContent = message;
+      window.clearTimeout(timer);
+      if (state !== "idle") {
+        timer = window.setTimeout(() => setState("idle", ""), 2000);
+      }
+    };
+    button.addEventListener("click", async () => {
+      if (canShare) {
+        try {
+          await navigator.share({ title, url });
+        } catch (error) {
+          // ユーザーがシェアシートを閉じただけなら何も表示しない
+          if (!(error instanceof DOMException && error.name === "AbortError")) {
+            setState("failed", "共有できませんでした");
+          }
+        }
+        return;
+      }
+      if (!navigator.clipboard || typeof navigator.clipboard.writeText !== "function") {
+        setState("failed", "コピーできませんでした");
+        return;
+      }
+      try {
+        await navigator.clipboard.writeText(url);
+        setState("copied", "リンクをコピーしました");
+      } catch {
+        setState("failed", "コピーできませんでした");
+      }
+    });
+  })();
+</script>

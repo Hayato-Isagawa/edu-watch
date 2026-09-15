@@ -143,6 +143,66 @@ body[data-menu="open"] {
   border-radius: 4px;
 }
 
+/* ページ共有ボタン(ShareLink.astro)。data-state で文言と配色を切り替える。
+   塗りは #back-to-top と同じアクセント地 × 背景色の文字 */
+.share-link-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.875rem;
+  border: 1px solid var(--color-accent);
+  border-radius: 4px;
+  font-size: 0.875rem;
+  line-height: 1.25;
+  color: var(--color-bg);
+  background: var(--color-accent);
+  cursor: pointer;
+  transition:
+    color 0.2s ease,
+    background-color 0.2s ease,
+    border-color 0.2s ease;
+}
+.share-link-button:hover {
+  background: var(--color-accent-hover);
+  border-color: var(--color-accent-hover);
+}
+.share-link-button:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+.share-link-label {
+  display: none;
+}
+.share-link[data-state="idle"] .share-link-label[data-when="idle"],
+.share-link[data-state="copied"] .share-link-label[data-when="copied"],
+.share-link[data-state="failed"] .share-link-label[data-when="failed"] {
+  display: inline;
+}
+.share-link[data-state="idle"][data-mode="share"] .share-link-label[data-when="idle"] {
+  display: none;
+}
+.share-link[data-state="idle"][data-mode="share"] .share-link-label[data-when="share"] {
+  display: inline;
+}
+/* 完了・失敗は塗りを抜いて、押した結果が変わったと分かるようにする */
+.share-link[data-state="copied"] .share-link-button,
+.share-link[data-state="copied"] .share-link-button:hover {
+  color: var(--color-accent);
+  background: var(--color-card);
+  border-color: var(--color-accent);
+}
+.share-link[data-state="failed"] .share-link-button,
+.share-link[data-state="failed"] .share-link-button:hover {
+  color: var(--color-sub);
+  background: var(--color-card);
+  border-color: var(--color-line);
+}
+@media (prefers-reduced-motion: reduce) {
+  .share-link-button {
+    transition: none;
+  }
+}
+
 .site-header {
   position: sticky;
   top: 0;
