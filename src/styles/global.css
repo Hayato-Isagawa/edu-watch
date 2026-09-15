@@ -1,4 +1,7 @@
 @import "tailwindcss";
+/* Playwright の spec は Tailwind の自動ソース検出から外す。テストの文字列(例: "underline")が
+   ユーティリティとして拾われ、画面用 CSS に死んだ規則が載るため。 */
+@source not "../../e2e";
 
 /* トークンは @theme に置く。ここに置いて初めて Tailwind が text-ink /       */
 /* bg-card / border-line 等のユーティリティを生成する。:root に書いていた    */
@@ -768,15 +771,16 @@ body[data-menu="open"] {
     color: inherit;
     text-decoration: underline;
   }
-  /* 外部リンクは紙から辿れるよう URL を併記する。 */
+  /* 外部リンクは紙から辿れるよう URL を併記する。本文(.prose-digest)は marked + DOMPurify の
+     出力で target が付かないので、href の先頭で外部を判定する。 */
   main a[target="_blank"] {
     display: inline;
   }
-  main a[target="_blank"]::after {
+  main a[target="_blank"]::after,
+  main .prose-digest a[href^="http"]::after {
     content: " (" attr(href) ")";
     overflow-wrap: anywhere;
   }
-  main .prose-digest a[href^="http"],
   [data-attribution] {
     overflow-wrap: anywhere;
   }

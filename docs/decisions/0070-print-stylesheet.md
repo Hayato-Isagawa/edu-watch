@@ -36,9 +36,11 @@ edu-law が ADR 0029 で先に決めた形を写す。
   で、ブラウザの印刷は既定で背景を刷らないので、白紙にほぼ白の文字だけが残る。透明地・文字色
   継承・`--color-line` の枠線にする(inline style に勝つには `!important` が要る)。edu-law の
   バッジは文字色主体なのでこの項は原本に無い
-- **外部リンク(`main a[target="_blank"]`)は `::after` で URL を併記する。** `overflow-wrap: anywhere`
-  を付けないと長い URL が 320px 幅で横に溢れる。OECD 帰属の `[data-attribution]` は生 URL を
-  含むので同じく `overflow-wrap` を付ける
+- **外部リンクは `::after` で URL を併記する。** 記事カード・関連リンク・about は
+  `main a[target="_blank"]`、ダイジェスト本文は marked + DOMPurify の出力で `target` が付かないので
+  `main .prose-digest a[href^="http"]` で拾う(edu-law は `rehype-external-links` が `target` を付ける
+  ので `target` だけで足りる。この差は PR 前レビューで検出)。`overflow-wrap: anywhere` を付けないと
+  長い URL が 320px 幅で横に溢れる。OECD 帰属の `[data-attribution]` は生 URL を含むので同じく付ける
 - **サイトフッターは丸ごと消さない。** 説明文・購読・「探す」「サイト」(姉妹サイト含む)は落とし、
   お問い合わせと「© / CC BY-SA 4.0」は残す。配布物から帰属・ライセンス表示・連絡先を落とさない
   ため。edu-watch のフッターには aria 属性が無いので、`body > footer` からの構造セレクタで指す
@@ -49,15 +51,22 @@ edu-law が ADR 0029 で先に決めた形を写す。
   chrome の非表示・配色・本文リンクの色と下線・バッジの塗り・URL 併記・ライセンス行・320px の
   横溢れを見る。残す要素は `toBeVisible` で見る(`toContainText` は `display: none` を通す)。
   本文リンクの色は `toHaveCSS` で見る(150ms の `transition` が終わるまで待つ)。対象は最新の
-  ダイジェスト詳細と `/about/`。トップは直近 7 日の記事データに依存し、収集が止まると外部リンクが
-  0 件になるので URL 併記の断定には使わない
+  ダイジェスト詳細と `/about/`、本文リンクの検査は本文に外部リンクを持つ最新の号(本文リンクの
+  無い号が 21 号中 8 号ある)。トップは直近 7 日の記事データに依存し、収集が止まると外部リンクが
+  0 件になるので URL 併記の断定には使わない。`#menu-toggle` は 1280 幅では画面でも非表示で判別力が
+  無いので、768 幅の断面を別に持つ
+- **Playwright の spec を Tailwind の自動ソース検出から外す(`@source not "../../e2e"`)。** spec の
+  文字列(`"underline"`)がユーティリティとして拾われ、画面用 CSS に使われない規則が載っていた
+  (ビルド比較で検出)。`vrt/` は同じ経路だが本 PR では触らない
 
 ## 結果
 
 - 印刷は A4 でダイジェスト詳細(2026-09-13 号)5 ページ、about 3 ページ(2026-09-15 時点、
   `page.pdf` で実測)
-- 変異試験: `--color-bg` / `.site-header nav` / `::after` / `overflow-wrap` / `main .prose-digest a` /
-  `[data-source]` の塗り消し / `.share-link` を 1 つずつ抜くと、それぞれ対応するテストが赤になる
-  (7 件とも実測)
+- 変異試験: `--color-bg` / `.site-header nav` / `::after`(全体・本文側だけ)/ `main .prose-digest a` /
+  `[data-source]` の塗り消し / `.share-link` / フッター説明文・購読の非表示 / `.link-underline` /
+  `#menu-toggle` を 1 つずつ抜くと、それぞれ対応するテストが赤になる(10 件とも実測)。
+  `color-scheme: light` と `#reading-progress`(画面でも `scaleX(0)` で bounding box が空)は
+  テストで固定していない
 - `<details>` は src / dist とも 0 件なので開閉の処理は入れていない。使い始めたら足す
 - 印刷ボタンは置かない。必要になったら別 ADR
