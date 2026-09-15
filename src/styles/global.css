@@ -2,6 +2,7 @@
 /* Playwright の spec は Tailwind の自動ソース検出から外す。テストの文字列(例: "underline")が
    ユーティリティとして拾われ、画面用 CSS に死んだ規則が載るため。 */
 @source not "../../e2e";
+@source not "../../vrt";
 
 /* トークンは @theme に置く。ここに置いて初めて Tailwind が text-ink /       */
 /* bg-card / border-line 等のユーティリティを生成する。:root に書いていた    */
