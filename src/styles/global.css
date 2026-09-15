@@ -687,3 +687,106 @@ body[data-menu="open"] {
     transition: none;
   }
 }
+
+/* 印刷(研修資料としての持ち出し。ADR 0070、edu-law ADR 0029 のミラー)。
+   画面には一切影響させない — この @media の外に書かない。
+   トークンの上書きは :root だけ。[data-theme="dark"] や @theme のブロックをここに書くと
+   src/pages/design-tokens.json.ts がそれも集約して公開 /design-tokens.json が壊れる。
+   素の要素セレクタ(a 等)は書かない — unlayered は Tailwind のユーティリティに勝つ。 */
+@media print {
+  :root {
+    color-scheme: light;
+    --color-bg: #ffffff;
+    --color-ink: #000000;
+    --color-sub: #333333;
+    --color-line: #999999;
+    --color-card: #ffffff;
+    --color-accent: #1e4a6e;
+    --color-accent-hover: #1e4a6e;
+    --color-chart-red: #c0392b;
+    --color-change-add: oklch(50.8% 0.118 165.612);
+    --color-change-update: oklch(55.5% 0.163 48.998);
+    --color-change-fix: oklch(51.4% 0.222 16.935);
+  }
+  @page {
+    margin: 12mm;
+  }
+  html {
+    font-size: 11pt;
+  }
+  body {
+    line-height: 1.6;
+  }
+
+  .site-header {
+    position: static;
+    background: var(--color-bg);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+  .site-header nav,
+  #menu-toggle,
+  .mobile-menu,
+  .skip-link,
+  #reading-progress,
+  #back-to-top,
+  .share-link {
+    display: none;
+  }
+
+  /* サイトフッターは説明文・購読・探す・サイト(姉妹サイト含む)を落とし、
+     お問い合わせと © / CC BY-SA は配布物に残す。aria が無いので構造で指す。 */
+  main {
+    padding-bottom: 0;
+  }
+  body > footer {
+    margin-top: 1.5rem;
+  }
+  body > footer > div:first-child {
+    display: block;
+    padding-block: 0.5rem;
+  }
+  body > footer > div:first-child > div:first-child > p,
+  body > footer > div:first-child > div:first-child > div:last-child,
+  body > footer > div:first-child > div:nth-child(2),
+  body > footer > div:first-child > div:nth-child(3) {
+    display: none;
+  }
+
+  /* 媒体バッジは色地に白文字の inline style で、印刷の既定(背景を刷らない)では
+     文字だけが白紙に残る。輪郭型に落とす。inline style に勝つには !important が要る。 */
+  [data-source] {
+    background-color: transparent !important;
+    color: inherit !important;
+    border: 1px solid var(--color-line);
+  }
+
+  /* 本文リンク。.prose-digest a はページ内 <style is:global> が後から同じ詳細度で
+     色を塗るので、main を足して勝たせる。 */
+  .link-underline,
+  main .prose-digest a {
+    color: inherit;
+    text-decoration: underline;
+  }
+  /* 外部リンクは紙から辿れるよう URL を併記する。 */
+  main a[target="_blank"] {
+    display: inline;
+  }
+  main a[target="_blank"]::after {
+    content: " (" attr(href) ")";
+    overflow-wrap: anywhere;
+  }
+  main .prose-digest a[href^="http"],
+  [data-attribution] {
+    overflow-wrap: anywhere;
+  }
+
+  h2,
+  h3 {
+    break-after: avoid;
+  }
+  li,
+  blockquote {
+    break-inside: avoid;
+  }
+}
