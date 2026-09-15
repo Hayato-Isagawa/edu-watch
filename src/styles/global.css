@@ -789,9 +789,14 @@ body[data-menu="open"] {
   h2,
   h3 {
     break-after: avoid;
+    break-inside: avoid;
   }
   li,
   blockquote {
+    break-inside: avoid;
+  }
+  /* 参照記事の枠(digest/[slug].astro)。ページ境界で割れると枠の先頭だけが前ページに残る。 */
+  [data-referenced-articles] {
     break-inside: avoid;
   }
 }
