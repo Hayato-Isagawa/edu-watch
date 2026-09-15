@@ -1,5 +1,65 @@
 [
   {
+    "id": "kkn-2026-09-15-5c100d907a042c70",
+    "title": "『へんな学部　令和ニッポンのユニーク学問最前線』西岡壱誠／著、未来図編集部／監修",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/post_library/260824_7h",
+    "publishedAt": "2026-09-15T22:00:31.000Z",
+    "collectedAt": "2026-09-15T23:53:05.426Z",
+    "summary": "｢何を学ぶのか｣に応える 令和の日本に実在する15のユニークな学部・学科を紹介。大学学長や教授、在校生へのインタビューを交え、学部ができた背景や特色を示す。 福井県立大学にあるのは恐竜学部。福井が｢恐竜王国｣だからという […]",
+    "categories": [
+      "その他"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-09-15-8e10df4b8941b89a",
+    "title": "パナソニック協賛の学生ビジコン「CAREER ROOKIES GP2026」関西予選、食洗機の普及に向け大学生がアイデア競う",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20260916o04",
+    "publishedAt": "2026-09-15T22:00:31.000Z",
+    "collectedAt": "2026-09-15T23:53:05.426Z",
+    "summary": "パナソニックは、Strobolightsが主催する学生向けビジネスコンテスト「CAREER ROOKIES GP2026」の関西企業支援枠として協賛した。9月7日・8日の2日間、Panasonic Design Kyot […]",
+    "categories": [
+      "その他"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-09-15-32f145878ea9f6b9",
+    "title": "日本AIスキル認定協会、無料のAI学習サービス「ASKラーニング」を提供開始 平日毎日10分で学べる習慣化プログラム",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20260916o03",
+    "publishedAt": "2026-09-15T22:00:08.000Z",
+    "collectedAt": "2026-09-15T23:53:05.426Z",
+    "summary": "一社・日本AIスキル認定協会（ASK）は9月15日、完全無料のオンライン学習サービス「ASKラーニング」を正式ローンチした。動画視聴、独自の解説、理解度を確かめるミニ検定を1セットにした「チャレンジ」を平日毎日1本公開す […]",
+    "categories": [
+      "ICT / GIGA"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-09-15-e3f201f999c56f46",
+    "title": "JTB、「Space Travelium TeNQ」協力による中高生向け宇宙キャリア体験プログラムを開始",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20260916o02",
+    "publishedAt": "2026-09-15T22:00:03.000Z",
+    "collectedAt": "2026-09-15T23:53:05.426Z",
+    "summary": "JTBは9月15日、東京ドームが運営する宇宙体感施設「Space Travelium TeNQ」の協力を得て開発した探究・キャリア学習プログラム『ココロ動かす宇宙×キャリア体験 in Space Travelium Te […]",
+    "categories": [
+      "その他"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
     "id": "resemom-2026-09-15-6e04e73f91fcc786",
     "title": "海城の大学合格実績2026、東大46人・早慶276人…医学部175人",
     "sourceId": "resemom",
