@@ -186,7 +186,10 @@ function typeLabel(url: string): string | null {
                 {s.heading}
               </h2>
               {s.articles.length > 0 ? (
-                <div class="mt-4 p-4 sm:p-5 border border-line bg-card rounded-sm">
+                <div
+                  class="mt-4 p-4 sm:p-5 border border-line bg-card rounded-sm"
+                  data-referenced-articles
+                >
                   <div class="font-mono text-[10px] uppercase tracking-widest text-sub mb-3">
                     {s.articles.length > 1 ? "Referenced articles" : "Referenced article"}
                   </div>
