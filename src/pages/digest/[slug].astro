@@ -6,6 +6,7 @@ import Layout from "../../layouts/Layout.astro";
 import { splitDigestTitle } from "../../lib/digest-title";
 import ArticleCard from "../../components/ArticleCard.astro";
 import TopicBadge from "../../components/TopicBadge.astro";
+import ShareLink from "../../components/ShareLink.astro";
 import { getArticlesByIds, formatDayShort } from "../../lib/articles.ts";
 import { OG_DIGEST_VERSION } from "../../data/og-version";
 
@@ -167,6 +168,9 @@ function typeLabel(url: string): string | null {
           </div>
         )
       }
+      <div class="mt-6">
+        <ShareLink url={pageUrl} title={entry.data.title} />
+      </div>
       <p class="mt-6 text-sub text-sm leading-relaxed">
         <a href="/digest/" class="link-underline">← ダイジェスト一覧</a>
         <span class="ml-3"><a href="/" class="link-underline">トップ</a></span>
