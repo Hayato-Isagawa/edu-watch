@@ -140,6 +140,15 @@ test.describe("印刷スタイル", () => {
     const badge = page.locator("[data-source]").first();
     await expect(badge).toHaveCSS("background-color", "rgba(0, 0, 0, 0)");
     await expect(badge).toHaveCSS("color", "rgb(0, 0, 0)");
+
+    // 参照記事の枠と見出しはページ境界で割らない。break-inside は toHaveCSS で見る
+    // (page.pdf の分割位置は DOM から読めない)。見出しに avoid が無いと、枠だけが次ページへ
+    // 送られて 2 行見出しの 2 行目が単独で前ページに残る(2026-09-13 号で実測)
+    const card = page.locator("[data-referenced-articles]").first();
+    await expect(card).toHaveCSS("break-inside", "avoid");
+    const heading = page.locator("main h2").first();
+    await expect(heading).toHaveCSS("break-inside", "avoid");
+    await expect(heading).toHaveCSS("break-after", "avoid");
   });
 
   for (const target of [
