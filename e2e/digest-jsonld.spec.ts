@@ -1,4 +1,33 @@
+import fs from "node:fs";
+import path from "node:path";
 import { test, expect } from "@playwright/test";
+
+// @type が Organization のオブジェクトを、JSON-LD の入れ子(Article.publisher など)まで含めて集める
+function collectOrganizations(
+  value: unknown,
+  found: Record<string, unknown>[] = []
+) {
+  if (Array.isArray(value)) {
+    for (const v of value) collectOrganizations(v, found);
+  } else if (value && typeof value === "object") {
+    const obj = value as Record<string, unknown>;
+    if (obj["@type"] === "Organization") found.push(obj);
+    for (const v of Object.values(obj)) collectOrganizations(v, found);
+  }
+  return found;
+}
+
+// /digest/<slug>/ の frontmatter から updatedAt を読む(無ければ null)。fallback を見るため
+function readUpdatedAt(href: string): string | null {
+  const slug = href.replace(/^\/digest\//, "").replace(/\/$/, "");
+  const md = fs.readFileSync(
+    path.resolve(process.cwd(), "src/content/digests", `${slug}.md`),
+    "utf8"
+  );
+  const frontmatter = md.split(/^---$/m)[1] ?? "";
+  const m = frontmatter.match(/^updatedAt:\s*"?([^"\n]+)"?\s*$/m);
+  return m ? m[1] : null;
+}
 
 test.describe("ダイジェストの構造化データ", () => {
   test("digest 詳細に Article の JSON-LD があり、見出し・日付・発行者が本文と一致する", async ({
@@ -19,9 +48,12 @@ test.describe("ダイジェストの構造化データ", () => {
     const types = scripts.map((s) => s?.["@type"]);
     expect(types).toContain("Organization");
     // 姉妹サイトとの関係は Organization に書かない(ADR 0071)。名前で禁止すると別の関係語が
-    // 抜けるので、キー集合そのものを固定する。sameAs は自組織の SNS だけで、姉妹ドメインは置かない
-    const organization = scripts.find((s) => s?.["@type"] === "Organization");
-    expect(Object.keys(organization).sort()).toEqual([
+    // 抜けるので、キー集合そのものを固定する。sameAs は自組織の SNS だけで、姉妹ドメインは置かない。
+    // トップレベルの 1 本目だけ見ると、2 本目のブロックや Article.publisher に書いた関係が
+    // 素通りするので(#686)、ブロックを全部・入れ子も含めて集める
+    const organizations = collectOrganizations(scripts);
+    expect(organizations.length).toBeGreaterThan(0);
+    const allowedKeys = [
       "@context",
       "@type",
       "alternateName",
@@ -29,13 +61,24 @@ test.describe("ダイジェストの構造化データ", () => {
       "name",
       "sameAs",
       "url",
-    ]);
-    for (const url of organization.sameAs) {
-      const host = new URL(url).hostname;
-      expect(
-        host === "edu-evidence.org" || host.endsWith(".edu-evidence.org")
-      ).toBe(false);
+    ];
+    for (const organization of organizations) {
+      for (const key of Object.keys(organization)) {
+        expect(
+          allowedKeys,
+          `Organization に許していないキー: ${key}`
+        ).toContain(key);
+      }
+      for (const url of (organization.sameAs ?? []) as string[]) {
+        const host = new URL(url).hostname;
+        expect(
+          host === "edu-evidence.org" || host.endsWith(".edu-evidence.org")
+        ).toBe(false);
+      }
     }
+    const topLevel = scripts.filter((s) => s?.["@type"] === "Organization");
+    expect(topLevel).toHaveLength(1);
+    expect(Object.keys(topLevel[0]).sort()).toEqual(allowedKeys);
     const article = scripts.find((s) => s?.["@type"] === "Article");
     expect(article, "Article の JSON-LD が無い").toBeTruthy();
     // h1 は主題と週を 2 つの span に分けて描くので、空白を畳んで比べる
@@ -44,8 +87,13 @@ test.describe("ダイジェストの構造化データ", () => {
       norm(await page.locator("h1").first().innerText())
     );
     expect(article.datePublished).toMatch(/^\d{4}-\d{2}-\d{2}T/);
-    // 更新日は frontmatter の updatedAt、無ければ publishedAt。順序(公開以降)は content.config.ts が見る
+    // 更新日は frontmatter の updatedAt、無ければ publishedAt。順序(公開以降)は content.config.ts も見る
     expect(article.dateModified).toMatch(/^\d{4}-\d{2}-\d{2}T/);
+    expect(Date.parse(article.dateModified)).toBeGreaterThanOrEqual(
+      Date.parse(article.datePublished)
+    );
+    const updatedAt = readUpdatedAt(href!);
+    expect(article.dateModified).toBe(updatedAt ?? article.datePublished);
     expect(article.author["@type"]).toBe("Person");
     expect(article.publisher.name).toBe("EduWatch JP");
     // url は本番ドメイン固定なので、パスだけを現在地と比べる

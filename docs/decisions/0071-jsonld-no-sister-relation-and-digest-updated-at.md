@@ -64,3 +64,7 @@ Google の Organization 構造化データの文書(同日取得)は、`sameAs` 
 - `updatedAt` を書いたのに `OG_DIGEST_VERSION` を上げ忘れる事故が起きた場合、`updatedAt` を OG の版元に統合する(ADR 0067 の選択肢 B へ切り替える)かを再検討する
 - title の書き換えや ADR 0064 の訂正で `updatedAt` を書き忘れたことが判明した場合、frontmatter の保護 hook か CI で同時更新を要求するかを再検討する(現状、機械検査は無い)
 - schema.org が姉妹サイト(対等な関連組織)を表すプロパティを持つようになった場合、または Google / 主要な AI アシスタントの文書が組織間の関係プロパティを消費対象として列挙した場合、関係を書く選択肢を再検討する
+
+## 更新
+
+- 2026-09-17(#686): 決定 2 の e2e は、トップレベルの `Organization` ブロック 1 本目だけでなく、全ブロックと入れ子(`Article.publisher`)の `Organization` を走査する。入れ子には許すキーの部分集合を、トップレベルには集合の一致を要求する。`dateModified` の順序と、frontmatter を読んだ `updatedAt ?? publishedAt` との一致も e2e で見る(検査するのは一覧の先頭 = 最新号だけなので、`updatedAt` を持つ号が最新号になるまで `updatedAt` 側の分岐は実行されない)
