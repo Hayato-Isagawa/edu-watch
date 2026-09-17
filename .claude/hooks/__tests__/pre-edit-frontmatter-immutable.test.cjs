@@ -351,12 +351,14 @@ function digestFile(body) {
   return p;
 }
 
+// publishedAt は未来(未公開)にしてある。公開済みにすると #688 の updatedAt 要求が
+// 重なって、保護フィールドだけを見るテストにならない(公開済みの fixture は下の PUBLISHED_BODY)
 const DIGEST_BODY = [
   "---",
   "title: 第 10 号",
   "weekStart: 2026-08-03",
   "weekEnd: 2026-08-09",
-  "publishedAt: 2026-08-10",
+  "publishedAt: 2099-08-10",
   "---",
   "",
   "本文",
@@ -391,8 +393,8 @@ test("Write: publishedAt の書き換えも検知する", () => {
       writeOn(
         p,
         DIGEST_BODY.replace(
-          "publishedAt: 2026-08-10",
-          "publishedAt: 2026-08-11"
+          "publishedAt: 2099-08-10",
+          "publishedAt: 2099-08-11"
         )
       )
     )
@@ -422,4 +424,234 @@ test("Write: 現物を読めないときは素通りさせず確認を出す(fai
 
 test("Write: 対象外のパスは見ない", () => {
   assert.equal(firedOn(writeOn("/tmp/README.md", DIGEST_BODY)), false);
+});
+
+// ---- 公開済みの号を編集したら updatedAt を要求する(#688) ----
+
+const PUBLISHED_BODY = [
+  "---",
+  "title: 第 10 号",
+  "weekStart: 2026-08-03",
+  "weekEnd: 2026-08-09",
+  'publishedAt: "2026-08-10T07:00:00+09:00"',
+  "summary: 要約",
+  "---",
+  "",
+].join("\n");
+
+const editOn = (filePath, old_string, new_string) =>
+  run(
+    JSON.stringify({
+      tool_name: "Edit",
+      tool_input: { file_path: filePath, old_string, new_string },
+    })
+  );
+
+test("Edit: 公開済みの号の summary を変えて updatedAt を書かないと確認を出す", () => {
+  const p = digestFile(PUBLISHED_BODY);
+  const out = editOn(p, "summary: 要約", "summary: 直した要約");
+  assert.ok(firedOn(out), "updatedAt 無しの編集が素通りしている");
+  assert.match(out.stdout, /updatedAt/);
+});
+
+test("Edit: 同じ Edit で updatedAt を新しい値にすれば素通りする", () => {
+  const p = digestFile(PUBLISHED_BODY);
+  const out = editOn(
+    p,
+    'publishedAt: "2026-08-10T07:00:00+09:00"\nsummary: 要約',
+    'publishedAt: "2026-08-10T07:00:00+09:00"\nupdatedAt: "2026-09-17T10:00:00+09:00"\nsummary: 直した要約'
+  );
+  assert.equal(firedOn(out), false);
+});
+
+// 今日(JST)の日付。updatedAt を先に書いてから本文を直す運用を通すため
+const todayJst = new Date(Date.now() + 9 * 60 * 60 * 1000)
+  .toISOString()
+  .slice(0, 10);
+
+test("Edit: ディスクの updatedAt が今日(JST)なら、続く編集は素通りする", () => {
+  const p = digestFile(
+    PUBLISHED_BODY.replace(
+      "summary: 要約",
+      `updatedAt: "${todayJst}T09:00:00+09:00"\nsummary: 要約`
+    )
+  );
+  assert.equal(
+    firedOn(editOn(p, "summary: 要約", "summary: 直した要約")),
+    false
+  );
+});
+
+test("Edit: ディスクの updatedAt が昨日以前なら、今日の編集は確認を出す", () => {
+  const p = digestFile(
+    PUBLISHED_BODY.replace(
+      "summary: 要約",
+      'updatedAt: "2026-08-20T09:00:00+09:00"\nsummary: 要約'
+    )
+  );
+  const out = editOn(p, "summary: 要約", "summary: 直した要約");
+  assert.ok(firedOn(out));
+  assert.match(out.stdout, /2026-08-20/);
+});
+
+test("Edit: 未公開の号(publishedAt が未来)は updatedAt を要求しない", () => {
+  const p = digestFile(
+    PUBLISHED_BODY.replace(
+      "2026-08-10T07:00:00+09:00",
+      "2099-08-10T07:00:00+09:00"
+    )
+  );
+  assert.equal(
+    firedOn(editOn(p, "summary: 要約", "summary: 直した要約")),
+    false
+  );
+});
+
+test("Edit: ファイルが無い(新規作成中)なら updatedAt は見ない", () => {
+  assert.equal(
+    firedOn(
+      editOn(digestFile(undefined), "summary: 要約", "summary: 直した要約")
+    ),
+    false
+  );
+});
+
+test("Write: 公開済みの号を updatedAt 無しで書き換えると確認を出す", () => {
+  const p = digestFile(PUBLISHED_BODY);
+  const out = writeOn(
+    p,
+    PUBLISHED_BODY.replace("summary: 要約", "summary: 直した要約")
+  );
+  assert.ok(firedOn(out));
+  assert.match(out.stdout, /updatedAt/);
+});
+
+test("Write: updatedAt を新しい値にした全文なら素通りする", () => {
+  const p = digestFile(PUBLISHED_BODY);
+  const out = writeOn(
+    p,
+    PUBLISHED_BODY.replace(
+      "summary: 要約",
+      'updatedAt: "2026-09-17T10:00:00+09:00"\nsummary: 直した要約'
+    )
+  );
+  assert.equal(firedOn(out), false);
+});
+
+test("MultiEdit: どれか 1 つの編集が updatedAt を書いていれば素通りする", () => {
+  const p = digestFile(PUBLISHED_BODY);
+  const out = run(
+    JSON.stringify({
+      tool_name: "MultiEdit",
+      tool_input: {
+        file_path: p,
+        edits: [
+          { old_string: "summary: 要約", new_string: "summary: 直した要約" },
+          {
+            old_string: 'publishedAt: "2026-08-10T07:00:00+09:00"',
+            new_string:
+              'publishedAt: "2026-08-10T07:00:00+09:00"\nupdatedAt: "2026-09-17T10:00:00+09:00"',
+          },
+        ],
+      },
+    })
+  );
+  assert.equal(firedOn(out), false);
+});
+
+test("Edit: 同じ値で updatedAt を書き直しても「更新」にはならず確認を出す", () => {
+  const p = digestFile(
+    PUBLISHED_BODY.replace(
+      "summary: 要約",
+      'updatedAt: "2026-08-20T09:00:00+09:00"\nsummary: 要約'
+    )
+  );
+  const out = editOn(
+    p,
+    'updatedAt: "2026-08-20T09:00:00+09:00"\nsummary: 要約',
+    'updatedAt: "2026-08-20T09:00:00+09:00"\nsummary: 直した要約'
+  );
+  assert.ok(firedOn(out));
+});
+
+test("evaluateUpdatedAt: 「今日」は JST の暦日で判定する", () => {
+  const {
+    evaluateUpdatedAt,
+  } = require("../pre-edit-frontmatter-immutable.cjs");
+  const p = digestFile(
+    PUBLISHED_BODY.replace(
+      "summary: 要約",
+      'updatedAt: "2026-09-18T00:30:00+09:00"\nsummary: 要約'
+    )
+  );
+  // 2026-09-17T15:30Z = JST 09-18 00:30 → 同じ日なので通す
+  assert.equal(
+    evaluateUpdatedAt(
+      p,
+      "summary: 要約",
+      "summary: x",
+      Date.parse("2026-09-17T15:30:00Z")
+    ).length,
+    0
+  );
+  // 2026-09-17T14:30Z = JST 09-17 23:30 → 前日なので確認を出す
+  assert.equal(
+    evaluateUpdatedAt(
+      p,
+      "summary: 要約",
+      "summary: x",
+      Date.parse("2026-09-17T14:30:00Z")
+    ).length,
+    1
+  );
+});
+
+// ---- 「公開済み」は origin/main に同じパスがあるかで決める ----
+
+const { execFileSync } = require("node:child_process");
+/** digestFile と同じ配置を git リポジトリの中に作り、origin/main を指す ref を張る。 */
+function digestRepoFile(body, { onMain }) {
+  const p = digestFile(body);
+  const root = path.resolve(path.dirname(p), "../../..");
+  const git = (...args) =>
+    execFileSync("git", ["-C", root, ...args], {
+      encoding: "utf8",
+      env: {
+        ...process.env,
+        GIT_AUTHOR_NAME: "t",
+        GIT_AUTHOR_EMAIL: "t@t",
+        GIT_COMMITTER_NAME: "t",
+        GIT_COMMITTER_EMAIL: "t@t",
+      },
+    });
+  git("init", "-q");
+  if (onMain) {
+    git("add", "-A");
+    git("commit", "-q", "-m", "x");
+  } else {
+    fs.writeFileSync(path.join(root, "README.md"), "x");
+    git("add", "README.md");
+    git("commit", "-q", "-m", "x");
+  }
+  git("update-ref", "refs/remotes/origin/main", "HEAD");
+  return p;
+}
+
+test("Edit: origin/main に無い号は publishedAt が過去でも執筆中として通す", () => {
+  const p = digestRepoFile(PUBLISHED_BODY, { onMain: false });
+  assert.equal(
+    firedOn(editOn(p, "summary: 要約", "summary: 直した要約")),
+    false
+  );
+});
+
+test("Edit: origin/main にある号は publishedAt が未来でも公開済みとして確認を出す", () => {
+  const p = digestRepoFile(
+    PUBLISHED_BODY.replace(
+      "2026-08-10T07:00:00+09:00",
+      "2099-08-10T07:00:00+09:00"
+    ),
+    { onMain: true }
+  );
+  assert.ok(firedOn(editOn(p, "summary: 要約", "summary: 直した要約")));
 });

@@ -68,3 +68,4 @@ Google の Organization 構造化データの文書(同日取得)は、`sameAs` 
 ## 更新
 
 - 2026-09-17(#686): 決定 2 の e2e は、トップレベルの `Organization` ブロック 1 本目だけでなく、全ブロックと入れ子(`Article.publisher`)の `Organization` を走査する。入れ子には許すキーの部分集合を、トップレベルには集合の一致を要求する。`dateModified` の順序と、frontmatter を読んだ `updatedAt ?? publishedAt` との一致も e2e で見る(検査するのは一覧の先頭 = 最新号だけなので、`updatedAt` を持つ号が最新号になるまで `updatedAt` 側の分岐は実行されない)
+- 2026-09-17(#688): 「現状、機械検査は無い」は成り立たなくなった。`.claude/hooks/pre-edit-frontmatter-immutable.cjs` が、`origin/main` にある号(= 配信済み)を Edit / Write / MultiEdit するときに `updatedAt` が新しい値になっていなければ確認を出す(ディスクの `updatedAt` が今日の JST 日付なら続く編集は通る)。再検討条件の 2 つ目はこの hook で実装済みとして扱う
