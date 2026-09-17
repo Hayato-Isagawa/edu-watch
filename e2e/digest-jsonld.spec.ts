@@ -44,6 +44,66 @@ const siteHost = "news.edu-evidence.org";
 // 書く形が抜ける。閉じた集合で見ることで、見ていない型は何であれ赤にする(#691)
 const knownTypes = ["Article", "Organization", "Person", "WebSite"];
 
+// 型ごとに許すキーの集合。値がオブジェクトのノードは全部 @type を持ち、この表のどれかに当たる。
+// 集合の外のキー(isPartOf / affiliation / sourceOrganization 等の関係語)は何であれ赤にし、
+// @type の無いノード・@id だけの参照も赤にする(#700)。Organization は上の allowedKeys と同じ
+const nodeShapes: Record<string, string[]> = {
+  Article: [
+    "@context",
+    "@type",
+    "author",
+    "datePublished",
+    "dateModified",
+    "description",
+    "headline",
+    "inLanguage",
+    "keywords",
+    "mainEntityOfPage",
+    "publisher",
+    "url",
+  ],
+  Organization: [
+    "@context",
+    "@type",
+    "alternateName",
+    "logo",
+    "name",
+    "sameAs",
+    "url",
+  ],
+  Person: ["@type", "name", "sameAs", "url"],
+  WebSite: ["@context", "@type", "description", "inLanguage", "name", "url"],
+};
+
+// JSON-LD の全ノードを形で検査する。URL 値(sameAs と @context 以外)は自サイトを指すこと —
+// 姉妹サイトを WebSite ノードや文字列値で書く形を止める(#700)
+function checkNodeShapes(value: unknown, where = "$") {
+  if (Array.isArray(value)) {
+    value.forEach((v, i) => checkNodeShapes(v, `${where}[${i}]`));
+    return;
+  }
+  if (!value || typeof value !== "object") return;
+  const obj = value as Record<string, unknown>;
+  const type = obj["@type"];
+  expect(typeof type, `${where}: @type の無いノード`).toBe("string");
+  const shape = nodeShapes[type as string];
+  expect(
+    shape,
+    `${where}: 形を決めていない @type ${JSON.stringify(type)}`
+  ).toBeTruthy();
+  for (const [key, v] of Object.entries(obj)) {
+    expect(shape, `${where}.${key}: ${type} に許していないキー`).toContain(key);
+    if (key === "@context" || key === "sameAs") continue;
+    if (typeof v === "string" && /^https?:\/\//.test(v)) {
+      expect(
+        new URL(v).host,
+        `${where}.${key} が自サイトを指していない: ${v}`
+      ).toBe(siteHost);
+    }
+    checkNodeShapes(v, `${where}.${key}`);
+  }
+}
+
 // /digest/<slug>/ の frontmatter から updatedAt を読む(無ければ null)。fallback を見るため
 function readUpdatedAt(href: string): string | null {
   const slug = href.replace(/^\/digest\//, "").replace(/\/$/, "");
@@ -84,17 +144,12 @@ test.describe("ダイジェストの構造化データ", () => {
         `JSON-LD に見ていない @type: ${JSON.stringify(type)}`
       ).toContain(type);
     }
+    checkNodeShapes(scripts);
+    // トップレベルの WebSite は Layout の 1 本だけ(姉妹サイトを WebSite で足す形を止める)
+    expect(scripts.filter((s) => s?.["@type"] === "WebSite")).toHaveLength(1);
     const organizations = collectOrganizations(scripts);
     expect(organizations.length).toBeGreaterThan(0);
-    const allowedKeys = [
-      "@context",
-      "@type",
-      "alternateName",
-      "logo",
-      "name",
-      "sameAs",
-      "url",
-    ];
+    const allowedKeys = nodeShapes.Organization;
     for (const organization of organizations) {
       for (const key of Object.keys(organization)) {
         expect(
