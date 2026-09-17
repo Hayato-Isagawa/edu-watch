@@ -13,4 +13,5 @@ export const OG_DEFAULT_VERSION = "20260715"; // ブランド行をヘッダー�
 // 後者でも全号の URL が変わるが、SNS が再取得する枚数が増えるだけで害はない。
 // 号ごとに版を持たせないのは、frontmatter の publishedAt が一覧の並び順・公開日表示・
 // RSS の pubDate を兼ねており、キャッシュ更新日を上書きすると読者向けの表示が壊れるため。
+// frontmatter の updatedAt(ADR 0071)は Article.dateModified 専用で、OG の版元には使わない。
 export const OG_DIGEST_VERSION = "20260822"; // title を 2 行に分割した日(#553)

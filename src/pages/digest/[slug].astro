@@ -70,6 +70,7 @@ const articleJsonLd = {
   headline: entry.data.title,
   description: entry.data.summary,
   datePublished: entry.data.publishedAt,
+  dateModified: entry.data.updatedAt ?? entry.data.publishedAt,
   author: {
     "@type": "Person",
     name: "Isagawa Hayato",
