@@ -2,7 +2,15 @@ import fs from "node:fs";
 import path from "node:path";
 import { test, expect } from "@playwright/test";
 
-// @type が Organization のオブジェクトを、JSON-LD の入れ子(Article.publisher など)まで含めて集める
+// @type が Organization か、Organization で終わるサブタイプか。配列 ["Organization"] も見る。
+// 見ていない @type は下の knownTypes が先に赤にするので、ここは防御の二重化(#691)
+function isOrganizationType(type: unknown) {
+  const types = Array.isArray(type) ? type : [type];
+  return types.some((t) => typeof t === "string" && t.endsWith("Organization"));
+}
+
+// @type が Organization(サブタイプ・配列含む)のオブジェクトを、JSON-LD の入れ子
+// (Article.publisher など)まで含めて集める
 function collectOrganizations(
   value: unknown,
   found: Record<string, unknown>[] = []
@@ -11,11 +19,30 @@ function collectOrganizations(
     for (const v of value) collectOrganizations(v, found);
   } else if (value && typeof value === "object") {
     const obj = value as Record<string, unknown>;
-    if (obj["@type"] === "Organization") found.push(obj);
+    if (isOrganizationType(obj["@type"])) found.push(obj);
     for (const v of Object.values(obj)) collectOrganizations(v, found);
   }
   return found;
 }
+
+// JSON-LD に現れる全ノードの @type を集める(入れ子含む)
+function collectTypes(value: unknown, found: unknown[] = []) {
+  if (Array.isArray(value)) {
+    for (const v of value) collectTypes(v, found);
+  } else if (value && typeof value === "object") {
+    const obj = value as Record<string, unknown>;
+    if ("@type" in obj) found.push(obj["@type"]);
+    for (const v of Object.values(obj)) collectTypes(v, found);
+  }
+  return found;
+}
+
+const siteHost = "news.edu-evidence.org";
+// サイトが JSON-LD に書く @type の全部(dist の全 HTML を走査して決めた)。schema.org の
+// Organization の下位クラスは 187 あり名前が Organization で終わるのは 8 つだけ(Corporation /
+// NGO / OnlineBusiness 等は終わらない)なので、Organization を拾う側の網では姉妹ノードを別の型で
+// 書く形が抜ける。閉じた集合で見ることで、見ていない型は何であれ赤にする(#691)
+const knownTypes = ["Article", "Organization", "Person", "WebSite"];
 
 // /digest/<slug>/ の frontmatter から updatedAt を読む(無ければ null)。fallback を見るため
 function readUpdatedAt(href: string): string | null {
@@ -51,6 +78,12 @@ test.describe("ダイジェストの構造化データ", () => {
     // 抜けるので、キー集合そのものを固定する。sameAs は自組織の SNS だけで、姉妹ドメインは置かない。
     // トップレベルの 1 本目だけ見ると、2 本目のブロックや Article.publisher に書いた関係が
     // 素通りするので(#686)、ブロックを全部・入れ子も含めて集める
+    for (const type of collectTypes(scripts)) {
+      expect(
+        knownTypes,
+        `JSON-LD に見ていない @type: ${JSON.stringify(type)}`
+      ).toContain(type);
+    }
     const organizations = collectOrganizations(scripts);
     expect(organizations.length).toBeGreaterThan(0);
     const allowedKeys = [
@@ -69,6 +102,12 @@ test.describe("ダイジェストの構造化データ", () => {
           `Organization に許していないキー: ${key}`
         ).toContain(key);
       }
+      // 許すキーだけで書いた姉妹組織のノードを publisher 以外のスロットに置く形は、キー検査を
+      // 通る。値で見る — 集めた Organization はすべて自サイトを指す(#691)
+      expect(
+        new URL(String(organization.url)).host,
+        `Organization の url が自サイトでない: ${organization.url}`
+      ).toBe(siteHost);
       for (const url of (organization.sameAs ?? []) as string[]) {
         const host = new URL(url).hostname;
         expect(
@@ -76,7 +115,7 @@ test.describe("ダイジェストの構造化データ", () => {
         ).toBe(false);
       }
     }
-    const topLevel = scripts.filter((s) => s?.["@type"] === "Organization");
+    const topLevel = scripts.filter((s) => isOrganizationType(s?.["@type"]));
     expect(topLevel).toHaveLength(1);
     expect(Object.keys(topLevel[0]).sort()).toEqual(allowedKeys);
     const article = scripts.find((s) => s?.["@type"] === "Article");
