@@ -33,7 +33,7 @@
 |---|---|
 | §6: 編集者の意見は週次ダイジェストに限定 | 日次記事の `ArticleCard` には意見を付加せず、ダイジェスト個別ページの本文 markdown でのみ「編集者より」を提示 |
 | §6: タイトル原文ママ / 公式 URL 直リンク / 引用範囲遵守 5 要件 | ダイジェスト本文中で言及する記事は ArticleCard と同じ流儀で、タイトル原文 + 公式 URL に直リンク |
-| §6: 1 週間のニュースから「これは覚えておくべき」を人手で選別 | frontmatter `referencedArticleIds` で記事 id を参照、本文で論点整理 |
+| §6: 1 週間のニュースから「これは覚えておくべき」を人手で選別 | frontmatter `sections[].articleIds` で記事 id を参照、`sections[].comment` で論点整理 |
 | §7: `/digest/` `/digest/[yyyy-mm-dd]` | URL 設計のとおり実装 |
 | §11 KPI: 30 分以内編集 / 100% 公開率 | テンプレート化された frontmatter + Content Collection の型補完で編集を高速化 |
 
@@ -93,7 +93,7 @@ export const collections = { digests };
 ### 3.2 ファイル配置と slug 規則
 
 - 配置: `src/content/digests/YYYY-MM-DD.md`
-- slug = ファイル名(拡張子除く)= 公開日(金曜の JST 日付)
+- slug = ファイル名(拡張子除く)= 公開日(JST 日付。原則土曜。[digest-workflow.md](./digest-workflow.md)「執筆上の約束」)
 - URL: `/digest/<slug>/`
 
 ### 3.3 frontmatter 仕様
@@ -101,9 +101,9 @@ export const collections = { digests };
 | フィールド | 型 | 必須 | 説明 |
 |---|---|---|---|
 | `title` | string | ◯ | 「〈内容の列挙〉 — 2026 年 5 月第 1 週の論点」。書式は [digest-workflow.md](./digest-workflow.md)「執筆上の約束」が正典 |
-| `weekStart` | `YYYY-MM-DD` | ◯ | 集計対象週の月曜(JST) |
-| `weekEnd` | `YYYY-MM-DD` | ◯ | 集計対象週の日曜(JST) |
-| `publishedAt` | ISO8601 | ◯ | 公開タイムスタンプ(通常 weekEnd の翌金曜) |
+| `weekStart` | `YYYY-MM-DD` | ◯ | 集計対象週の土曜(JST) |
+| `weekEnd` | `YYYY-MM-DD` | ◯ | 集計対象週の金曜(JST) |
+| `publishedAt` | ISO8601 | ◯ | 公開タイムスタンプ(原則 weekEnd の翌日 = 土曜) |
 | `updatedAt` | ISO8601 | × | 公開後に title / 本文を直した日時。`Article.dateModified` に出す(無ければ `publishedAt`)。`publishedAt` より前はビルドで止まる(ADR 0071) |
 | `summary` | string | ◯ | 1〜2 文の要約。OG 画像 / RSS 記述 / 一覧で使用 |
 | `topics` | string[] | ◯ | 編集者が選んだ主要トピック(自由記述、3〜5 個推奨) |
@@ -115,7 +115,7 @@ export const collections = { digests };
 
 ### 3.4 本文 markdown
 
-- 本文 markdown は **冒頭の「編集者まえがき」**(全体を貫く論旨を 100〜300 字)に絞る。各記事への論評は frontmatter `sections[].comment` に書く
+- 本文 markdown は使わない(冒頭の「編集者まえがき」は [`ADR 0048`](decisions/0048-digest-drop-content-body.md) で廃止)。各記事への論評は frontmatter `sections[].comment` に書く
 - 引用範囲遵守 5 要件(ADR 0008)に従い、媒体記事の本文転載は禁止。要約・論点整理に限る
 
 ---
@@ -133,14 +133,15 @@ export const collections = { digests };
 
 セクション順:
 1. ヒーロー: `Weekly digest` ラベル / `title` / `weekStart`〜`weekEnd` / `summary` / `topics` バッジ群
-2. **編集者まえがき**: 本文 markdown(`<Content />`)を render。週全体を貫く論旨を 100〜300 字で
-3. **論点セクション群**: `sections` 配列を順次反復し、各要素について以下を表示:
+2. **論点セクション群**: `sections` 配列を順次反復し、各要素について以下を表示:
    - `<h2>` `section.heading`
    - `ArticleCard`(`section.articleIds` の各 id で記事を引いて再描画)
    - `marked(section.comment)` を `set:html` で展開(編集者コメント、200〜400 字)
-4. 「関連エビデンス」: `relatedEvidenceUrls` を `link-underline` でリスト
-5. 前後ナビ: 前週 / 次週へのリンク(getStaticPaths で配列を作りインデックス参照)
-6. パンくず: `← ダイジェスト一覧` / `トップ`
+3. 「関連エビデンス」: `relatedEvidenceUrls` を `link-underline` でリスト
+4. 前後ナビ: 前週 / 次週へのリンク(getStaticPaths で配列を作りインデックス参照)
+5. パンくず: `← ダイジェスト一覧` / `トップ`
+
+ヒーローと論点セクション群の間にあった「編集者まえがき」(本文 markdown を `<Content />` で render)は [`ADR 0048`](decisions/0048-digest-drop-content-body.md) で廃止した。
 
 `sections` の配列順がそのまま読者への提示順(=編集者が判断する緊急度・重要度順)になる。
 
@@ -204,7 +205,7 @@ ADR 0008(引用範囲遵守)/ ADR 0010(`collectedAt` 上書き禁止)と、数�
 
 | 既存実装 | Sprint 4 での扱い |
 |---|---|
-| `src/data/articles/*.json` | `referencedArticleIds` から記事を引いて表示。同じ id ベース |
+| `src/data/articles/*.json` | `sections[].articleIds` から記事を引いて表示。同じ id ベース |
 | `ArticleCard` | 個別ダイジェストページの「言及した記事」セクションでそのまま再利用 |
 | `groupByDate` / `formatDayShort` | `weekStart`〜`weekEnd` の日付フォーマットに流用 |
 | `link-underline` | 関連エビデンスリンクなどに統一適用 |
@@ -215,11 +216,11 @@ ADR 0008(引用範囲遵守)/ ADR 0010(`collectedAt` 上書き禁止)と、数�
 
 ## 7. 公開頻度・運用 KPI
 
-PRD §11 と整合:
+PRD §11 と整合(公開曜日だけは PRD の「毎週金曜」から土曜へ改めた。PRD は v1.0 承認済みの記録なので書き換えず、現行の曜日は [digest-workflow.md](./digest-workflow.md)「執筆上の約束」が定める):
 
 | 指標 | 目標 |
 |---|---|
-| 公開頻度 | 毎週金曜 JST 朝(初回は実運用に合わせて柔軟に) |
+| 公開頻度 | 毎週土曜 JST(遅くとも月曜) |
 | 公開率 | 100%(毎週) |
 | 編集所要時間 | 30 分以内 / 1 本 |
 | 公開遅延の許容 | 翌週月曜まで(それ以降は公開を見送り、次週ダイジェストに統合) |
@@ -256,7 +257,7 @@ PRD §11 と整合:
 |---|---|
 | 30 分以内で書けない週がある(取り上げる素材を絞れない) | テンプレート化、`topics` を 3〜5 個に強制制限、PRD §11 リスク対応(自動化比率最大化)に従う |
 | 記事 id が collectedAt 修正(ADR 0010)以前のものと不整合 | 既存記事の id は不変なので影響なし。新規取り込みでも id は collectedAt と独立 |
-| `referencedArticleIds` の記事が後日削除依頼で消える(ADR 0008) | id ベースの参照解決時に未存在ならスキップ + 注記 |
+| `sections[].articleIds` の記事が後日削除依頼で消える(ADR 0008) | id ベースの参照解決時に未存在ならスキップ + 注記 |
 | 編集者の負荷集中(運営 1 人) | PRD §11 リスク表通り、自動化比率を上げる方針を維持。Phase 2 で AI 下書き支援を検討 |
 
 ---
