@@ -50,25 +50,41 @@ import { glob } from "astro/loaders";
 
 const digests = defineCollection({
   loader: glob({ pattern: "**/*.md", base: "./src/content/digests" }),
-  schema: z.object({
-    title: z.string().min(1),
-    weekStart: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
-    weekEnd: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
-    publishedAt: z.string().datetime({ offset: true }),
-    updatedAt: z.string().datetime({ offset: true }).optional(),
-    summary: z.string().min(1),
-    topics: z.array(z.string().min(1)).min(1),
-    sections: z
-      .array(
-        z.object({
-          articleId: z.string().min(1),
-          heading: z.string().min(1),
-          comment: z.string().min(1),
-        }),
-      )
-      .default([]),
-    relatedEvidenceUrls: z.array(z.string().url()).default([]),
-  }),
+  schema: z
+    .object({
+      title: z.string().min(1),
+      weekStart: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
+      weekEnd: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
+      publishedAt: z.string().datetime({ offset: true }),
+      updatedAt: z.string().datetime({ offset: true }).optional(),
+      summary: z.string().min(1),
+      topics: z.array(z.string().min(1)).min(1),
+      sections: z
+        .array(
+          z.object({
+            articleIds: z.array(z.string().min(1)).min(1),
+            heading: z.string().min(1),
+            comment: z.string().min(1),
+          })
+        )
+        .default([]),
+      relatedEvidenceUrls: z
+        .array(z.object({ url: z.string().url(), title: z.string().min(1) }))
+        .default([]),
+    })
+    .superRefine((data, ctx) => {
+      // updatedAt は公開後に title / 本文を直した日時。公開より前は矛盾なのでビルドで止める
+      if (
+        data.updatedAt !== undefined &&
+        Date.parse(data.updatedAt) < Date.parse(data.publishedAt)
+      ) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          path: ["updatedAt"],
+          message: `updatedAt (${data.updatedAt}) は publishedAt (${data.publishedAt}) 以降にする`,
+        });
+      }
+    }),
 });
 
 export const collections = { digests };
@@ -92,10 +108,10 @@ export const collections = { digests };
 | `summary` | string | ◯ | 1〜2 文の要約。OG 画像 / RSS 記述 / 一覧で使用 |
 | `topics` | string[] | ◯ | 編集者が選んだ主要トピック(自由記述、3〜5 個推奨) |
 | `sections` | object[] | × | 言及する記事ごとに見出し + 編集者コメントをまとめた配列。配列順がそのまま「ユーザーが見てほしい順(編集者の緊急度判断)」として表示順になる |
-| `sections[i].articleId` | string | ◯ | 該当記事の id |
+| `sections[i].articleIds` | string[] | ◯ | 該当記事の id(1 件以上。同じ論点で複数の記事を引く) |
 | `sections[i].heading` | string | ◯ | セクションの h2 見出し(編集者が論点を 1 行で抽出) |
 | `sections[i].comment` | string | ◯ | 編集者コメント(markdown 記法可、200〜400 字目安)。`marked` で HTML 化 |
-| `relatedEvidenceUrls` | URL[] | × | edu-evidence 側の戦略 / コラム URL。本文末尾の関連リンクとして表示 |
+| `relatedEvidenceUrls` | `{ url, title }[]` | × | 姉妹サイト(edu-evidence / edu-law)のページ(URL と表示タイトル。ADR 0059)。本文末尾の「関連リンク(姉妹サイト)」として表示 |
 
 ### 3.4 本文 markdown
 
@@ -120,7 +136,7 @@ export const collections = { digests };
 2. **編集者まえがき**: 本文 markdown(`<Content />`)を render。週全体を貫く論旨を 100〜300 字で
 3. **論点セクション群**: `sections` 配列を順次反復し、各要素について以下を表示:
    - `<h2>` `section.heading`
-   - `ArticleCard`(`section.articleId` で記事を引いて再描画)
+   - `ArticleCard`(`section.articleIds` の各 id で記事を引いて再描画)
    - `marked(section.comment)` を `set:html` で展開(編集者コメント、200〜400 字)
 4. 「関連エビデンス」: `relatedEvidenceUrls` を `link-underline` でリスト
 5. 前後ナビ: 前週 / 次週へのリンク(getStaticPaths で配列を作りインデックス参照)
