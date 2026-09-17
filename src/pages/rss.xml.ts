@@ -11,7 +11,7 @@ export async function GET(context: APIContext) {
   return rss({
     title: "EduWatch JP — 週次ダイジェスト",
     description:
-      "1 週間の教育ニュースから主要な論点を編集者が整理する週次ダイジェスト。毎週金曜公開。",
+      "1 週間の教育ニュースから主要な論点を編集者が整理する週次ダイジェスト。毎週土曜公開。",
     site: context.site?.toString() ?? "https://news.edu-evidence.org",
     items: sorted.map((d) => ({
       title: d.data.title,
