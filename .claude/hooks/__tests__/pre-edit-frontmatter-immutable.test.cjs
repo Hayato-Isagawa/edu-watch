@@ -655,3 +655,57 @@ test("Edit: origin/main にある号は publishedAt が未来でも公開済み�
   );
   assert.ok(firedOn(editOn(p, "summary: 要約", "summary: 直した要約")));
 });
+
+// ---- updatedAt の値そのものを見る(#695) ----
+
+test("Edit: updatedAt が publishedAt より前なら確認を出す", () => {
+  const p = digestFile(PUBLISHED_BODY);
+  const out = editOn(
+    p,
+    "summary: 要約",
+    'updatedAt: "2026-08-01T10:00:00+09:00"\nsummary: 直した要約'
+  );
+  assert.ok(firedOn(out), "publishedAt より前の updatedAt が素通りしている");
+  assert.match(out.stdout, /publishedAt/);
+});
+
+test("Edit: updatedAt が今日(JST)より後なら確認を出す", () => {
+  const p = digestFile(PUBLISHED_BODY);
+  const out = editOn(
+    p,
+    "summary: 要約",
+    'updatedAt: "2099-01-01T10:00:00+09:00"\nsummary: 直した要約'
+  );
+  assert.ok(firedOn(out));
+  assert.match(out.stdout, /今日/);
+});
+
+test("Edit: updatedAt がオフセット付き ISO8601 でなければ確認を出す", () => {
+  const p = digestFile(PUBLISHED_BODY);
+  // 最後の 1 つは regex を通るが Date.parse が NaN になる形(isFinite の分岐)
+  for (const bad of [
+    "tomorrow",
+    "2026-09-17",
+    "2026-09-17T10:00:00",
+    "2026-13-01T10:00:00+09:00",
+  ]) {
+    const out = editOn(
+      p,
+      "summary: 要約",
+      `updatedAt: "${bad}"\nsummary: 直した要約`
+    );
+    assert.ok(firedOn(out), `${bad} が素通りしている`);
+    assert.match(out.stdout, /ISO8601/);
+  }
+});
+
+test("Edit: publishedAt 以降・今日以前のオフセット付き ISO8601 なら素通りする", () => {
+  const p = digestFile(PUBLISHED_BODY);
+  // 今日の JST 00:30 を +09:00 で書く(境界の日付側)
+  const out = editOn(
+    p,
+    "summary: 要約",
+    `updatedAt: "${todayJst}T00:30:00+09:00"\nsummary: 直した要約`
+  );
+  assert.equal(firedOn(out), false);
+});

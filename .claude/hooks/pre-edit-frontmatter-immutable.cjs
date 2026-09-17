@@ -23,8 +23,13 @@
  * origin/main is only as fresh as the last fetch, so a digest merged on
  * GitHub but not yet fetched here still counts as unpublished);
  * when git cannot answer, publishedAt < now is the fallback. The edit passes
- * when it sets updatedAt to a new value, or when the file on disk already
- * has updatedAt dated today (JST); otherwise → "ask".
+ * when it sets updatedAt to a new value (offset ISO8601, >= publishedAt,
+ * not after today JST), or when the file on disk already has updatedAt dated
+ * today (JST); otherwise → "ask". Every edit of a published digest counts,
+ * including topics / formatting-only changes (ADR 0071 — one rule, no
+ * judgement call). Accepted limits (#695): a publishedAt the regex cannot
+ * read falls back to "unpublished"; the fetch window above; MultiEdit reads
+ * only the first updatedAt line across all edits (errs toward asking).
  *
  * Backed by DELEGATE-52 (arxiv 2604.15597) — sparse silent corruption
  * (Claude 4.6 Opus 26.9% rate) most often targets numeric/URL frontmatter.
@@ -182,6 +187,31 @@ function isPublished(filePath, current, nowMs) {
   return Number.isFinite(publishedAt) && publishedAt < nowMs;
 }
 
+// content.config.ts の z.string().datetime({ offset: true }) と同じ形(オフセット付き ISO8601)
+const ISO_OFFSET_RE =
+  /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?(?:Z|[+-]\d{2}:\d{2})$/;
+
+// 新しく書かれた updatedAt の値そのもの。zod は publishedAt 以降しか見ないので、
+// 非 ISO・未来(今日の JST より後)はビルドを通ってしまう。ここで一緒に止める(#695)
+function validateUpdatedAt(value, current, nowMs) {
+  const problems = [];
+  const ms = Date.parse(value);
+  if (!ISO_OFFSET_RE.test(value) || !Number.isFinite(ms)) {
+    problems.push(
+      "オフセット付き ISO8601(例: 2026-09-17T10:00:00+09:00)ではない"
+    );
+  } else {
+    const publishedAt = Date.parse(
+      readField(PUBLISHED_AT_RE, extractFrontmatter(current)) ?? ""
+    );
+    if (Number.isFinite(publishedAt) && ms < publishedAt)
+      problems.push("publishedAt より前");
+    if (jstDate(ms) > jstDate(nowMs)) problems.push("今日(JST)より後");
+  }
+  if (!problems.length) return [];
+  return [{ key: "__updatedAtInvalid__", before: [value], after: problems }];
+}
+
 // 公開済みの号を編集するとき、updatedAt が伴っているか。
 // 伴っている = この編集で updatedAt を新しい値にする / ディスクの updatedAt が今日(JST)。
 // 判定できない(ファイルが無い = 新規作成)ときは見ない。読めない他の理由は fail-safe で確認を出す。
@@ -203,7 +233,9 @@ function evaluateUpdatedAt(filePath, _oldStr, newStr, nowMs = Date.now()) {
   const onDisk = readField(UPDATED_AT_RE, extractFrontmatter(current));
   const after = readField(UPDATED_AT_RE, newStr);
   // ディスクと同じ値の書き直しは「更新」ではない(Edit の old_string はディスクと一致するので before は見ない)
-  if (after !== null && after !== onDisk) return [];
+  if (after !== null && after !== onDisk) {
+    return validateUpdatedAt(after, current, nowMs);
+  }
   const onDiskMs = Date.parse(onDisk ?? "");
   if (Number.isFinite(onDiskMs) && jstDate(onDiskMs) === jstDate(nowMs))
     return [];
@@ -253,6 +285,12 @@ function buildReason(diffs, filePath) {
     `[frontmatter-immutable] Protected fields changed in ${filePath}:`,
   ];
   for (const d of diffs) {
+    if (d.key === "__updatedAtInvalid__") {
+      lines.push(
+        `  updatedAt: ${fmtVal(d.before)} は ${d.after.join(" / ")}(publishedAt 以降・今日以前のオフセット付き ISO8601 にする)`
+      );
+      continue;
+    }
     if (d.key === "__updatedAt__") {
       lines.push(
         `  updatedAt: 公開済みの号を編集していますが updatedAt が更新されていません(現在: ${fmtVal(d.before)})`
