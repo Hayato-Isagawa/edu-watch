@@ -55,6 +55,7 @@ const digests = defineCollection({
     weekStart: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
     weekEnd: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
     publishedAt: z.string().datetime({ offset: true }),
+    updatedAt: z.string().datetime({ offset: true }).optional(),
     summary: z.string().min(1),
     topics: z.array(z.string().min(1)).min(1),
     sections: z
@@ -87,6 +88,7 @@ export const collections = { digests };
 | `weekStart` | `YYYY-MM-DD` | ◯ | 集計対象週の月曜(JST) |
 | `weekEnd` | `YYYY-MM-DD` | ◯ | 集計対象週の日曜(JST) |
 | `publishedAt` | ISO8601 | ◯ | 公開タイムスタンプ(通常 weekEnd の翌金曜) |
+| `updatedAt` | ISO8601 | × | 公開後に title / 本文を直した日時。`Article.dateModified` に出す(無ければ `publishedAt`)。`publishedAt` より前はビルドで止まる(ADR 0071) |
 | `summary` | string | ◯ | 1〜2 文の要約。OG 画像 / RSS 記述 / 一覧で使用 |
 | `topics` | string[] | ◯ | 編集者が選んだ主要トピック(自由記述、3〜5 個推奨) |
 | `sections` | object[] | × | 言及する記事ごとに見出し + 編集者コメントをまとめた配列。配列順がそのまま「ユーザーが見てほしい順(編集者の緊急度判断)」として表示順になる |

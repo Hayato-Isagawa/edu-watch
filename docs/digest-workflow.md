@@ -98,7 +98,7 @@ EduWatch の週次ダイジェスト（`src/content/digests/YYYY-MM-DD.md`）は
 
 - post-draft の**逐語照合＋抽出表は毎回（全 digest）**実施する。軽量で、数値・固有名詞・日付の取り違えを広く拾う。
 - **機微事実ティアの 4 点規律は、claim が死傷者・法令・金額に該当する回のみ**発火する。重い手順をリスクに比例させ、毎週の運用が形骸化しないようにする。
-- ゲートを抜けた後に誤りが見つかった場合(公開後の訂正)は、[`ADR 0064`](decisions/0064-post-publication-correction-policy.md) に従う。訂正は changelog の 1 行で開示し、その 1 行の型と下限は同 ADR の D3 に定めてある。
+- ゲートを抜けた後に誤りが見つかった場合(公開後の訂正)は、[`ADR 0064`](decisions/0064-post-publication-correction-policy.md) に従う。訂正は changelog の 1 行で開示し、その 1 行の型と下限は同 ADR の D3 に定めてある。訂正した号の frontmatter には `updatedAt` を書く（title を変える場合と同じ。下記「執筆上の約束」の `title` 箇条）。
 
 ## 表示確認ゲート（開発サーバーでの目視）
 
@@ -161,5 +161,5 @@ digest は [`sprint-4-design.md`](./sprint-4-design.md) §5.1 のとおり先に
   - **この規約に機械検査は無い**（`content.config.ts` は `min(1)` のみ、textlint は frontmatter を見ない、e2e / VRT も title を assert しない）。違反しても静かに通るので、レビューで人が見る。
   - 号を読む動機づけは `summary` が担う。論点そのものは sections の heading から詳細ページに「今週の論点」として自動表示される。
   - **字数の上限は OG ではなく一覧カードの縦の伸びで決めている。** OG は title を 2 段に分けて描くので、45〜65 字の帯なら上段は 2 行に収まる（実測は「表示確認ゲート」step 4）。効くのは一覧カードのほうで、320px では 4〜6 行になり、長くするほど 1 件が縦に伸びる。
-  - 既に公開した号の title を後から変える場合、**`publishedAt` は触らない**。OG のキャッシュ更新は [`ADR 0067`](decisions/0067-og-cache-version-source.md) により `src/data/og-version.ts` の `OG_DIGEST_VERSION` が担うので、上げるのはこの定数（変更日の `YYYYMMDD`）。ADR 0034 が定めていた `publishedAt` の書き換えは、一覧の並び・公開日表示・RSS を壊すため採らない（同 ADR の当該部分は 0067 に上書きされた）。未公開の号には適用しない。
+  - 既に公開した号の title を後から変える場合、**`publishedAt` は触らない**。代わりに frontmatter の **`updatedAt`** に変更日時（ISO8601、`publishedAt` と同じ JST オフセット付き）を書く — `Article.dateModified` に出る（[`ADR 0071`](decisions/0071-jsonld-no-sister-relation-and-digest-updated-at.md)。無い号は `publishedAt` が出る。`publishedAt` より前の値はビルドで止まる）。OG のキャッシュ更新は [`ADR 0067`](decisions/0067-og-cache-version-source.md) により `src/data/og-version.ts` の `OG_DIGEST_VERSION` が担うので、上げるのはこの定数（変更日の `YYYYMMDD`）。`updatedAt` は OG の版元にはならない。ADR 0034 が定めていた `publishedAt` の書き換えは、一覧の並び・公開日表示・RSS を壊すため採らない（同 ADR の当該部分は 0067 に上書きされた）。未公開の号には適用しない。
 - **summary**: 1〜2 文・100〜130 字目安のリード文。論点の列挙や無理な接続はしない（論点一覧は sections の heading から詳細ページに「今週の論点」として自動表示される）。meta description / OG / RSS / 一覧カードにそのまま使われるため、単独で読んで意味が通る文にする。**title の理由①と同じく、号全体を束ねる総括文は置かない**（「いずれも〜という動きです」型）。字数が足りないときは総括で埋めず、検証済みの事実（日付・人数・規模）を足す。**ただし title / summary は手順の最後に書くため、後段検証ゲートの後で触りやすい。足した事実は必ず post-draft ゲートに戻して原典に当て直す**（上記「書き換えた文は必ず原典に当て直す」と同じ規律。ADR 0064 を生んだのはこの穴）。

@@ -1,6 +1,6 @@
 # 0067. 動的 OG のキャッシュバスティングを単一の版数定数で行う
 
-- 状態: 採用(0034 の動的 OG `?v=` 版元を上書き)
+- 状態: 採用(0034 の動的 OG `?v=` 版元を上書き。「digest には読者向けの更新日フィールドが無い」という前提は [`ADR 0071`](0071-jsonld-no-sister-relation-and-digest-updated-at.md) の `updatedAt` で成り立たなくなったが、OG の版元は本 ADR のまま)
 - 日付: 2026-08-22
 - 関連 PR: `feat/og-cache-version-constant`
 - 関連 ADR: [`ADR 0031`](0031-og-image-dynamic-with-bundled-font.md)(ダイジェスト個別ページの動的 OG) / [`ADR 0032`](0032-static-default-og-image.md)(静的 default OG) / [`ADR 0034`](0034-og-cache-refresh-policy.md)(OG キャッシュ更新ポリシー)
