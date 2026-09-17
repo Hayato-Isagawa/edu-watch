@@ -106,7 +106,7 @@ export function getArticlesBySource(sourceId: string): Article[] {
 
 /**
  * id 配列から該当する記事を順序を維持して返す。未存在 id はスキップ。
- * 週次ダイジェストの referencedArticleIds などから使用。
+ * 週次ダイジェストの sections[].articleIds などから使用。
  */
 export function getArticlesByIds(ids: readonly string[]): Article[] {
   const all = loadAllSorted();

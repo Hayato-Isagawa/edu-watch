@@ -28,4 +28,4 @@ relatedEvidenceUrls:
 
 - 執筆ガイド: `docs/sprint-4-design.md` §5(編集ワークフロー)
 - 配列順がそのまま読者への提示順(緊急度・重要度で編集者が判断)
-- 公開日: 毎週土曜 JST 朝(初運用は柔軟に)
+- 公開日: 毎週土曜 JST(遅くとも月曜。`docs/digest-workflow.md`「執筆上の約束」)
