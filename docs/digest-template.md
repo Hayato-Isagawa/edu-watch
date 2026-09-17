@@ -20,7 +20,8 @@ sections:
     comment: |
       次の論点コメント。
 relatedEvidenceUrls:
-  - https://edu-evidence.org/strategies/example
+  - url: https://edu-evidence.org/strategies/example/
+    title: 表示するタイトル
 ---
 
 ## このダイジェストの執筆について
