@@ -16,6 +16,16 @@
  * lives as a YAML list, so we compare URL multisets across the whole
  * frontmatter section).
  *
+ * Plus (#688): editing a digest that is already published must carry
+ * `updatedAt` (ADR 0071 — it feeds Article.dateModified). "Published" means
+ * the file exists on origin/main (digests are usually merged hours after
+ * their publishedAt, so the timestamp alone would flag the writing window;
+ * origin/main is only as fresh as the last fetch, so a digest merged on
+ * GitHub but not yet fetched here still counts as unpublished);
+ * when git cannot answer, publishedAt < now is the fallback. The edit passes
+ * when it sets updatedAt to a new value, or when the file on disk already
+ * has updatedAt dated today (JST); otherwise → "ask".
+ *
  * Backed by DELEGATE-52 (arxiv 2604.15597) — sparse silent corruption
  * (Claude 4.6 Opus 26.9% rate) most often targets numeric/URL frontmatter.
  */
@@ -129,18 +139,93 @@ function evaluateWrite(filePath, content) {
   return evaluatePair(current, content ?? "");
 }
 
+const UPDATED_AT_RE = /^[ \t]*updatedAt:[ \t]*["']?([^"'\n]+?)["']?[ \t]*$/m;
+const PUBLISHED_AT_RE =
+  /^[ \t]*publishedAt:[ \t]*["']?([^"'\n]+?)["']?[ \t]*$/m;
+
+function readField(re, text) {
+  const m = (text ?? "").match(re);
+  return m ? m[1] : null;
+}
+
+// JST の暦日(YYYY-MM-DD)。digest の日時は全て +09:00 で書かれている
+function jstDate(ms) {
+  return new Date(ms + 9 * 60 * 60 * 1000).toISOString().slice(0, 10);
+}
+
+// 公開済み = origin/main に同じパスがある(= 配信済み)。publishedAt < 今 で判定すると、
+// 号は publishedAt(土曜 07:00)の後にマージされることが多いので、執筆中の Edit まで
+// 止めてしまう。git が答えられないとき(リポ外・origin/main 無し)だけ publishedAt で代用する
+function isPublished(filePath, current, nowMs) {
+  const path = require("node:path");
+  const r = require("node:child_process").spawnSync(
+    "git",
+    [
+      "-C",
+      path.dirname(filePath),
+      "cat-file",
+      "-e",
+      `origin/main:./${path.basename(filePath)}`,
+    ],
+    // stderr の文言で「無い」を判定するので、ロケールで訳されないよう C に固定する
+    { encoding: "utf8", timeout: 2000, env: { ...process.env, LC_ALL: "C" } }
+  );
+  if (r.status === 0) return true;
+  if (
+    r.status === 128 &&
+    /does not exist|exists on disk, but not in/.test(r.stderr || "")
+  )
+    return false;
+  const publishedAt = Date.parse(
+    readField(PUBLISHED_AT_RE, extractFrontmatter(current)) ?? ""
+  );
+  return Number.isFinite(publishedAt) && publishedAt < nowMs;
+}
+
+// 公開済みの号を編集するとき、updatedAt が伴っているか。
+// 伴っている = この編集で updatedAt を新しい値にする / ディスクの updatedAt が今日(JST)。
+// 判定できない(ファイルが無い = 新規作成)ときは見ない。読めない他の理由は fail-safe で確認を出す。
+function evaluateUpdatedAt(filePath, _oldStr, newStr, nowMs = Date.now()) {
+  let current;
+  try {
+    current = require("node:fs").readFileSync(filePath, "utf8");
+  } catch (err) {
+    if (err && err.code === "ENOENT") return [];
+    return [
+      {
+        key: "__unreadable__",
+        before: [String(err && err.code) || "read error"],
+        after: [],
+      },
+    ];
+  }
+  if (!isPublished(filePath, current, nowMs)) return [];
+  const onDisk = readField(UPDATED_AT_RE, extractFrontmatter(current));
+  const after = readField(UPDATED_AT_RE, newStr);
+  // ディスクと同じ値の書き直しは「更新」ではない(Edit の old_string はディスクと一致するので before は見ない)
+  if (after !== null && after !== onDisk) return [];
+  const onDiskMs = Date.parse(onDisk ?? "");
+  if (Number.isFinite(onDiskMs) && jstDate(onDiskMs) === jstDate(nowMs))
+    return [];
+  return [{ key: "__updatedAt__", before: [onDisk ?? "∅"], after: [] }];
+}
+
 function evaluatePayload(toolName, toolInput) {
+  const filePath = String(toolInput?.file_path || "");
   if (toolName === "Edit") {
-    return evaluatePair(
-      toolInput?.old_string ?? "",
-      toolInput?.new_string ?? ""
-    );
+    const oldS = toolInput?.old_string ?? "";
+    const newS = toolInput?.new_string ?? "";
+    return [
+      ...evaluatePair(oldS, newS),
+      ...evaluateUpdatedAt(filePath, oldS, newS),
+    ];
   }
   if (toolName === "Write") {
-    return evaluateWrite(
-      String(toolInput?.file_path || ""),
-      toolInput?.content ?? ""
-    );
+    const content = toolInput?.content ?? "";
+    const diffs = evaluateWrite(filePath, content);
+    if (diffs.some((d) => d.key === "__unreadable__")) return diffs;
+    // Write は全文なので、updatedAt の before はディスクの現物側で見る
+    return [...diffs, ...evaluateUpdatedAt(filePath, "", content)];
   }
   if (toolName === "MultiEdit") {
     const edits = Array.isArray(toolInput?.edits) ? toolInput.edits : [];
@@ -148,6 +233,9 @@ function evaluatePayload(toolName, toolInput) {
     for (const e of edits) {
       merged.push(...evaluatePair(e?.old_string ?? "", e?.new_string ?? ""));
     }
+    // 複数の編集のどれかが updatedAt を書いていれば足りる
+    const newAll = edits.map((e) => e?.new_string ?? "").join("\n");
+    merged.push(...evaluateUpdatedAt(filePath, "", newAll));
     return merged;
   }
   return [];
@@ -165,6 +253,15 @@ function buildReason(diffs, filePath) {
     `[frontmatter-immutable] Protected fields changed in ${filePath}:`,
   ];
   for (const d of diffs) {
+    if (d.key === "__updatedAt__") {
+      lines.push(
+        `  updatedAt: 公開済みの号を編集していますが updatedAt が更新されていません(現在: ${fmtVal(d.before)})`
+      );
+      lines.push(
+        "    Article.dateModified に出る値なので、この編集と同じ Edit で updatedAt を今日の日時にする(ADR 0071 / docs/digest-workflow.md)"
+      );
+      continue;
+    }
     const label = d.key === "__urls__" ? "urls (frontmatter block)" : d.key;
     lines.push(`  ${label}:`);
     lines.push(`    before: ${fmtVal(d.before)}`);
@@ -222,6 +319,8 @@ module.exports = {
   extractFrontmatter,
   captureProtectedFields,
   diffMaps,
+  evaluateUpdatedAt,
+  isPublished,
   PROTECTED_KEYS,
   TARGET_PATH_RE,
 };
