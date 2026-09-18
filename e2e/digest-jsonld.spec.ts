@@ -103,28 +103,47 @@ function checkNodeShapes(value: unknown, where = "$") {
       continue;
     }
     if (key === "sameAs") {
-      // sameAs は URL 文字列の配列。Organization のファミリードメイン不在は呼び出し側が見る。
+      // sameAs は http(s) の URL 文字列の配列。Organization のファミリードメイン不在は呼び出し側が見る。
       // Person(著者)のファミリードメインは許す — 同一人物のページなので定義どおり(ADR 0071)
       expect(Array.isArray(v), `${where}.sameAs は配列`).toBe(true);
       for (const u of v as unknown[]) {
         expect(typeof u, `${where}.sameAs の要素は文字列`).toBe("string");
+        // mailto: / javascript: / data: も URL.canParse は通すので、スキームを http(s) に限る(#709)
         expect(
-          URL.canParse(u as string),
-          `${where}.sameAs が URL でない: ${u}`
+          /^https?:\/\//i.test((u as string).trim()) &&
+            URL.canParse((u as string).trim()),
+          `${where}.sameAs が http(s) の URL でない: ${u}`
         ).toBe(true);
       }
       continue;
     }
+    if (Array.isArray(v)) {
+      // サイトが文字列の配列で書くのは sameAs だけ。url / logo を配列にすると要素のホストを
+      // 見ないまま通るので、他のキーの配列はオブジェクトの並び(再帰で形を見る)に限る(#709)
+      for (const [i, item] of v.entries()) {
+        expect(
+          item !== null && typeof item === "object" && !Array.isArray(item),
+          `${where}.${key}[${i}]: sameAs 以外の配列はオブジェクトの並びに限る`
+        ).toBe(true);
+      }
+    }
     if (typeof v === "string") {
-      // 前方一致 /^https?:\/\// だと `//host` や大文字スキーム・先頭空白が抜ける(#704)
+      // 前方一致 /^https?:\/\// だと `//host` や大文字スキーム・先頭空白が抜ける(#704)。
+      // `https:host` / `https:/host` / `https:\\host` も WHATWG はホストに解釈するので、
+      // http(s) スキームか `//` で始まれば URL として構文解析して見る(#709)
       const trimmed = v.trim();
-      if (/^(?:https?:)?\/\//i.test(trimmed)) {
-        const url = new URL(
-          trimmed.startsWith("//") ? `https:${trimmed}` : trimmed
-        );
-        expect(url.host, `${where}.${key} が自サイトを指していない: ${v}`).toBe(
-          siteHost
-        );
+      if (/^(?:https?:|\/\/)/i.test(trimmed)) {
+        const candidate = trimmed.startsWith("//")
+          ? `https:${trimmed}`
+          : trimmed;
+        expect(
+          URL.canParse(candidate),
+          `${where}.${key} が URL として読めない: ${v}`
+        ).toBe(true);
+        expect(
+          new URL(candidate).host,
+          `${where}.${key} が自サイトを指していない: ${v}`
+        ).toBe(siteHost);
       }
     }
     checkNodeShapes(v, `${where}.${key}`);
