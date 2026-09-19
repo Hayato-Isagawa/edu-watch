@@ -1,0 +1,101 @@
+# PR の GitHub Actions が全部終わり、全部成功したときだけ、PR に 1 件コメントする。
+#
+# 目的は GitHub Mobile の push 通知を 1 回にまとめること。アプリの「ワークフロー実行」
+# 通知は workflow run 1 本ごとに届く(2026-09-19 実測)ので、代わりに @メンション入りの
+# コメントを 1 件だけ付け、「ダイレクトメンション」の通知で受ける。
+#
+# 失敗したときは何もしない。集約 workflow 自身を赤にすると、それが別の通知源になる。
+#
+# 見るのは GitHub Actions の check-run だけ。Cloudflare Workers Builds の check-run は
+# workflow_run を起こさないので、それを待つと再判定の機会が無く、通知が黙って消える。
+#
+# workflow_run は既定ブランチ上の定義でしか発火しない。この workflow を足す PR では
+# 動かず、マージ後の PR から効く。run は既定ブランチの sha に紐づくので、PR の
+# check 一覧には出ず、required check にも影響しない。
+
+name: CI summary
+
+on:
+  workflow_run:
+    # PR で走りうる workflow の name:。PR 起動の workflow を足したらここにも足す。
+    # Dependabot auto-merge も入れる。人間の PR では job が skipped で完了するが、
+    # それが最後に完了した workflow だと再判定の機会が無くなる(Dependabot の PR 自体は
+    # 下の if で除外している)。
+    workflows: [Checks, E2E Tests, VRT, Security Audit, Health check, Bot PR watchdog, Dependabot auto-merge]
+    types: [completed]
+
+permissions:
+  checks: read # commits/{sha}/check-runs
+  pull-requests: write # commits/{sha}/pulls の参照とコメント投稿
+
+# 同じ commit の判定を直列化する。pending は 1 本しか残らず古い pending は cancel されるが、
+# 生き残る最新の run が全件を見直すので判定は変わらない。
+concurrency:
+  group: ci-summary-${{ github.event.workflow_run.head_sha }}
+  cancel-in-progress: false
+
+jobs:
+  notify:
+    # 起動元の conclusion では絞らない(skipped / failure でも走る)。成否は下の
+    # check-run 走査が全件で見る。conclusion == 'success' で絞ると、最後に完了した
+    # workflow が skipped のときに再判定が走らず通知が消える。
+    if: >-
+      github.event.workflow_run.event == 'pull_request' &&
+      github.event.workflow_run.triggering_actor.login != 'dependabot[bot]'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      # checkout しないので gh にはリポを GH_REPO で渡す。
+      # workflow_run の token は write を持つので、PR 側が決められる文字列
+      # (head_branch / display_title 等)は run: に展開しない。
+      - name: Comment on the PR when every Actions check on the commit has succeeded
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          SHA: ${{ github.event.workflow_run.head_sha }}
+          PR_FROM_EVENT: ${{ github.event.workflow_run.pull_requests[0].number }}
+          SELF: ${{ github.job }} # check-run の name は job 名
+        run: |
+          set -euo pipefail
+
+          runs=$(gh api --paginate "repos/${GH_REPO}/commits/${SHA}/check-runs" \
+            --jq '.check_runs[] | select(.app.slug == "github-actions") | [.name, .status, .conclusion] | @tsv' \
+            | { grep -v -F "$SELF" || true; })
+
+          if [ -z "$runs" ]; then
+            echo "no Actions check-runs on ${SHA}; nothing to do"
+            exit 0
+          fi
+          printf '%s\n' "$runs"
+
+          if printf '%s\n' "$runs" | awk -F'\t' '$2 != "completed" { found = 1 } END { exit !found }'; then
+            echo "some checks are still running; a later completion will re-evaluate"
+            exit 0
+          fi
+          # skipped は許容する。人間の PR では Dependabot auto-merge の job が skipped になる。
+          if printf '%s\n' "$runs" | awk -F'\t' '$3 != "success" && $3 != "skipped" && $3 != "neutral" { found = 1 } END { exit !found }'; then
+            echo "some checks did not succeed; not notifying"
+            exit 0
+          fi
+
+          pr="${PR_FROM_EVENT}"
+          if [ -z "$pr" ]; then
+            pr=$(gh api "repos/${GH_REPO}/commits/${SHA}/pulls" --jq '.[0].number // empty')
+          fi
+          if [ -z "$pr" ]; then
+            echo "no pull request found for ${SHA}; nothing to do"
+            exit 0
+          fi
+
+          # 一度変数に受け、パイプを使わずに探す。`gh ... | grep -q` だと、grep が先に抜けたときの
+          # SIGPIPE や API エラーが pipefail で「未投稿」と読まれ、二重投稿になる(printf | grep でも同じ)。
+          marker="<!-- ci-summary: ${SHA} -->"
+          comments=$(gh api --paginate "repos/${GH_REPO}/issues/${pr}/comments" --jq '.[].body')
+          if [[ "$comments" == *"$marker"* ]]; then
+            echo "already commented on #${pr} for ${SHA}"
+            exit 0
+          fi
+
+          # REST で投稿する(pull-requests: write で足りることが権限表で確認できる経路)
+          gh api "repos/${GH_REPO}/issues/${pr}/comments" \
+            -f body="✅ CI 全件成功（${SHA:0:7}）@Hayato-Isagawa"$'\n'"${marker}" > /dev/null
