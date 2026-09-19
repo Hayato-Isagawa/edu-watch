@@ -38,6 +38,10 @@ function collectTypes(value: unknown, found: unknown[] = []) {
 }
 
 const siteHost = "news.edu-evidence.org";
+// Organization の sameAs は自組織の SNS だけ(ADR 0071)。家族ドメインの不在だけ見ると
+// `x.com/edu_law_jp` のように SNS 側で姉妹を指す形や、末尾ドット付きの `edu-evidence.org.`
+// (hostname にドットが残って終端一致しない)が通るので、値ごと固定する
+const organizationSameAs = ["https://x.com/edu_evidence_jp"];
 // サイトが JSON-LD に書く @type の全部(dist の全 HTML を走査して決めた)。schema.org の
 // Organization の下位クラスは 187 あり名前が Organization で終わるのは 8 つだけ(Corporation /
 // NGO / OnlineBusiness 等は終わらない)なので、Organization を拾う側の網では姉妹ノードを別の型で
@@ -103,7 +107,7 @@ function checkNodeShapes(value: unknown, where = "$") {
       continue;
     }
     if (key === "sameAs") {
-      // sameAs は http(s) の URL 文字列の配列。Organization のファミリードメイン不在は呼び出し側が見る。
+      // sameAs は http(s) の URL 文字列の配列。Organization の値は呼び出し側が固定する。
       // Person(著者)のファミリードメインは許す — 同一人物のページなので定義どおり(ADR 0071)
       expect(Array.isArray(v), `${where}.sameAs は配列`).toBe(true);
       for (const u of v as unknown[]) {
@@ -204,16 +208,18 @@ test.describe("ダイジェストの構造化データ", () => {
         ).toContain(key);
       }
       // 許すキーだけで書いた姉妹組織のノードを publisher 以外のスロットに置く形は、キー検査を
-      // 通る。値で見る — 集めた Organization はすべて自サイトを指す(#691)
+      // 通る。値で見る — 集めた Organization はすべて自サイトを指し(#691)、sameAs は自組織の
+      // SNS だけ
       expect(
         new URL(String(organization.url)).host,
         `Organization の url が自サイトでない: ${organization.url}`
       ).toBe(siteHost);
-      for (const url of (organization.sameAs ?? []) as string[]) {
-        const host = new URL(url).hostname;
-        expect(
-          host === "edu-evidence.org" || host.endsWith(".edu-evidence.org")
-        ).toBe(false);
+      // Article.publisher は sameAs を持たない。持つなら値ごと固定する(トップレベルの
+      // Organization が sameAs を持つことは、下のキー集合の完全一致が見る)
+      if ("sameAs" in organization) {
+        expect(organization.sameAs, "Organization の sameAs").toEqual(
+          organizationSameAs
+        );
       }
     }
     const topLevel = scripts.filter((s) => isOrganizationType(s?.["@type"]));
