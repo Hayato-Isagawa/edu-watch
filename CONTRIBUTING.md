@@ -19,6 +19,8 @@ EduWatch JP への貢献に興味を持っていただきありがとうござ�
 3. 変更をコミット
 4. push して PR を作成
 
+PR の GitHub Actions がすべて成功すると、`CI summary` workflow が PR に 1 件コメントします(`.github/workflows/ci-summary.yml`)。メンテナへの通知用で、失敗時には何も付きません。
+
 ### changelog を同じ PR で更新する
 
 読み手の行動や体験が変わる変更では、`src/pages/changelog.astro` を同じ PR の中で更新する。後からまとめて埋めない。
