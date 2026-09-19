@@ -39,9 +39,14 @@ jobs:
     # 起動元の conclusion では絞らない(skipped / failure でも走る)。成否は下の
     # check-run 走査が全件で見る。conclusion == 'success' で絞ると、最後に完了した
     # workflow が skipped のときに再判定が走らず通知が消える。
+    #
+    # fetch-news / recheck-nikkyo-membership が PAT で作る自動 PR(auto-merge 付き)は
+    # 対象外。run の actor は PAT の持ち主なので actor では見分けられず、ブランチ名で除く。
     if: >-
       github.event.workflow_run.event == 'pull_request' &&
-      github.event.workflow_run.triggering_actor.login != 'dependabot[bot]'
+      github.event.workflow_run.triggering_actor.login != 'dependabot[bot]' &&
+      !startsWith(github.event.workflow_run.head_branch, 'chore/auto-collect-') &&
+      !startsWith(github.event.workflow_run.head_branch, 'chore/recheck-nikkyo-')
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
