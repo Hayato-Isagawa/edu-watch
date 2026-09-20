@@ -28,13 +28,13 @@ npm run format             # oxfmt で整形(.ts/.js/.json 等。.astro / .md / 
 npm run format:check       # 同上の差分検査(CI はこちら)
 npm run check              # Astro 型チェック
 npm run vrt                # ビジュアルリグレッションテスト(現 dist を撮影・比較。権威ある比較は CI、後述)
-npm run test:workflows     # link-check.yml の通知分岐と VRT の配線の回帰テスト(下限つき・check:all に含む)
+npm run test:workflows     # link-check.yml の通知分岐・VRT の配線・ci-summary.yml の通知判定の回帰テスト(下限つき・check:all に含む)
 npm run test:hooks         # .claude/hooks/ の回帰テスト(下限つき)
 ```
 
 `package.json` の `engines.node` は `>=24.0.0`。
 
-### `test:workflows` — link-check の通知分岐と VRT のベースライン配線
+### `test:workflows` — link-check の通知分岐と VRT のベースライン配線・ci-summary の通知判定
 
 `link-check.yml` に埋め込まれた「検出をどう届けるか」の判定を固定する。**壊れても静かに壊れる** —
 lychee は走り、レポートもアーティファクトに残り、job も緑のまま**通知だけ**が消える。姉妹リポ
@@ -64,7 +64,7 @@ okinawa-in-data では open な link-check Issue があると後続の検出を�
 PR のコンテンツ」で撮る配線(ADR 0068)も、**壊れても CI は緑のまま**だから — 運ぶ素材を 1 つ
 落としても、テストは走り、多くのページは通る。一番腐りやすいのは運ぶ素材の allowlist なので、
 `src/` の実ディレクトリを走査して「運ぶ・`paths` で監視する・描画に入らないと明言する」の
-三択を強制している。**テストを足したら `package.json` の下限(現在 76、実測ちょうど)も上げること。**
+三択を強制している。**テストを足したら `package.json` の下限(現在 96、実測ちょうど)も上げること。**
 
 `vrt-targets.test.mjs` も同じ口にある。VRT の撮影が**静かに減る**経路(対象を消す・ループを絞る・
 projects を削る・skip に落とす・`fullPage` を落とす・比較設定を緩める・比較ステップを撮り直しにする・
@@ -74,6 +74,15 @@ VRT 自身では捕まえられない — VRT は `paths` に載る PR でしか
 `playwright test --list` の実出力と突き合わせ、`src/pages/` のテンプレートと 1 対 1 で対応することを
 要求する(`/changelog` だけ除外)。**残る穴は spec の書き方そのもの**(`toHaveScreenshot` の第 2 引数での
 上書き・実行時 `test.skip(条件)`・import 元の差し替え・`emulateMedia` でのテーマ上書き)で、`vrt/pages.spec.ts` 冒頭に注意書きがある。
+
+`ci-summary-workflow.test.mjs` も同じ口。`ci-summary.yml`(PR の Actions が全部成功したときだけ PR に
+@メンション付きコメントを 1 件付け、GitHub Mobile の通知を 1 回にまとめる)は失敗時に何もしない設計なので、
+判定が崩れて通知が消えても workflow は exit 0 のまま。link-check と同じく `run:` を取り出して bash で
+走らせ、`gh` はスタブに差し替える。`--jq` のフィルタは**実 jq に通す** — `.app.slug == "github-actions"` の
+絞り込みが無いと Cloudflare の check-run(`workflow_run` を起こさない)を待ち続けて通知が消えるので、
+フィルタを素通りさせると退行を検出できない。YAML 側は `workflows:` の列挙が「`on:` に `pull_request` を
+持つ workflow の `name:`」と過不足なく一致することも見る(PR 起動の workflow を足したのに列挙し忘れると、
+その完了では再判定が走らない)。
 
 3 つ目は `lychee-action` の `failIfEmpty`(既定 true)の経路。**lychee の終了コードを 0 のまま残して
 action だけが exit 1 する**ので、`exit_code` だけを見ていると通知が skip され、`continue-on-error`
