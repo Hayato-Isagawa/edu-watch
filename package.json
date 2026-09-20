@@ -28,7 +28,7 @@
     "format:check": "oxfmt --check",
     "check:all": "npm run lint && npm run format:check && npm run check:tokens && npm run check && npm run check:text && npm run check:filter && npm run check:excluded-ids && npm run test:ai-summary && npm run test:workflows && npm run test:hooks",
     "test:ai-summary": "node --test 'scripts/ai-summary/*.test.mjs'",
-    "test:workflows": "node scripts/assert-test-files.mjs 'scripts/__tests__/*.test.mjs' && node scripts/assert-test-results.mjs 96 'scripts/__tests__/*.test.mjs'",
+    "test:workflows": "node scripts/assert-test-files.mjs 'scripts/__tests__/*.test.mjs' && node scripts/assert-test-results.mjs 98 'scripts/__tests__/*.test.mjs'",
     "test:hooks": "node scripts/assert-test-files.mjs '.claude/hooks/__tests__/*.test.cjs' && node scripts/assert-test-results.mjs 59 '.claude/hooks/__tests__/*.test.cjs'",
     "test:e2e": "npx playwright test",
     "test:e2e:ui": "npx playwright test --ui",

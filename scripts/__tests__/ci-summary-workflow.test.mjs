@@ -384,6 +384,41 @@ test("PR 由来の run だけを、Dependabot と自動収集 PR を除いて扱
   );
 });
 
+test("permissions: は workflow 直下の 1 か所だけ(job / step には置かない)", () => {
+  // job 直下の `permissions:` は workflow 直下の宣言より優先される。job に `contents: write`
+  // を足すと token の権限が静かに広がるが、workflow 直下だけを読む検査では緑のまま通る。
+  // 字面の `permissions:` を全行拾い、列 0 の 1 行に固定する。
+  const lines = yaml()
+    .split("\n")
+    .filter((l) => /^\s*permissions:/.test(l));
+  assert.deepEqual(lines, ["permissions:"]);
+});
+
+test("job の if: の式のどこにも起動元の conclusion を置かない(末尾形も含む)", () => {
+  // `conclusion == 'success' &&` の先頭形だけでなく、末尾に
+  // `&& github.event.workflow_run.conclusion == 'success'` と付ける形でも、最後に完了した
+  // workflow が skipped のとき再判定が走らず通知が消える。式を丸ごと取り出して見る。
+  const lines = yaml().split("\n");
+  const start = lines.findIndex((l) => /^ {4}if:/.test(l));
+  assert.notEqual(start, -1, "job 直下の if: が見つからない");
+  const expr = [lines[start].replace(/^ {4}if:\s*/, "")];
+  // 継続行は `if:` の列(4)より深い行すべて。`>-` の 6 スペース固定にすると、plain スカラーで
+  // 値の列(8 スペース)に揃えた末尾形が 1 行目で打ち切られて素通りする(YAML の値は同一文字列)。
+  // 空行は折り畳みの途中にも置けるので飛ばす。
+  for (const l of lines.slice(start + 1)) {
+    if (l.trim() === "") continue;
+    if (!/^ {5,}\S/.test(l)) break;
+    expr.push(l.trim());
+  }
+  const joined = expr.join("\n");
+  assert.match(
+    joined,
+    /workflow_run\.event == 'pull_request'/,
+    "if: の式が取れていない"
+  );
+  assert.doesNotMatch(joined, /conclusion/);
+});
+
 test("同じ commit の判定は head_sha で直列化する", () => {
   assert.match(
     yaml(),
