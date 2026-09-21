@@ -55,7 +55,7 @@
     "tailwindcss": "^4.2.2",
     "undici": "^8.10.2",
     "vite": "^8.3.0",
-    "zod": "^4.5.4"
+    "zod": "^4.6.5"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.10",
