@@ -1,5 +1,53 @@
 [
   {
+    "id": "nikkyo-2026-09-20-3cf0104224d51c67",
+    "title": "チーム担任の良さ伝える　横浜市　教員と志望学生が交流",
+    "sourceId": "nikkyo",
+    "sourceName": "日本教育新聞",
+    "sourceUrl": "https://www.kyoiku-press.com/post-315970/",
+    "publishedAt": "2026-09-20T23:50:00.000Z",
+    "collectedAt": "2026-09-21T16:31:56.008Z",
+    "summary": "パネルディスカッションでは、教員ら（右側）からチーム担任制について多くの意見の発表があった 　横浜市教委は４日、教員志望の大学生に教職の魅力を伝えるイベントを横浜市内で開いた。学生や市立学校教員ら約４…",
+    "categories": [
+      "教員・働き方"
+    ],
+    "layer": 2,
+    "language": "ja",
+    "requiresMembership": true
+  },
+  {
+    "id": "nikkyo-2026-09-20-de904435f0ef71a8",
+    "title": "過半数が目標点届かず　河合塾　共通テスト受験者を調査",
+    "sourceId": "nikkyo",
+    "sourceName": "日本教育新聞",
+    "sourceUrl": "https://www.kyoiku-press.com/post-315984/",
+    "publishedAt": "2026-09-20T23:50:00.000Z",
+    "collectedAt": "2026-09-21T16:31:56.008Z",
+    "summary": "昨年度実施の大学入学共通テストの受験者のうち、過半数が目標点数に届かず、７５％以上が時間不足だったことが、河合塾の調査で分かった。国公私立の大学１年生千人が回答。調査は７月１４日から８月３日にかけて…",
+    "categories": [
+      "その他"
+    ],
+    "layer": 2,
+    "language": "ja",
+    "requiresMembership": true
+  },
+  {
+    "id": "nikkyo-2026-09-20-bc13fe6735bcccab",
+    "title": "英検のスコア証明書　デジタル版を無料に",
+    "sourceId": "nikkyo",
+    "sourceName": "日本教育新聞",
+    "sourceUrl": "https://www.kyoiku-press.com/post-315867/",
+    "publishedAt": "2026-09-20T23:50:00.000Z",
+    "collectedAt": "2026-09-21T16:31:56.008Z",
+    "summary": "日本英語検定協会は１５日から、英検に不合格だった受験者にも、英語力を共通尺度で示すCSEスコアのデジタル証明書を無料で発行している。平成３０年度以降に英検や英検S-CBTなどを受験した人が対象となる…",
+    "categories": [
+      "その他"
+    ],
+    "layer": 2,
+    "language": "ja",
+    "requiresMembership": true
+  },
+  {
     "id": "nikkyo-2026-09-20-0cb3e83ef5e1e2eb",
     "title": "社説　指導要領と不登校　「復帰」から「学びの保障」に",
     "sourceId": "nikkyo",
