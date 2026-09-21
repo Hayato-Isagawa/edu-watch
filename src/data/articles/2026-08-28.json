@@ -13,7 +13,8 @@
       "研究・エビデンス"
     ],
     "layer": 2,
-    "language": "ja"
+    "language": "ja",
+    "requiresMembership": true
   },
   {
     "id": "mext-2026-08-28-976985795f5c159e",
@@ -42,7 +43,8 @@
       "政策・制度"
     ],
     "layer": 2,
-    "language": "ja"
+    "language": "ja",
+    "requiresMembership": true
   },
   {
     "id": "nikkyo-2026-08-28-a0248987a2a58e77",
