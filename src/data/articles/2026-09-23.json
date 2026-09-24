@@ -1,5 +1,51 @@
 [
   {
+    "id": "kkn-2026-09-23-944889f6adc85589",
+    "title": "AIの「関わり方」が探究学習に与える効果を検証へ 慶大安宅研究室とマイパレ、実証実験の協力校・生徒を募集",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20260924o04",
+    "publishedAt": "2026-09-23T22:00:25.000Z",
+    "collectedAt": "2026-09-24T00:09:59.393Z",
+    "summary": "生成AIを活用した探究学習支援サービス「マイパレ for school」を展開するマイパレは、慶應義塾大学の安宅和人研究室による研究に協力し、AIの対話スタイルの違いが中高生の探究学習に与える影響を検証する実証実験を10 […]",
+    "categories": [
+      "ICT / GIGA",
+      "研究・エビデンス"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-09-23-a4be6df38d50dcac",
+    "title": "Teach For Japan主催「教師の日ギャザリング」で教員免許状オープンバッジを無料発行へ",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20260924o01",
+    "publishedAt": "2026-09-23T22:00:18.000Z",
+    "collectedAt": "2026-09-24T00:09:59.393Z",
+    "summary": "認定NPO法人Teach For Japanが10月4日に開催するイベント「教師の日ギャザリング2026」において、会場参加者のうち希望する教員免許状保持者を対象に「教員免許状オープンバッジ」が無料で発行される。発行は一 […]",
+    "categories": [
+      "教員・働き方"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-09-23-d015f1d540fee00f",
+    "title": "不登校の子供の「好き」を応援 クラーク国際中等部がプロ絵師を招く体験授業を10/20に開催",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20260924o03",
+    "publishedAt": "2026-09-23T22:00:05.000Z",
+    "collectedAt": "2026-09-24T00:09:59.393Z",
+    "summary": "フリースクールのクラーク国際中等部は、小中学生とその保護者を対象とした体験授業型イベント「プロのイラストレーター・雪月ユキ先生と一緒に、キャラクターの線画に影・立体感をつけよう」を10月20日に全国のキャンパスで開催する […]",
+    "categories": [
+      "不登校"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
     "id": "resemom-2026-09-23-5b6e513210fcfe66",
     "title": "進路選択のヒントに…大学・塾主催イベント、9-11月開催まとめ",
     "sourceId": "resemom",
