@@ -1,6 +1,6 @@
 # 0050. W-1 AI 要約パイプライン MVP(registry 駆動 + per-chunk raw retry + pattern hardening)
 
-- 状態: 採用
+- 状態: 採用 / §決定(7) の週次 cron は [ADR 0072](0072-pause-ai-summary.md) で上書き
 - 日付: 2026-05-21
 - 関連 ADR: 0036(tier 1 公的 PDF を運用範囲に含めた根拠)/ 0040(§C-6 編集者監修フロー、§C-7 採用判定固定)/ 0046(retry 入力 raw 化、Phase 2 正式採用)/ 0008(§3 例外条項、ADR 0040 で追記済)
 - 関連 PR: TBD(本 ADR 起票 PR)

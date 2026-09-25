@@ -1,9 +1,7 @@
 name: AI summary reminder
 
 on:
-  schedule:
-    # JST 月曜 09:00 = UTC 月曜 00:00(ADR 0050 後続 PR、ADR 0040 §C-6 編集者監修フローの週次起点)
-    - cron: "0 0 * * 1"
+  # 週次 cron(JST 月曜 09:00)は ADR 0072 で休止。再開するときは新しい ADR で運用を決め直す
   workflow_dispatch:
 
 concurrency:
@@ -78,7 +76,7 @@ jobs:
               '- LLM 事前知識補完(真の救出率 strict との乖離)',
               '- pattern hardening の副作用(NFKC 正規化の false positive)',
               '- `extract.mjs` page marker root cause',
-              '- 実行コスト(1 エントリ約 43.7 分 / M1 16GB)',
+              '- 実行コスト(ADR 0050 の計測は 3 セクションで計 43.7 分 / M1 16GB。Flash Attention 導入前の値で、導入後は未計測)',
             ].join('\n');
 
             const created = await github.rest.issues.create({

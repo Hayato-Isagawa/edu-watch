@@ -93,7 +93,9 @@ retry プロンプト(`buildRetryPrompt()`)は **循環回収を遮断**する(A
 
 ## 編集者監修フロー
 
-1. `.github/workflows/ai-summary-reminder.yml` が週次 cron + workflow_dispatch でリマインダー issue を起票(対象 entry と実行コマンドを列挙。**パイプライン自体は GHA では走らせず**、推論はローカル Ollama)
+運用は休止中(ADR 0072)。以下は休止前の流れで、再開するときは新しい ADR で決め直す。
+
+1. `.github/workflows/ai-summary-reminder.yml` が workflow_dispatch でリマインダー issue を起票(対象 entry と実行コマンドを列挙。**パイプライン自体は GHA では走らせず**、推論はローカル Ollama。週次 cron は ADR 0072 で休止)
 2. 編集者がローカルで registry の対象 entry を順次 `run-pipeline.mjs` で処理
 3. 出力をブランチに commit し、PR 起票(ブランチ名はリマインダー issue が出す compare URL の例に倣う)
 4. PR 本文(`.github/PULL_REQUEST_TEMPLATE/ai-summary.md`)に: ソース URL / 抽出メタ / 要約 / fact-check 結果 / 監修チェックリスト
@@ -111,6 +113,7 @@ PoC コード(extract-tsuuchi.mjs / mapreduce-v4-tsuuchi.mjs / fact-check-grep.m
 - `docs/decisions/0040-ai-assisted-summary-with-editor-supervision.md` §C-7(採用判定固定)
 - `docs/decisions/0046-promote-raw-chunk-retry-to-phase-2.md`(retry 入力 raw 化の正式採用)
 - `docs/decisions/0050-w1-ai-summary-mvp.md`(本 MVP の決定記録)
+- `docs/decisions/0072-pause-ai-summary.md`(運用の休止)
 - `<運営者ローカルの計画メモ>`(リポジトリ外。W-1 MVP 計画)
 - `experiments/poc-pdf-summary/observation-2026-05-17.md`(答申本体 100% / 概要版 100%)
 - `experiments/poc-pdf-summary/observation-2026-05-19.md`(通知本文 87.5% / 別添資料2 100% / 別添資料3 100%)
