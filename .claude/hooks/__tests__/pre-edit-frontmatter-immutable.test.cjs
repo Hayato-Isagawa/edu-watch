@@ -5,6 +5,7 @@ const assert = require("node:assert/strict");
 const {
   run,
   captureProtectedFields,
+  PROTECTED_KEYS,
   TARGET_PATH_RE,
 } = require("../pre-edit-frontmatter-immutable.cjs");
 
@@ -209,6 +210,32 @@ test("空白の多い入力でも探索が線形にとどまる", () => {
   assert.ok(
     ms < 500,
     `32KB の空白に ${ms.toFixed(0)}ms かかった(二次挙動の疑い)`
+  );
+
+  // 値の途中に長い空白を挟む行。値の捕獲と行末の空白が重なると 2 乗になる。
+  // キーごとに測る(1 キーだけ 2 乗に戻る部分的な退行も捕まえる)
+  for (const key of PROTECTED_KEYS) {
+    const t0 = process.hrtime.bigint();
+    captureProtectedFields(`${key}: a${" ".repeat(32 * 1024)}b`);
+    const inLine = Number(process.hrtime.bigint() - t0) / 1e6;
+    assert.ok(
+      inLine < 500,
+      `${key} の値の中の 32KB の空白に ${inLine.toFixed(0)}ms かかった`
+    );
+  }
+
+  // 線形にしても値の取り方は変えない: 前後の空白を落とす・空白だけなら最後の 1 文字・空なら値なし
+  assert.deepEqual(
+    [
+      ...captureProtectedFields(
+        "title: a  b \t\nweekStart:  \t\nweekEnd:\narticleId:'x'"
+      ),
+    ],
+    [
+      ["title", ["a  b"]],
+      ["weekStart", ["\t"]],
+      ["articleId", ["x"]],
+    ]
   );
 });
 
