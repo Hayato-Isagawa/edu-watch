@@ -120,5 +120,5 @@ EduEvidence JP と共通の運営方針(植物モチーフブランド体系 / N
 - [0069. lint と整形に oxlint / oxfmt を採用する(edu-evidence ADR 0037 ミラー)](0069-oxlint-and-oxfmt.md)
 - [0070. 印刷スタイルを global.css の 1 ブロックで提供する(edu-law ADR 0029 ミラー)](0070-print-stylesheet.md)
 - [0071. Organization JSON-LD に姉妹サイトの関係を書かず、digest の更新日を `updatedAt` で持つ](0071-jsonld-no-sister-relation-and-digest-updated-at.md)
-- [0072. AI 補助 PDF 要約の運用を休止する](0072-pause-ai-summary.md)
+- [0072. AI 補助 PDF 要約の運用を休止する](0072-pause-ai-summary.md)(撤回)
 - [0073. AI 補助 PDF 要約を撤去する](0073-remove-ai-summary.md)
