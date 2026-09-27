@@ -1,6 +1,6 @@
 # 0072. AI 補助 PDF 要約の運用を休止する
 
-- 状態: 採用(0050 §決定(7) の週次 cron を上書き。それ以外の 0040 / 0050 の決定は有効のまま運用を休止) / §決定(2)(3) は [ADR 0073](0073-remove-ai-summary.md) で上書き
+- 状態: 採用(0050 §決定(7) の週次 cron を上書き。それ以外の 0040 / 0050 の決定は有効のまま運用を休止) / §決定(1)〜(4) は [ADR 0073](0073-remove-ai-summary.md) で上書き
 - 日付: 2026-09-25
 - 関連 PR: #742(本 ADR 起票 PR)
 - 関連 ADR: [`ADR 0040`](0040-ai-assisted-summary-with-editor-supervision.md)(AI 補助要約と編集者監修)/ [`ADR 0050`](0050-w1-ai-summary-mvp.md)(W-1 パイプライン MVP)/ [`ADR 0057`](0057-ai-summary-honest-gate.md)(公開可否ゲート)

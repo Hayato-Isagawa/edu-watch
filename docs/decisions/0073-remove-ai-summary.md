@@ -1,9 +1,9 @@
 # 0073. AI 補助 PDF 要約を撤去する
 
-- 状態: 採用(0072 §決定(2)(3) を上書き。0040 / 0045 / 0046 / 0050 / 0054 / 0057 / 0061 を撤回)
+- 状態: 採用(0072 §決定(1)〜(4) と 0008 §3 の例外の運用を上書き。0040 / 0045 / 0046 / 0050 / 0054 / 0057 / 0061 を撤回)
 - 日付: 2026-09-27
 - 関連 PR: TBD(本 ADR 起票 PR)
-- 関連 ADR: [`ADR 0072`](0072-pause-ai-summary.md)(運用の休止)/ [`ADR 0040`](0040-ai-assisted-summary-with-editor-supervision.md)(AI 補助要約と編集者監修)/ [`ADR 0050`](0050-w1-ai-summary-mvp.md)(W-1 パイプライン MVP)
+- 関連 ADR: [`ADR 0072`](0072-pause-ai-summary.md)(運用の休止)/ [`ADR 0040`](0040-ai-assisted-summary-with-editor-supervision.md)(AI 補助要約と編集者監修)/ [`ADR 0050`](0050-w1-ai-summary-mvp.md)(W-1 パイプライン MVP)/ [`ADR 0008`](0008-citation-scope-policy.md)(§3 の例外)
 
 ## 背景
 
@@ -20,13 +20,14 @@ ADR 0072 は運用を休止し、コードと記録を残すと決めた。そ�
 
 1. 次を削除する: `scripts/ai-summary/`・`experiments/poc-pdf-summary/`・`.claude/skills/ai-summary-diagnose/`・`.github/PULL_REQUEST_TEMPLATE/ai-summary.md`・`.github/workflows/ai-summary-reminder.yml`
 2. `test:ai-summary`(`package.json`・`check:all`・`checks.yml` のステップ)を削除する。直接の利用者がいなくなる依存 `pdf-parse` と `undici` を `dependencies` から外す
-3. `.gitignore` から PoC の例外と `tmp/ai-summary/` を外す。`experiments/` を git 管理外・lint 対象外にする設定は ADR 0069 の決定なので残す
-4. 関連 ADR の本文は変えない。本文が指すファイルは、撤去前のコミット `7b110be` で辿れる
+3. `.gitignore` から PoC の例外と `tmp/ai-summary/` を外す。`experiments/` を git 管理外にする汎用行と、lint / format の対象外にする設定(ADR 0069)は残す
+4. ADR 0008 §3 の例外(公的一次ソースを自前で要約する場合。0040 の PR #129 が 0008 に追記し、具体運用を 0040 に委ねていた)は、新しい ADR が運用を決めるまで使わない。0008 の本文は変えない
+5. 関連 ADR の本文は変えない。本文が指すファイルは、撤去前のコミット `7b110be` で辿れる
 
 ## 帰結
 
 - ADR 0040 / 0045 / 0046 / 0050 / 0054 / 0057 / 0061 は撤回になる
-- ADR 0008 §3 の例外(公的一次ソースを自前で要約する場合。具体運用は 0040 で定める)は、運用を定める ADR が無くなる。例外そのものは 0008 の決定なので残る
+- ADR 0008 §3 の例外は文言だけが残り、使われない
 - 再開するときは、新しい ADR で設計からやり直す
 
 ## 撤回 / 再検討の条件

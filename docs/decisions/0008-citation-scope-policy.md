@@ -1,6 +1,6 @@
 # 0008. 引用範囲遵守ポリシーと削除依頼窓口
 
-- 状態: 採用
+- 状態: 採用 / §3 の例外の運用は [ADR 0073](0073-remove-ai-summary.md) で上書き(新しい ADR が決めるまで使わない)
 - 日付: 2026-04-25
 - 関連 PR: TBD(`feat/sprint2-batch2-major-media`)
 
