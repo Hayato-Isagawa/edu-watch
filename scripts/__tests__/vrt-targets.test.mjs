@@ -77,6 +77,11 @@ const REREAD_ENVS = [SCRUBBED, { CI: "true", GITHUB_ACTIONS: "true" }];
 // config が import した共有モジュールや `globalThis` に置いた値は、最初に読んだときの環境の
 // ままになる。最初を CI の環境で読むと、そうした経路に置いた分岐が CI の値で固まって
 // 素通りする(実測)。先に `SCRUBBED` で読めば、固まるのは CI と違う側の値になる。
+// **その代わり、そうした経路に置いた分岐のうち CI の側でだけ値がずれるもの**(例:
+// `threshold: (globalThis.__t ??= process.env.CI ? 0.1 : 0)`)は、どの環境でも素通りする
+// (実測)。同じく、`"RUNNER_OS" in process.env` のように変数の有無で分岐させた形は、`""` と
+// 未定義が区別されるので CI では素通りする。どちらも意図して書かない限り出てこない形として
+// 受け入れている。塞ぐなら、環境ごとに子プロセスで config を読む(キャッシュが持ち越されない)。
 await readConfig(SCRUBBED);
 await readConfig(SCRUBBED, E2E_CONFIG_URL);
 const vrtConfig = await readConfig();

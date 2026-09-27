@@ -80,7 +80,9 @@ project 側に `baseURL` を置くことも許さない。CI では `!process.en
 `PATH` と `VRT_DIST` 以外の環境変数をすべて空にした読み直しと、`CI` / `GITHUB_ACTIONS` を立てた読み直しの
 両方で確かめている。読み直しで跨げるキャッシュは config 本体だけなので、**最初の読み込みを前者の環境で行い**、
 共有モジュールや `globalThis` に置いた分岐も CI と違う側の値で固める。config の `import` 文と
-`import(` / `require(` は `@playwright/test` 以外を止めている(コメントは除いて判定する)。
+`import(` / `require(` は `@playwright/test` 以外を止めている(コメントは除いて判定する)。**素通りする形**は、
+共有モジュールや `globalThis` を経由して CI の側でだけ値がずれる分岐と、変数の有無(`in` / `=== undefined`)で
+分岐させた形で、どちらも意図して書かない限り出てこないとして受け入れている(理由と塞ぎ方はテストのコメント)。
 
 `ci-summary-workflow.test.mjs` も同じ口。`ci-summary.yml`(PR の Actions が全部成功したときだけ PR に
 @メンション付きコメントを 1 件付け、GitHub Mobile の通知を 1 回にまとめる)は失敗時に何もしない設計なので、
