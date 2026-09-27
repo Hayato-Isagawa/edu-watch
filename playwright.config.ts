@@ -15,6 +15,8 @@ export default defineConfig({
   webServer: {
     command: "npx serve dist -l 4174",
     port: 4174,
-    reuseExistingServer: !process.env.CI,
+    // ローカルでも既存のサーバーを再利用しない。4174 に別の配信が残っていると、
+    // その dist を検証してしまう（理由の詳細は playwright.vrt.config.ts）。
+    reuseExistingServer: false,
   },
 });

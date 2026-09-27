@@ -83,6 +83,9 @@ export default defineConfig({
     // 実行のたびに npm から最新版を取ってきて走らせることになる。
     command: `npx serve ${dist} -l 4174`,
     port: 4174,
-    reuseExistingServer: !process.env.CI,
+    // ローカルでも既存のサーバーを再利用しない。4174 に別の配信（表示確認ゲートや、
+    // 別の worktree で走る e2e / VRT）が残っていると、再利用した側はその dist を撮り、
+    // 比較の両側が同じビルドになって緑のまま通る。再利用しなければ起動時に落ちて気づける。
+    reuseExistingServer: false,
   },
 });
