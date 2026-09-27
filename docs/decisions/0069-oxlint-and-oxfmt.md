@@ -1,6 +1,6 @@
 # 0069. lint と整形に oxlint / oxfmt を採用する(edu-evidence ADR 0037 ミラー)
 
-- 状態: 採用
+- 状態: 採用 / `ignorePatterns` の `experiments/**` は [ADR 0074](0074-drop-experiments-ignore.md) で上書き
 - 日付: 2026-09-12
 - 関連 PR: `chore/adopt-oxlint-oxfmt`
 - 関連 ADR: edu-evidence ADR 0037(原本)
