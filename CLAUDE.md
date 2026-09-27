@@ -64,7 +64,7 @@ okinawa-in-data では open な link-check Issue があると後続の検出を�
 PR のコンテンツ」で撮る配線(ADR 0068)も、**壊れても CI は緑のまま**だから — 運ぶ素材を 1 つ
 落としても、テストは走り、多くのページは通る。一番腐りやすいのは運ぶ素材の allowlist なので、
 `src/` の実ディレクトリを走査して「運ぶ・`paths` で監視する・描画に入らないと明言する」の
-三択を強制している。**テストを足したら `package.json` の下限(現在 98、実測ちょうど)も上げること。**
+三択を強制している。**テストを足したら `package.json` の下限(現在 99、実測ちょうど)も上げること。**
 
 `vrt-targets.test.mjs` も同じ口にある。VRT の撮影が**静かに減る**経路(対象を消す・ループを絞る・
 projects を削る・skip に落とす・`fullPage` を落とす・比較設定を緩める・比較ステップを撮り直しにする・
@@ -74,6 +74,9 @@ VRT 自身では捕まえられない — VRT は `paths` に載る PR でしか
 `playwright test --list` の実出力と突き合わせ、`src/pages/` のテンプレートと 1 対 1 で対応することを
 要求する(`/changelog` だけ除外)。**残る穴は spec の書き方そのもの**(`toHaveScreenshot` の第 2 引数での
 上書き・実行時 `test.skip(条件)`・import 元の差し替え・`emulateMedia` でのテーマ上書き)で、`vrt/pages.spec.ts` 冒頭に注意書きがある。
+同じファイルで e2e(`playwright.config.ts`)の `webServer` も固定している。e2e と VRT は同じ 4174 を使い、
+ローカルでも既存のサーバーを再利用しない(`reuseExistingServer: false`)。CI では `!process.env.CI` が
+false に見えて固定値と一致するので、`CI` を空にした読み直しと `true` にした読み直しの両方で確かめている。
 
 `ci-summary-workflow.test.mjs` も同じ口。`ci-summary.yml`(PR の Actions が全部成功したときだけ PR に
 @メンション付きコメントを 1 件付け、GitHub Mobile の通知を 1 回にまとめる)は失敗時に何もしない設計なので、
