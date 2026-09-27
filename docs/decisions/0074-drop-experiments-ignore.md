@@ -2,7 +2,7 @@
 
 - 状態: 採用(0069 の `ignorePatterns` の `experiments/**` と、0073 §決定 3 のうち `experiments/` の汎用行と lint / format の除外設定を残す部分を上書き)
 - 日付: 2026-09-27
-- 関連 PR: TBD(本 ADR 起票 PR)
+- 関連 PR: #755(本 ADR 起票 PR)
 - 関連 ADR: [`ADR 0069`](0069-oxlint-and-oxfmt.md)(oxlint / oxfmt)/ [`ADR 0073`](0073-remove-ai-summary.md)(AI 補助 PDF 要約の撤去)/ [`ADR 0040`](0040-ai-assisted-summary-with-editor-supervision.md)(撤回済み)
 
 ## 背景
