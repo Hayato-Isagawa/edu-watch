@@ -45,7 +45,7 @@ jobs:
         run: npm ci
 
       # astro check は errors でのみ非ゼロ終了する(既定の minimumFailingSeverity=error)。
-      # 現在 hints が 27 件あるが落ちない。
+      # hints と warnings では落ちない。
       - name: Type check
         run: npm run check
 
