@@ -75,8 +75,10 @@ VRT 自身では捕まえられない — VRT は `paths` に載る PR でしか
 要求する(`/changelog` だけ除外)。**残る穴は spec の書き方そのもの**(`toHaveScreenshot` の第 2 引数での
 上書き・実行時 `test.skip(条件)`・import 元の差し替え・`emulateMedia` でのテーマ上書き)で、`vrt/pages.spec.ts` 冒頭に注意書きがある。
 同じファイルで e2e(`playwright.config.ts`)の `webServer` も固定している。e2e と VRT は同じ 4174 を使い、
-ローカルでも既存のサーバーを再利用しない(`reuseExistingServer: false`)。CI では `!process.env.CI` が
-false に見えて固定値と一致するので、`CI` を空にした読み直しと `true` にした読み直しの両方で確かめている。
+ローカルでも既存のサーバーを再利用しない(`reuseExistingServer: false`)。e2e は `baseURL` も固定する。
+CI では `!process.env.CI` が false に見えて固定値と一致するので、`CI` と `GITHUB_ACTIONS` をそろえて空にした
+読み直しと立てた読み直しの両方で確かめている。読み直しで跨げるキャッシュは config 本体だけなので、
+config が import してよいのは `@playwright/test` だけに固定している(共有モジュールに分岐を置く経路を塞ぐ)。
 
 `ci-summary-workflow.test.mjs` も同じ口。`ci-summary.yml`(PR の Actions が全部成功したときだけ PR に
 @メンション付きコメントを 1 件付け、GitHub Mobile の通知を 1 回にまとめる)は失敗時に何もしない設計なので、

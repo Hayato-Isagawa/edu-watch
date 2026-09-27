@@ -62,6 +62,27 @@ async function readConfig(env = {}, url = CONFIG_URL) {
 
 const vrtConfig = await readConfig();
 
+// 設定を読み直すときに動かす環境。**`CI` だけでは足りない** — `!process.env.GITHUB_ACTIONS`
+// のように別の変数で分岐させると、両方が立つ CI では固定値と一致して素通りする(実測)。
+// GitHub Actions が立てる 2 つを、そろえて空にした場合と立てた場合で読む。
+const REREAD_ENVS = [
+  { CI: "", GITHUB_ACTIONS: "" },
+  { CI: "true", GITHUB_ACTIONS: "true" },
+];
+
+// config が import してよいのは `@playwright/test` だけ。読み直しでキャッシュを跨げるのは
+// 最上位のモジュールだけで、config が import した共有モジュールは最初に読んだときの環境の
+// 値のまま残る。そこに分岐を置かれると読み直しでは見えない(実測)ので、入口で止める。
+function configImports(url) {
+  const src = fs.readFileSync(fileURLToPath(url), "utf8");
+  return {
+    static: [...src.matchAll(/^\s*import\b[^'"]*["']([^"']+)["']/gm)].map(
+      (m) => m[1]
+    ),
+    dynamic: /\bimport\s*\(|\brequire\s*\(/.test(src),
+  };
+}
+
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(HERE, "../..");
 const read = (rel) => fs.readFileSync(path.join(ROOT, rel), "utf8");
@@ -563,13 +584,17 @@ test("比較設定が VRT ジョブの環境でも同じ値になる", async () 
   for (const config of variants) {
     assert.deepEqual(withoutDist(config), withoutDist(vrtConfig));
   }
-  // **`webServer` は `CI` でも分岐させない。** `reuseExistingServer: !process.env.CI` に
+  // **`webServer` は CI かどうかで分岐させない。** `reuseExistingServer: !process.env.CI` に
   // 戻すと、このガードが走る CI(`CI=true`)では `false` に見えて固定値と一致してしまう。
-  // `CI` を空にした読み直しと比べれば、どちらの環境で走っても分岐が出る。config 全体では
-  // 比べない — `forbidOnly` と `workers` は `CI` に追従させている。
-  for (const env of [{ CI: "" }, { CI: "true" }]) {
+  // `REREAD_ENVS` の両方で読み直して比べれば、どちらの環境で走っても分岐が出る。config
+  // 全体では比べない — `forbidOnly` と `workers` は `CI` に追従させている。
+  for (const env of REREAD_ENVS) {
     assert.deepEqual((await readConfig(env)).webServer, vrtConfig.webServer);
   }
+  assert.deepEqual(configImports(CONFIG_URL), {
+    static: ["@playwright/test"],
+    dynamic: false,
+  });
   // **配信する dist が `VRT_DIST` に追従していること。** `webServer.command` が
   // `dist-main` を固定で配信すると、2 ステップとも同じビルドを撮って恒久的に緑になる
   // (実測)。config は `VRT_DIST ?? "dist"` を埋めているので、その値が出ていることを見る。
@@ -584,16 +609,23 @@ test("比較設定が VRT ジョブの環境でも同じ値になる", async () 
 test("e2e の webServer もローカルで既存のサーバーを再利用しない", async () => {
   // e2e と VRT は同じ 4174 を使う。e2e が `reuseExistingServer: !process.env.CI` に戻ると、
   // 4174 に残った別の配信(表示確認ゲートや別の worktree の実行)の dist を黙って検証する。
-  // CI(`CI=true`)では `!process.env.CI` が false に見えて固定値と一致するので、`CI` を空に
-  // した読み直しと `true` にした読み直しの両方で固定する。
-  for (const env of [{ CI: "" }, { CI: "true" }]) {
+  // CI(`CI=true`)では `!process.env.CI` が false に見えて固定値と一致するので、
+  // `REREAD_ENVS` の両方で読み直して固定する。**`baseURL` も固定する** — spec は相対パスで
+  // `page.goto` するので、`baseURL` だけを別のポートに向けると webServer が管理しない配信を
+  // 検証する。
+  for (const env of REREAD_ENVS) {
     const e2eConfig = await readConfig(env, E2E_CONFIG_URL);
     assert.deepEqual(e2eConfig.webServer, {
       command: "npx serve dist -l 4174",
       port: 4174,
       reuseExistingServer: false,
     });
+    assert.equal(e2eConfig.use.baseURL, "http://localhost:4174");
   }
+  assert.deepEqual(configImports(E2E_CONFIG_URL), {
+    static: ["@playwright/test"],
+    dynamic: false,
+  });
 });
 
 test("撮影の断面とリトライが固定されている", () => {
