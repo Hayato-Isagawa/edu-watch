@@ -1,6 +1,6 @@
 # 0061. W-1 推論ホストで Flash Attention を有効化(gemma3:12b の CPU 退避解消)
 
-- 状態: 採用
+- 状態: 撤回([ADR 0073](0073-remove-ai-summary.md) で上書き)
 - 日付: 2026-06-27
 - 関連 ADR: 0040(gemma3:12b 採用・W-1 パイプライン)/ 0050(W-1 MVP)/ 0046(retry 入力 raw 化)
 - 関連 PR: TBD(本 ADR 起票 PR)

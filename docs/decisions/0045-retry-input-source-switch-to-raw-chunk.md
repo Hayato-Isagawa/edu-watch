@@ -1,6 +1,6 @@
 # 0045. fact-check retry の入力ソースを LLM map summary から raw chunk text へ切替
 
-- 状態: 採用
+- 状態: 撤回([ADR 0073](0073-remove-ai-summary.md) で上書き)
 - 日付: 2026-05-17
 - 関連 ADR: 0040(AI 補助 PDF 要約と編集者最終監修の運用、本 ADR は §C-7 Phase 2 改修の続編)/ 0036(tier 1 公的 PDF を運用範囲に含めた根拠)
 - 関連 PR: #149(本 ADR 起票 PR)

@@ -2,7 +2,7 @@
 
 ## Status
 
-Accepted (2026-06-20)(0054 D1 の `summaryHit` スコープと strict の位置づけを上書き)
+撤回([ADR 0073](0073-remove-ai-summary.md) で上書き)。撤回前: Accepted (2026-06-20)(0054 D1 の `summaryHit` スコープと strict の位置づけを上書き)
 
 ## Context
 

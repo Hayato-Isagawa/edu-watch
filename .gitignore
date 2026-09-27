@@ -28,36 +28,7 @@ scripts/fonts/*.ttf
 .claude/sessions/
 
 # PoC / 実験用ディレクトリ(原則 git 管理外、PoC 採用時に必要部分のみ src/lib/ へ移管)。
-# 例外: 採用済 ADR の運用機構として git 管理が必要なスクリプトは個別に許可する。
 experiments/*
-!experiments/poc-pdf-summary/
-experiments/poc-pdf-summary/*
-!experiments/poc-pdf-summary/fact-check-grep.mjs
-!experiments/poc-pdf-summary/mapreduce-v3.mjs
-!experiments/poc-pdf-summary/required-facts-gaiyouban.json
-!experiments/poc-pdf-summary/chunk-ranges-gaiyouban.json
-!experiments/poc-pdf-summary/chunk-ranges-v3.json
-!experiments/poc-pdf-summary/observation-2026-05-12.md
-!experiments/poc-pdf-summary/observation-2026-05-13.md
-!experiments/poc-pdf-summary/observation-2026-05-13b.md
-!experiments/poc-pdf-summary/observation-2026-05-17.md
-!experiments/poc-pdf-summary/observation-2026-05-19.md
-!experiments/poc-pdf-summary/observation-2026-05-24.md
-!experiments/poc-pdf-summary/observation-2026-06-07.md
-!experiments/poc-pdf-summary/observation-2026-06-20.md
-!experiments/poc-pdf-summary/verify-hypothesis-b.mjs
-!experiments/poc-pdf-summary/extract-tsuuchi.mjs
-!experiments/poc-pdf-summary/mapreduce-v4-tsuuchi.mjs
-!experiments/poc-pdf-summary/chunk-ranges-v4-tsuuchi*.json
-!experiments/poc-pdf-summary/required-facts-tsuuchi-*.json
-!experiments/poc-pdf-summary/fact-check-grep-tsuuchi-*-raw-report.json
-!experiments/poc-pdf-summary/summary-v4-tsuuchi-*-checked-raw*.md
-!experiments/poc-pdf-summary/fact-check-grep-tsuuchi-all.log
-
-# AI 要約パイプラインの generated 出力(scripts/ai-summary/run-pipeline.mjs)。
-# 各 PDF の抽出 text / chunk / summary / fact-check report は tmp/ 配下に出力し、
-# 編集者監修済の最終 markdown のみを src/content/ai-summary/ に commit する。
-tmp/ai-summary/
 
 # Local security assessment notes (kept outside the repository)
 VULN_ASSESSMENT_*.md
