@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * PreToolUse hook (Edit | MultiEdit) — frontmatter immutable guard for edu-watch.
+ * PreToolUse hook (Edit | Write | MultiEdit) — frontmatter immutable guard for edu-watch.
  *
  * Blocks silent edits to high-stakes frontmatter fields in
  * src/content/digests/*.md (week-end news digest collection).
@@ -55,6 +55,20 @@ function extractFrontmatter(s) {
   return m ? m[1] : null;
 }
 
+// 保護キーの値。旧 `key:[ \t]*(.+?)[ \t]*$` と同じ値を線形で取る: 前後の [ \t] を落とし、
+// 空白だけの値は最後の 1 文字、空なら値なし。正規表現で `(.+?)` と `[ \t]*$` を隣り合わせると、
+// 値の途中の長い空白で 2 乗になる(32KB で約 2.4 秒)。
+function valueAfterColon(rest) {
+  if (!rest) return null;
+  const isBlank = (c) => c === " " || c === "\t";
+  let i = 0;
+  while (i < rest.length && isBlank(rest[i])) i++;
+  if (i === rest.length) return rest[rest.length - 1];
+  let j = rest.length;
+  while (j > i && isBlank(rest[j - 1])) j--;
+  return rest.slice(i, j);
+}
+
 function captureProtectedFields(fm) {
   if (!fm) return new Map();
   const map = new Map();
@@ -79,13 +93,12 @@ function captureProtectedFields(fm) {
     //
     // 詰めておく理由: settings.json の `timeout: 5`(秒)を超えるとプロセスが
     // kill され、stdout が出ない = ガードが黙って素通りする。
-    const re = new RegExp(
-      `^[ \\t]*(?:-[ \\t]*)?${key}:[ \\t]*(.+?)[ \\t]*$`,
-      "gm"
-    );
-    const values = [...fm.matchAll(re)].map((m) =>
-      m[1].replace(/^["']|["']$/g, "")
-    );
+    const re = new RegExp(`^[ \\t]*(?:-[ \\t]*)?${key}:(.*)$`, "gm");
+    const values = [];
+    for (const m of fm.matchAll(re)) {
+      const v = valueAfterColon(m[1]);
+      if (v !== null) values.push(v.replace(/^["']|["']$/g, ""));
+    }
     if (values.length) map.set(key, values);
   }
   // URLs in the frontmatter block (relatedEvidenceUrls list etc.)
