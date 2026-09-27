@@ -60,31 +60,49 @@ async function readConfig(env = {}, url = CONFIG_URL) {
   }
 }
 
+// 設定を読み直すときに動かす環境。**`CI` だけでは足りない** — `!process.env.GITHUB_ACTIONS`
+// や `!process.env.RUNNER_OS` のように別の変数で分岐させると、それらが立つ CI では固定値と
+// 一致して素通りする(実測)。先頭は `PATH` と `VRT_DIST` 以外の環境変数をすべて空にした
+// 環境で、どの変数で分岐させても CI とローカルのどちらかで差が出る。`VRT_DIST` を残すのは、
+// VRT の config が `VRT_DIST ?? "dist"` で読む正当な入力で、空文字は `??` で既定値に
+// 置き換わらないため。
+const SCRUBBED = Object.fromEntries(
+  Object.keys(process.env)
+    .filter((key) => key !== "PATH" && key !== "VRT_DIST")
+    .map((key) => [key, ""])
+);
+const REREAD_ENVS = [SCRUBBED, { CI: "true", GITHUB_ACTIONS: "true" }];
+
+// **最初の読み込みは `SCRUBBED` で行う。** 読み直しでキャッシュを跨げるのは config 本体だけで、
+// config が import した共有モジュールや `globalThis` に置いた値は、最初に読んだときの環境の
+// ままになる。最初を CI の環境で読むと、そうした経路に置いた分岐が CI の値で固まって
+// 素通りする(実測)。先に `SCRUBBED` で読めば、固まるのは CI と違う側の値になる。
+// **その代わり、そうした経路に置いた分岐のうち CI の側でだけ値がずれるもの**(例:
+// `threshold: (globalThis.__t ??= process.env.CI ? 0.1 : 0)`)は、どの環境でも素通りする
+// (実測)。同じく、`"RUNNER_OS" in process.env` のように変数の有無で分岐させた形は、`""` と
+// 未定義が区別されるので CI では素通りする。どちらも意図して書かない限り出てこない形として
+// 受け入れている。塞ぐなら、環境ごとに子プロセスで config を読む(キャッシュが持ち越されない)。
+await readConfig(SCRUBBED);
+await readConfig(SCRUBBED, E2E_CONFIG_URL);
 const vrtConfig = await readConfig();
 
-// 設定を読み直すときに動かす環境。**`CI` だけでは足りない** — `!process.env.GITHUB_ACTIONS`
-// のように別の変数で分岐させると、両方が立つ CI では固定値と一致して素通りする(実測)。
-// CI の判定によく使われる 2 つを、そろえて空にした場合と立てた場合で読む。**動かすのは
-// この 2 つだけ** なので、CI で立つ他の変数(`RUNNER_OS` など)で分岐させた変更は、CI では
-// 素通りしてローカルの実行でだけ赤になる(実測)。
-const REREAD_ENVS = [
-  { CI: "", GITHUB_ACTIONS: "" },
-  { CI: "true", GITHUB_ACTIONS: "true" },
-];
-
-// config が import してよいのは `@playwright/test` だけ。読み直しでキャッシュを跨げるのは
-// 最上位のモジュールだけで、config が import した共有モジュールは最初に読んだときの環境の
-// 値のまま残る。そこに分岐を置かれると読み直しでは見えない(実測)ので、`import` 文と
-// `import(` / `require(` を止める。**止まるのはこの書き方だけ** — `export … from`・
-// `globalThis` への値の保存・`createRequire` を経由すると、VRT の config は CI では素通りする
-// (最初の `vrtConfig` を CI の環境のまま読むため。ローカルの実行では赤になる。実測)。
-// このファイル冒頭の「ソースを正規表現で読まない」は撮影件数の数え方の話で、ここは例外。
+// config が import してよいのは `@playwright/test` だけ。共有モジュールに置いた分岐は
+// 読み直しでは見えない(上の理由)ので、入口でも止める。判定の前にコメントを除く。同じ
+// パッケージを 2 行に分けて import するのは許す。このファイル冒頭の「ソースを正規表現で
+// 読まない」は撮影件数の数え方の話で、ここは例外。
 function configImports(url) {
-  const src = fs.readFileSync(fileURLToPath(url), "utf8");
+  const src = fs
+    .readFileSync(fileURLToPath(url), "utf8")
+    .replace(/\/\*[\s\S]*?\*\//g, "")
+    .replace(/(^|[^:])\/\/.*$/gm, "$1");
   return {
-    static: [...src.matchAll(/^\s*import\b[^'"]*["']([^"']+)["']/gm)].map(
-      (m) => m[1]
-    ),
+    static: [
+      ...new Set(
+        [...src.matchAll(/^\s*import\b[^'"]*["']([^"']+)["']/gm)].map(
+          (m) => m[1]
+        )
+      ),
+    ],
     dynamic: /\bimport\s*\(|\brequire\s*\(/.test(src),
   };
 }
@@ -592,7 +610,7 @@ test("比較設定が VRT ジョブの環境でも同じ値になる", async () 
   }
   // **`webServer` は CI かどうかで分岐させない。** `reuseExistingServer: !process.env.CI` に
   // 戻すと、このガードが走る CI(`CI=true`)では `false` に見えて固定値と一致してしまう。
-  // `REREAD_ENVS` の両方で読み直して比べれば、どちらの環境で走っても分岐が出る。config
+  // `REREAD_ENVS` のすべてで読み直して比べれば、どちらの環境で走っても分岐が出る。config
   // 全体では比べない — `forbidOnly` と `workers` は `CI` に追従させている。
   for (const env of REREAD_ENVS) {
     assert.deepEqual((await readConfig(env)).webServer, vrtConfig.webServer);
@@ -616,9 +634,10 @@ test("e2e の webServer もローカルで既存のサーバーを再利用し�
   // e2e と VRT は同じ 4174 を使う。e2e が `reuseExistingServer: !process.env.CI` に戻ると、
   // 4174 に残った別の配信(表示確認ゲートや別の worktree の実行)の dist を黙って検証する。
   // CI(`CI=true`)では `!process.env.CI` が false に見えて固定値と一致するので、
-  // `REREAD_ENVS` の両方で読み直して固定する。**`baseURL` も固定する** — spec は相対パスで
-  // `page.goto` するので、`baseURL` だけを別のポートに向けると webServer が管理しない配信を
-  // 検証する。
+  // `REREAD_ENVS` のすべてで読み直して固定する。**`baseURL` も固定する** — 相対パスで
+  // `page.goto` する spec は、`baseURL` だけを別のポートに向けると webServer が管理しない
+  // 配信を検証する。project の `use` はトップレベルを上書きするので、project 側に
+  // `baseURL` を置くことも許さない。
   for (const env of REREAD_ENVS) {
     const e2eConfig = await readConfig(env, E2E_CONFIG_URL);
     assert.deepEqual(e2eConfig.webServer, {
@@ -627,6 +646,9 @@ test("e2e の webServer もローカルで既存のサーバーを再利用し�
       reuseExistingServer: false,
     });
     assert.equal(e2eConfig.use.baseURL, "http://localhost:4174");
+    for (const project of e2eConfig.projects ?? []) {
+      assert.equal(project.use?.baseURL, undefined, project.name);
+    }
   }
   assert.deepEqual(configImports(E2E_CONFIG_URL), {
     static: ["@playwright/test"],

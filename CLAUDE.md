@@ -75,12 +75,14 @@ VRT 自身では捕まえられない — VRT は `paths` に載る PR でしか
 要求する(`/changelog` だけ除外)。**残る穴は spec の書き方そのもの**(`toHaveScreenshot` の第 2 引数での
 上書き・実行時 `test.skip(条件)`・import 元の差し替え・`emulateMedia` でのテーマ上書き)で、`vrt/pages.spec.ts` 冒頭に注意書きがある。
 同じファイルで e2e(`playwright.config.ts`)の `webServer` も固定している。e2e と VRT は同じ 4174 を使い、
-ローカルでも既存のサーバーを再利用しない(`reuseExistingServer: false`)。e2e はトップレベルの `use.baseURL` も固定する(project 単位の `use` での上書きは見ていない)。
-CI では `!process.env.CI` が false に見えて固定値と一致するので、`CI` と `GITHUB_ACTIONS` をそろえて空にした
-読み直しと立てた読み直しの両方で確かめている。読み直しで跨げるキャッシュは config 本体だけなので、
-config の `import` 文と `import(` / `require(` は `@playwright/test` 以外を止めている。**CI で塞げていない穴**は、
-他の環境変数(`RUNNER_OS` など)での分岐と、`export … from`・`globalThis`・`createRequire` を経由した分岐で、
-どちらもローカルの実行では赤になる。
+ローカルでも既存のサーバーを再利用しない(`reuseExistingServer: false`)。e2e は `use.baseURL` も固定し、
+project 側に `baseURL` を置くことも許さない。CI では `!process.env.CI` が false に見えて固定値と一致するので、
+`PATH` と `VRT_DIST` 以外の環境変数をすべて空にした読み直しと、`CI` / `GITHUB_ACTIONS` を立てた読み直しの
+両方で確かめている。読み直しで跨げるキャッシュは config 本体だけなので、**最初の読み込みを前者の環境で行い**、
+共有モジュールや `globalThis` に置いた分岐も CI と違う側の値で固める。config の `import` 文と
+`import(` / `require(` は `@playwright/test` 以外を止めている(コメントは除いて判定する)。**素通りする形**は、
+共有モジュールや `globalThis` を経由して CI の側でだけ値がずれる分岐と、変数の有無(`in` / `=== undefined`)で
+分岐させた形で、どちらも意図して書かない限り出てこないとして受け入れている(理由と塞ぎ方はテストのコメント)。
 
 `ci-summary-workflow.test.mjs` も同じ口。`ci-summary.yml`(PR の Actions が全部成功したときだけ PR に
 @メンション付きコメントを 1 件付け、GitHub Mobile の通知を 1 回にまとめる)は失敗時に何もしない設計なので、
