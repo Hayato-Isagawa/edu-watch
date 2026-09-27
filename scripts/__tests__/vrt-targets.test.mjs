@@ -561,6 +561,13 @@ test("比較設定が VRT ジョブの環境でも同じ値になる", async () 
   for (const config of variants) {
     assert.deepEqual(withoutDist(config), withoutDist(vrtConfig));
   }
+  // **`webServer` は `CI` でも分岐させない。** `reuseExistingServer: !process.env.CI` に
+  // 戻すと、このガードが走る CI(`CI=true`)では `false` に見えて固定値と一致してしまう。
+  // `CI` を空にした読み直しと比べれば、どちらの環境で走っても分岐が出る。config 全体では
+  // 比べない — `forbidOnly` と `workers` は `CI` に追従させている。
+  for (const env of [{ CI: "" }, { CI: "true" }]) {
+    assert.deepEqual((await readConfig(env)).webServer, vrtConfig.webServer);
+  }
   // **配信する dist が `VRT_DIST` に追従していること。** `webServer.command` が
   // `dist-main` を固定で配信すると、2 ステップとも同じビルドを撮って恒久的に緑になる
   // (実測)。config は `VRT_DIST ?? "dist"` を埋めているので、その値が出ていることを見る。
@@ -624,7 +631,9 @@ test("撮影の断面とリトライが固定されている", () => {
   assert.deepEqual(vrtConfig.webServer, {
     command: "npx serve dist -l 4174",
     port: 4174,
-    reuseExistingServer: !process.env.CI,
+    // ローカルでも再利用しない（理由は config のコメント）。`!process.env.CI` に戻すと、
+    // 4174 に残った別の配信を黙って撮る。
+    reuseExistingServer: false,
   });
   // **config のキー集合と reporter も固定する。** `globalSetup` やカスタム reporter から
   // dist の起動スクリプトを書き換えれば `-dark` は light を描く(実測)。ガードの `--list`
