@@ -1,6 +1,6 @@
 # 0073. AI 補助 PDF 要約を撤去する
 
-- 状態: 採用(0008 §3 の例外のうち AI 補助要約としての利用を上書き。0040 / 0045 / 0046 / 0050 / 0054 / 0057 / 0061 / 0072 を撤回)
+- 状態: 採用(0008 §3 の例外のうち AI 補助要約としての利用を上書き。0040 / 0045 / 0046 / 0050 / 0054 / 0057 / 0061 / 0072 を撤回) / §決定 3 のうち `experiments/` の汎用行と lint / format の除外設定を残す部分は [ADR 0074](0074-drop-experiments-ignore.md) で上書き
 - 日付: 2026-09-27
 - 関連 PR: #749(本 ADR 起票 PR)
 - 関連 ADR: [`ADR 0072`](0072-pause-ai-summary.md)(運用の休止)/ [`ADR 0040`](0040-ai-assisted-summary-with-editor-supervision.md)(AI 補助要約と編集者監修)/ [`ADR 0050`](0050-w1-ai-summary-mvp.md)(W-1 パイプライン MVP)/ [`ADR 0008`](0008-citation-scope-policy.md)(§3 の例外)

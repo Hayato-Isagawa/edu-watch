@@ -27,9 +27,6 @@ scripts/fonts/*.ttf
 .claude/worktrees/
 .claude/sessions/
 
-# PoC / 実験用ディレクトリ(原則 git 管理外、PoC 採用時に必要部分のみ src/lib/ へ移管)。
-experiments/*
-
 # Local security assessment notes (kept outside the repository)
 VULN_ASSESSMENT_*.md
 SUPPLY_CHAIN_AUDIT_*.md

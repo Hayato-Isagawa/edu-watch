@@ -14,7 +14,6 @@
     "**/*.css",
     "**/*.scss",
     "wrangler.jsonc",
-    "src/data/articles/**",
-    "experiments/**"
+    "src/data/articles/**"
   ]
 }
