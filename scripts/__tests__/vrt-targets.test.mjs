@@ -64,7 +64,9 @@ const vrtConfig = await readConfig();
 
 // 設定を読み直すときに動かす環境。**`CI` だけでは足りない** — `!process.env.GITHUB_ACTIONS`
 // のように別の変数で分岐させると、両方が立つ CI では固定値と一致して素通りする(実測)。
-// GitHub Actions が立てる 2 つを、そろえて空にした場合と立てた場合で読む。
+// CI の判定によく使われる 2 つを、そろえて空にした場合と立てた場合で読む。**動かすのは
+// この 2 つだけ** なので、CI で立つ他の変数(`RUNNER_OS` など)で分岐させた変更は、CI では
+// 素通りしてローカルの実行でだけ赤になる(実測)。
 const REREAD_ENVS = [
   { CI: "", GITHUB_ACTIONS: "" },
   { CI: "true", GITHUB_ACTIONS: "true" },
@@ -72,7 +74,11 @@ const REREAD_ENVS = [
 
 // config が import してよいのは `@playwright/test` だけ。読み直しでキャッシュを跨げるのは
 // 最上位のモジュールだけで、config が import した共有モジュールは最初に読んだときの環境の
-// 値のまま残る。そこに分岐を置かれると読み直しでは見えない(実測)ので、入口で止める。
+// 値のまま残る。そこに分岐を置かれると読み直しでは見えない(実測)ので、`import` 文と
+// `import(` / `require(` を止める。**止まるのはこの書き方だけ** — `export … from`・
+// `globalThis` への値の保存・`createRequire` を経由すると、VRT の config は CI では素通りする
+// (最初の `vrtConfig` を CI の環境のまま読むため。ローカルの実行では赤になる。実測)。
+// このファイル冒頭の「ソースを正規表現で読まない」は撮影件数の数え方の話で、ここは例外。
 function configImports(url) {
   const src = fs.readFileSync(fileURLToPath(url), "utf8");
   return {
