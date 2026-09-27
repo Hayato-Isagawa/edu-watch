@@ -9,7 +9,7 @@
 - 決定を覆す(一部だけ上書きする場合を含む)ときは新規 ADR を起こし、**新旧どちらの状態にも上書き関係を書く**
   - **新 ADR**: `採用(NNNN を上書き)` / 一部なら `採用(NNNN の〈何を〉を上書き)`。範囲を具体に書く
   - **旧 ADR**: 新 ADR へのリンクを状態に書き足す(実例は 0034)。旧 ADR だけを開いた読者が古い手順に従わずに済むようにするため。**決定本文は変えない**
-  - **状態の置き場所は 2 通りある。** 68 本は `- 状態:` 行、4 本(0037 / 0038 / 0054 / 0057)は `## Status` 見出しの下。どちらでも同じことを書く
+  - **状態の置き場所は 2 通りある。** 69 本は `- 状態:` 行、4 本(0037 / 0038 / 0054 / 0057)は `## Status` 見出しの下。どちらでも同じことを書く
   - **`NNNN` は自リポの ADR を指す。** 姉妹リポを指すときは `edu-evidence ADR 0011` のようにリポ名を前置する(本文の慣行に合わせる)
   - **上書き関係が末尾の `## 更新` 節にしか書かれていないことがある。** そこに書いても、状態だけを見た読者には届かない。1 本が複数の ADR に上書きされている場合もあるので、気づいた時点で必要なぶんだけ状態に足してよい
   - **`## 更新` 節は上書き以外も記す。** 0046 のそれは「撤回トリガーに到達し 0057 D4 が実装した」記録で、0046 の決定は上書きされていない。**上書きでなくても相互参照は要る**(0046 の状態はその形)。状態に写す前に**新旧どちらの本文も引き直す**
@@ -88,28 +88,28 @@ EduEvidence JP と共通の運営方針(植物モチーフブランド体系 / N
 - [0037. 木の部位体系 5 サイト拡張を edu-watch にミラーする](0037-mirror-tree-system-5-sites.md)
 - [0038. 本番 HTTP ステータス監視ワークフローの追加](0038-prod-http-status-monitor.md)(撤回)
 - [0039. kkn / resemom のノイズフィルター強化](0039-source-noise-filters-kkn-resemom.md)
-- [0040. AI 補助 PDF 要約と編集者最終監修の運用](0040-ai-assisted-summary-with-editor-supervision.md)
+- [0040. AI 補助 PDF 要約と編集者最終監修の運用](0040-ai-assisted-summary-with-editor-supervision.md)(撤回)
 - [0041. Dependabot patch/minor 自動マージ運用と main ブランチ保護](0041-dependabot-auto-merge-policy.md)
 - [0042. fetch-news の token を Fine-grained PAT に切り替えて auto-collect PR の required CI を発火させる](0042-fetch-news-token-elevation.md)
 - [0043. fetch-news の JST 18:00 cron を JST 19:30 へ微調整(GitHub Actions ピーク帯遅延緩和)](0043-fetch-news-cron-jst-1930-shift.md)
 - [0044. fetch-news の PAT 失効を週次 cron で事前検知(silent fail 構造への防御)](0044-fetch-news-pat-expiry-monitoring.md)
-- [0045. fact-check retry の入力ソースを LLM map summary から raw chunk text へ切替](0045-retry-input-source-switch-to-raw-chunk.md)
-- [0046. retry input source のデフォルトを raw chunk text 化(ADR 0040 §C-7 Phase 2 正式採用)](0046-promote-raw-chunk-retry-to-phase-2.md)
+- [0045. fact-check retry の入力ソースを LLM map summary から raw chunk text へ切替](0045-retry-input-source-switch-to-raw-chunk.md)(撤回)
+- [0046. retry input source のデフォルトを raw chunk text 化(ADR 0040 §C-7 Phase 2 正式採用)](0046-promote-raw-chunk-retry-to-phase-2.md)(撤回)
 - [0047. digest sections に articleIds: string[] を採用し、N 記事 1 統合コメントを既定構造とする](0047-digest-sections-multi-article.md)
 - [0048. digest 本文(`<Content />`)を撤回し summary 単一化する](0048-digest-drop-content-body.md)
 - [0049. recheck-nikkyo-membership の token を Fine-grained PAT に切り替えて再判定 PR の required CI を発火させる](0049-recheck-nikkyo-token-elevation.md)
-- [0050. W-1 AI 要約パイプライン MVP(registry 駆動 + per-chunk raw retry + pattern hardening)](0050-w1-ai-summary-mvp.md)
+- [0050. W-1 AI 要約パイプライン MVP(registry 駆動 + per-chunk raw retry + pattern hardening)](0050-w1-ai-summary-mvp.md)(撤回)
 - [0051. リセマム include 方式 教員視点キーワードフィルター(NG_PATTERNS との AND ゲート)](0051-resemom-include-keyword-filter.md)
 - [0052. e2e workflow に Playwright ブラウザキャッシュを導入](0052-e2e-playwright-browser-cache.md)
 - [0053. EDUCATION_PATTERNS 拡充: 情報モラル / ネットパトロール / キャリア教育](0053-edu-patterns-info-moral-career.md)
-- [0054. W-2 strict recovery judgment for LLM hallucination detection (with rawChunkSources page-marker lookup fix)](0054-w2-strict-recovery-judgment.md)
+- [0054. W-2 strict recovery judgment for LLM hallucination detection (with rawChunkSources page-marker lookup fix)](0054-w2-strict-recovery-judgment.md)(撤回)
 - [0055. リンクチェックから kknews.co.jp を除外する](0055-exclude-kknews-from-link-check.md)
 - [0056. リンクチェックから MEXT 採用公告（非常勤職員）を除外する](0056-exclude-mext-recruitment-from-link-check.md)
-- [0057. AI summary honesty gate（canonical 限定の公開可否ゲート・strict 降格・retry 循環回収遮断）](0057-ai-summary-honest-gate.md)
+- [0057. AI summary honesty gate（canonical 限定の公開可否ゲート・strict 降格・retry 循環回収遮断）](0057-ai-summary-honest-gate.md)(撤回)
 - [0058. changelog の文体(敬体)と粒度をファミリー統一する(edu-law ADR 0022 ミラー)](0058-unify-changelog-register-and-granularity.md)
 - [0059. ダイジェストの関連リンクを姉妹サイト横断(evi + law)へ拡張する](0059-digest-related-links-cross-family.md)
 - [0060. ビジュアルリグレッションテスト(VRT)を視覚変更 PR に限定して導入する(edu-evidence ADR 0024 ミラー)](0060-visual-regression-testing.md)
-- [0061. W-1 推論ホストで Flash Attention を有効化(gemma3:12b の CPU 退避解消)](0061-w1-ollama-flash-attention.md)
+- [0061. W-1 推論ホストで Flash Attention を有効化(gemma3:12b の CPU 退避解消)](0061-w1-ollama-flash-attention.md)(撤回)
 - [0062. Cloudflare Web Analytics を手動スニペット方式で導入し CSP を最小限緩和する(edu-evidence ADR 0026 ミラー)](0062-web-analytics-beacon-and-csp.md)
 - [0063. Astro 7 へ移行し XSS advisory 3 件を解消する(edu-evidence ADR 0027 ミラー・edu-watch 差分あり)](0063-astro-7-migration.md)
 - [0064. 公開後の訂正を changelog で可視化し、書き換えた文の再照合を後段検証ゲートに加える](0064-post-publication-correction-policy.md)
@@ -121,3 +121,4 @@ EduEvidence JP と共通の運営方針(植物モチーフブランド体系 / N
 - [0070. 印刷スタイルを global.css の 1 ブロックで提供する(edu-law ADR 0029 ミラー)](0070-print-stylesheet.md)
 - [0071. Organization JSON-LD に姉妹サイトの関係を書かず、digest の更新日を `updatedAt` で持つ](0071-jsonld-no-sister-relation-and-digest-updated-at.md)
 - [0072. AI 補助 PDF 要約の運用を休止する](0072-pause-ai-summary.md)
+- [0073. AI 補助 PDF 要約を撤去する](0073-remove-ai-summary.md)
