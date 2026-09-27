@@ -44,12 +44,14 @@ import { targets, shotOptions } from "../../vrt/targets.mjs";
 // クエリを変えると ESM のモジュールキャッシュを跨げる。
 const CONFIG_URL = new URL("../../playwright.vrt.config.ts", import.meta.url)
   .href;
+const E2E_CONFIG_URL = new URL("../../playwright.config.ts", import.meta.url)
+  .href;
 let configReads = 0;
-async function readConfig(env = {}) {
+async function readConfig(env = {}, url = CONFIG_URL) {
   const saved = { ...process.env };
   Object.assign(process.env, env);
   try {
-    return (await import(`${CONFIG_URL}?read=${configReads++}`)).default;
+    return (await import(`${url}?read=${configReads++}`)).default;
   } finally {
     for (const key of Object.keys(env)) {
       if (key in saved) process.env[key] = saved[key];
@@ -576,6 +578,21 @@ test("比較設定が VRT ジョブの環境でも同じ値になる", async () 
     ["dist-pr", variants[1]],
   ]) {
     assert.equal(config.webServer.command, `npx serve ${dist} -l 4174`);
+  }
+});
+
+test("e2e の webServer もローカルで既存のサーバーを再利用しない", async () => {
+  // e2e と VRT は同じ 4174 を使う。e2e が `reuseExistingServer: !process.env.CI` に戻ると、
+  // 4174 に残った別の配信(表示確認ゲートや別の worktree の実行)の dist を黙って検証する。
+  // CI(`CI=true`)では `!process.env.CI` が false に見えて固定値と一致するので、`CI` を空に
+  // した読み直しと `true` にした読み直しの両方で固定する。
+  for (const env of [{ CI: "" }, { CI: "true" }]) {
+    const e2eConfig = await readConfig(env, E2E_CONFIG_URL);
+    assert.deepEqual(e2eConfig.webServer, {
+      command: "npx serve dist -l 4174",
+      port: 4174,
+      reuseExistingServer: false,
+    });
   }
 });
 
