@@ -34,6 +34,9 @@ const KEYS = [
   "url",
 ];
 const KEY_ALT = KEYS.join("|");
+// 生の frontmatter に書かれた記事 id の形の語(ハイフンでつながった語のうち id の形で終わるもの)
+const RAW_ID_WORD_RE = /[a-z0-9]+(?:-+[a-z0-9]+)*/g;
+const RAW_ID_TAIL_RE = /-\d{4}-\d{2}-\d{2}-[0-9a-f]{16}$/;
 const KEY_LINE_RE = new RegExp(`^[ \\t]*(?:- )?(?:${KEY_ALT}):`, "m");
 const COMMENTED_KEY_RE = new RegExp(
   `^[ \\t]*#[ \\t]*(?:- )?(?:${KEY_ALT}):`,
@@ -130,6 +133,20 @@ async function main(): Promise<number> {
     if (texts.some((t) => typeof t === "string" && KEY_LINE_RE.test(t))) {
       problems.push(
         `${f}: 値の中にキーの形をした行がある(字下げがずれて、後ろの節や関連リンクが前の値に吸い込まれている)`
+      );
+    }
+    // 字下げした `# <id>` や行末の `# <id>` は YAML のコメントになり、その id だけが消える。
+    // 書かれている id と読めた id を個数まで比べる
+    const written = (rawFrontmatter.match(RAW_ID_WORD_RE) ?? [])
+      .filter((w) => RAW_ID_TAIL_RE.test(w))
+      .sort();
+    const read = sections
+      .flatMap((s) => (Array.isArray(s?.articleIds) ? s.articleIds : []))
+      .map(String)
+      .sort();
+    if (JSON.stringify(written) !== JSON.stringify(read)) {
+      problems.push(
+        `${f}: 書かれている記事 id と読める記事 id が合わない(コメントアウトされた id や、区切りが消えてつながった id がある)`
       );
     }
     for (const s of sections) {

@@ -21,7 +21,8 @@ digest の frontmatter が壊れても、ビルドが通って節や記事カー
 1. **スキーマ(ビルドで止める)**: 最上位・`sections[]`・`relatedEvidenceUrls[]` を `.strict()` にし、`articleIds` の各要素を記事 id の形(`src/lib/article-schema.ts` の `ARTICLE_ID_RE`)に限る
 2. **中身の検査(CI で止める)**: `scripts/check-digest-articles.ts`(`npm run check:digest-articles`)を required の「Type and text checks」で走らせる。ローダーと同じ切り出し(`astro/markdown` の `parseFrontmatter`)で読み、次を見る
    - 各号に節が 1 つ以上ある(スキーマに入れないのは、下書きの途中で節が空のことがありうるため)
-   - `articleIds` の全 id が記事データにある。**無くてよいのは denylist(ADR 0020)に載っている id だけ**。削除依頼(ADR 0008 §5)は記事を消して denylist に載せる手順なので、公開済みの digest を書き換えずに 24 時間以内に対応できる。表示では従来どおりスキップする
+   - `articleIds` の全 id が記事データにある。**無くてよいのは denylist(ADR 0020)に載っている id だけ**。本 ADR で、削除依頼(ADR 0008 §5)で記事を消すときは denylist に理由つきで載せる、と定める(ADR 0020 の運用フローに合わせる)。こうすると公開済みの digest を書き換えずに 24 時間以内に対応でき、表示では従来どおりスキップされる
+   - frontmatter に書かれた記事 id の形の語と、読めた `articleIds` が個数まで一致する(字下げした `# <id>` や行末の `# <id>` は YAML のコメントになり、その id だけが消える)
    - 本文が空(digest は本文を使わない)
    - frontmatter に行区切りに似た文字(U+2028 / U+2029 / U+0085 / 単独の CR)・0 桁目の `#` 行・キーをコメントアウトした行が無い
    - 値(title / summary / topics / heading / comment / 関連リンク)の中にキーの形をした行が無い(字下げがずれて後ろの塊が前の値に吸い込まれた形)
@@ -30,6 +31,6 @@ digest の frontmatter が壊れても、ビルドが通って節や記事カー
 ## 帰結
 
 - 締めたスキーマに違反すると、dev サーバーは起動しない。起動中の編集で違反すると、ログに出るだけで古い内容を配信し続ける(`docs/digest-workflow.md` に記載)
-- 記事データから記事を消す変更(掃除スクリプトなど)は、digest から参照されていて denylist に載せていなければ赤になる。digest の PR と記事を消す PR がそれぞれ緑のまま並行してマージされると main が赤になり、以後の自動収集 PR が滞留する(bot-pr-watchdog が 2 時間超で通知)。直すのは main 側の PR(denylist に載せるか、digest を直す)
+- 記事データから記事を消す変更(掃除スクリプトなど)は、digest から参照されていて denylist に載せていなければ赤になる。digest の PR と記事を消す PR がそれぞれ緑のまま並行してマージされると main が赤になり、以後の自動収集 PR が滞留する(bot-pr-watchdog は 2 時間を超えた滞留を 6 時間ごとに見て Issue にするので、気づくまで最悪 14 時間程度)。直すのは main 側の PR(denylist に載せるか、digest を直す)
 - 関連リンクの意図しない消失は、意図した削除と区別できないので捕まえない
 - スキーマを緩める変更(`.strict()` を外す等)は、テストでは捕まえない。`src/content.config.ts` の冒頭コメントに本 ADR を書いてある

@@ -143,7 +143,10 @@ test("frontmatter の途中に区切りの形の行が入り、残りが本文�
 
 test("frontmatter に行区切りに似た文字(U+2028 / U+2029 / U+0085 / 単独の CR)があると赤", () => {
   // YAML と JS の正規表現で行の数え方が食い違い、節や関連リンクが前の値に吸い込まれても見えなくなる
-  for (const ch of [" ", " ", "\u0085", "\r"]) {
+  // 単独の CR は、続く行を字下げすると YAML としては読める(読めない形だと YAML の失敗で赤になり、この検査を縛れない)
+  for (const ch of [0x2028, 0x2029, 0x85]
+    .map((c) => String.fromCharCode(c))
+    .concat("\r  ")) {
     const digest = DIGEST.replace("summary: 要約", `summary: 要${ch}約`);
     assert.equal(check(makeRepo({ digest })).status, 1, JSON.stringify(ch));
   }
@@ -174,6 +177,19 @@ test("キーをコメントアウトした行と、0 桁目の # 行は赤", () 
   );
   assert.notEqual(item, DIGEST);
   assert.equal(check(makeRepo({ digest: item })).status, 1);
+  // 字下げした `# <id>` や行末の `# <id>` は YAML のコメントになり、その id だけが消える
+  const multiline = (second) =>
+    DIGEST.replace(
+      `  - articleIds: [${ID_A}, ${ID_B}]`,
+      `  - articleIds:\n      [\n        ${ID_A},\n        ${second}\n      ]`
+    );
+  assert.equal(check(makeRepo({ digest: multiline(`${ID_B},`) })).status, 0);
+  assert.equal(check(makeRepo({ digest: multiline(`# ${ID_B},`) })).status, 1);
+  const trailing = DIGEST.replace(
+    `  - articleIds: [${ID_A}, ${ID_B}]`,
+    `  - articleIds:\n      - ${ID_A} # ${ID_B}`
+  );
+  assert.equal(check(makeRepo({ digest: trailing })).status, 1);
 });
 
 test("節や関連リンクが字下げで前の値に吸い込まれると赤", () => {
