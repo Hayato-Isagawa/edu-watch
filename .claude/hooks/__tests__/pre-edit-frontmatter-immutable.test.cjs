@@ -995,6 +995,19 @@ test("Edit: 現物に当てられないときは確認を出し、replace_all �
   );
   // 空の old_string は Claude Code が既存ファイルに対して拒否するので、現物には当てない
   assert.equal(reasonOn(editOn(p, "", "x")), "");
+  // 当てた結果が大きすぎる(4MB 超)ときも、確かめられないとして確認を出す
+  assert.match(
+    reasonOn(
+      editWith({
+        old_string: "08-03",
+        new_string: "x".repeat(4 * 1024 * 1024 + 1),
+      })
+    ),
+    /確かめられない/
+  );
+  // 改行を含む old_string も 1 行で出す
+  const multiline = reasonOn(editOn(p, "\nnot-in-file", "x"));
+  assert.match(multiline, /"\\nnot-in-file"/);
   // `$&` を置換パターンとして解釈すると、編集後も `08-03` のままに見える
   assert.match(reasonOn(editOn(p, "08-03", "$&")), /weekStart/);
 });
@@ -1016,6 +1029,11 @@ test("Edit: 空の new_string で次の行とつながる編集に確認を出�
 test("Edit: 見出しの編集と入れ子の title の断片は素通りし、最上位の title は断片でも確認を出す(#779)", () => {
   const p = digestFile(APPLIED_BODY);
   assert.equal(reasonOn(editOn(p, "見出し", "新しい見出し")), "");
+  // 本文の長い号(約 100KB)でも、現物に当てた比較が上限で止まらない
+  const long = digestFile(
+    `${APPLIED_BODY}${"本文の段落。\n".repeat(8 * 1024)}`
+  );
+  assert.equal(reasonOn(editOn(long, "見出し", "新しい見出し")), "");
   // 現物に当てた比較では title を最上位だけで見る。入れ子の title(relatedEvidenceUrls)は、
   // 断片に `title:` が入るときだけ今までどおり確認が出る
   assert.equal(reasonOn(editOn(p, "関連する戦略", "関連する別の戦略")), "");
@@ -1046,6 +1064,37 @@ test("MultiEdit: 断片の編集も現物に順に当てて比べる(#779)", () 
     { old_string: "仮の見出し", new_string: "決めた見出し" },
   ]);
   assert.equal(reasonOn(chained), "");
+  // 空の new_string は 2 通りを当てるので、候補は編集ごとに倍になる。上限(16)を超えたら
+  // 断片の比較だけに戻さず、確かめられないとして確認を出す(断片の `08-03` はキー名を含まない)
+  const body = [1, 2, 3, 4, 5].map((i) => `a${i} t${i}\nz${i}`).join("\n");
+  const q = digestFile(`${APPLIED_BODY}${body}\n`);
+  const many = run(
+    JSON.stringify({
+      tool_name: "MultiEdit",
+      tool_input: {
+        file_path: q,
+        edits: [
+          { old_string: "08-03", new_string: "08-04" },
+          ...[1, 2, 3, 4, 5].map((i) => ({
+            old_string: ` t${i}`,
+            new_string: "",
+          })),
+        ],
+      },
+    })
+  );
+  assert.match(reasonOn(many), /確かめられない/);
+  // 上限の手前(3 本で 8 通り)の無害な編集は素通り
+  const few = run(
+    JSON.stringify({
+      tool_name: "MultiEdit",
+      tool_input: {
+        file_path: q,
+        edits: [1, 2, 3].map((i) => ({ old_string: ` t${i}`, new_string: "" })),
+      },
+    })
+  );
+  assert.equal(reasonOn(few), "");
 });
 
 test("理由表示は値を切らずに出す(#779)", () => {

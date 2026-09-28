@@ -223,7 +223,7 @@ function evaluateApplied(filePath, edits) {
       const oldS = e?.old_string ?? "";
       const newS = e?.new_string ?? "";
       const all = e?.replace_all === true;
-      // 空の old_string は Claude Code が既存ファイルに対して拒否する
+      // 空の old_string は、中身のある既存ファイルに対して Claude Code が拒否する
       if (!oldS) return [];
       const next = [];
       for (const v of variants) {
@@ -242,7 +242,7 @@ function evaluateApplied(filePath, edits) {
         variants.length > MAX_APPLIED_VARIANTS ||
         variants.some((v) => v.length > MAX_APPLIED_LENGTH)
       ) {
-        return [];
+        return [{ key: "__uncheckable__", before: [], after: [] }];
       }
     }
     const seen = new Set();
@@ -256,12 +256,12 @@ function evaluateApplied(filePath, edits) {
     }
     return diffs;
   } catch {
-    // 巨大な置換などで落ちたら、断片の比較だけに任せる(変更前の挙動)
-    return [];
+    // 当てる途中で落ちたら、断片の比較だけに戻さず確認を出す
+    return [{ key: "__uncheckable__", before: [], after: [] }];
   }
 }
 
-// 当てた結果がこれより大きい・候補が多すぎるなら全体の比較はしない(digest は数 KB)
+// 当てた結果がこれより大きい・候補が多すぎるなら、編集後を確かめられないとして確認を出す(digest は数 KB)
 const MAX_APPLIED_LENGTH = 4 * 1024 * 1024;
 const MAX_APPLIED_VARIANTS = 16;
 
@@ -435,10 +435,16 @@ function buildReason(diffs, filePath) {
     }
     if (d.key === "__unapplied__") {
       lines.push(
-        `  編集後の frontmatter を確かめられない: old_string が現物に見つからないか、1 か所に決まらない(${fmtVal(d.before)})`
+        `  編集後の frontmatter を確かめられない: old_string が現物に見つからないか、1 か所に決まらない(${JSON.stringify(d.before[0])})`
       );
       lines.push(
         "    引用符の形・改行コード・エスケープが現物と違うと、Claude Code が正規化して当てることがある"
+      );
+      continue;
+    }
+    if (d.key === "__uncheckable__") {
+      lines.push(
+        "  編集後の frontmatter を確かめられない: 当てた結果が大きすぎる・候補が多すぎる、または当てる途中で失敗した"
       );
       continue;
     }
