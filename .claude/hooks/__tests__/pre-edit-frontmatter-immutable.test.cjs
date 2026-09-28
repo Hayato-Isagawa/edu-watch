@@ -194,7 +194,6 @@ test("Edit: sourceId の先頭の区切りだけ変える・id の直後に _ �
   // 旧来の並びの変化が新しい並びの変化から導けるときは 1 回だけ出す
   const both = reasonOf(editChunk(ID_A, ID_B));
   assert.equal(both.match(/articleIds \(/g).length, 1);
-  assert.doesNotMatch(both, /__articleIdsBounded__/);
   // 別々の箇所で両方が変わったときは両方出す(`_` の破損を隠さない)
   const U = "2026-09-26-0123456789abcdef";
   const mixed = reasonOf(

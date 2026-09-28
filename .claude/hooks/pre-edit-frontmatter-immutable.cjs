@@ -154,7 +154,8 @@ function evaluatePair(oldStr, newStr) {
   const after = captureProtectedFields(afterFm);
   const diffs = diffMaps(before, after);
   // 旧来の並びが両側とも新しい並びから導けるなら、その変化は新しい並びの変化に含まれる。
-  // 表示が重複するだけなので落とす。導けない側があれば別の箇所の変化なので残す
+  // 表示が重複するだけなので落とす。導けない側があれば別の箇所の変化かもしれないので残す
+  // (変わっていない `<id>-v2` などが混じると、同じ変化が 2 つのラベルで出ることがある)
   if (boundedFollowsIds(before) && boundedFollowsIds(after)) {
     return diffs.filter((d) => d.key !== "__articleIdsBounded__");
   }
