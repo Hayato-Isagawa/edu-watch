@@ -90,6 +90,8 @@ const digests = defineCollection({
 export const collections = { digests };
 ```
 
+> ADR 0075 で、各オブジェクトを `.strict()` にし、`articleIds` の要素を記事 id の形に限った。現行の定義は `src/content.config.ts`。
+
 ### 3.2 ファイル配置と slug 規則
 
 - 配置: `src/content/digests/YYYY-MM-DD.md`
@@ -257,7 +259,7 @@ PRD §12 と整合(公開曜日だけは PRD の「毎週金曜」から土曜�
 |---|---|
 | 30 分以内で書けない週がある(取り上げる素材を絞れない) | テンプレート化、`topics` を 3〜5 個に強制制限、PRD §13 リスク対応(自動化比率最大化)に従う |
 | 記事 id が collectedAt 修正(ADR 0010)以前のものと不整合 | 既存記事の id は不変なので影響なし。新規取り込みでも id は collectedAt と独立 |
-| `sections[].articleIds` の記事が後日削除依頼で消える(ADR 0008) | id ベースの参照解決時に未存在ならスキップ + 注記 |
+| `sections[].articleIds` の記事が後日削除依頼で消える(ADR 0008) | id ベースの参照解決時に未存在ならスキップ + 注記。CI の `check:digest-articles` は、denylist(ADR 0020)に載っていない欠落を赤にする(ADR 0075) |
 | 編集者の負荷集中(運営 1 人) | PRD §13 リスク表通り、自動化比率を上げる方針を維持。Phase 2 で AI 下書き支援を検討 |
 
 ---

@@ -28,13 +28,13 @@ npm run format             # oxfmt で整形(.ts/.js/.json 等。.astro / .md / 
 npm run format:check       # 同上の差分検査(CI はこちら)
 npm run check              # Astro 型チェック
 npm run vrt                # ビジュアルリグレッションテスト(現 dist を撮影・比較。権威ある比較は CI、後述)
-npm run test:workflows     # link-check.yml の通知分岐・VRT の配線・ci-summary.yml の通知判定の回帰テスト(下限つき・check:all に含む)
+npm run test:workflows     # link-check.yml の通知分岐・VRT の配線・ci-summary.yml の通知判定・digest の中身検査の回帰テスト(下限つき・check:all に含む)
 npm run test:hooks         # .claude/hooks/ の回帰テスト(下限つき)
 ```
 
 `package.json` の `engines.node` は `>=24.0.0`。
 
-### `test:workflows` — link-check の通知分岐と VRT のベースライン配線・ci-summary の通知判定
+### `test:workflows` — link-check の通知分岐と VRT のベースライン配線・ci-summary の通知判定・digest の中身検査
 
 `link-check.yml` に埋め込まれた「検出をどう届けるか」の判定を固定する。**壊れても静かに壊れる** —
 lychee は走り、レポートもアーティファクトに残り、job も緑のまま**通知だけ**が消える。姉妹リポ
@@ -64,7 +64,7 @@ okinawa-in-data では open な link-check Issue があると後続の検出を�
 PR のコンテンツ」で撮る配線(ADR 0068)も、**壊れても CI は緑のまま**だから — 運ぶ素材を 1 つ
 落としても、テストは走り、多くのページは通る。一番腐りやすいのは運ぶ素材の allowlist なので、
 `src/` の実ディレクトリを走査して「運ぶ・`paths` で監視する・描画に入らないと明言する」の
-三択を強制している。**テストを足したら `package.json` の下限(現在 99、実測ちょうど)も上げること。**
+三択を強制している。**テストを足したら `package.json` の下限(現在 107、実測ちょうど)も上げること。**
 
 `vrt-targets.test.mjs` も同じ口にある。VRT の撮影が**静かに減る**経路(対象を消す・ループを絞る・
 projects を削る・skip に落とす・`fullPage` を落とす・比較設定を緩める・比較ステップを撮り直しにする・
@@ -97,6 +97,11 @@ project 側に `baseURL` を置くことも許さない。CI では `!process.en
 action だけが exit 1 する**ので、`exit_code` だけを見ていると通知が skip され、`continue-on-error`
 で job も緑になる＝週次チェックが恒久的に no-op になる。`steps.lychee.outcome` は
 `continue-on-error` 適用**前**の結果なので、そこで拾っている。
+
+`check-digest-articles.test.mjs` も同じ口。`npm run check:digest-articles`(ADR 0075)は、digest の frontmatter が
+壊れて節や記事 id がビルドを通ったまま消える形(節の消失・記事データに無い id・本文への落ち込み・コメントアウト・
+値への吸い込み・行区切りに似た文字)を止める。**壊れても静かに壊れる**ので、一時ディレクトリに最小のリポを作って
+検査ごとに 1 か所ずつ壊し、exit を見ている。
 
 `test:workflows` / `test:hooks` は `assert-test-files.mjs` / `assert-test-results.mjs` を通している。
 `node --test` は「glob が 0 件」「中身が空」「全件 skip」のどれでも exit 0 で終わるので、守って
