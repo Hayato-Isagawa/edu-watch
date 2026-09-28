@@ -36,16 +36,33 @@ test("captureProtectedFields: top-level digest fields", () => {
   assert.deepEqual(m.get("publishedAt"), ["2026-05-03T20:00:00+09:00"]);
 });
 
-test("captureProtectedFields: articleId in sections", () => {
+// 記事 id は `src/lib/normalize.ts` の generateArticleId が作る `<sourceId>-<yyyy-mm-dd>-<16-hex>`。
+// 以前のテストは実在しないキー `articleId` と実在しない形の id(`a-001`)で書かれていて、digest が
+// 使う `articleIds` を 1 件も拾っていないことを見逃していた(#747)。
+const ID_A = "nikkyo-2026-09-25-786ac230c4d757f3";
+const ID_B = "resemom-2026-09-24-6f8686b60df11108";
+const ID_C = "nier-2026-09-24-71bafa490808f11b";
+
+test("captureProtectedFields: articleIds in all three YAML list forms", () => {
+  // 1 行の flow リスト(公開済みの号のほぼすべて)・複数行の flow リスト(2026-08-25 号)・ブロックリスト
   const fm = [
     "sections:",
-    "  - articleId: a-001",
+    `  - articleIds: [${ID_A}, ${ID_B}]`,
     "    heading: x",
-    "  - articleId: a-002",
+    "  - articleIds:",
+    "      [",
+    `        ${ID_C},`,
+    "      ]",
     "    heading: y",
+    "  - articleIds:",
+    `      - ${ID_B}`,
+    "    heading: z",
   ].join("\n");
   const m = captureProtectedFields(fm);
-  assert.deepEqual(m.get("articleId"), ["a-001", "a-002"]);
+  assert.deepEqual(m.get("__articleIds__"), [ID_A, ID_B, ID_C, ID_B]);
+  // キー名では拾わない(拾うと 1 行の flow リストだけ二重に数える)
+  assert.equal(m.has("articleIds"), false);
+  assert.equal(m.has("articleId"), false);
 });
 
 test("captureProtectedFields: URL set captured from frontmatter", () => {
@@ -79,9 +96,9 @@ test("Edit: weekStart change fires ask", () => {
   assert.match(parsed.hookSpecificOutput.permissionDecisionReason, /weekStart/);
 });
 
-test("Edit: articleId change fires ask", () => {
-  const oldS = "---\nsections:\n  - articleId: a-001\n---\n";
-  const newS = "---\nsections:\n  - articleId: a-099\n---\n";
+test("Edit: articleIds change fires ask", () => {
+  const oldS = `---\nsections:\n  - articleIds: [${ID_A}]\n---\n`;
+  const newS = `---\nsections:\n  - articleIds: [${ID_B}]\n---\n`;
   const input = JSON.stringify({
     tool_name: "Edit",
     tool_input: {
@@ -92,7 +109,47 @@ test("Edit: articleId change fires ask", () => {
   });
   const out = run(input);
   const parsed = JSON.parse(out.stdout);
-  assert.match(parsed.hookSpecificOutput.permissionDecisionReason, /articleId/);
+  assert.match(
+    parsed.hookSpecificOutput.permissionDecisionReason,
+    /articleIds/
+  );
+});
+
+const editChunk = (oldS, newS) =>
+  run(
+    JSON.stringify({
+      tool_name: "Edit",
+      tool_input: {
+        file_path: "src/content/digests/2026-05-04.md",
+        old_string: oldS,
+        new_string: newS,
+      },
+    })
+  );
+
+test("Edit: a chunk that carries only the id (no key) fires ask", () => {
+  // Edit の old_string は id の部分だけのことがある。キー名で探す形では捕まらない
+  const out = editChunk(ID_A, ID_B);
+  assert.ok(out.stdout, "id だけの書き換えで確認が出なかった");
+  assert.match(
+    JSON.parse(out.stdout).hookSpecificOutput.permissionDecisionReason,
+    /articleIds/
+  );
+});
+
+test("Edit: moving an id to another section fires ask (order is compared)", () => {
+  // 集合は同じでも、節をまたいで入れ替えると記事カードの帰属が変わる
+  const oldS = `  - articleIds: [${ID_A}]\n    heading: x\n  - articleIds: [${ID_B}]\n`;
+  const newS = `  - articleIds: [${ID_B}]\n    heading: x\n  - articleIds: [${ID_A}]\n`;
+  assert.ok(editChunk(oldS, newS).stdout, "id の入れ替えで確認が出なかった");
+});
+
+test("Edit: editing a section heading next to unchanged ids passes", () => {
+  const oldS = `  - articleIds: [${ID_A}, ${ID_B}]\n    heading: 古い見出し\n`;
+  const newS = `  - articleIds: [${ID_A}, ${ID_B}]\n    heading: 新しい見出し\n`;
+  const out = editChunk(oldS, newS);
+  assert.equal(out.exitCode, 0);
+  assert.ok(!out.stdout);
 });
 
 test("Edit: relatedEvidenceUrls swap fires (urls block)", () => {
@@ -228,15 +285,30 @@ test("空白の多い入力でも探索が線形にとどまる", () => {
   assert.deepEqual(
     [
       ...captureProtectedFields(
-        "title: a  b \t\nweekStart:  \t\nweekEnd:\narticleId:'x'"
+        "title: a  b \t\nweekStart:  \t\nweekEnd:\npublishedAt:'x'"
       ),
     ],
     [
       ["title", ["a  b"]],
       ["weekStart", ["\t"]],
-      ["articleId", ["x"]],
+      ["publishedAt", ["x"]],
     ]
   );
+
+  // 記事 id の形の探索も線形に保つ。英数字の長い連続・ハイフン区切りの長い並びの両方
+  for (const input of [
+    "a".repeat(32 * 1024),
+    "a-".repeat(16 * 1024),
+    "2026-".repeat(8 * 1024),
+  ]) {
+    const t0 = process.hrtime.bigint();
+    captureProtectedFields(input);
+    const ms = Number(process.hrtime.bigint() - t0) / 1e6;
+    assert.ok(
+      ms < 500,
+      `記事 id の探索に ${ms.toFixed(0)}ms かかった(${input.slice(0, 6)}…)`
+    );
+  }
 });
 
 // --- CLI 配線 -----------------------------------------------------------
@@ -357,7 +429,7 @@ test("CLI: 64KB を超える判定は stderr 側も切れない", () => {
 // --------------------------------------------------------------- Write 対応
 //
 // Write は差分ではなくファイル全体が届くので、ディスク上の現物と突き合わせる。
-// これが無いと、Edit では捕捉される weekStart / publishedAt / articleId の改変が
+// これが無いと、Edit では捕捉される weekStart / publishedAt / 記事 id の改変が
 // 「全文書き換え」では一切検知されない(2026-08-10 の横断レビューで発覚)。
 
 const fs = require("node:fs");
