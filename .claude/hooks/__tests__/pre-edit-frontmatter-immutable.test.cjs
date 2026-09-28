@@ -814,6 +814,7 @@ test("Edit: publishedAt 以降・今日以前のオフセット付き ISO8601 �
 // 正規表現は写さず、実際の sourceId で組んだ id を hook に通して丸ごと拾えるかを見る。
 // 見るのは `src/lib/sources/<sourceId>.ts` の各ファイルで最初の `sourceId: "…"` だけ。
 // 同じファイルの 2 本目の parser や、別の置き場所・書き方の sourceId は素通りする。
+// 素通りした分は、収集後に次のテスト(記事データの全 id)が拾う。
 test("captureProtectedFields: 全 source の sourceId で組んだ id を丸ごと拾う(#773)", () => {
   const dir = path.join(__dirname, "..", "..", "..", "src", "lib", "sources");
   const files = fs
@@ -832,4 +833,37 @@ test("captureProtectedFields: 全 source の sourceId で組んだ id を丸ご�
       `${f}: sourceId "${m[1]}" の id を hook が丸ごと拾えない。先に #773 を塞ぐこと`
     );
   }
+});
+
+// 上のテストの最後の網(#776)。parser の置き方や書き方によらず、実際に作られた id を
+// hook に通す。赤になるのは収集の後で、自動収集 PR の必須チェックが落ちて取り込みが止まる。
+test("captureProtectedFields: 記事データの全 id を丸ごと拾う(#776)", () => {
+  const dir = path.join(__dirname, "..", "..", "..", "src", "data", "articles");
+  const files = fs.readdirSync(dir).filter((f) => f.endsWith(".json"));
+  assert.ok(files.length > 0, `${dir} に記事データが無い`);
+  let count = 0;
+  const missed = [];
+  for (const f of files) {
+    for (const article of JSON.parse(
+      fs.readFileSync(path.join(dir, f), "utf8")
+    )) {
+      assert.equal(
+        typeof article.id,
+        "string",
+        `${f}: id が文字列でない記事がある`
+      );
+      count++;
+      const got = captureProtectedFields(`articleIds: [${article.id}]`).get(
+        "__articleIds__"
+      );
+      if (!got || got.length !== 1 || got[0] !== article.id)
+        missed.push(`${f}: ${article.id}`);
+    }
+  }
+  assert.ok(count > 0, "記事データに id が 1 件も無い");
+  assert.deepEqual(
+    missed,
+    [],
+    "hook が丸ごと拾えない記事 id がある。先に #773 を塞ぐこと"
+  );
 });
