@@ -1,5 +1,141 @@
 [
   {
+    "id": "kkn-2026-09-27-45cbbfb5aa93a31a",
+    "title": "東大×トヨタ・モビリティ基金、高大生対象アイデア実現支援「Good Life on Earth」の2026年度採択者9人を発表",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20260928o03",
+    "publishedAt": "2026-09-27T22:00:58.000Z",
+    "collectedAt": "2026-09-28T00:13:19.646Z",
+    "summary": "東京大学One Earth Guardians育成機構と一財・トヨタ・モビリティ基金は、高校生・高専生・大学1-2年生らを対象にしたアイデア実現支援プログラム「Good Life on Earth」の2026年度採択者9 […]",
+    "categories": [
+      "その他"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-09-27-aa0e524ae043f8f2",
+    "title": "私立11大学で理系転換～文理分断から脱却",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/post_ict/260928_1a",
+    "publishedAt": "2026-09-27T22:00:51.000Z",
+    "collectedAt": "2026-09-28T00:13:19.646Z",
+    "summary": "2040年までに約2万人の理工系学部定員増を実行するため、大学・高専機能強化支援事業における｢大規模文理横断転換枠｣を設定。これは大都市圏の大規模私立大学を主眼に大幅な理系転換を図るものとなる。 支援総額は80億円・最長 […]",
+    "categories": [
+      "その他"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-09-27-0c670d265b73a8b6",
+    "title": "統計数理研究所「子ども見学デー2026」10/31に開催〜実験やゲームなどを通して統計数理科学にふれる1日",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20260928o01",
+    "publishedAt": "2026-09-27T22:00:47.000Z",
+    "collectedAt": "2026-09-28T00:13:19.646Z",
+    "summary": "統計数理研究所は10月31日に「子ども見学デー2026」を開催する。 小学生から中学生を対象にしたイベントで、毎年好評の「ビービー弾サンプリング実験」や昨年度大人気だった「計算機展示室見学ツアー」のほか、新しいプログラ  […]",
+    "categories": [
+      "研究・エビデンス"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-09-27-de8f04a192794086",
+    "title": "AI時代の主体的な学びへの転換「第6回　思考を広げ深める伴走者！生成AIとの対話～埼玉県久喜市立久喜小学校の取組から～」中村学園大学教育学部　山本朋弘教授",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/post_ict/260928_1b",
+    "publishedAt": "2026-09-27T22:00:45.000Z",
+    "collectedAt": "2026-09-28T00:13:19.646Z",
+    "summary": "埼玉県久喜市（柿沼光夫教育長）は、GIGAスクール構想の先進自治体として｢久喜市版『未来の教室』｣を掲げ、市内の小中学校で生成ＡＩを学びの伴走者と位置づけた授業づくりを進めている。 久喜小学校（青山里美校長）では、教科や […]",
+    "categories": [
+      "ICT / GIGA",
+      "教員・働き方"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-09-27-3b4f943dfc5f0e70",
+    "title": "おいしい献立写真　旬の食材は生きた教材～第16回「9月／サツマ芋の煮物とキノコのスープ」",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/post_health/260928_5c",
+    "publishedAt": "2026-09-27T22:00:34.000Z",
+    "collectedAt": "2026-09-28T00:13:19.646Z",
+    "summary": "実りの秋を迎えて～食物繊維など腸の活性化に 通常、9月に入ると秋の気配が強まるのですが、近年は残暑がいつまでも続き、朝、晩もなかなか涼しくなりません。しかし、実りの秋として作物は順調に育っています。 この季節になると美味 […]",
+    "categories": [
+      "その他"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-09-27-c01efae56026906b",
+    "title": "秋の学校図書館特集2026",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/post_library/260928_4a",
+    "publishedAt": "2026-09-27T22:00:29.000Z",
+    "collectedAt": "2026-09-28T00:13:19.646Z",
+    "summary": "｢全国学校図書館研究大会札幌大会｣や｢情報活用授業コンクール｣をリポート ｢第45回全国学校図書館研究大会札幌大会｣（以下、札幌大会）が8月10～12日、札幌コンベンションセンターで開催された。学校図書館に関心のある人で […]",
+    "categories": [
+      "研究・エビデンス"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-09-27-c4b02653e6f1b8d7",
+    "title": "公立高2校の事例から持続可能な探究学習の構築法を学ぶ中高教員向けウェビナーを10/14に開催〜Inspire High",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20260928o04",
+    "publishedAt": "2026-09-27T22:00:20.000Z",
+    "collectedAt": "2026-09-28T00:13:19.646Z",
+    "summary": "Inspire Highは、公立学校における探究学習の持続可能性をテーマにした中高教員向けオンラインセミナーを10月14日に開催する。人事異動によるノウハウの属人化や指導方針のばらつきといった課題に対し、東京都立晴海総合 […]",
+    "categories": [
+      "教員・働き方"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-09-27-2e8d097c3d59d78d",
+    "title": "8グループの顕微鏡画面を一斉提示・共有して書き込み～福井大学教育学部義務教育学校7年生",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/post_ict/260928_3a",
+    "publishedAt": "2026-09-27T22:00:18.000Z",
+    "collectedAt": "2026-09-28T00:13:19.646Z",
+    "summary": "国立大学法人福井大学は8月26日、㈱内田洋行と包括連携協定を締結した。福井大学教育学部附属義務教育学校で締結式を行い、同校の理科室の一つであるプロジェクトルーム｢暁｣で同校7年生の理科の授業を公開した。 福井大学は、教員 […]",
+    "categories": [
+      "教員・働き方"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-09-27-3c8ad5d56e608c60",
+    "title": "｢まちの未来｣を考えるプロジェクトが始動～学生パートナーが4つのテーマで活動～横浜市",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/post_committee/260928_yokohamasi",
+    "publishedAt": "2026-09-27T21:59:57.000Z",
+    "collectedAt": "2026-09-28T00:13:19.646Z",
+    "summary": "横浜市は2027年の中区制100周年のその先を見据え、高校生・大学生が主役となり｢まちの未来｣を考える共創プロジェクトを始動した。 24人の学生パートナーが｢つながり｣｢環境｣｢にぎわい｣｢多文化共生｣の4テーマを掲げる […]",
+    "categories": [
+      "その他"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
     "id": "kkn-2026-09-27-0602607accd289bf",
     "title": "熊本高専、県内の教員対象にプログラミング研修を実施",
     "sourceId": "kkn",
