@@ -15,6 +15,8 @@
  * (sections[].articleIds, #747). The ids are matched by their shape, not by
  * the key, so the one-line list, the multi-line flow list and the block list
  * are all covered, and so is an Edit chunk that carries only the id itself.
+ * A sourceId may contain hyphens (`mext-press-…`, #773); the whole id is
+ * compared, as is the older word-bounded match (see ARTICLE_ID_WORD_RE).
  *
  * Plus: any URL set change in the frontmatter block (relatedEvidenceUrls
  * lives as a YAML list, so we compare URL multisets across the whole
@@ -49,9 +51,16 @@ const URL_RE = /\bhttps?:\/\/[^\s)>"']+/gi;
 // 記事 id の形(`src/lib/normalize.ts` の generateArticleId: `<sourceId>-<yyyy-mm-dd>-<16-hex>`)。
 // キー名ではなく形で拾う。以前は `articleId:` を探していたが、digest が使うキーは
 // `articleIds`(`src/content.config.ts`)で、1 件も当たっていなかった(#747)。
-// sourceId にハイフンを含めない前提(2026-09-28 時点の記事 2,040 件で全件この形)。
-// `[a-z0-9]+` は `\b` から始まるので、英数字の連続 1 本につき探索の起点は 1 つで線形。
-const ARTICLE_ID_RE = /\b[a-z0-9]+-\d{4}-\d{2}-\d{2}-[0-9a-f]{16}\b/g;
+// 並びは 2 通りで拾い、どちらが変わっても確認を出す(#773)。
+// - ARTICLE_ID_WORD_RE: ハイフンでつながった英数字を 1 語とし、id の形で終わる語を拾う。
+//   sourceId にハイフンがあっても(`mext-press-…`)丸ごと拾う。語の中は英数字とハイフンが
+//   交互で分け方が 1 通り、語の後ろに条件が無いので後戻りせず線形。
+// - ARTICLE_ID_BOUNDED_RE: 語の区切り(`\b`)で挟んで拾う旧来の形。こちらだけが捕まえる編集
+//   (id の直後に `_` や大文字を足す、`<id>-v2` の id 部分を変える)を落とさないために残す。
+//   `[a-z0-9]+` は `\b` から始まるので、英数字の連続 1 本につき探索の起点は 1 つで線形。
+const ARTICLE_ID_WORD_RE = /\b[a-z0-9]+(?:-+[a-z0-9]+)*/g;
+const ARTICLE_ID_TAIL_RE = /-\d{4}-\d{2}-\d{2}-[0-9a-f]{16}$/;
+const ARTICLE_ID_BOUNDED_RE = /\b[a-z0-9]+-\d{4}-\d{2}-\d{2}-[0-9a-f]{16}\b/g;
 
 function extractFrontmatter(s) {
   if (!s) return null;
@@ -107,8 +116,12 @@ function captureProtectedFields(fm) {
   }
   // 記事 id は並び順のまま比べる(並べ替えない)。節をまたいで id を移すと記事カードの
   // 帰属が変わるので、集合が同じでも順序の変化を捕まえる。
-  const ids = fm.match(ARTICLE_ID_RE) || [];
+  const ids = (fm.match(ARTICLE_ID_WORD_RE) || []).filter((w) =>
+    ARTICLE_ID_TAIL_RE.test(w)
+  );
   if (ids.length) map.set("__articleIds__", ids);
+  const bounded = fm.match(ARTICLE_ID_BOUNDED_RE) || [];
+  if (bounded.length) map.set("__articleIdsBounded__", bounded);
   // URLs in the frontmatter block (relatedEvidenceUrls list etc.)
   const urls = (fm.match(URL_RE) || []).map((x) => x.trim());
   if (urls.length) map.set("__urls__", urls.sort());
@@ -305,7 +318,10 @@ function buildReason(diffs, filePath) {
   const lines = [
     `[frontmatter-immutable] Protected fields changed in ${filePath}:`,
   ];
+  // 記事 id の並びは 2 通りで比べている。両方変わったら新しい並びの側だけを出す
+  const idsChanged = diffs.some((d) => d.key === "__articleIds__");
   for (const d of diffs) {
+    if (d.key === "__articleIdsBounded__" && idsChanged) continue;
     if (d.key === "__updatedAtInvalid__") {
       lines.push(
         `  updatedAt: ${fmtVal(d.before)} は ${d.after.join(" / ")}(publishedAt 以降・今日以前のオフセット付き ISO8601 にする)`
@@ -324,7 +340,7 @@ function buildReason(diffs, filePath) {
     const label =
       d.key === "__urls__"
         ? "urls (frontmatter block)"
-        : d.key === "__articleIds__"
+        : d.key === "__articleIds__" || d.key === "__articleIdsBounded__"
           ? "articleIds (in order)"
           : d.key;
     lines.push(`  ${label}:`);
