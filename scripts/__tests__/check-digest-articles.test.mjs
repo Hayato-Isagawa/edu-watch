@@ -201,3 +201,20 @@ test("節や関連リンクが字下げで前の値に吸い込まれると赤",
   assert.notEqual(absorbed, DIGEST);
   assert.equal(check(makeRepo({ digest: absorbed })).status, 1);
 });
+
+test("id を含まない塊のコメントアウトと吸い込みも赤(書かれた id の突き合わせでは見えない形)", () => {
+  // topics の項目を 0 桁目の # で外すと、その論点だけが消える
+  const topic = DIGEST.replace(
+    "topics:\n  - 論点",
+    "topics:\n  - 論点\n#  - 二つ目の論点"
+  );
+  assert.notEqual(topic, DIGEST);
+  assert.equal(check(makeRepo({ digest: topic })).status, 1);
+  // 関連リンクの塊が、字下げで前の comment(ブロック記法)に吸い込まれると、関連リンクが消える
+  const related = DIGEST.replace(
+    "    comment: 二つ目の論点。\nrelatedEvidenceUrls:\n  - url: https://edu-evidence.org/strategies/retrieval-practice/\n    title: 関連する戦略",
+    "    comment: |\n      二つ目の論点。\n      relatedEvidenceUrls:\n        - url: https://edu-evidence.org/strategies/retrieval-practice/\n          title: 関連する戦略"
+  );
+  assert.notEqual(related, DIGEST);
+  assert.equal(check(makeRepo({ digest: related })).status, 1);
+});
