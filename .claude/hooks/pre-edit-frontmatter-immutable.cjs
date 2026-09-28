@@ -18,6 +18,12 @@
  * A sourceId may contain hyphens (`mext-press-…`, #773); the whole id is
  * compared, as is the older word-bounded match (see ARTICLE_ID_WORD_RE).
  *
+ * Edit / MultiEdit are compared twice: chunk against chunk, and the file on
+ * disk before and after the edit is applied to it (#779), so a chunk without
+ * the key or the id's date and hash is still seen. When old_string is not
+ * found there or is not unique, the edit asks (Claude Code may normalise
+ * quotes, `\u` escapes or CRLF before applying it).
+ *
  * Plus: any URL set change in the frontmatter block (relatedEvidenceUrls
  * lives as a YAML list, so we compare URL multisets across the whole
  * frontmatter section).
@@ -83,7 +89,7 @@ function valueAfterColon(rest) {
   return rest.slice(i, j);
 }
 
-function captureProtectedFields(fm) {
+function captureProtectedFields(fm, { topLevelTitle = false } = {}) {
   if (!fm) return new Map();
   const map = new Map();
   for (const key of PROTECTED_KEYS) {
@@ -107,7 +113,10 @@ function captureProtectedFields(fm) {
     //
     // 詰めておく理由: settings.json の `timeout: 5`(秒)を超えるとプロセスが
     // kill され、stdout が出ない = ガードが黙って素通りする。
-    const re = new RegExp(`^[ \\t]*(?:-[ \\t]*)?${key}:(.*)$`, "gm");
+    // topLevelTitle: 現物に当てた比較では、title を行頭(digest 自体の題)だけで見る。
+    // relatedEvidenceUrls の入れ子の `title:` まで見ると、その断片の編集にも確認が出る(#779)
+    const lead = key === "title" && topLevelTitle ? "" : "[ \\t]*(?:-[ \\t]*)?";
+    const re = new RegExp(`^${lead}${key}:(.*)$`, "gm");
     const values = [];
     for (const m of fm.matchAll(re)) {
       const v = valueAfterColon(m[1]);
@@ -142,7 +151,7 @@ function diffMaps(beforeM, afterM) {
   return diffs;
 }
 
-function evaluatePair(oldStr, newStr) {
+function evaluatePair(oldStr, newStr, options = {}) {
   // Edit chunks usually don't include the `---` delimiters; fall back to the
   // whole chunk so single-line frontmatter edits ("weekStart: ...") still
   // get inspected. Path filter (TARGET_PATH_RE) keeps body-text false
@@ -150,8 +159,8 @@ function evaluatePair(oldStr, newStr) {
   const beforeFm = extractFrontmatter(oldStr) ?? oldStr ?? "";
   const afterFm = extractFrontmatter(newStr) ?? newStr ?? "";
   if (!beforeFm && !afterFm) return [];
-  const before = captureProtectedFields(beforeFm);
-  const after = captureProtectedFields(afterFm);
+  const before = captureProtectedFields(beforeFm, options);
+  const after = captureProtectedFields(afterFm, options);
   const diffs = diffMaps(before, after);
   // 旧来の並びが両側とも新しい並びから導けるなら、その変化は新しい並びの変化に含まれる。
   // 表示が重複するだけなので落とす。導けない側があれば別の箇所の変化かもしれないので残す
@@ -194,6 +203,84 @@ function evaluateWrite(filePath, content) {
     ];
   }
   return evaluatePair(current, content ?? "");
+}
+
+// Edit / MultiEdit の断片だけでは、記事 id の日付とハッシュやキー名を含まない編集
+// (`[nikkyo-` → `[kyodo-`、`08-03` → `08-04`)が見えない(#779)。ディスクの現物に編集を当て、
+// frontmatter 全体の編集前後も比べる。現物が無い・読めないときは断片の比較だけに任せる。
+function evaluateApplied(filePath, edits) {
+  let current;
+  try {
+    current = require("node:fs").readFileSync(filePath, "utf8");
+  } catch {
+    return [];
+  }
+  try {
+    // 空の new_string のとき、Claude Code は直後の改行も消すことがある。
+    // どちらになるかは決め打ちせず、両方を当てて比べる
+    let variants = [current];
+    for (const e of edits) {
+      const oldS = e?.old_string ?? "";
+      const newS = e?.new_string ?? "";
+      const all = e?.replace_all === true;
+      // 空の old_string は Claude Code が既存ファイルに対して拒否する
+      if (!oldS) return [];
+      const next = [];
+      for (const v of variants) {
+        const applied = applyEdit(v, oldS, newS, all);
+        if (applied === null) {
+          return [{ key: "__unapplied__", before: [oldS], after: [] }];
+        }
+        next.push(applied);
+        if (newS === "" && !oldS.endsWith("\n")) {
+          const joined = applyEdit(v, oldS + "\n", "", all);
+          if (joined !== null) next.push(joined);
+        }
+      }
+      variants = [...new Set(next)];
+      if (
+        variants.length > MAX_APPLIED_VARIANTS ||
+        variants.some((v) => v.length > MAX_APPLIED_LENGTH)
+      ) {
+        return [];
+      }
+    }
+    const seen = new Set();
+    const diffs = [];
+    for (const v of variants) {
+      for (const d of evaluatePair(current, v, { topLevelTitle: true })) {
+        if (seen.has(d.key)) continue;
+        seen.add(d.key);
+        diffs.push(d);
+      }
+    }
+    return diffs;
+  } catch {
+    // 巨大な置換などで落ちたら、断片の比較だけに任せる(変更前の挙動)
+    return [];
+  }
+}
+
+// 当てた結果がこれより大きい・候補が多すぎるなら全体の比較はしない(digest は数 KB)
+const MAX_APPLIED_LENGTH = 4 * 1024 * 1024;
+const MAX_APPLIED_VARIANTS = 16;
+
+// 見つからない・replace_all でないのに複数ある、なら null。
+// Claude Code は曲がった引用符・`\u`・CRLF を正規化してから当てるので、ここで見つからなくても
+// 編集が失敗するとは限らない。null は「編集後を確かめられない」として確認に回す。
+// `String.prototype.replace` は置換文字列の `$&` などを解釈するので使わない
+function applyEdit(content, oldS, newS, all) {
+  const i = content.indexOf(oldS);
+  if (i < 0) return null;
+  if (all) return content.split(oldS).join(newS);
+  if (content.indexOf(oldS, i + oldS.length) >= 0) return null;
+  return content.slice(0, i) + newS + content.slice(i + oldS.length);
+}
+
+// キーごとに、現物に当てた比較の差分があればそちらを、無ければ断片の差分を使う
+function mergeDiffs(chunkDiffs, appliedDiffs) {
+  const keys = new Set(appliedDiffs.map((d) => d.key));
+  return [...appliedDiffs, ...chunkDiffs.filter((d) => !keys.has(d.key))];
 }
 
 const UPDATED_AT_RE = /^[ \t]*updatedAt:[ \t]*["']?([^"'\n]+?)["']?[ \t]*$/m;
@@ -300,7 +387,10 @@ function evaluatePayload(toolName, toolInput) {
     const oldS = toolInput?.old_string ?? "";
     const newS = toolInput?.new_string ?? "";
     return [
-      ...evaluatePair(oldS, newS),
+      ...mergeDiffs(
+        evaluatePair(oldS, newS),
+        evaluateApplied(filePath, [toolInput])
+      ),
       ...evaluateUpdatedAt(filePath, oldS, newS),
     ];
   }
@@ -313,10 +403,11 @@ function evaluatePayload(toolName, toolInput) {
   }
   if (toolName === "MultiEdit") {
     const edits = Array.isArray(toolInput?.edits) ? toolInput.edits : [];
-    const merged = [];
+    const chunks = [];
     for (const e of edits) {
-      merged.push(...evaluatePair(e?.old_string ?? "", e?.new_string ?? ""));
+      chunks.push(...evaluatePair(e?.old_string ?? "", e?.new_string ?? ""));
     }
+    const merged = mergeDiffs(chunks, evaluateApplied(filePath, edits));
     // 複数の編集のどれかが updatedAt を書いていれば足りる
     const newAll = edits.map((e) => e?.new_string ?? "").join("\n");
     merged.push(...evaluateUpdatedAt(filePath, "", newAll));
@@ -325,11 +416,10 @@ function evaluatePayload(toolName, toolInput) {
   return [];
 }
 
+// 値は切らない。切ると長い URL や記事 id の末尾の変化が before / after で同じに見える(#779)
 function fmtVal(arr) {
   if (!arr.length) return "∅";
-  return arr
-    .map((v) => (v.length > 60 ? v.slice(0, 57) + "..." : v))
-    .join(" | ");
+  return arr.join(" | ");
 }
 
 function buildReason(diffs, filePath) {
@@ -340,6 +430,15 @@ function buildReason(diffs, filePath) {
     if (d.key === "__updatedAtInvalid__") {
       lines.push(
         `  updatedAt: ${fmtVal(d.before)} は ${d.after.join(" / ")}(publishedAt 以降・今日以前のオフセット付き ISO8601 にする)`
+      );
+      continue;
+    }
+    if (d.key === "__unapplied__") {
+      lines.push(
+        `  編集後の frontmatter を確かめられない: old_string が現物に見つからないか、1 か所に決まらない(${fmtVal(d.before)})`
+      );
+      lines.push(
+        "    引用符の形・改行コード・エスケープが現物と違うと、Claude Code が正規化して当てることがある"
       );
       continue;
     }

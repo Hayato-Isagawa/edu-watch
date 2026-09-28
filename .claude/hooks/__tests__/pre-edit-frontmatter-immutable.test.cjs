@@ -425,7 +425,7 @@ test("CLI: 壊れた入力でも落ちない", () => {
 // false を返し、「判定ではない付随出力」として捨てて exit 0 =
 // **ask が無音で消える**。このガードが防ごうとしている失敗そのもの。
 //
-// fmtVal は 1 値を 60 文字で丸めるが、**値の本数には上限が無い**ので、
+// fmtVal は値を切らず(#779 までは 1 値を 60 文字で丸めていた)、**値の本数にも上限が無い**ので、
 // relatedEvidenceUrls を多数持つ frontmatter の全文書き換えでこの大きさに届く。
 
 const manyUrls = (tag, count) =>
@@ -921,5 +921,142 @@ test("captureProtectedFields: 記事データの全 id を丸ごと拾う(#776)"
     missed,
     [],
     "hook が丸ごと拾えない記事 id がある(#773 の退行)"
+  );
+});
+
+// --- Edit を現物に当てて frontmatter 全体を比べる(#779) ------------------
+//
+// 断片どうしの比較だけでは、記事 id の日付とハッシュを含まない断片(`[nikkyo-` → `[kyodo-`)や、
+// キー名を含まない断片(`08-03` → `08-04`)の編集に確認が出なかった。
+// publishedAt は未来にしてある(公開済みの号だと updatedAt の確認が常に出て、テストが空振りする)。
+
+const APPLIED_BODY = [
+  "---",
+  "title: 第 10 号",
+  "weekStart: 2026-08-03",
+  "weekEnd: 2026-08-09",
+  "publishedAt: 2099-08-10",
+  "summary: abc tail",
+  "sections:",
+  `  - articleIds: [nikkyo-${TAIL}, nier-2026-09-26-0123456789abcdef]`,
+  "    heading: 見出し",
+  "relatedEvidenceUrls:",
+  "  - url: https://edu-evidence.org/strategies/retrieval-practice-long-slug-for-testing/",
+  "    title: 関連する戦略",
+  "---",
+  "",
+  "本文",
+  "",
+].join("\n");
+
+const reasonOn = (out) =>
+  out.stdout
+    ? JSON.parse(out.stdout).hookSpecificOutput.permissionDecisionReason
+    : "";
+
+test("Edit: id の日付とハッシュを含まない断片でも、現物に当てて変わるなら確認を出す(#779)", () => {
+  for (const [o, n, re] of [
+    ["[nikkyo-", "[kyodo-", /articleIds/],
+    ["786ac230c4d7", "786ac230c4d8", /articleIds/],
+    ["08-03", "08-04", /weekStart/],
+    ["retrieval-practice-long", "retrieval-practice-lang", /urls/],
+  ]) {
+    const out = editOn(digestFile(APPLIED_BODY), o, n);
+    assert.match(reasonOn(out), re, `${o} → ${n} で確認が出なかった`);
+  }
+  // 断片にも id がある編集では、現物に当てた側の並び(節の中のほかの id も含む)を出す
+  const both = reasonOn(
+    editOn(digestFile(APPLIED_BODY), `nikkyo-${TAIL}`, `kyodo-${TAIL}`)
+  );
+  assert.ok(
+    both.includes("nier-2026-09-26-0123456789abcdef"),
+    "現物に当てた並びではなく断片の並びが出ている"
+  );
+});
+
+test("Edit: 現物に当てられないときは確認を出し、replace_all と `$&` はそのまま当てる(#779)", () => {
+  const p = digestFile(APPLIED_BODY);
+  const editWith = (input) =>
+    run(
+      JSON.stringify({
+        tool_name: "Edit",
+        tool_input: { file_path: p, ...input },
+      })
+    );
+  // Claude Code は曲がった引用符・`\u`・CRLF を正規化してから当てるので、見つからない＝失敗とは限らない
+  assert.match(reasonOn(editOn(p, "“見出し”", "“別”")), /確かめられない/);
+  // replace_all でないのに複数ある(weekStart / weekEnd / publishedAt)
+  assert.match(reasonOn(editOn(p, "08-", "09-")), /確かめられない/);
+  assert.match(
+    reasonOn(
+      editWith({ old_string: "08-", new_string: "09-", replace_all: true })
+    ),
+    /weekStart/
+  );
+  // 空の old_string は Claude Code が既存ファイルに対して拒否するので、現物には当てない
+  assert.equal(reasonOn(editOn(p, "", "x")), "");
+  // `$&` を置換パターンとして解釈すると、編集後も `08-03` のままに見える
+  assert.match(reasonOn(editOn(p, "08-03", "$&")), /weekStart/);
+});
+
+test("Edit: 空の new_string で次の行とつながる編集に確認を出す(#779)", () => {
+  // Claude Code は空の new_string のとき、直後の改行も消すことがある。
+  // `summary: abc tail` の ` tail` を消すと、次の `weekStart:` 行が summary 行につながる(実測)
+  const p = digestFile(
+    APPLIED_BODY.replace("summary: abc tail\n", "").replace(
+      "title: 第 10 号\n",
+      "title: 第 10 号\nsummary: abc tail\n"
+    )
+  );
+  assert.match(reasonOn(editOn(p, " tail", "")), /weekStart/);
+  // 直後に改行が無い位置なら、つながる行が無いので素通り
+  assert.equal(reasonOn(editOn(p, "abc ", "")), "");
+});
+
+test("Edit: 見出しの編集と入れ子の title の断片は素通りし、最上位の title は断片でも確認を出す(#779)", () => {
+  const p = digestFile(APPLIED_BODY);
+  assert.equal(reasonOn(editOn(p, "見出し", "新しい見出し")), "");
+  // 現物に当てた比較では title を最上位だけで見る。入れ子の title(relatedEvidenceUrls)は、
+  // 断片に `title:` が入るときだけ今までどおり確認が出る
+  assert.equal(reasonOn(editOn(p, "関連する戦略", "関連する別の戦略")), "");
+  assert.match(
+    reasonOn(editOn(p, "    title: 関連する戦略", "    title: 別")),
+    /title/
+  );
+  assert.match(reasonOn(editOn(p, "第 10 号", "第 11 号")), /title/);
+});
+
+test("MultiEdit: 断片の編集も現物に順に当てて比べる(#779)", () => {
+  const p = digestFile(APPLIED_BODY);
+  const multi = (edits) =>
+    run(
+      JSON.stringify({
+        tool_name: "MultiEdit",
+        tool_input: { file_path: p, edits },
+      })
+    );
+  const renamed = multi([
+    { old_string: "見出し", new_string: "別の見出し" },
+    { old_string: "[nikkyo-", new_string: "[kyodo-" },
+  ]);
+  assert.match(reasonOn(renamed), /articleIds/);
+  // 順に当てる: 2 本目は 1 本目が作った文字列を書き換える(現物に別々に当てると見つからない)
+  const chained = multi([
+    { old_string: "見出し", new_string: "仮の見出し" },
+    { old_string: "仮の見出し", new_string: "決めた見出し" },
+  ]);
+  assert.equal(reasonOn(chained), "");
+});
+
+test("理由表示は値を切らずに出す(#779)", () => {
+  // 以前は 1 値を 57 文字で切っていたので、長い URL や id の末尾の変化が before / after で同じに見えた
+  const url = `https://edu-evidence.org/strategies/${"a".repeat(80)}/`;
+  const urlReason = reasonOn(editChunk(`  - url: ${url}`, `  - url: ${url}x`));
+  assert.ok(urlReason.includes(`${url}x`), "変更後の URL が切られている");
+  const id = `${"a".repeat(40)}-${TAIL}`;
+  const changed = `${id.slice(0, -1)}4`;
+  assert.ok(
+    reasonOn(editChunk(`[${id}]`, `[${changed}]`)).includes(changed),
+    "変更後の記事 id が切られている"
   );
 });
