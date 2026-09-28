@@ -812,6 +812,8 @@ test("Edit: publishedAt 以降・今日以前のオフセット付き ISO8601 �
 // ARTICLE_ID_RE は sourceId にハイフンを含めない前提で書いてある(`mext-press-…` からは
 // `press-…` しか拾わない、#773)。前提を崩す source を足した時点でここを赤にする。
 // 正規表現は写さず、実際の sourceId で組んだ id を hook に通して丸ごと拾えるかを見る。
+// 見るのは `src/lib/sources/<sourceId>.ts` の各ファイルで最初の `sourceId: "…"` だけ。
+// 同じファイルの 2 本目の parser や、別の置き場所・書き方の sourceId は素通りする。
 test("captureProtectedFields: 全 source の sourceId で組んだ id を丸ごと拾う(#773)", () => {
   const dir = path.join(__dirname, "..", "..", "..", "src", "lib", "sources");
   const files = fs
