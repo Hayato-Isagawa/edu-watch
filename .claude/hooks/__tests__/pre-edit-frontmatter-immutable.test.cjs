@@ -152,6 +152,60 @@ test("Edit: editing a section heading next to unchanged ids passes", () => {
   assert.ok(!out.stdout);
 });
 
+const TAIL = "2026-09-25-786ac230c4d757f3";
+
+test("captureProtectedFields: ハイフンを含む sourceId の id も丸ごと拾う(#773)", () => {
+  const fm = [
+    `  - articleIds: [mext-press-${TAIL}, a--b-${TAIL}]`,
+    "  - articleIds:",
+    "      [",
+    `        mext-press-${TAIL},`,
+    "      ]",
+    "  - articleIds:",
+    `      - a--b-${TAIL}`,
+  ].join("\n");
+  assert.deepEqual(captureProtectedFields(fm).get("__articleIds__"), [
+    `mext-press-${TAIL}`,
+    `a--b-${TAIL}`,
+    `mext-press-${TAIL}`,
+    `a--b-${TAIL}`,
+  ]);
+  // 語の区切りで拾う旧来の並びも残す。直後に `-英数字` が続く id は旧来の並びにだけ入り、
+  // 直後が `_` の id は新しい並びにだけ入る
+  const v2 = captureProtectedFields(`articleIds: [nier-${TAIL}-v2]`);
+  assert.equal(v2.has("__articleIds__"), false);
+  assert.deepEqual(v2.get("__articleIdsBounded__"), [`nier-${TAIL}`]);
+  const us = captureProtectedFields(`articleIds: [nier-${TAIL}_]`);
+  assert.deepEqual(us.get("__articleIds__"), [`nier-${TAIL}`]);
+  assert.equal(us.has("__articleIdsBounded__"), false);
+});
+
+test("Edit: sourceId の先頭の区切りだけ変える・id の直後に _ を足すと確認を出す(#773)", () => {
+  const reasonOf = (out) =>
+    JSON.parse(out.stdout).hookSpecificOutput.permissionDecisionReason;
+  // 旧来の並びはどちらも `press-…` で変わらない。新しい並びだけが捕まえる
+  const renamed = editChunk(`[mext-press-${TAIL}]`, `[nier-press-${TAIL}]`);
+  assert.ok(renamed.stdout, "先頭の区切りだけの書き換えで確認が出なかった");
+  assert.match(reasonOf(renamed), /nier-press-/);
+  // 新しい並びは `_` の手前で語が切れて変わらない。旧来の並びだけが捕まえる
+  const suffixed = editChunk(`[nier-${TAIL}]`, `[nier-${TAIL}_]`);
+  assert.ok(suffixed.stdout, "id の直後に _ を足して確認が出なかった");
+  assert.match(reasonOf(suffixed), /articleIds \(word-bounded, in order\)/);
+  // 旧来の並びの変化が新しい並びの変化から導けるときは 1 回だけ出す
+  const both = reasonOf(editChunk(ID_A, ID_B));
+  assert.equal(both.match(/articleIds \(/g).length, 1);
+  // 別々の箇所で両方が変わったときは両方出す(`_` の破損を隠さない)
+  const U = "2026-09-26-0123456789abcdef";
+  const mixed = reasonOf(
+    editChunk(
+      `articleIds: [mext-press-${TAIL}, nier-${U}]`,
+      `articleIds: [nier-press-${TAIL}, nier-${U}_]`
+    )
+  );
+  assert.match(mixed, /articleIds \(in order\)/);
+  assert.match(mixed, /articleIds \(word-bounded, in order\)/);
+});
+
 test("Edit: relatedEvidenceUrls swap fires (urls block)", () => {
   const oldS =
     ["---", "relatedEvidenceUrls:", "  - https://nier.go.jp/a", "---"].join(
@@ -295,10 +349,13 @@ test("空白の多い入力でも探索が線形にとどまる", () => {
     ]
   );
 
-  // 記事 id の形の探索も線形に保つ。英数字の長い連続・ハイフン区切りの長い並びの両方
+  // 記事 id の形の探索も線形に保つ。英数字の長い連続・ハイフン区切りの長い並び・
+  // 連続したハイフン(語の中の `-+`)・ハイフンだけの並び
   for (const input of [
     "a".repeat(32 * 1024),
     "a-".repeat(16 * 1024),
+    "a--".repeat(11 * 1024),
+    "-".repeat(32 * 1024),
     "2026-".repeat(8 * 1024),
   ]) {
     const t0 = process.hrtime.bigint();
@@ -809,9 +866,8 @@ test("Edit: publishedAt 以降・今日以前のオフセット付き ISO8601 �
   assert.equal(firedOn(out), false);
 });
 
-// ARTICLE_ID_RE は sourceId にハイフンを含めない前提で書いてある(`mext-press-…` からは
-// `press-…` しか拾わない、#773)。前提を崩す source を足した時点でここを赤にする。
-// 正規表現は写さず、実際の sourceId で組んだ id を hook に通して丸ごと拾えるかを見る。
+// 実際の sourceId で組んだ id を hook に通し、丸ごと拾えるかを見る(以前は `mext-press-…` から
+// `press-…` しか拾わなかった、#773)。正規表現は写さない。
 // 見るのは `src/lib/sources/<sourceId>.ts` の各ファイルで最初の `sourceId: "…"` だけ。
 // 同じファイルの 2 本目の parser や、別の置き場所・書き方の sourceId は素通りする。
 // 素通りした分は、収集後に次のテスト(記事データの全 id)が拾う。
@@ -830,7 +886,7 @@ test("captureProtectedFields: 全 source の sourceId で組んだ id を丸ご�
     assert.deepEqual(
       captureProtectedFields(`articleIds: [${id}]`).get("__articleIds__"),
       [id],
-      `${f}: sourceId "${m[1]}" の id を hook が丸ごと拾えない。先に #773 を塞ぐこと`
+      `${f}: sourceId "${m[1]}" の id を hook が丸ごと拾えない(#773 の退行)`
     );
   }
 });
@@ -864,6 +920,6 @@ test("captureProtectedFields: 記事データの全 id を丸ごと拾う(#776)"
   assert.deepEqual(
     missed,
     [],
-    "hook が丸ごと拾えない記事 id がある。先に #773 を塞ぐこと"
+    "hook が丸ごと拾えない記事 id がある(#773 の退行)"
   );
 });
