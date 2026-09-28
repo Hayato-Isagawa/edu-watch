@@ -190,11 +190,21 @@ test("Edit: sourceId の先頭の区切りだけ変える・id の直後に _ �
   // 新しい並びは `_` の手前で語が切れて変わらない。旧来の並びだけが捕まえる
   const suffixed = editChunk(`[nier-${TAIL}]`, `[nier-${TAIL}_]`);
   assert.ok(suffixed.stdout, "id の直後に _ を足して確認が出なかった");
-  assert.match(reasonOf(suffixed), /articleIds \(in order\)/);
-  // 両方の並びが変わったときは 1 回だけ出す
+  assert.match(reasonOf(suffixed), /articleIds \(word-bounded, in order\)/);
+  // 旧来の並びの変化が新しい並びの変化から導けるときは 1 回だけ出す
   const both = reasonOf(editChunk(ID_A, ID_B));
-  assert.equal(both.match(/articleIds \(in order\)/g).length, 1);
+  assert.equal(both.match(/articleIds \(/g).length, 1);
   assert.doesNotMatch(both, /__articleIdsBounded__/);
+  // 別々の箇所で両方が変わったときは両方出す(`_` の破損を隠さない)
+  const U = "2026-09-26-0123456789abcdef";
+  const mixed = reasonOf(
+    editChunk(
+      `articleIds: [mext-press-${TAIL}, nier-${U}]`,
+      `articleIds: [nier-press-${TAIL}, nier-${U}_]`
+    )
+  );
+  assert.match(mixed, /articleIds \(in order\)/);
+  assert.match(mixed, /articleIds \(word-bounded, in order\)/);
 });
 
 test("Edit: relatedEvidenceUrls swap fires (urls block)", () => {

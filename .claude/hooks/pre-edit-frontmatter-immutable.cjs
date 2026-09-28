@@ -56,7 +56,8 @@ const URL_RE = /\bhttps?:\/\/[^\s)>"']+/gi;
 //   sourceId にハイフンがあっても(`mext-press-…`)丸ごと拾う。語の中は英数字とハイフンが
 //   交互で分け方が 1 通り、語の後ろに条件が無いので後戻りせず線形。
 // - ARTICLE_ID_BOUNDED_RE: 語の区切り(`\b`)で挟んで拾う旧来の形。こちらだけが捕まえる編集
-//   (id の直後に `_` や大文字を足す、`<id>-v2` の id 部分を変える)を落とさないために残す。
+//   (id の直後に `_` や大文字を足す、sourceId にハイフンの無い `<id>-v2` の id 部分を変える)を
+//   落とさないために残す。ハイフンを含む sourceId の `<id>-v2` は、先頭部分の変更をどちらも拾わない。
 //   `[a-z0-9]+` は `\b` から始まるので、英数字の連続 1 本につき探索の起点は 1 つで線形。
 const ARTICLE_ID_WORD_RE = /\b[a-z0-9]+(?:-+[a-z0-9]+)*/g;
 const ARTICLE_ID_TAIL_RE = /-\d{4}-\d{2}-\d{2}-[0-9a-f]{16}$/;
@@ -149,9 +150,25 @@ function evaluatePair(oldStr, newStr) {
   const beforeFm = extractFrontmatter(oldStr) ?? oldStr ?? "";
   const afterFm = extractFrontmatter(newStr) ?? newStr ?? "";
   if (!beforeFm && !afterFm) return [];
-  return diffMaps(
-    captureProtectedFields(beforeFm),
-    captureProtectedFields(afterFm)
+  const before = captureProtectedFields(beforeFm);
+  const after = captureProtectedFields(afterFm);
+  const diffs = diffMaps(before, after);
+  // 旧来の並びが両側とも新しい並びから導けるなら、その変化は新しい並びの変化に含まれる。
+  // 表示が重複するだけなので落とす。導けない側があれば別の箇所の変化なので残す
+  if (boundedFollowsIds(before) && boundedFollowsIds(after)) {
+    return diffs.filter((d) => d.key !== "__articleIdsBounded__");
+  }
+  return diffs;
+}
+
+// 新しい並びの各語から旧来の形で拾い直したものが、旧来の並びと一致するか
+function boundedFollowsIds(m) {
+  const derived = (m.get("__articleIds__") ?? []).flatMap(
+    (w) => w.match(ARTICLE_ID_BOUNDED_RE) ?? []
+  );
+  return (
+    JSON.stringify(derived) ===
+    JSON.stringify(m.get("__articleIdsBounded__") ?? [])
   );
 }
 
@@ -318,10 +335,7 @@ function buildReason(diffs, filePath) {
   const lines = [
     `[frontmatter-immutable] Protected fields changed in ${filePath}:`,
   ];
-  // 記事 id の並びは 2 通りで比べている。両方変わったら新しい並びの側だけを出す
-  const idsChanged = diffs.some((d) => d.key === "__articleIds__");
   for (const d of diffs) {
-    if (d.key === "__articleIdsBounded__" && idsChanged) continue;
     if (d.key === "__updatedAtInvalid__") {
       lines.push(
         `  updatedAt: ${fmtVal(d.before)} は ${d.after.join(" / ")}(publishedAt 以降・今日以前のオフセット付き ISO8601 にする)`
@@ -340,9 +354,11 @@ function buildReason(diffs, filePath) {
     const label =
       d.key === "__urls__"
         ? "urls (frontmatter block)"
-        : d.key === "__articleIds__" || d.key === "__articleIdsBounded__"
+        : d.key === "__articleIds__"
           ? "articleIds (in order)"
-          : d.key;
+          : d.key === "__articleIdsBounded__"
+            ? "articleIds (word-bounded, in order)"
+            : d.key;
     lines.push(`  ${label}:`);
     lines.push(`    before: ${fmtVal(d.before)}`);
     lines.push(`    after:  ${fmtVal(d.after)}`);
