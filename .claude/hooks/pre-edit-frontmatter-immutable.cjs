@@ -10,7 +10,11 @@
  *   - weekStart           (YYYY-MM-DD; digit slip = wrong week)
  *   - weekEnd             (YYYY-MM-DD)
  *   - publishedAt         (ISO datetime)
- *   - articleId           (per-section identifier; under sections[])
+ *
+ * Plus: any change to the sequence of article ids in the frontmatter block
+ * (sections[].articleIds, #747). The ids are matched by their shape, not by
+ * the key, so the one-line list, the multi-line flow list and the block list
+ * are all covered, and so is an Edit chunk that carries only the id itself.
  *
  * Plus: any URL set change in the frontmatter block (relatedEvidenceUrls
  * lives as a YAML list, so we compare URL multisets across the whole
@@ -37,17 +41,17 @@
 
 "use strict";
 
-const PROTECTED_KEYS = [
-  "title",
-  "weekStart",
-  "weekEnd",
-  "publishedAt",
-  "articleId",
-];
+const PROTECTED_KEYS = ["title", "weekStart", "weekEnd", "publishedAt"];
 
 const FRONTMATTER_RE = /^---\s*\n([\s\S]*?)\n---\s*(?:\n|$)/;
 const TARGET_PATH_RE = /(?:^|\/)src\/content\/digests\/[^/]+\.(md|mdx)$/i;
 const URL_RE = /\bhttps?:\/\/[^\s)>"']+/gi;
+// 記事 id の形(`src/lib/normalize.ts` の generateArticleId: `<sourceId>-<yyyy-mm-dd>-<16-hex>`)。
+// キー名ではなく形で拾う。以前は `articleId:` を探していたが、digest が使うキーは
+// `articleIds`(`src/content.config.ts`)で、1 件も当たっていなかった(#747)。
+// sourceId にハイフンを含めない前提(2026-09-28 時点の記事 2,040 件で全件この形)。
+// `[a-z0-9]+` は `\b` から始まるので、英数字の連続 1 本につき探索の起点は 1 つで線形。
+const ARTICLE_ID_RE = /\b[a-z0-9]+-\d{4}-\d{2}-\d{2}-[0-9a-f]{16}\b/g;
 
 function extractFrontmatter(s) {
   if (!s) return null;
@@ -101,6 +105,10 @@ function captureProtectedFields(fm) {
     }
     if (values.length) map.set(key, values);
   }
+  // 記事 id は並び順のまま比べる(並べ替えない)。節をまたいで id を移すと記事カードの
+  // 帰属が変わるので、集合が同じでも順序の変化を捕まえる。
+  const ids = fm.match(ARTICLE_ID_RE) || [];
+  if (ids.length) map.set("__articleIds__", ids);
   // URLs in the frontmatter block (relatedEvidenceUrls list etc.)
   const urls = (fm.match(URL_RE) || []).map((x) => x.trim());
   if (urls.length) map.set("__urls__", urls.sort());
@@ -138,7 +146,7 @@ function evaluatePair(oldStr, newStr) {
 // 読めない理由で挙動を分ける:
 //   ファイルが無い   → 新規作成。比較対象が無いので通す
 //   それ以外の失敗   → 検証できない。通さずに確認を出す(fail-safe)
-// これが無いと、Edit では捕捉される weekStart / publishedAt / articleId の改変が
+// これが無いと、Edit では捕捉される weekStart / publishedAt / 記事 id の改変が
 // Write による全文書き換えでは一切検知されない(edu-law から移植)。
 function evaluateWrite(filePath, content) {
   let current;
@@ -313,14 +321,19 @@ function buildReason(diffs, filePath) {
       );
       continue;
     }
-    const label = d.key === "__urls__" ? "urls (frontmatter block)" : d.key;
+    const label =
+      d.key === "__urls__"
+        ? "urls (frontmatter block)"
+        : d.key === "__articleIds__"
+          ? "articleIds (in order)"
+          : d.key;
     lines.push(`  ${label}:`);
     lines.push(`    before: ${fmtVal(d.before)}`);
     lines.push(`    after:  ${fmtVal(d.after)}`);
   }
   lines.push("");
   lines.push(
-    "Digest frontmatter pins reader-facing facts (week range, articleId,"
+    "Digest frontmatter pins reader-facing facts (week range, articleIds,"
   );
   lines.push(
     "related evidence URLs). Confirm the change matches the source article"
