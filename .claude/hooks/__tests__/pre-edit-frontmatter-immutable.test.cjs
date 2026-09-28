@@ -808,3 +808,28 @@ test("Edit: publishedAt 以降・今日以前のオフセット付き ISO8601 �
   );
   assert.equal(firedOn(out), false);
 });
+
+// ARTICLE_ID_RE は sourceId にハイフンを含めない前提で書いてある(`mext-press-…` からは
+// `press-…` しか拾わない、#773)。前提を崩す source を足した時点でここを赤にする。
+// 正規表現は写さず、実際の sourceId で組んだ id を hook に通して丸ごと拾えるかを見る。
+// 見るのは `src/lib/sources/<sourceId>.ts` の各ファイルで最初の `sourceId: "…"` だけ。
+// 同じファイルの 2 本目の parser や、別の置き場所・書き方の sourceId は素通りする。
+test("captureProtectedFields: 全 source の sourceId で組んだ id を丸ごと拾う(#773)", () => {
+  const dir = path.join(__dirname, "..", "..", "..", "src", "lib", "sources");
+  const files = fs
+    .readdirSync(dir)
+    .filter((f) => f.endsWith(".ts") && f !== "index.ts");
+  assert.ok(files.length > 0, `${dir} に parser が無い`);
+  for (const f of files) {
+    const m = fs
+      .readFileSync(path.join(dir, f), "utf8")
+      .match(/^\s*sourceId:\s*"([^"]+)"/m);
+    assert.ok(m, `${f}: \`sourceId: "…"\` の行が読めない`);
+    const id = `${m[1]}-2026-01-01-0123456789abcdef`;
+    assert.deepEqual(
+      captureProtectedFields(`articleIds: [${id}]`).get("__articleIds__"),
+      [id],
+      `${f}: sourceId "${m[1]}" の id を hook が丸ごと拾えない。先に #773 を塞ぐこと`
+    );
+  }
+});
