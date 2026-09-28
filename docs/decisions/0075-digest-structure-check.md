@@ -2,7 +2,7 @@
 
 - 状態: 採用(`docs/sprint-4-design.md` §3 のスキーマを締める。ADR 0047 の記録は書き換えない)
 - 日付: 2026-09-29
-- 関連 PR: 本 ADR 起票 PR
+- 関連 PR: #783(本 ADR 起票 PR)
 - 関連 ADR: [`ADR 0008`](0008-citation-scope-policy.md) §5(削除依頼への 24 時間以内対応)/ [`ADR 0020`](0020-persistent-article-denylist.md)(削除済み記事の denylist)/ [`ADR 0047`](0047-digest-sections-multi-article.md)
 - 関連 issue: #781
 
