@@ -1,5 +1,77 @@
 [
   {
+    "id": "mext-2026-09-29-cd0fa78e6738d58d",
+    "title": "中央教育審議会大学分科会質向上・質保証システム部会（第11回）の議事録を掲載しました",
+    "sourceId": "mext",
+    "sourceName": "文部科学省",
+    "sourceUrl": "https://www.mext.go.jp/b_menu/shingi/chukyo/chukyo4/055/giji_list/1422801_00027.html",
+    "publishedAt": "2026-09-29T01:00:00.000Z",
+    "collectedAt": "2026-09-29T01:23:05.915Z",
+    "categories": [
+      "政策・制度"
+    ],
+    "layer": 1,
+    "language": "ja"
+  },
+  {
+    "id": "mext-2026-09-29-5995155d15cc0dfa",
+    "title": "通信教育の適正な実施・運営の確保のための基本的な指針等に関する検討会議(第2回)配付資料を追加しました",
+    "sourceId": "mext",
+    "sourceName": "文部科学省",
+    "sourceUrl": "https://www.mext.go.jp/b_menu/shingi/chousa/shotou/211/siryo/mext_00003.html",
+    "publishedAt": "2026-09-29T01:00:00.000Z",
+    "collectedAt": "2026-09-29T01:23:05.915Z",
+    "categories": [
+      "政策・制度"
+    ],
+    "layer": 1,
+    "language": "ja"
+  },
+  {
+    "id": "chukyo-2026-09-29-cd0fa78e6738d58d",
+    "title": "中央教育審議会大学分科会質向上・質保証システム部会（第11回）の議事録を掲載しました",
+    "sourceId": "chukyo",
+    "sourceName": "中央教育審議会",
+    "sourceUrl": "https://www.mext.go.jp/b_menu/shingi/chukyo/chukyo4/055/giji_list/1422801_00027.html",
+    "publishedAt": "2026-09-29T01:00:00.000Z",
+    "collectedAt": "2026-09-29T01:23:05.915Z",
+    "categories": [
+      "政策・制度"
+    ],
+    "layer": 1,
+    "language": "ja"
+  },
+  {
+    "id": "resemom-2026-09-29-ff39659f5d79ad5b",
+    "title": "高校生の技術を体験「さんフェアSAGA」10/24-25開催",
+    "sourceId": "resemom",
+    "sourceName": "リセマム",
+    "sourceUrl": "https://resemom.jp/article/2026/09/29/87685.html",
+    "publishedAt": "2026-09-29T00:45:02.000Z",
+    "collectedAt": "2026-09-29T01:23:05.915Z",
+    "summary": "2026年10月24日・25日の2日間、「第36回全国産業教育フェア佐賀大会（さんフェアSAGA2026）」がSAGAアリーナなど佐賀市内の複数会場で開催される。全国の専門高校生らが学習成果を発表し、作品展示やものづくり体験、ロボット競技大会などを行う。",
+    "categories": [
+      "その他"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "resemom-2026-09-29-0e1144bef2eb0ef3",
+    "title": "都立小石川の高3生がむずかしくない哲学本を出版…授業の4コマ漫画から「推し哲」",
+    "sourceId": "resemom",
+    "sourceName": "リセマム",
+    "sourceUrl": "https://resemom.jp/article/2026/09/29/87684.html",
+    "publishedAt": "2026-09-29T00:15:03.000Z",
+    "collectedAt": "2026-09-29T01:23:05.915Z",
+    "summary": "東京都立小石川中等教育学校16期生でつくる「推し哲プロジェクト制作委員会」が、哲学入門書『「推し哲」がみつかる！？哲学者大図鑑』を2026年10月2日に清水書院から刊行する。授業で生徒ひとりひとりが取り組んだ「哲学四コマ漫画」を本にまとめた企画で、有志生徒約30人が集まり、1年半かけて完成させた。",
+    "categories": [
+      "その他"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
     "id": "nier-2026-09-29-818a3392485bd041",
     "title": "令和８年度全国キャリア教育・進路指導担当者等研究協議会の開催について掲載しました。",
     "sourceId": "nier",
