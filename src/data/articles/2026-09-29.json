@@ -1,5 +1,170 @@
 [
   {
+    "id": "resemom-2026-09-29-d235e2ad7e47e042",
+    "title": "年内入試の面接必須化、私大8割「現体制で対応可能」規模や所在地で差",
+    "sourceId": "resemom",
+    "sourceName": "リセマム",
+    "sourceUrl": "https://resemom.jp/article/2026/09/29/87704.html",
+    "publishedAt": "2026-09-29T10:15:03.000Z",
+    "collectedAt": "2026-09-29T16:34:46.739Z",
+    "summary": "年内入試における面接試験の必須化に対し、約8割の私立大学が「現体制で対応可能」とする一方、約2割の大学で「一部見直し」や「抜本的な見直し」が必要と回答していることが2026年9月25日、リクルート進学総研の調査結果からわかった。大規模大学ほど体制の見直しを迫られている割合が高かった。",
+    "categories": [
+      "研究・エビデンス"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "oecd-2026-09-29-88740bd5a6b5f4e8",
+    "title": "The challenge of teacher shortages",
+    "sourceId": "oecd",
+    "sourceName": "OECD Education and Skills Today",
+    "sourceUrl": "https://oecdedutoday.com/the-challenge-of-teacher-shortages/",
+    "publishedAt": "2026-09-29T09:00:24.000Z",
+    "collectedAt": "2026-09-29T16:34:46.739Z",
+    "summary": "By OECD Director for Education and Skills Andreas Schleicher Education is both a reflection of society and a force that …",
+    "categories": [
+      "国際・海外"
+    ],
+    "layer": 1,
+    "language": "en"
+  },
+  {
+    "id": "resemom-2026-09-29-6fc781b2649b6b8a",
+    "title": "福岡県、中高生の水素エネルギー実践ツアー…九大見学など11月",
+    "sourceId": "resemom",
+    "sourceName": "リセマム",
+    "sourceUrl": "https://resemom.jp/article/2026/09/29/87701.html",
+    "publishedAt": "2026-09-29T08:45:02.000Z",
+    "collectedAt": "2026-09-29T16:34:46.739Z",
+    "summary": "福岡県は2026年11月7日と14日の2日間、県内在住の中高1・2生を対象に「水素エネルギー実践ツアー」を開催する。九州大学や久留米工業高等専門学校などを訪れ、講義や実験、施設見学を通じて水素エネルギーについて学ぶ。参加無料。定員は中高生各25人程度で、10月30日午後5時まで先着順で受け付ける。",
+    "categories": [
+      "その他"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "resemom-2026-09-29-5395189d5ea960b8",
+    "title": "東進「全国統一高校生テスト」11/1、受験料無料",
+    "sourceId": "resemom",
+    "sourceName": "リセマム",
+    "sourceUrl": "https://resemom.jp/article/2026/09/29/87700.html",
+    "publishedAt": "2026-09-29T08:15:02.000Z",
+    "collectedAt": "2026-09-29T16:34:46.739Z",
+    "summary": "東進は2026年11月1日、高校生を対象とした「全国統一高校生テスト」を全国の東進ハイスクール・東進衛星予備校各校舎、東進公認会場などで実施する。大学入学共通テスト本番レベル・全教科マーク式。受験料無料。Webサイトより申し込む。締切りは10月29日。",
+    "categories": [
+      "その他"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "nikkyo-2026-09-29-69d21fa41881afa7",
+    "title": "教員養成改革へ　中教審の審議まとめでパブコメを実施",
+    "sourceId": "nikkyo",
+    "sourceName": "日本教育新聞",
+    "sourceUrl": "https://www.kyoiku-press.com/post-316450/",
+    "publishedAt": "2026-09-29T07:57:00.000Z",
+    "collectedAt": "2026-09-29T16:34:46.739Z",
+    "summary": "中央教育審議会教員養成部会の審議まとめについて文科省は、パブリックコメントを実施している。10月19日まで意見を募る。年内にも答申する予定だ。 　教員のなり手を増やすため、多様な学部学科の学生が教職…",
+    "categories": [
+      "政策・制度",
+      "教員・働き方"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "nikkyo-2026-09-29-fc6d0f28dc6c0986",
+    "title": "東大次期総長に藤垣氏",
+    "sourceId": "nikkyo",
+    "sourceName": "日本教育新聞",
+    "sourceUrl": "https://www.kyoiku-press.com/post-316443/",
+    "publishedAt": "2026-09-29T06:40:00.000Z",
+    "collectedAt": "2026-09-29T16:34:46.739Z",
+    "summary": "写真＝東大発表資料から転載 　東京大学は28日、来年4月に就任する次期総長に、大学院総合文化研究科の藤垣裕子教授を選出した。藤井輝夫総長の任期満了に伴うもの。令和6年4月掲載の本紙インタビュー記事（当…",
+    "categories": [
+      "研究・エビデンス"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "mext-2026-09-29-df54f93a433dcc40",
+    "title": "「学校給食衛生管理基準」の在り方に関する有識者会議(第4回)配布資料",
+    "sourceId": "mext",
+    "sourceName": "文部科学省",
+    "sourceUrl": "https://www.mext.go.jp/b_menu/shingi/chousa/shotou/205/giji_list/mext_00003.html",
+    "publishedAt": "2026-09-29T06:30:00.000Z",
+    "collectedAt": "2026-09-29T16:34:46.739Z",
+    "categories": [
+      "政策・制度"
+    ],
+    "layer": 1,
+    "language": "ja"
+  },
+  {
+    "id": "nikkyo-2026-09-29-dfc231bf8942bb7e",
+    "title": "長崎県立大学の浅田学長、茨城県立図書館で来月末に講演",
+    "sourceId": "nikkyo",
+    "sourceName": "日本教育新聞",
+    "sourceUrl": "https://www.kyoiku-press.com/post-316436/",
+    "publishedAt": "2026-09-29T05:51:00.000Z",
+    "collectedAt": "2026-09-29T16:34:46.739Z",
+    "summary": "茨城県立図書館（水戸市）は10月31日、文科省で総合教育政策局長などを歴任し、現在は長崎県立大学学長を務める浅田和伸さんを招き、「学校は子どもたちの幸せのためにある」を主題とした講演会を開く。浅田さ…",
+    "categories": [
+      "政策・制度"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "resemom-2026-09-29-3de56dc4280e4f7d",
+    "title": "洗足学園の大学合格実績2026、東大27人・京大5人…医学部57人",
+    "sourceId": "resemom",
+    "sourceName": "リセマム",
+    "sourceUrl": "https://resemom.jp/article/2026/09/29/87692.html",
+    "publishedAt": "2026-09-29T04:15:03.000Z",
+    "collectedAt": "2026-09-29T16:34:46.739Z",
+    "summary": "洗足学園中学校・高等学校（神奈川県川崎市）が公表した2026年の合格実績によると、東京大学に27人、京都大学に5人、一橋大学に6人、東京科学大学に11人などが合格した。私立大学では早稲田大学に121人、慶應義塾大学に113人などが合格している。いずれも現役・既卒をあわせた合格者数。",
+    "categories": [
+      "研究・エビデンス"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "nikkyo-2026-09-29-e5f381427f4a9f09",
+    "title": "『都立高入試、学力検査のみを3校に拡大』が3位にランクイン　記事ランキング　2026年9月21日～9月27日",
+    "sourceId": "nikkyo",
+    "sourceName": "日本教育新聞",
+    "sourceUrl": "https://www.kyoiku-press.com/post-316429/",
+    "publishedAt": "2026-09-29T03:00:00.000Z",
+    "collectedAt": "2026-09-29T16:34:46.739Z",
+    "summary": "日本教育新聞電子版でアクセス数が多かった先週（2026年9月21日～9月27日）の記事のトップ5です。 1位　支援学級の生徒を「人生の主人公」に　キャリア教育軸に社会参画の具体像培う （2026年9…",
+    "categories": [
+      "その他"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "resemom-2026-09-29-8990fadf35534d41",
+    "title": "読書感想画中央コンクール、作品募集…指定図書13冊も発表",
+    "sourceId": "resemom",
+    "sourceName": "リセマム",
+    "sourceUrl": "https://resemom.jp/article/2026/09/29/87689.html",
+    "publishedAt": "2026-09-29T02:45:03.000Z",
+    "collectedAt": "2026-09-29T16:34:46.739Z",
+    "summary": "毎日新聞社と全国学校図書館協議会は、2026年度の「第38回読書感想画中央コンクール」の作品募集を開始した。38都道府県の小・中・高校生を対象に、本を読んで得た感動を絵画で表現する作品を募る。あわせて指定図書13冊も発表した。募集締切は地域により異なり、2026年11月から2027年1月を予定している。",
+    "categories": [
+      "その他"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
     "id": "mext-2026-09-29-cd0fa78e6738d58d",
     "title": "中央教育審議会大学分科会質向上・質保証システム部会（第11回）の議事録を掲載しました",
     "sourceId": "mext",

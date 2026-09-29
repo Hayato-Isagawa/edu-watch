@@ -1,5 +1,145 @@
 [
   {
+    "id": "kkn-2026-09-28-2b1c058d7cd1a55f",
+    "title": "「教員のなり手」を確保～実証研究に30億円　職員室フリーアドレス化など～文科省　概算要求",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/post_ict/260928_2c",
+    "publishedAt": "2026-09-28T22:00:50.000Z",
+    "collectedAt": "2026-09-29T16:34:46.739Z",
+    "summary": "文部科学省は、教職の魅力向上と教員不足の解消を目的として、都道府県・指定都市教育委員会を対象に、意欲的なKPI(目標)と3年間のアクションプラン(AP)を策定する自治体を指定し、実証研究と初期費用を支援する新規事業として […]",
+    "categories": [
+      "政策・制度",
+      "研究・エビデンス",
+      "教員・働き方"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-09-28-5a9174f98ae118b5",
+    "title": "大規模校の学校徴収金業務を刷新～保護者負担増やさず効率化　茨城県水戸市立第四中学校",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/post_ict/260928_2a",
+    "publishedAt": "2026-09-28T22:00:41.000Z",
+    "collectedAt": "2026-09-29T16:34:46.739Z",
+    "summary": "地域全体で子供たちの教育や成長を見守る文化が根付いているという水戸市立第四中学校。学校教育目標である｢主体性と協働性の育成｣を実現するため、学習活動の充実とともに学校業務の改善にも力を入れている。 生徒数995人、教職員 […]",
+    "categories": [
+      "教員・働き方"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-09-28-f2cb681593097878",
+    "title": "みんがく×笹埜健斗研究室、スクールAIを基盤とした「学校知の継承」に関する共同研究を開始",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20260929o02",
+    "publishedAt": "2026-09-28T22:00:40.000Z",
+    "collectedAt": "2026-09-29T16:34:46.739Z",
+    "summary": "教育プラットフォームを提供するみんがくと笹埜健斗研究室は、教育プラットフォーム「スクールAI」を基盤とした「学校知の継承」に関する共同研究を開始した。     ■経験や工夫を組織で引き継ぐ仕組みづくり […]",
+    "categories": [
+      "ICT / GIGA",
+      "研究・エビデンス"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-09-28-f81d48a7ab7d5028",
+    "title": "オープンバッジを活用したデジタル学生証で安全性・利便性・運用効率を向上",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/post_ict/260928_2b",
+    "publishedAt": "2026-09-28T22:00:26.000Z",
+    "collectedAt": "2026-09-29T16:34:46.739Z",
+    "summary": "オープンバッジの仕組みを提供する㈱ネットラーニングホールディングスは、2025年10月より｢オープンバッジの機能を利用したデジタル学生証｣の提供を開始した。今年4月からは通信制大学および宮城県内の県立高校が導入。特に高校 […]",
+    "categories": [
+      "その他"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-09-28-8f6c7975b0e7d995",
+    "title": "AIコーディングエージェント「Codex」で未来を創造～OpenAI「大学生向け 夏の Codex 開発祭 2026」",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/0928n01codex",
+    "publishedAt": "2026-09-28T22:00:26.000Z",
+    "collectedAt": "2026-09-29T16:34:46.739Z",
+    "summary": "OpenAIは2026年9月15日、大学生・大学院生を対象とした開発イベント「大学生向け 夏の Codex 開発祭 2026」を開催した。会場は横浜市のイベントスペース「THE BEACH YOKOHAMA」。日本国内在 […]",
+    "categories": [
+      "ICT / GIGA"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-09-28-1bbb18385bd937e7",
+    "title": "生成AIパイロット校の相模原市立中野中、10/23に第1回公開授業研究会を実施",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20260929o04",
+    "publishedAt": "2026-09-28T22:00:18.000Z",
+    "collectedAt": "2026-09-29T16:34:46.739Z",
+    "summary": "相模原市立中野中学校は10月23日、生成AIを活用した授業の公開研究会を開催する。同校は生成AIパイロット校として、情報活用能力やAIリテラシーの育成に向けた実践に取り組んでおり、今年で4年目を迎える。 研究会では、全校 […]",
+    "categories": [
+      "ICT / GIGA",
+      "研究・エビデンス"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-09-28-4086f7cf98e742c1",
+    "title": "全国学校図書館研究大会札幌大会リポート～多様な子供と多様な学び、幅広いテーマで支える場",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/post_library/260928_4b",
+    "publishedAt": "2026-09-28T22:00:17.000Z",
+    "collectedAt": "2026-09-29T16:34:46.739Z",
+    "summary": "｢第45回全国学校図書館研究大会札幌大会｣(主催＝北海道学校図書館協会、札幌市学校図書館協議会、公社・全国学校図書館協議会、北海道教育委員会、札幌市教育委員会)は｢つなげる　つながる学校図書館～確かな学びと豊かな心｣を研 […]",
+    "categories": [
+      "政策・制度",
+      "研究・エビデンス"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-09-28-90ed24783bf9750c",
+    "title": "意志ある学び−未来教育 全国大会2025「人間中心の未来教育3.0―人間を見る・現実から学ぶ・人間が判断する―」10/31にオンライン開催",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20260929o01",
+    "publishedAt": "2026-09-28T22:00:08.000Z",
+    "collectedAt": "2026-09-29T16:34:46.739Z",
+    "summary": "シンクタンク未来教育ビジョンは10月31日、「意志ある学び―未来教育全国大会2026」をオンラインで開催する。 今回のテーマは、「人間中心の未来教育3.0―人間を見る・現実から学ぶ・人間が判断する―」。Part1の特別対 […]",
+    "categories": [
+      "その他"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-09-28-7f6f85c5190e19ba",
+    "title": "小中学校のネットワーク環境の高度化に向けて～仮想基盤の安定に予備機などを導入～滋賀県米原市",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/post_nyusatsu/260928_maibarasi",
+    "publishedAt": "2026-09-28T21:59:58.000Z",
+    "collectedAt": "2026-09-29T16:34:46.739Z",
+    "summary": "米原市教育委員会は、小学校9校と中学校6校に設置されているネットワーク環境の高度化を図るため公募型プロポーザルを9月1日に公示。 仮想基盤および共有ストレージの保守期間満了に伴い、引き続き安定稼働させる措置を図るため予備 […]",
+    "categories": [
+      "政策・制度"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
     "id": "resemom-2026-09-28-aa387d4a67834bc3",
     "title": "教師の転職、前任校から母校へ移った理由とは…Teacher’s［Shift］",
     "sourceId": "resemom",
@@ -120,6 +260,34 @@
     "categories": [
       "政策・制度",
       "教員・働き方"
+    ],
+    "layer": 1,
+    "language": "ja"
+  },
+  {
+    "id": "mext-2026-09-28-6eb237e0b25bbcf2",
+    "title": "「令和9年度全国学力・学習状況調査を実施するための委託事業（中学校事業）」に関する委託先機関の決定等について",
+    "sourceId": "mext",
+    "sourceName": "文部科学省",
+    "sourceUrl": "https://www.mext.go.jp/a_menu/shotou/gakuryoku-chousa/zenkoku/1421366_00007.htm",
+    "publishedAt": "2026-09-28T06:00:00.000Z",
+    "collectedAt": "2026-09-29T16:34:46.739Z",
+    "categories": [
+      "研究・エビデンス"
+    ],
+    "layer": 1,
+    "language": "ja"
+  },
+  {
+    "id": "mext-2026-09-28-242ef865ea3830b1",
+    "title": "「令和9年度全国学力・学習状況調査を実施するための委託事業（小学校事業）」に関する委託先機関の決定等について",
+    "sourceId": "mext",
+    "sourceName": "文部科学省",
+    "sourceUrl": "https://www.mext.go.jp/a_menu/shotou/gakuryoku-chousa/zenkoku/1383056_00008.htm",
+    "publishedAt": "2026-09-28T06:00:00.000Z",
+    "collectedAt": "2026-09-29T16:34:46.739Z",
+    "categories": [
+      "研究・エビデンス"
     ],
     "layer": 1,
     "language": "ja"
