@@ -145,8 +145,21 @@ async function main(): Promise<number> {
       .map(String)
       .sort();
     if (JSON.stringify(written) !== JSON.stringify(read)) {
+      const unread = [...written];
+      const unwritten: string[] = [];
+      for (const id of read) {
+        const i = unread.indexOf(id);
+        if (i >= 0) unread.splice(i, 1);
+        else unwritten.push(id);
+      }
+      const diff = [
+        unread.length ? `読めない: ${unread.join(", ")}` : "",
+        unwritten.length ? `書かれていない: ${unwritten.join(", ")}` : "",
+      ]
+        .filter(Boolean)
+        .join(" / ");
       problems.push(
-        `${f}: 書かれている記事 id と読める記事 id が合わない(コメントアウトされた id や、区切りが消えてつながった id がある)`
+        `${f}: 書かれている記事 id と読める記事 id が合わない(${diff})。コメントアウトされた id、区切りが消えてつながった id、本文や URL の中の id の形の語のどれか`
       );
     }
     for (const s of sections) {

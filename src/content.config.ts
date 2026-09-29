@@ -4,7 +4,8 @@
  * - digests: 週次ダイジェスト(`src/content/digests/YYYY-MM-DD.md`)
  *   詳細は docs/sprint-4-design.md §3 を参照。
  *   未知のキーと記事 id の形でない articleIds はビルドで止める(ADR 0075)。
- *   節の有無・記事データにある id か・本文への落ち込みは `scripts/check-digest-articles.ts` が見る。
+ *   frontmatter の中身(節の有無・記事データにある id か・本文への落ち込みなど)は
+ *   `scripts/check-digest-articles.ts` が見る。検査の一覧はそのスクリプトと ADR 0075。
  */
 import { defineCollection, z } from "astro:content";
 import { glob } from "astro/loaders";
