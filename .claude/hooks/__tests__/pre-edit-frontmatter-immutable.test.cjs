@@ -576,6 +576,12 @@ test("Write: 現物を読めないときは素通りさせず確認を出す(fai
   const out = writeOn(p, DIGEST_BODY);
   assert.ok(firedOn(out), "読めないのに素通りしている");
   assert.match(out.stdout, /unreadable/);
+  // 見出しは保護値の変化ではなく、確かめられないとして出す(#781)
+  const heading = JSON.parse(
+    out.stdout
+  ).hookSpecificOutput.permissionDecisionReason.split("\n")[0];
+  assert.match(heading, /Cannot verify/);
+  assert.doesNotMatch(heading, /Protected fields changed/);
 });
 
 test("Write: 対象外のパスは見ない", () => {
@@ -983,7 +989,7 @@ test("Edit: 現物に当てられないときは確認を出し、replace_all �
         tool_input: { file_path: p, ...input },
       })
     );
-  // Claude Code は曲がった引用符・`\u`・CRLF を正規化してから当てるので、見つからない＝失敗とは限らない
+  // Claude Code は曲がった引用符・`\u` を正規化してから当てるので、見つからない＝失敗とは限らない
   assert.match(reasonOn(editOn(p, "“見出し”", "“別”")), /確かめられない/);
   // replace_all でないのに複数ある(weekStart / weekEnd / publishedAt)
   assert.match(reasonOn(editOn(p, "08-", "09-")), /確かめられない/);
@@ -1024,6 +1030,75 @@ test("Edit: 空の new_string で次の行とつながる編集に確認を出�
   assert.match(reasonOn(editOn(p, " tail", "")), /weekStart/);
   // 直後に改行が無い位置なら、つながる行が無いので素通り
   assert.equal(reasonOn(editOn(p, "abc ", "")), "");
+});
+
+test("見出しは差分の分類から組み立てる(確かめられない・updatedAt・保護値の変化)(#781)", () => {
+  const heading = (out) => reasonOn(out).split("\n")[0];
+  const p = digestFile(APPLIED_BODY);
+  const unapplied = heading(editOn(p, "not-in-file", "x"));
+  assert.match(unapplied, /Cannot verify/);
+  assert.doesNotMatch(unapplied, /Protected fields changed/);
+  // 公開済みの号では updatedAt の確認が同時に出る。それでも保護値の変化とは書かない
+  const published = heading(
+    editOn(
+      digestFile(
+        APPLIED_BODY.replace(
+          "publishedAt: 2099-08-10",
+          'publishedAt: "2026-08-10T07:00:00+09:00"'
+        )
+      ),
+      "not-in-file",
+      "x"
+    )
+  );
+  assert.match(published, /Cannot verify/);
+  assert.match(published, /updatedAt/);
+  assert.doesNotMatch(published, /Protected fields changed/);
+  assert.match(
+    heading(editOn(p, "08-03", "08-04")),
+    /Protected fields changed/
+  );
+});
+
+test("確かめられないときの old_string は先頭だけを出し、出力を 1 MiB 未満に収める(#781)", () => {
+  const out = editOn(digestFile(APPLIED_BODY), "a".repeat(600000), "x");
+  const reason = reasonOn(out);
+  assert.match(reason, /確かめられない/);
+  assert.match(reason, /全 600000 文字/);
+  const bytes =
+    Buffer.byteLength(out.stdout ?? "") + Buffer.byteLength(out.stderr ?? "");
+  assert.ok(bytes < 1024 * 1024, `出力が ${bytes} バイト`);
+});
+
+test("URL の変化は、増えた URL と減った URL だけを出す(#781)", () => {
+  const KEEP = "https://edu-evidence.org/strategies/feedback/";
+  const p = digestFile(
+    APPLIED_BODY.replace(
+      "    title: 関連する戦略\n",
+      `    title: 関連する戦略\n  - url: ${KEEP}\n    title: 変えない\n`
+    )
+  );
+  const reason = reasonOn(
+    editOn(p, "retrieval-practice-long", "retrieval-practice-lang")
+  );
+  assert.match(reason, /増えた: .*retrieval-practice-lang/);
+  assert.match(reason, /減った: .*retrieval-practice-long/);
+  assert.ok(!reason.includes(KEEP), "変わらない URL まで出ている");
+});
+
+test("Edit: CRLF のファイルでも、空の new_string で次の行とつながる編集に確認を出す(#781)", () => {
+  // 現物の CRLF を LF に直してから当てる。直さないと `old_string + "\n"` が見つからず、つながる候補が作られない
+  const p = digestFile(
+    APPLIED_BODY.replace("summary: abc tail\n", "")
+      .replace("title: 第 10 号\n", "title: 第 10 号\nsummary: abc tail\n")
+      .replaceAll("\n", "\r\n")
+  );
+  assert.match(reasonOn(editOn(p, " tail", "")), /weekStart/);
+  // CRLF を含む old_string は、直した現物には見つからないので確かめられないとして確認を出す
+  assert.match(
+    reasonOn(editOn(p, "abc tail\r\nweekStart", "abc tail\r\nweekStart")),
+    /確かめられない/
+  );
 });
 
 test("Edit: 見出しの編集と入れ子の title の断片は素通りし、最上位の title は断片でも確認を出す(#779)", () => {

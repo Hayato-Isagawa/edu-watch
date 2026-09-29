@@ -20,9 +20,12 @@
  *
  * Edit / MultiEdit are compared twice: chunk against chunk, and the file on
  * disk before and after the edit is applied to it (#779), so a chunk without
- * the key or the id's date and hash is still seen. When old_string is not
+ * the key or the id's date and hash is still seen. The file's CRLF is read
+ * as LF first; old_string is used as given (#781). When old_string is not
  * found there or is not unique, the edit asks (Claude Code may normalise
- * quotes, `\u` escapes or CRLF before applying it).
+ * quotes or `\u` escapes before applying it). Joining a block-list id line to
+ * the next line keeps the id words intact, so that form is left to
+ * `npm run check:digest-articles` (ADR 0075).
  *
  * Plus: any URL set change in the frontmatter block (relatedEvidenceUrls
  * lives as a YAML list, so we compare URL multisets across the whole
@@ -215,6 +218,9 @@ function evaluateApplied(filePath, edits) {
   } catch {
     return [];
   }
+  // 現物だけ CRLF を LF に直してから当てる。old_string / new_string は直さないので、
+  // `\r` を含む old_string は見つからず、確かめられないとして確認に回る(#781)
+  current = current.replaceAll("\r\n", "\n");
   try {
     // 空の new_string のとき、Claude Code は直後の改行も消すことがある。
     // どちらになるかは決め打ちせず、両方を当てて比べる
@@ -266,7 +272,7 @@ const MAX_APPLIED_LENGTH = 4 * 1024 * 1024;
 const MAX_APPLIED_VARIANTS = 16;
 
 // 見つからない・replace_all でないのに複数ある、なら null。
-// Claude Code は曲がった引用符・`\u`・CRLF を正規化してから当てるので、ここで見つからなくても
+// Claude Code は曲がった引用符・`\u` を正規化してから当てるので、ここで見つからなくても
 // 編集が失敗するとは限らない。null は「編集後を確かめられない」として確認に回す。
 // `String.prototype.replace` は置換文字列の `$&` などを解釈するので使わない
 function applyEdit(content, oldS, newS, all) {
@@ -416,16 +422,55 @@ function evaluatePayload(toolName, toolInput) {
   return [];
 }
 
-// 値は切らない。切ると長い URL や記事 id の末尾の変化が before / after で同じに見える(#779)
+// 保護値の before / after は切らない。切ると長い URL や記事 id の末尾の変化が同じに見える(#779)。
+// 切るのは、確かめられないときに出す old_string だけ(MAX_SHOWN_OLD_STRING)
 function fmtVal(arr) {
   if (!arr.length) return "∅";
   return arr.join(" | ");
 }
 
+// 多重集合の差(a にあって b に無い分)
+function multisetMinus(a, b) {
+  const rest = [...b];
+  const out = [];
+  for (const x of a) {
+    const i = rest.indexOf(x);
+    if (i >= 0) rest.splice(i, 1);
+    else out.push(x);
+  }
+  return out;
+}
+
+// 見出しは差分の分類から組み立てる。公開済みの号では確かめられないときも updatedAt が同時に出るので、
+// キー名の列挙で「これだけなら」と分けない(#781)
+const UNCHECKABLE_KEYS = new Set([
+  "__unapplied__",
+  "__uncheckable__",
+  "__unreadable__",
+]);
+const UPDATED_AT_KEYS = new Set(["__updatedAt__", "__updatedAtInvalid__"]);
+
+// 確かめられないときに出す old_string の長さ。全文を出すと、ディスパッチャの spawnSync の
+// maxBuffer(stdout と stderr の合計 1 MiB)を超えて確認ではなく停止になる(#781)
+const MAX_SHOWN_OLD_STRING = 200;
+
+function headingOf(diffs) {
+  const parts = [];
+  if (
+    diffs.some(
+      (d) => !UNCHECKABLE_KEYS.has(d.key) && !UPDATED_AT_KEYS.has(d.key)
+    )
+  )
+    parts.push("Protected fields changed");
+  if (diffs.some((d) => UNCHECKABLE_KEYS.has(d.key)))
+    parts.push("Cannot verify the edited frontmatter");
+  if (diffs.some((d) => UPDATED_AT_KEYS.has(d.key)))
+    parts.push("updatedAt needs attention");
+  return parts.join(" / ");
+}
+
 function buildReason(diffs, filePath) {
-  const lines = [
-    `[frontmatter-immutable] Protected fields changed in ${filePath}:`,
-  ];
+  const lines = [`[frontmatter-immutable] ${headingOf(diffs)} in ${filePath}:`];
   for (const d of diffs) {
     if (d.key === "__updatedAtInvalid__") {
       lines.push(
@@ -434,11 +479,16 @@ function buildReason(diffs, filePath) {
       continue;
     }
     if (d.key === "__unapplied__") {
+      const old = d.before[0];
+      const shown =
+        old.length > MAX_SHOWN_OLD_STRING
+          ? `${JSON.stringify(old.slice(0, MAX_SHOWN_OLD_STRING))}…(全 ${old.length} 文字)`
+          : JSON.stringify(old);
       lines.push(
-        `  編集後の frontmatter を確かめられない: old_string が現物に見つからないか、1 か所に決まらない(${JSON.stringify(d.before[0])})`
+        `  編集後の frontmatter を確かめられない: old_string が現物に見つからないか、1 か所に決まらない(${shown})`
       );
       lines.push(
-        "    引用符の形・改行コード・エスケープが現物と違うと、Claude Code が正規化して当てることがある"
+        "    引用符の形・エスケープが現物と違うと、Claude Code が正規化して当てることがある(old_string の CR は直さない)"
       );
       continue;
     }
@@ -457,14 +507,19 @@ function buildReason(diffs, filePath) {
       );
       continue;
     }
+    // URL は frontmatter の全部を並べると 1 文字の変化が埋もれるので、増減だけを出す(#781)
+    if (d.key === "__urls__") {
+      lines.push("  urls (frontmatter block):");
+      lines.push(`    増えた: ${fmtVal(multisetMinus(d.after, d.before))}`);
+      lines.push(`    減った: ${fmtVal(multisetMinus(d.before, d.after))}`);
+      continue;
+    }
     const label =
-      d.key === "__urls__"
-        ? "urls (frontmatter block)"
-        : d.key === "__articleIds__"
-          ? "articleIds (in order)"
-          : d.key === "__articleIdsBounded__"
-            ? "articleIds (word-bounded, in order)"
-            : d.key;
+      d.key === "__articleIds__"
+        ? "articleIds (in order)"
+        : d.key === "__articleIdsBounded__"
+          ? "articleIds (word-bounded, in order)"
+          : d.key;
     lines.push(`  ${label}:`);
     lines.push(`    before: ${fmtVal(d.before)}`);
     lines.push(`    after:  ${fmtVal(d.after)}`);
