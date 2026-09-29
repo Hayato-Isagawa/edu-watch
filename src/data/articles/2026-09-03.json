@@ -192,7 +192,8 @@
       "その他"
     ],
     "layer": 2,
-    "language": "ja"
+    "language": "ja",
+    "requiresMembership": true
   },
   {
     "id": "nikkyo-2026-09-03-02014fff2827038b",
@@ -207,7 +208,8 @@
       "政策・制度"
     ],
     "layer": 2,
-    "language": "ja"
+    "language": "ja",
+    "requiresMembership": true
   },
   {
     "id": "resemom-2026-09-03-795754b98c1d4a0b",

@@ -136,7 +136,8 @@
       "研究・エビデンス"
     ],
     "layer": 2,
-    "language": "ja"
+    "language": "ja",
+    "requiresMembership": true
   },
   {
     "id": "nikkyo-2026-08-31-7fc7c90990d2ad58",
@@ -152,7 +153,8 @@
       "研究・エビデンス"
     ],
     "layer": 2,
-    "language": "ja"
+    "language": "ja",
+    "requiresMembership": true
   },
   {
     "id": "mext-2026-08-31-3bb85b0505a236eb",
@@ -195,7 +197,8 @@
       "教員・働き方"
     ],
     "layer": 2,
-    "language": "ja"
+    "language": "ja",
+    "requiresMembership": true
   },
   {
     "id": "mext-2026-08-31-e05db793d5ec7627",
