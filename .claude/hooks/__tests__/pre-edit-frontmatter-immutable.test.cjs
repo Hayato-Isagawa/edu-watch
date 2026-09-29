@@ -1011,6 +1011,15 @@ test("Edit: 現物に当てられないときは確認を出し、replace_all �
     ),
     /確かめられない/
   );
+  // 見出しも保護値の変化ではなく、確かめられないとして出す(#781)
+  const tooLarge = reasonOn(
+    editWith({
+      old_string: "08-03",
+      new_string: "x".repeat(4 * 1024 * 1024 + 1),
+    })
+  ).split("\n")[0];
+  assert.match(tooLarge, /Cannot verify/);
+  assert.doesNotMatch(tooLarge, /Protected fields changed/);
   // 改行を含む old_string も 1 行で出す
   const multiline = reasonOn(editOn(p, "\nnot-in-file", "x"));
   assert.match(multiline, /"\\nnot-in-file"/);
@@ -1065,6 +1074,12 @@ test("確かめられないときの old_string は先頭だけを出し、出�
   const reason = reasonOn(out);
   assert.match(reason, /確かめられない/);
   assert.match(reason, /全 600000 文字/);
+  // 文字数はコードポイントで数え、サロゲートペアの途中で切らない
+  const emoji = reasonOn(
+    editOn(digestFile(APPLIED_BODY), "😀".repeat(300), "x")
+  );
+  assert.match(emoji, /全 300 文字/);
+  assert.ok(!/\\ud83d"/.test(emoji), "サロゲートペアの途中で切れている");
   const bytes =
     Buffer.byteLength(out.stdout ?? "") + Buffer.byteLength(out.stderr ?? "");
   assert.ok(bytes < 1024 * 1024, `出力が ${bytes} バイト`);
@@ -1084,6 +1099,43 @@ test("URL の変化は、増えた URL と減った URL だけを出す(#781)", 
   assert.match(reason, /増えた: .*retrieval-practice-lang/);
   assert.match(reason, /減った: .*retrieval-practice-long/);
   assert.ok(!reason.includes(KEEP), "変わらない URL まで出ている");
+  // 同じ URL が 2 本あって 1 本を消したときも、減った分として出す(集合ではなく多重集合の差)
+  const dup = digestFile(
+    APPLIED_BODY.replace(
+      "    title: 関連する戦略\n",
+      `    title: 関連する戦略\n  - url: ${KEEP}\n    title: 一\n  - url: ${KEEP}\n    title: 二\n`
+    )
+  );
+  const removed = reasonOn(
+    editOn(dup, `  - url: ${KEEP}\n    title: 二\n`, "")
+  );
+  assert.match(removed, /増えた: ∅/);
+  assert.match(removed, new RegExp(`減った: ${KEEP}`));
+});
+
+test("URL が多くても、差分の表示は時間内に終わる(#781)", () => {
+  const many = (c) =>
+    Array.from(
+      { length: 20000 },
+      (_, i) => `  - url: https://edu-evidence.org/s/${c}-${i}/`
+    ).join("\n");
+  const p = digestFile(
+    APPLIED_BODY.replace(
+      "relatedEvidenceUrls:\n",
+      `relatedEvidenceUrls:\n${many("a")}\n`
+    )
+  );
+  const started = Date.now();
+  const out = writeOn(
+    p,
+    APPLIED_BODY.replace(
+      "relatedEvidenceUrls:\n",
+      `relatedEvidenceUrls:\n${many("b")}\n`
+    )
+  );
+  // hook の timeout は 5 秒。URL 数の 2 乗で数えると 20000 本で 10 秒を超えた
+  assert.ok(Date.now() - started < 3000, `${Date.now() - started}ms`);
+  assert.match(reasonOn(out), /urls/);
 });
 
 test("Edit: CRLF のファイルでも、空の new_string で次の行とつながる編集に確認を出す(#781)", () => {

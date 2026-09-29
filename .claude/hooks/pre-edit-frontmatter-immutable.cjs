@@ -429,13 +429,14 @@ function fmtVal(arr) {
   return arr.join(" | ");
 }
 
-// 多重集合の差(a にあって b に無い分)
+// 多重集合の差(a にあって b に無い分)。個数を Map で数える(URL 数の 2 乗だと hook の timeout を超えうる)
 function multisetMinus(a, b) {
-  const rest = [...b];
+  const left = new Map();
+  for (const x of b) left.set(x, (left.get(x) ?? 0) + 1);
   const out = [];
   for (const x of a) {
-    const i = rest.indexOf(x);
-    if (i >= 0) rest.splice(i, 1);
+    const n = left.get(x) ?? 0;
+    if (n > 0) left.set(x, n - 1);
     else out.push(x);
   }
   return out;
@@ -479,16 +480,17 @@ function buildReason(diffs, filePath) {
       continue;
     }
     if (d.key === "__unapplied__") {
-      const old = d.before[0];
+      // 文字数はコードポイントで数え、サロゲートペアの途中で切らない
+      const old = [...d.before[0]];
       const shown =
         old.length > MAX_SHOWN_OLD_STRING
-          ? `${JSON.stringify(old.slice(0, MAX_SHOWN_OLD_STRING))}…(全 ${old.length} 文字)`
-          : JSON.stringify(old);
+          ? `${JSON.stringify(old.slice(0, MAX_SHOWN_OLD_STRING).join(""))}…(全 ${old.length} 文字)`
+          : JSON.stringify(d.before[0]);
       lines.push(
         `  編集後の frontmatter を確かめられない: old_string が現物に見つからないか、1 か所に決まらない(${shown})`
       );
       lines.push(
-        "    引用符の形・エスケープが現物と違うと、Claude Code が正規化して当てることがある(old_string の CR は直さない)"
+        "    引用符の形・エスケープが現物と違うと、Claude Code が正規化して当てることがある(この hook は old_string の CR を LF に直さない)"
       );
       continue;
     }
