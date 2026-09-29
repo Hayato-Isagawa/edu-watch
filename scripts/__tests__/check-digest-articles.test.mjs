@@ -177,7 +177,10 @@ test("キーをコメントアウトした行と、0 桁目の # 行は赤", () 
   );
   assert.notEqual(item, DIGEST);
   assert.equal(check(makeRepo({ digest: item })).status, 1);
-  // 字下げした `# <id>` や行末の `# <id>` は YAML のコメントになり、その id だけが消える
+});
+
+test("字下げした # <id> や行末の # <id> でコメントになった id は赤", () => {
+  // YAML のコメントになり、その id だけが消える
   const multiline = (second) =>
     DIGEST.replace(
       `  - articleIds: [${ID_A}, ${ID_B}]`,
@@ -190,6 +193,36 @@ test("キーをコメントアウトした行と、0 桁目の # 行は赤", () 
     `  - articleIds:\n      - ${ID_A} # ${ID_B}`
   );
   assert.equal(check(makeRepo({ digest: trailing })).status, 1);
+});
+
+test("書かれている id と読める id が合わないときは、合わない語を出す", () => {
+  // 本文(comment)に id の形の語を書いても赤になる。メッセージがその語と原因を指す
+  const inComment = DIGEST.replace(
+    "    comment: 二つ目の論点。",
+    `    comment: ${ID_B} の続報。`
+  );
+  const r = check(makeRepo({ digest: inComment }));
+  assert.equal(r.status, 1);
+  assert.match(r.stderr, new RegExp(`読めない: ${ID_B}`));
+  assert.match(r.stderr, /本文や URL/);
+  // 区切りが消えてつながった id は、読めた側の語を「書かれていない」として出す
+  const joined = DIGEST.replace(
+    `  - articleIds: [${ID_A}, ${ID_B}]`,
+    `  - articleIds:\n      [\n        ${ID_A}\n        ${ID_B}\n      ]`
+  );
+  assert.match(
+    check(makeRepo({ digest: joined })).stderr,
+    new RegExp(`書かれていない: ${ID_A} ${ID_B}`)
+  );
+  // コメントになった id も、どの id かを出す
+  const trailing = DIGEST.replace(
+    `  - articleIds: [${ID_A}, ${ID_B}]`,
+    `  - articleIds:\n      - ${ID_A} # ${ID_B}`
+  );
+  assert.match(
+    check(makeRepo({ digest: trailing })).stderr,
+    new RegExp(`読めない: ${ID_B}`)
+  );
 });
 
 test("節や関連リンクが字下げで前の値に吸い込まれると赤", () => {
