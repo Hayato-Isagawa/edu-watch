@@ -205,6 +205,15 @@ test("書かれている id と読める id が合わないときは、合わな
   assert.equal(r.status, 1);
   assert.match(r.stderr, new RegExp(`読めない: ${ID_B}`));
   assert.match(r.stderr, /本文や URL/);
+  // 区切りが消えてつながった id は、読めた側の語を「書かれていない」として出す
+  const joined = DIGEST.replace(
+    `  - articleIds: [${ID_A}, ${ID_B}]`,
+    `  - articleIds:\n      [\n        ${ID_A}\n        ${ID_B}\n      ]`
+  );
+  assert.match(
+    check(makeRepo({ digest: joined })).stderr,
+    new RegExp(`書かれていない: ${ID_A} ${ID_B}`)
+  );
   // コメントになった id も、どの id かを出す
   const trailing = DIGEST.replace(
     `  - articleIds: [${ID_A}, ${ID_B}]`,
