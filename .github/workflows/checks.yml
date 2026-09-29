@@ -6,7 +6,8 @@ name: Checks
 # textlint が PR で効かないのは穴が大きい。
 #
 # 既存の check:tokens(e2e.yml)と check:excluded-ids(health-check.yml)は
-# 現在の配置のまま動かさない。ここには欠けていた 2 つだけを置く。
+# 現在の配置のまま動かさない。ここは欠けていた 2 つ(型チェックと textlint)から始め、
+# その後に回帰テストと digest の中身の検査を足している。
 #
 # **このジョブは required check に入っている**(2026-08-09 に API で実測。
 # contexts = ["Playwright E2E", "Persistent denylist consistency",
@@ -66,6 +67,13 @@ jobs:
       - name: Text lint
         if: ${{ !cancelled() }}
         run: npm run check:text
+
+      # digest の frontmatter が壊れて、節や記事 id がビルドを通ったまま消えていないか(ADR 0075)。
+      # スキーマは sections を default([]) にしていて、表示は記事データに無い id を黙って飛ばすので、
+      # 型チェックでは捕まらない。記事データ側の削除でも赤になる(denylist に理由つきで載せた id は除く)。
+      - name: Digest structure and article ids
+        if: ${{ !cancelled() }}
+        run: npm run check:digest-articles
 
       # リセマム / 共同通信 / 教育家庭新聞の NG ワードフィルタ回帰ケース 97 件
       # (ADR 0039 ほか)。判定関数そのものを assert する回帰スイートだが、

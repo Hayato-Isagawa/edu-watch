@@ -123,3 +123,4 @@ EduEvidence JP と共通の運営方針(植物モチーフブランド体系 / N
 - [0072. AI 補助 PDF 要約の運用を休止する](0072-pause-ai-summary.md)(撤回)
 - [0073. AI 補助 PDF 要約を撤去する](0073-remove-ai-summary.md)
 - [0074. 使われなくなった `experiments/` の除外設定を撤去する](0074-drop-experiments-ignore.md)
+- [0075. digest の frontmatter の壊れを、スキーマと CI の中身検査で止める](0075-digest-structure-check.md)

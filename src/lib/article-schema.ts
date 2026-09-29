@@ -40,12 +40,15 @@ export const RawArticle = z.object({
 });
 export type RawArticle = z.infer<typeof RawArticle>;
 
+/** 記事 id の形(`<sourceId>-<yyyy-mm-dd>-<16-hex>`)。digest の articleIds も同じ形で検査する(ADR 0075) */
+export const ARTICLE_ID_RE = /^[a-z0-9-]+-\d{4}-\d{2}-\d{2}-[0-9a-f]{16}$/;
+
 /**
  * 正規化後・保存直前の記事データ。`src/data/articles/YYYY-MM-DD.json` に
  * シリアライズされる最終形。
  */
 export const Article = z.object({
-  id: z.string().regex(/^[a-z0-9-]+-\d{4}-\d{2}-\d{2}-[0-9a-f]{16}$/, {
+  id: z.string().regex(ARTICLE_ID_RE, {
     message: "id must be <sourceId>-<yyyy-mm-dd>-<16-hex-hash>",
   }),
   title: z.string().min(1),
