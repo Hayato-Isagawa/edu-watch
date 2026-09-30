@@ -1,5 +1,143 @@
 [
   {
+    "id": "kkn-2026-09-29-12cf40ec76c48740",
+    "title": "『新聞は社会を見る｢窓｣　読んで・学んで・つくろう！　全3巻』羽賀絹恵／監修",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/post_library/260928_5d",
+    "publishedAt": "2026-09-29T22:00:58.000Z",
+    "collectedAt": "2026-09-30T00:56:34.243Z",
+    "summary": "活用方法やデジタル新聞の作り方まで スマートフォンでニュースや生活情報が読めるようになった現在、新聞の役割とは何か。住んでいる場所や年齢などに関係なく、世の中で起きている様々な出来事を正しく知ることができ、外部からの影響 […]",
+    "categories": [
+      "その他"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-09-29-069559eafb493b65",
+    "title": "文部科学省、「木材を活用した学校施設づくり講習会」を11/6に千葉・昭和学院で開催",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20260930o02",
+    "publishedAt": "2026-09-29T22:00:56.000Z",
+    "collectedAt": "2026-09-30T00:56:34.243Z",
+    "summary": "学校施設への木材活用は豊かな教育環境づくりに効果的だが、コストや維持管理などが課題となっている。文部科学省はこれらの課題解決を支援するため、11月6日に千葉県の昭和学院伊藤記念ホールで講習会を開催する。 当日は文科省や林 […]",
+    "categories": [
+      "政策・制度"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-09-29-6bcc59fb0b9c4ff8",
+    "title": "【第17回】KOSENから未来を創造　北九州工業高等専門学校「航空関連7社と連携　航空産業人材育成」",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/post_ict/260928_6b",
+    "publishedAt": "2026-09-29T22:00:49.000Z",
+    "collectedAt": "2026-09-30T00:56:34.243Z",
+    "summary": "■理論と実社会を橋渡し 1965年に設立した北九州工業高等専門学校は2015年度に1学科（生産デザイン工学科）5コース制に再編。2年後期から機械創造システムコース、知能ロボットシステムコース、電気電子コース、情報システム […]",
+    "categories": [
+      "その他"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-09-29-44e7926519bf0023",
+    "title": "厚生労働省、高校教員向けに薬害教育教材についてのアンケートを10/16まで実施中",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20260930o01",
+    "publishedAt": "2026-09-29T22:00:49.000Z",
+    "collectedAt": "2026-09-30T00:56:34.243Z",
+    "summary": "厚生労働省は、薬害教育に関する高等学校教職員向けアンケートを10月16日まで実施している。 同省が全国の高校等に配布している薬害教育教材『薬害を学ぼう』の改訂等の参考とするためものもで、実際に授業等で活用したことがある教 […]",
+    "categories": [
+      "政策・制度",
+      "教員・働き方"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-09-29-803b4aa2d0e8e9c9",
+    "title": "こども性暴力防止法対策で中小事業者に専門家紹介 こども家庭庁が10/1から無料相談枠を設置",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20260930o04",
+    "publishedAt": "2026-09-29T22:00:45.000Z",
+    "collectedAt": "2026-09-30T00:56:34.243Z",
+    "summary": "こども家庭庁は、12月25日に施行される「こども性暴力防止法」に基づき、民間の中小規模事業者を対象とした情報処理安全確保支援士の紹介窓口を10月1日に開設する。対象事業者が義務付けられる「情報管理措置」を適切に実施できる […]",
+    "categories": [
+      "政策・制度"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-09-29-b146cb57c21114ca",
+    "title": "英語教科書「NEW HORIZON」創刊60周年展が10/31開催、歴史展示や教員向けセミナーも",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20260930o03",
+    "publishedAt": "2026-09-29T22:00:39.000Z",
+    "collectedAt": "2026-09-30T00:56:34.243Z",
+    "summary": "東京書籍は、中学校英語教科書『NEW HORIZON English Course』（以下『NEW HORIZON』）が創刊60周年を迎えることを記念し、特別イベント「NEW HORIZON EXPO〜英語教科書 創刊6 […]",
+    "categories": [
+      "教員・働き方"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-09-29-58dd6770924b61f0",
+    "title": "「情報科」はAI時代の基盤科目～第19回全国高等学校情報教育研究会全国大会",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/post_ict/260928_6a",
+    "publishedAt": "2026-09-29T22:00:28.000Z",
+    "collectedAt": "2026-09-30T00:56:34.243Z",
+    "summary": "第19回全国高等学校情報教育研究会全国大会（神奈川大会）が8月10・11日に神奈川県内で開催され、全国の情報科教員が参集した。実行委員長を務めた柴田功校長（神奈川県立百合丘高校）は｢ほぼすべての都道府県から689人の申込 […]",
+    "categories": [
+      "ICT / GIGA",
+      "研究・エビデンス",
+      "教員・働き方"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-09-29-00e1388180f5ec3e",
+    "title": "プログラミングに関する授業に講師を派遣～Pythonの基本操作などを学ぶ～奈良県",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/post_nyusatsu/260928_naraken",
+    "publishedAt": "2026-09-29T21:59:59.000Z",
+    "collectedAt": "2026-09-30T00:56:34.243Z",
+    "summary": "奈良県教育委員会は、DXハイスクールの国際高等学校の生徒が情報活用能力を習得し、プログラミングを問題解決の道具として捉える力を育成するため、外部専門人材を派遣するにあたり一般競争入札を8月12日に公示。デジタルハリウッド […]",
+    "categories": [
+      "政策・制度"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-09-29-d74e4fcb4aa0ff6a",
+    "title": "次世代校務支援システムを共同調達～技術的助言をはじめ導入支援を実施～宮崎県",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/post_nyusatsu/260928_miyazakiken",
+    "publishedAt": "2026-09-29T21:59:37.000Z",
+    "collectedAt": "2026-09-30T00:56:34.243Z",
+    "summary": "宮崎県教育庁は、パブリッククラウドを活用した次世代校務支援システムを共同調達するにあたりプロポーザルを8月14日に公示。 事業者はプロジェクト管理を行うとともに、参加市町村が円滑に次世代校務環境へ移行するための導入支援を […]",
+    "categories": [
+      "その他"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
     "id": "resemom-2026-09-29-d235e2ad7e47e042",
     "title": "年内入試の面接必須化、私大8割「現体制で対応可能」規模や所在地で差",
     "sourceId": "resemom",
