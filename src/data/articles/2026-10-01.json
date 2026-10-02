@@ -1,5 +1,54 @@
 [
   {
+    "id": "kkn-2026-10-01-546b3c60553865a4",
+    "title": "和歌山市×Sky、校務用スマホ導入の実証研究を開始 教員の負担軽減と情報管理徹底へ",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20261002o03",
+    "publishedAt": "2026-10-01T22:00:57.000Z",
+    "collectedAt": "2026-10-02T01:13:40.504Z",
+    "summary": "和歌山市教育委員会は、教員による私物スマートフォンの利用に伴うリスク解消と業務効率化に向け、Ｓｋｙと共同で校務スマート化の実証研究を実施している。期間は8月21日から12月31日までの約4か月間。   &nbs […]",
+    "categories": [
+      "政策・制度",
+      "研究・エビデンス",
+      "教員・働き方"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-10-01-a1f3b6f4cd7443da",
+    "title": "Lentranceなど4社、「デジタル学習基盤構想」を発表 教員の負担軽減と持続可能な学びの環境構築を目指す",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20261002o02",
+    "publishedAt": "2026-10-01T22:00:20.000Z",
+    "collectedAt": "2026-10-02T01:13:40.504Z",
+    "summary": "Lentranceは9月29日、東京書籍、光村図書出版、増進会ホールディングスの3社と連携し、学校現場の負担軽減と持続可能なデジタル学習環境の実現に向けた「デジタル学習基盤構想」を推進すると発表した。 デジタル教科書や教 […]",
+    "categories": [
+      "ICT / GIGA",
+      "教員・働き方"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-10-01-7aca9c3c422401ec",
+    "title": "さいたま市、全校にAI型教材「キュビナ」を導入　L-Gateと名簿連携しシームレスなデジタル学習基盤を実現",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20261002o04",
+    "publishedAt": "2026-10-01T22:00:00.000Z",
+    "collectedAt": "2026-10-02T01:13:40.504Z",
+    "summary": "さいたま市は、市立の全小・中・特別支援学校167校において、AI型教材「キュビナ」（提供元：COMPASS）を指導の一環として正式採用し、9月から利用を開始した。対象となるのは小学1年生から中学3年生までの約10万人。デ […]",
+    "categories": [
+      "ICT / GIGA",
+      "教員・働き方"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
     "id": "resemom-2026-10-01-6c1d7e16ba956e33",
     "title": "小4以下は完全デジタルNG？2030年度から教科書どう変わる",
     "sourceId": "resemom",
