@@ -1,5 +1,53 @@
 [
   {
+    "id": "nikkyo-2026-10-04-64a7b57ca4dab6b6",
+    "title": "９割が「国語教育重要」　漢検　小学生の保護者を調査",
+    "sourceId": "nikkyo",
+    "sourceName": "日本教育新聞",
+    "sourceUrl": "https://www.kyoiku-press.com/post-316508/",
+    "publishedAt": "2026-10-04T23:50:00.000Z",
+    "collectedAt": "2026-10-05T19:21:26.725Z",
+    "summary": "日本漢字能力検定協会は９月２４日、小学生の保護者に実施した国語教育と英語教育への意識調査の結果を公表した。国語教育が重要だと思う保護者は９割で、国語教育が英語教育に良い影響を与えると回答した保護者が…",
+    "categories": [
+      "研究・エビデンス"
+    ],
+    "layer": 2,
+    "language": "ja",
+    "requiresMembership": true
+  },
+  {
+    "id": "nikkyo-2026-10-04-f0860c0f5140aca6",
+    "title": "児童・生徒間での性暴力防止　対応マニュアル作成　鳥取県教委",
+    "sourceId": "nikkyo",
+    "sourceName": "日本教育新聞",
+    "sourceUrl": "https://www.kyoiku-press.com/post-316197/",
+    "publishedAt": "2026-10-04T23:50:00.000Z",
+    "collectedAt": "2026-10-05T19:21:26.725Z",
+    "summary": "鳥取県教委は、児童・生徒間の性暴力に学校が対応するためのマニュアルを作成した。性暴力かどうか判断が難しい場合も警察や児童相談所に相談し、所管の教委に報告するよう求めた。また、被害児童・生徒への聞き取…",
+    "categories": [
+      "その他"
+    ],
+    "layer": 2,
+    "language": "ja",
+    "requiresMembership": true
+  },
+  {
+    "id": "nikkyo-2026-10-04-1244936a35970199",
+    "title": "京都市教委、学校にスマートロックを試験導入",
+    "sourceId": "nikkyo",
+    "sourceName": "日本教育新聞",
+    "sourceUrl": "https://www.kyoiku-press.com/post-315618/",
+    "publishedAt": "2026-10-04T23:50:00.000Z",
+    "collectedAt": "2026-10-05T19:21:26.725Z",
+    "summary": "京都市教委は、教員の学校施設管理の負担軽減などを目的に、スマートロックを試験的に導入した。暗証番号や２次元コードを利用して、キーボックスを開け、予約した施設の鍵を受け取る仕組みとなっている。 　同市…",
+    "categories": [
+      "教員・働き方"
+    ],
+    "layer": 2,
+    "language": "ja",
+    "requiresMembership": true
+  },
+  {
     "id": "kkn-2026-10-04-eaa9773baec4014e",
     "title": "網屋、国産SIEM「ALog」が「Soliton OneGate」と連携 認証ログの定期監視・統合管理を効率化",
     "sourceId": "kkn",
