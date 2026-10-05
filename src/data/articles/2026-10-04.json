@@ -1,5 +1,81 @@
 [
   {
+    "id": "kkn-2026-10-04-eaa9773baec4014e",
+    "title": "網屋、国産SIEM「ALog」が「Soliton OneGate」と連携 認証ログの定期監視・統合管理を効率化",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20261005o04",
+    "publishedAt": "2026-10-04T22:00:56.000Z",
+    "collectedAt": "2026-10-05T00:26:33.870Z",
+    "summary": "サイバーセキュリティサービスを提供する網屋は10月1日、自社の国産SIEM「ALog」が、ソリトンシステムズの統合認証クラウドサービス「Soliton OneGate」とのログ連携に対応したと発表した。専用プラグインを通 […]",
+    "categories": [
+      "その他"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-10-04-a0737dd298b889b5",
+    "title": "本と食育",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/post_library/260928_5b",
+    "publishedAt": "2026-10-04T22:00:53.000Z",
+    "collectedAt": "2026-10-05T00:26:33.870Z",
+    "summary": "読書の秋と食欲の秋に向けて、子供と給食・食育につながる本を紹介。おいしいごはんを作る・食べる・理解する、そしてもっと好きになる。 『ぼくらが料理をする理由　小学生から一生役立つ！　栄養と料理のきほん』（松丸奨／著　526 […]",
+    "categories": [
+      "その他"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-10-04-5746e49a1c319741",
+    "title": "群馬県・前橋市・伊勢崎市がCF型ふるさと納税で寄付募集を開始　デジタル教育と地域課題解決を目指す6事業",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20261005o03",
+    "publishedAt": "2026-10-04T22:00:53.000Z",
+    "collectedAt": "2026-10-05T00:26:33.870Z",
+    "summary": "ふるさと納税ポータルサイトを運営するさとふるは10月1日、「さとふるクラウドファンディング」において、群馬県、前橋市、伊勢崎市が実施する計6事業の寄付受け付けを開始した。ふるさと納税の仕組みを活用し、教育環境の充実や地域 […]",
+    "categories": [
+      "その他"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-10-04-d9e97e7cbb4635dc",
+    "title": "文部科学省、学校体育館の空調・断熱事例集を公開　熱中症対策と省エネを推進",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20261005o01",
+    "publishedAt": "2026-10-04T22:00:36.000Z",
+    "collectedAt": "2026-10-05T00:26:33.870Z",
+    "summary": "文部科学省は 9月、「学校体育館の空調・断熱事例集」を公開した。学校の体育館は、児童生徒や教員が学習活動を行う場であると同時に、災害時には多くの人が身を寄せる地域の避難所としての役割も果たす。そのため、熱中症対策や国土強 […]",
+    "categories": [
+      "政策・制度",
+      "教員・働き方"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-10-04-2f897e47b96091e2",
+    "title": "OpenAI、日本で学生主導AIコミュニティ「OpenAI Student Collective」を始動　全国10大学で17人の学生リーダー選出",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20261005o02",
+    "publishedAt": "2026-10-04T22:00:02.000Z",
+    "collectedAt": "2026-10-05T00:26:33.870Z",
+    "summary": "OpenAIは、学生主導でAIの学びや実践を広げるコミュニティ「OpenAI Student Collective」の日本での活動を8月下旬から開始した。全国10大学から17人の学生リーダー「Campus Lead」を選 […]",
+    "categories": [
+      "ICT / GIGA"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
     "id": "kkn-2026-10-04-20db37029a8de3d7",
     "title": "小学生の保護者1000人調査、8割超が国語と英語の双方を重視。家庭での取り組みに差も〜漢検調べ",
     "sourceId": "kkn",
