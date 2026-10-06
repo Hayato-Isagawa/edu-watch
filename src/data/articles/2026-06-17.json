@@ -93,20 +93,6 @@
     "requiresMembership": true
   },
   {
-    "id": "mext-2026-06-17-247fec41d6687b22",
-    "title": "中央教育審議会初等中等教育分科会教育課程部会特別支援教育ワーキンググループ（第10回）を開催します",
-    "sourceId": "mext",
-    "sourceName": "文部科学省",
-    "sourceUrl": "https://www.mext.go.jp/b_menu/shingi/chukyo/chukyo3/105/kaisai/mext_00011.html",
-    "publishedAt": "2026-06-17T05:00:00.000Z",
-    "collectedAt": "2026-06-17T14:07:33.293Z",
-    "categories": [
-      "政策・制度"
-    ],
-    "layer": 1,
-    "language": "ja"
-  },
-  {
     "id": "mext-2026-06-17-b5661e204d2f097e",
     "title": "社会教育主事・社会教育士養成等の改善・充実に関するワーキング・グループ（第8回）の開催について",
     "sourceId": "mext",

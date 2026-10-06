@@ -106,20 +106,6 @@
     "requiresMembership": true
   },
   {
-    "id": "mext-2026-05-19-09e5f49c15377451",
-    "title": "中央教育審議会初等中等教育分科会教育課程部会家庭ワーキンググループ（第7回）の配付資料を掲載しました",
-    "sourceId": "mext",
-    "sourceName": "文部科学省",
-    "sourceUrl": "https://www.mext.go.jp/b_menu/shingi/chukyo/chukyo3/114/siryo/mext_00007.html",
-    "publishedAt": "2026-05-19T07:30:00.000Z",
-    "collectedAt": "2026-05-19T13:39:43.579Z",
-    "categories": [
-      "政策・制度"
-    ],
-    "layer": 1,
-    "language": "ja"
-  },
-  {
     "id": "chukyo-2026-05-19-09e5f49c15377451",
     "title": "中央教育審議会初等中等教育分科会教育課程部会家庭ワーキンググループ（第7回）の配付資料を掲載しました",
     "sourceId": "chukyo",
@@ -206,20 +192,6 @@
       "政策・制度"
     ],
     "layer": 2,
-    "language": "ja"
-  },
-  {
-    "id": "mext-2026-05-19-49c402e2ac2adc29",
-    "title": "中央教育審議会初等中等教育分科会教育課程部会 道徳ワーキンググループの配付資料を掲載しました",
-    "sourceId": "mext",
-    "sourceName": "文部科学省",
-    "sourceUrl": "https://www.mext.go.jp/b_menu/shingi/chukyo/chukyo3/117/mext_00001.html",
-    "publishedAt": "2026-05-19T00:30:00.000Z",
-    "collectedAt": "2026-05-19T13:39:43.579Z",
-    "categories": [
-      "政策・制度"
-    ],
-    "layer": 1,
     "language": "ja"
   },
   {

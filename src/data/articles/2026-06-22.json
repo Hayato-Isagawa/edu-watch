@@ -152,21 +152,6 @@
     "language": "ja"
   },
   {
-    "id": "mext-2026-06-22-fafd3e027b0f7fd2",
-    "title": "中央教育審議会初等中等教育分科会教育課程部会不登校児童生徒に係る特別の教育課程ワーキンググループ（第9回）を開催します",
-    "sourceId": "mext",
-    "sourceName": "文部科学省",
-    "sourceUrl": "https://www.mext.go.jp/b_menu/shingi/chukyo/chukyo3/119/kaisai/mext_00013.html",
-    "publishedAt": "2026-06-22T13:07:00.000Z",
-    "collectedAt": "2026-06-24T12:33:01.878Z",
-    "categories": [
-      "不登校",
-      "政策・制度"
-    ],
-    "layer": 1,
-    "language": "ja"
-  },
-  {
     "id": "chukyo-2026-06-22-fafd3e027b0f7fd2",
     "title": "中央教育審議会初等中等教育分科会教育課程部会不登校児童生徒に係る特別の教育課程ワーキンググループ（第9回）を開催します",
     "sourceId": "chukyo",
@@ -245,20 +230,6 @@
     "requiresMembership": true
   },
   {
-    "id": "mext-2026-06-22-e685d765ddbe53e9",
-    "title": "中央教育審議会初等中等教育分科会教育課程部会産業教育ワーキンググループ（第9回）の配付資料を掲載しました",
-    "sourceId": "mext",
-    "sourceName": "文部科学省",
-    "sourceUrl": "https://www.mext.go.jp/b_menu/shingi/chukyo/chukyo3/106/mext_00022.html",
-    "publishedAt": "2026-06-22T06:30:00.000Z",
-    "collectedAt": "2026-06-22T15:35:04.631Z",
-    "categories": [
-      "政策・制度"
-    ],
-    "layer": 1,
-    "language": "ja"
-  },
-  {
     "id": "chukyo-2026-06-22-e685d765ddbe53e9",
     "title": "中央教育審議会初等中等教育分科会教育課程部会産業教育ワーキンググループ（第9回）の配付資料を掲載しました",
     "sourceId": "chukyo",
@@ -319,20 +290,6 @@
     "language": "ja"
   },
   {
-    "id": "mext-2026-06-22-13c6af88549d5e6a",
-    "title": "中央教育審議会初等中等教育分科会教育課程部会産業教育ワーキンググループ（第6回）の議事録を掲載しました",
-    "sourceId": "mext",
-    "sourceName": "文部科学省",
-    "sourceUrl": "https://www.mext.go.jp/b_menu/shingi/chukyo/chukyo3/106/gijiroku/mext_00007.html",
-    "publishedAt": "2026-06-22T05:00:00.000Z",
-    "collectedAt": "2026-06-22T15:35:04.631Z",
-    "categories": [
-      "政策・制度"
-    ],
-    "layer": 1,
-    "language": "ja"
-  },
-  {
     "id": "chukyo-2026-06-22-13c6af88549d5e6a",
     "title": "中央教育審議会初等中等教育分科会教育課程部会産業教育ワーキンググループ（第6回）の議事録を掲載しました",
     "sourceId": "chukyo",
@@ -357,20 +314,6 @@
     "categories": [
       "政策・制度",
       "教員・働き方"
-    ],
-    "layer": 1,
-    "language": "ja"
-  },
-  {
-    "id": "mext-2026-06-22-2780af67581431a3",
-    "title": "中央教育審議会初等中等教育分科会教育課程部会芸術ワーキンググループ（第10回）の配付資料を掲載しました",
-    "sourceId": "mext",
-    "sourceName": "文部科学省",
-    "sourceUrl": "https://www.mext.go.jp/b_menu/shingi/chukyo/chukyo3/113/siryo/mext_00010.html",
-    "publishedAt": "2026-06-22T00:30:00.000Z",
-    "collectedAt": "2026-06-22T15:35:04.631Z",
-    "categories": [
-      "政策・制度"
     ],
     "layer": 1,
     "language": "ja"

@@ -60,40 +60,12 @@
     "language": "ja"
   },
   {
-    "id": "mext-2026-05-11-de4d850ec1a59b0e",
-    "title": "中央教育審議会初等中等教育分科会教育課程部会国語ワーキンググループの配付資料を掲載しました",
-    "sourceId": "mext",
-    "sourceName": "文部科学省",
-    "sourceUrl": "https://www.mext.go.jp/b_menu/shingi/chukyo/chukyo3/107/siryo/mext_00009.html",
-    "publishedAt": "2026-05-11T09:00:00.000Z",
-    "collectedAt": "2026-05-11T11:56:16.002Z",
-    "categories": [
-      "政策・制度"
-    ],
-    "layer": 1,
-    "language": "ja"
-  },
-  {
     "id": "chukyo-2026-05-11-de4d850ec1a59b0e",
     "title": "中央教育審議会初等中等教育分科会教育課程部会国語ワーキンググループの配付資料を掲載しました",
     "sourceId": "chukyo",
     "sourceName": "中央教育審議会",
     "sourceUrl": "https://www.mext.go.jp/b_menu/shingi/chukyo/chukyo3/107/siryo/mext_00009.html",
     "publishedAt": "2026-05-11T09:00:00.000Z",
-    "collectedAt": "2026-05-11T11:56:16.002Z",
-    "categories": [
-      "政策・制度"
-    ],
-    "layer": 1,
-    "language": "ja"
-  },
-  {
-    "id": "mext-2026-05-11-49af03785ee908d4",
-    "title": "中央教育審議会初等中等教育分科会教育課程部会産業教育ワーキンググループ（第7回）の配付資料を掲載しました",
-    "sourceId": "mext",
-    "sourceName": "文部科学省",
-    "sourceUrl": "https://www.mext.go.jp/b_menu/shingi/chukyo/chukyo3/106/mext_00019.html",
-    "publishedAt": "2026-05-11T07:00:00.000Z",
     "collectedAt": "2026-05-11T11:56:16.002Z",
     "categories": [
       "政策・制度"
@@ -184,20 +156,6 @@
     "sourceUrl": "https://www.mext.go.jp/a_menu/shotou/kyoukasho/seido/mext_03511.html",
     "publishedAt": "2026-05-11T04:48:00.000Z",
     "collectedAt": "2026-05-11T11:56:16.002Z",
-    "categories": [
-      "政策・制度"
-    ],
-    "layer": 1,
-    "language": "ja"
-  },
-  {
-    "id": "mext-2026-05-11-4908019fde3a6a27",
-    "title": "中央教育審議会初等中等教育分科会教育課程部会道徳ワーキンググループ（第3回）の議事録を掲載しました",
-    "sourceId": "mext",
-    "sourceName": "文部科学省",
-    "sourceUrl": "https://www.mext.go.jp/b_menu/shingi/chukyo/chukyo3/117/gijiroku/1381878_00001.htm",
-    "publishedAt": "2026-05-11T02:59:00.000Z",
-    "collectedAt": "2026-05-12T11:10:43.699Z",
     "categories": [
       "政策・制度"
     ],

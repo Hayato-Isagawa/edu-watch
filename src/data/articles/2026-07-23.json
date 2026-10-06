@@ -156,20 +156,6 @@
     "requiresMembership": true
   },
   {
-    "id": "mext-2026-07-23-467357a9f0d7bb30",
-    "title": "中央教育審議会初等中等教育分科会教育課程部会社会・地理歴史・公民ワーキンググループ（第10回）を開催します",
-    "sourceId": "mext",
-    "sourceName": "文部科学省",
-    "sourceUrl": "https://www.mext.go.jp/b_menu/shingi/chukyo/chukyo3/109/kaisai/mext_00010.html",
-    "publishedAt": "2026-07-23T05:00:00.000Z",
-    "collectedAt": "2026-07-23T12:09:26.231Z",
-    "categories": [
-      "政策・制度"
-    ],
-    "layer": 1,
-    "language": "ja"
-  },
-  {
     "id": "mext-2026-07-23-83bdfa4446272b22",
     "title": "教育課程部会　体育・保健体育、健康、安全ワーキンググループ（第10回）　議事録",
     "sourceId": "mext",

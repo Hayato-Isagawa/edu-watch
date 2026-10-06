@@ -47,34 +47,6 @@
     "language": "ja"
   },
   {
-    "id": "mext-2026-05-01-7c4cfd71e9220e55",
-    "title": "中央教育審議会初等中等教育分科会教育課程部会教育課程企画特別部会（第15回）を開催します",
-    "sourceId": "mext",
-    "sourceName": "文部科学省",
-    "sourceUrl": "https://www.mext.go.jp/b_menu/shingi/chukyo/chukyo3/kaisai/mext_00129.html",
-    "publishedAt": "2026-05-01T05:00:00.000Z",
-    "collectedAt": "2026-05-01T10:14:33.393Z",
-    "categories": [
-      "政策・制度"
-    ],
-    "layer": 1,
-    "language": "ja"
-  },
-  {
-    "id": "mext-2026-05-01-051d6019bfd7c8cf",
-    "title": "中央教育審議会初等中等教育分科会教育課程部会産業教育ワーキンググループ（第7回）を開催します",
-    "sourceId": "mext",
-    "sourceName": "文部科学省",
-    "sourceUrl": "https://www.mext.go.jp/b_menu/shingi/chukyo/chukyo3/kaisai/mext_00128.html",
-    "publishedAt": "2026-05-01T05:00:00.000Z",
-    "collectedAt": "2026-05-01T10:14:33.393Z",
-    "categories": [
-      "政策・制度"
-    ],
-    "layer": 1,
-    "language": "ja"
-  },
-  {
     "id": "chukyo-2026-05-01-7c4cfd71e9220e55",
     "title": "中央教育審議会初等中等教育分科会教育課程部会教育課程企画特別部会（第15回）を開催します",
     "sourceId": "chukyo",

@@ -153,34 +153,6 @@
     "language": "ja"
   },
   {
-    "id": "mext-2026-06-15-b39e6ef64eb2fb1a",
-    "title": "中央教育審議会初等中等教育分科会教育課程部会芸術ワーキンググループ（第10回）を開催します",
-    "sourceId": "mext",
-    "sourceName": "文部科学省",
-    "sourceUrl": "https://www.mext.go.jp/b_menu/shingi/chukyo/chukyo3/113/kaisai/mext_00010.html",
-    "publishedAt": "2026-06-15T05:00:00.000Z",
-    "collectedAt": "2026-06-15T16:07:31.704Z",
-    "categories": [
-      "政策・制度"
-    ],
-    "layer": 1,
-    "language": "ja"
-  },
-  {
-    "id": "mext-2026-06-15-fb13a7e85da41dcd",
-    "title": "中央教育審議会初等中等教育分科会教育課程部会産業教育ワーキンググループ（第9回）を開催します",
-    "sourceId": "mext",
-    "sourceName": "文部科学省",
-    "sourceUrl": "https://www.mext.go.jp/b_menu/shingi/chukyo/chukyo3/kaisai/mext_00138.html",
-    "publishedAt": "2026-06-15T05:00:00.000Z",
-    "collectedAt": "2026-06-15T16:07:31.704Z",
-    "categories": [
-      "政策・制度"
-    ],
-    "layer": 1,
-    "language": "ja"
-  },
-  {
     "id": "chukyo-2026-06-15-b39e6ef64eb2fb1a",
     "title": "中央教育審議会初等中等教育分科会教育課程部会芸術ワーキンググループ（第10回）を開催します",
     "sourceId": "chukyo",

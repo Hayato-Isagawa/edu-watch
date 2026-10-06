@@ -125,48 +125,6 @@
     "language": "ja"
   },
   {
-    "id": "mext-2026-05-29-50eef9b113e3a4cc",
-    "title": "中央教育審議会初等中等教育分科会体育・保健体育、健康、安全ワーキンググループ（第9回）を開催します",
-    "sourceId": "mext",
-    "sourceName": "文部科学省",
-    "sourceUrl": "https://www.mext.go.jp/b_menu/shingi/chukyo/chukyo3/kaisai/mext_00136.html",
-    "publishedAt": "2026-05-29T05:00:00.000Z",
-    "collectedAt": "2026-05-29T13:42:41.399Z",
-    "categories": [
-      "政策・制度"
-    ],
-    "layer": 1,
-    "language": "ja"
-  },
-  {
-    "id": "mext-2026-05-29-a42e41c02646dae4",
-    "title": "中央教育審議会初等中等教育分科会教育課程部会 幼児教育ワーキンググループ（第9回）を開催します",
-    "sourceId": "mext",
-    "sourceName": "文部科学省",
-    "sourceUrl": "https://www.mext.go.jp/b_menu/shingi/chukyo/chukyo3/104/mext_00011.html",
-    "publishedAt": "2026-05-29T05:00:00.000Z",
-    "collectedAt": "2026-05-29T13:42:41.399Z",
-    "categories": [
-      "政策・制度"
-    ],
-    "layer": 1,
-    "language": "ja"
-  },
-  {
-    "id": "mext-2026-05-29-deea3204930262bc",
-    "title": "中央教育審議会大学分科会質向上・質保証システム部会（第9回）を開催します",
-    "sourceId": "mext",
-    "sourceName": "文部科学省",
-    "sourceUrl": "https://www.mext.go.jp/b_menu/shingi/chukyo/chukyo4/055/kaisai/1422340_00012.html",
-    "publishedAt": "2026-05-29T05:00:00.000Z",
-    "collectedAt": "2026-05-29T13:42:41.399Z",
-    "categories": [
-      "政策・制度"
-    ],
-    "layer": 1,
-    "language": "ja"
-  },
-  {
     "id": "mext-2026-05-29-82724d0d32c43870",
     "title": "「日本人学生の海外留学状況」及び「外国人留学生の在籍状況調査」について",
     "sourceId": "mext",
@@ -215,20 +173,6 @@
     "sourceName": "中央教育審議会",
     "sourceUrl": "https://www.mext.go.jp/b_menu/shingi/chukyo/chukyo4/055/kaisai/1422340_00012.html",
     "publishedAt": "2026-05-29T05:00:00.000Z",
-    "collectedAt": "2026-05-29T13:42:41.399Z",
-    "categories": [
-      "政策・制度"
-    ],
-    "layer": 1,
-    "language": "ja"
-  },
-  {
-    "id": "mext-2026-05-29-adf6825e53b95b41",
-    "title": "中央教育審議会初等中等教育分科会教育課程部会国語ワーキンググループの配付資料を掲載しました",
-    "sourceId": "mext",
-    "sourceName": "文部科学省",
-    "sourceUrl": "https://www.mext.go.jp/b_menu/shingi/chukyo/chukyo3/107/siryo/mext_00010.html",
-    "publishedAt": "2026-05-29T04:00:00.000Z",
     "collectedAt": "2026-05-29T13:42:41.399Z",
     "categories": [
       "政策・制度"
@@ -287,20 +231,6 @@
     "sourceId": "mext",
     "sourceName": "文部科学省",
     "sourceUrl": "https://www.mext.go.jp/b_menu/shingi/chukyo/chukyo2/015/gijiroku/1422152_00017.htm",
-    "publishedAt": "2026-05-29T00:30:00.000Z",
-    "collectedAt": "2026-05-29T13:42:41.399Z",
-    "categories": [
-      "政策・制度"
-    ],
-    "layer": 1,
-    "language": "ja"
-  },
-  {
-    "id": "mext-2026-05-29-acce98795b4454b9",
-    "title": "中央教育審議会初等中等教育分科会教育課程部会幼児教育ワーキンググループ（第8回）の配付資料を掲載しました",
-    "sourceId": "mext",
-    "sourceName": "文部科学省",
-    "sourceUrl": "https://www.mext.go.jp/b_menu/shingi/chukyo/chukyo3/104/siryo/mext_00012.html",
     "publishedAt": "2026-05-29T00:30:00.000Z",
     "collectedAt": "2026-05-29T13:42:41.399Z",
     "categories": [

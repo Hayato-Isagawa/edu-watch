@@ -121,34 +121,6 @@
     "language": "ja"
   },
   {
-    "id": "mext-2026-05-12-25b176aa9325b95e",
-    "title": "中央教育審議会初等中等教育分科会教育課程部会家庭ワーキンググループ（第7回）を開催します",
-    "sourceId": "mext",
-    "sourceName": "文部科学省",
-    "sourceUrl": "https://www.mext.go.jp/b_menu/shingi/chukyo/chukyo3/114/kaisai/mext_00007.html",
-    "publishedAt": "2026-05-12T05:00:00.000Z",
-    "collectedAt": "2026-05-12T11:10:43.699Z",
-    "categories": [
-      "政策・制度"
-    ],
-    "layer": 1,
-    "language": "ja"
-  },
-  {
-    "id": "mext-2026-05-12-d3b2688b362100bb",
-    "title": "中央教育審議会初等中等教育分科会 教育課程部会 道徳ワーキンググループ（第5回）を開催します",
-    "sourceId": "mext",
-    "sourceName": "文部科学省",
-    "sourceUrl": "https://www.mext.go.jp/b_menu/shingi/chukyo/chukyo3/117/kaisai/mext_00005.html",
-    "publishedAt": "2026-05-12T05:00:00.000Z",
-    "collectedAt": "2026-05-12T11:10:43.699Z",
-    "categories": [
-      "政策・制度"
-    ],
-    "layer": 1,
-    "language": "ja"
-  },
-  {
     "id": "chukyo-2026-05-12-25b176aa9325b95e",
     "title": "中央教育審議会初等中等教育分科会教育課程部会家庭ワーキンググループ（第7回）を開催します",
     "sourceId": "chukyo",

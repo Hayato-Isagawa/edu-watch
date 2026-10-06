@@ -125,3 +125,4 @@ EduEvidence JP と共通の運営方針(植物モチーフブランド体系 / N
 - [0074. 使われなくなった `experiments/` の除外設定を撤去する](0074-drop-experiments-ignore.md)
 - [0075. digest の frontmatter の壊れを、スキーマと CI の中身検査で止める](0075-digest-structure-check.md)
 - [0076. 原典が出ないまま持ち越した claim を直すとき、changelog 行の書き方を読み替える](0076-correction-line-without-source.md)
+- [0077. 中教審と同じ URL の文科省記事を落とし、中教審の 1 件にする](0077-drop-mext-twins-of-chukyo.md)

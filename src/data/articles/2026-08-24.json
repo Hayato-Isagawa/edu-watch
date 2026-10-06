@@ -230,20 +230,6 @@
     "language": "ja"
   },
   {
-    "id": "mext-2026-08-24-35343051c30865a2",
-    "title": "中央教育審議会初等中等教育分科会教育課程部会教育課程企画特別部会（第17回）を開催します",
-    "sourceId": "mext",
-    "sourceName": "文部科学省",
-    "sourceUrl": "https://www.mext.go.jp/b_menu/shingi/chukyo/chukyo3/kaisai/mext_00149.html",
-    "publishedAt": "2026-08-24T05:00:00.000Z",
-    "collectedAt": "2026-08-24T11:00:51.318Z",
-    "categories": [
-      "政策・制度"
-    ],
-    "layer": 1,
-    "language": "ja"
-  },
-  {
     "id": "chukyo-2026-08-24-35343051c30865a2",
     "title": "中央教育審議会初等中等教育分科会教育課程部会教育課程企画特別部会（第17回）を開催します",
     "sourceId": "chukyo",
@@ -270,20 +256,6 @@
       "その他"
     ],
     "layer": 2,
-    "language": "ja"
-  },
-  {
-    "id": "mext-2026-08-24-d8979b216432cc82",
-    "title": "第5期教育振興基本計画が中央教育審議会総会に諮問されました。",
-    "sourceId": "mext",
-    "sourceName": "文部科学省",
-    "sourceUrl": "https://www.mext.go.jp/a_menu/keikaku/index.htm",
-    "publishedAt": "2026-08-24T04:00:00.000Z",
-    "collectedAt": "2026-08-24T11:00:51.318Z",
-    "categories": [
-      "政策・制度"
-    ],
-    "layer": 1,
     "language": "ja"
   },
   {

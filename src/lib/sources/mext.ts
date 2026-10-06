@@ -21,7 +21,8 @@ const FEED_URL = "https://www.mext.go.jp/b_menu/news/index.rdf";
 const USER_AGENT = "edu-watch/1.0 (+https://news.edu-evidence.org)";
 const FETCH_TIMEOUT_MS = 10_000;
 
-const rss = new Parser({
+// テストが parseURL を差し替えられるように export する(実取得はしない)。
+export const rss = new Parser({
   timeout: FETCH_TIMEOUT_MS,
   headers: { "User-Agent": USER_AGENT },
 });
@@ -115,35 +116,50 @@ export function isMextEducationRelevant(
   return EDUCATION_INCLUDE_PATTERNS.some((re) => re.test(haystack));
 }
 
+// 中教審(chukyo)は同じ RSS を絞った派生ソースなので、1 回の収集で RSS を取るのは 1 度だけにして
+// 結果(失敗も)を共有する。別々に取ると片方だけがタイムアウトする回があり
+// (2026-04-27・2026-09-01)、対になるはずの記事の片方だけがその回に保存される(ADR 0077)。
+let feedOnce: Promise<RawArticle[]> | undefined;
+
+/** テスト用: 共有している取得結果を捨てる。 */
+export function resetMextFeedCache(): void {
+  feedOnce = undefined;
+}
+
 export const mext: SourceParser = {
   sourceId: "mext",
   sourceName: "文部科学省",
   layer: 1,
   language: "ja",
 
-  async fetch(): Promise<RawArticle[]> {
-    const feed = await rss.parseURL(FEED_URL);
-    const results: RawArticle[] = [];
-    for (const item of feed.items) {
-      const title = item.title?.trim();
-      const url = item.link?.trim();
-      const pubRaw = item.isoDate ?? item.pubDate;
-      if (!title || !url || !pubRaw) continue;
-
-      const summary =
-        item.contentSnippet?.trim() || item.content?.trim() || undefined;
-      if (!isMextEducationRelevant(title, summary)) continue;
-
-      const published = new Date(pubRaw);
-      if (Number.isNaN(published.getTime())) continue;
-
-      results.push({
-        title,
-        url,
-        publishedAt: published.toISOString(),
-        summary,
-      });
-    }
-    return results;
+  fetch(): Promise<RawArticle[]> {
+    feedOnce ??= fetchFeed();
+    return feedOnce;
   },
 };
+
+async function fetchFeed(): Promise<RawArticle[]> {
+  const feed = await rss.parseURL(FEED_URL);
+  const results: RawArticle[] = [];
+  for (const item of feed.items) {
+    const title = item.title?.trim();
+    const url = item.link?.trim();
+    const pubRaw = item.isoDate ?? item.pubDate;
+    if (!title || !url || !pubRaw) continue;
+
+    const summary =
+      item.contentSnippet?.trim() || item.content?.trim() || undefined;
+    if (!isMextEducationRelevant(title, summary)) continue;
+
+    const published = new Date(pubRaw);
+    if (Number.isNaN(published.getTime())) continue;
+
+    results.push({
+      title,
+      url,
+      publishedAt: published.toISOString(),
+      summary,
+    });
+  }
+  return results;
+}

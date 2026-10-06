@@ -218,20 +218,6 @@
     "language": "ja"
   },
   {
-    "id": "mext-2026-05-25-46eb09175057291e",
-    "title": "中央教育審議会初等中等教育分科会教育課程部会総則・評価特別部会（第8回）を開催します",
-    "sourceId": "mext",
-    "sourceName": "文部科学省",
-    "sourceUrl": "https://www.mext.go.jp/b_menu/shingi/chukyo/chukyo3/kaisai/mext_00135.html",
-    "publishedAt": "2026-05-25T05:00:00.000Z",
-    "collectedAt": "2026-05-25T13:45:45.296Z",
-    "categories": [
-      "政策・制度"
-    ],
-    "layer": 1,
-    "language": "ja"
-  },
-  {
     "id": "chukyo-2026-05-25-46eb09175057291e",
     "title": "中央教育審議会初等中等教育分科会教育課程部会総則・評価特別部会（第8回）を開催します",
     "sourceId": "chukyo",
@@ -293,40 +279,12 @@
     "language": "ja"
   },
   {
-    "id": "mext-2026-05-25-636d82f4b1c4a9c7",
-    "title": "中央教育審議会大学分科会質向上・質保証システム部会（第8回）の議事録を掲載しました",
-    "sourceId": "mext",
-    "sourceName": "文部科学省",
-    "sourceUrl": "https://www.mext.go.jp/b_menu/shingi/chukyo/chukyo4/055/giji_list/1422801_00019.html",
-    "publishedAt": "2026-05-25T03:00:00.000Z",
-    "collectedAt": "2026-05-25T13:45:45.296Z",
-    "categories": [
-      "政策・制度"
-    ],
-    "layer": 1,
-    "language": "ja"
-  },
-  {
     "id": "chukyo-2026-05-25-636d82f4b1c4a9c7",
     "title": "中央教育審議会大学分科会質向上・質保証システム部会（第8回）の議事録を掲載しました",
     "sourceId": "chukyo",
     "sourceName": "中央教育審議会",
     "sourceUrl": "https://www.mext.go.jp/b_menu/shingi/chukyo/chukyo4/055/giji_list/1422801_00019.html",
     "publishedAt": "2026-05-25T03:00:00.000Z",
-    "collectedAt": "2026-05-25T13:45:45.296Z",
-    "categories": [
-      "政策・制度"
-    ],
-    "layer": 1,
-    "language": "ja"
-  },
-  {
-    "id": "mext-2026-05-25-f72926b2f52571d9",
-    "title": "中央教育審議会初等中等教育分科会教育課程部会特別支援教育ワーキンググループ（第9回）を開催します",
-    "sourceId": "mext",
-    "sourceName": "文部科学省",
-    "sourceUrl": "https://www.mext.go.jp/b_menu/shingi/chukyo/chukyo3/105/kaisai/mext_00010.html",
-    "publishedAt": "2026-05-25T02:53:00.000Z",
     "collectedAt": "2026-05-25T13:45:45.296Z",
     "categories": [
       "政策・制度"
@@ -391,20 +349,6 @@
       "その他"
     ],
     "layer": 2,
-    "language": "ja"
-  },
-  {
-    "id": "mext-2026-05-25-77f51ad9d2faa906",
-    "title": "第18回中央教育審議会生涯学習分科会社会教育の在り方に関する特別部会の配布資料を更新しました",
-    "sourceId": "mext",
-    "sourceName": "文部科学省",
-    "sourceUrl": "https://www.mext.go.jp/b_menu/shingi/chukyo/chukyo2/015/giji_list/mext_00022.html",
-    "publishedAt": "2026-05-25T00:30:00.000Z",
-    "collectedAt": "2026-05-25T13:45:45.296Z",
-    "categories": [
-      "政策・制度"
-    ],
-    "layer": 1,
     "language": "ja"
   },
   {

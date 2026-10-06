@@ -5,7 +5,7 @@
  *   1. `sources` 配列の全 parser を Promise.allSettled で並列フェッチ
  *   2. 失敗ソースはログに記録して継続(他ソースの取得は止めない)
  *   3. RawArticle を normalize + categorize して Article へ
- *   4. dedupeWithin で同一バッチ内の重複を排除
+ *   4. dedupeWithin で同一バッチ内の重複を排除し、dropMextTwinsOfChukyo で中教審と同じ URL の文科省記事を落とす
  *   5. dedupeAgainstHistory で過去 30 日分との重複を排除
  *   6. publishedAt の日付ごとにグループ化し、storage.mergeDay で書き戻す
  *
@@ -19,7 +19,11 @@ import path from "node:path";
 import { sources } from "../src/lib/sources/index.ts";
 import { normalize } from "../src/lib/normalize.ts";
 import { categorize } from "../src/lib/categorize.ts";
-import { dedupeAgainstHistory, dedupeWithin } from "../src/lib/dedupe.ts";
+import {
+  dedupeAgainstHistory,
+  dedupeWithin,
+  dropMextTwinsOfChukyo,
+} from "../src/lib/dedupe.ts";
 import { mergeDay } from "../src/lib/storage.ts";
 import { filterByDenylist, loadExcludedIds } from "../src/lib/excluded-ids.ts";
 import type { Article } from "../src/lib/article-schema.ts";
@@ -60,7 +64,7 @@ async function main(): Promise<number> {
     );
   }
 
-  const withinDeduped = dedupeWithin(collected);
+  const withinDeduped = dropMextTwinsOfChukyo(dedupeWithin(collected));
   const today = collectedAt.slice(0, 10);
   const newOnly = await dedupeAgainstHistory(withinDeduped, {
     dataDir: DATA_DIR,

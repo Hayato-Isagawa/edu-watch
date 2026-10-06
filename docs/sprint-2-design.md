@@ -314,7 +314,7 @@ jobs:
 1. `sources` の全 parser を `Promise.allSettled` で並列フェッチ
 2. 失敗ソースはログに記録して継続(他ソースの取得は止めない)
 3. `RawArticle` を `normalize` + `categorize` して `Article` へ
-4. `dedupeWithin` で同一バッチ内の重複を排除
+4. `dedupeWithin` で同一バッチ内の重複を排除し、`dropMextTwinsOfChukyo` で中教審と同じ URL の文科省記事を落とす(ADR 0077)
 5. `dedupeAgainstHistory`(過去 30 日)で履歴との重複を排除
 6. `publishedAt` の日付ごとにグループ化し、`storage.mergeDay` で書き戻す
 
