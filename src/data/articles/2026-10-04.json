@@ -1,5 +1,53 @@
 [
   {
+    "id": "nikkyo-2026-10-04-916fa4410640b3c8",
+    "title": "つらいと思ったら退避を　カスハラの線引き、教員に委ねずに",
+    "sourceId": "nikkyo",
+    "sourceName": "日本教育新聞",
+    "sourceUrl": "https://www.kyoiku-press.com/post-316502/",
+    "publishedAt": "2026-10-04T23:50:00.000Z",
+    "collectedAt": "2026-10-06T02:00:33.264Z",
+    "summary": "岡田常志　神奈川県茅ケ崎市教委　法律専門職 　改正労働施策総合推進法が施行され、１０月１日から学校設置者にもカスタマーハラスメントなどの対策が義務付けられた。保護者から強い要求や言動を受けたとき、教員…",
+    "categories": [
+      "教員・働き方"
+    ],
+    "layer": 2,
+    "language": "ja",
+    "requiresMembership": true
+  },
+  {
+    "id": "nikkyo-2026-10-04-64a7b57ca4dab6b6",
+    "title": "９割が「国語教育重要」　漢検　小学生の保護者を調査",
+    "sourceId": "nikkyo",
+    "sourceName": "日本教育新聞",
+    "sourceUrl": "https://www.kyoiku-press.com/post-316508/",
+    "publishedAt": "2026-10-04T23:50:00.000Z",
+    "collectedAt": "2026-10-06T02:00:33.264Z",
+    "summary": "日本漢字能力検定協会は９月２４日、小学生の保護者に実施した国語教育と英語教育への意識調査の結果を公表した。国語教育が重要だと思う保護者は９割で、国語教育が英語教育に良い影響を与えると回答した保護者が…",
+    "categories": [
+      "研究・エビデンス"
+    ],
+    "layer": 2,
+    "language": "ja",
+    "requiresMembership": true
+  },
+  {
+    "id": "nikkyo-2026-10-04-1244936a35970199",
+    "title": "京都市教委、学校にスマートロックを試験導入",
+    "sourceId": "nikkyo",
+    "sourceName": "日本教育新聞",
+    "sourceUrl": "https://www.kyoiku-press.com/post-315618/",
+    "publishedAt": "2026-10-04T23:50:00.000Z",
+    "collectedAt": "2026-10-06T02:00:33.264Z",
+    "summary": "京都市教委は、教員の学校施設管理の負担軽減などを目的に、スマートロックを試験的に導入した。暗証番号や２次元コードを利用して、キーボックスを開け、予約した施設の鍵を受け取る仕組みとなっている。 　同市…",
+    "categories": [
+      "教員・働き方"
+    ],
+    "layer": 2,
+    "language": "ja",
+    "requiresMembership": true
+  },
+  {
     "id": "kkn-2026-10-04-eaa9773baec4014e",
     "title": "網屋、国産SIEM「ALog」が「Soliton OneGate」と連携 認証ログの定期監視・統合管理を効率化",
     "sourceId": "kkn",
