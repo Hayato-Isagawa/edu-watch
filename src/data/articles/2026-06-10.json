@@ -124,20 +124,6 @@
     "requiresMembership": true
   },
   {
-    "id": "mext-2026-06-10-cddd09a783f4cbdd",
-    "title": "中央教育審議会生涯学習分科会社会教育の在り方に関する特別部会（第19回）の開催について(第137回生涯学習分科会合同開催)",
-    "sourceId": "mext",
-    "sourceName": "文部科学省",
-    "sourceUrl": "https://www.mext.go.jp/b_menu/shingi/chukyo/chukyo2/015/kaisai/mext_00029.html",
-    "publishedAt": "2026-06-10T05:00:00.000Z",
-    "collectedAt": "2026-06-10T13:54:14.717Z",
-    "categories": [
-      "政策・制度"
-    ],
-    "layer": 1,
-    "language": "ja"
-  },
-  {
     "id": "chukyo-2026-06-10-cddd09a783f4cbdd",
     "title": "中央教育審議会生涯学習分科会社会教育の在り方に関する特別部会（第19回）の開催について(第137回生涯学習分科会合同開催)",
     "sourceId": "chukyo",

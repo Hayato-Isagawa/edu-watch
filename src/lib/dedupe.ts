@@ -5,9 +5,12 @@
  * で判定する。`normalize.ts` の `generateArticleId()` が URL 正規化済みハッシュを使うため、
  * id の一致 = 同一記事と扱える(Sprint 2 設計書 §4)。
  *
- * MVP では以下 2 段階の dedupe を提供する:
- *   1. dedupeWithin(articles)        — 同一バッチ内(複数ソースが同じ URL を吐いた場合)
- *   2. dedupeAgainstHistory(...)     — 過去 N 日分の保存済み記事と突合し、新規分だけ返す
+ * 以下 3 つの dedupe を提供する:
+ *   1. dedupeWithin(articles)          — 同一バッチ内の同じ id(同じソースが同じ URL を 2 度吐いた場合)
+ *   2. dropMextTwinsOfChukyo(articles) — 同一バッチ内で中教審と同じ URL の文科省記事(ADR 0077)
+ *   3. dedupeAgainstHistory(...)       — 過去 N 日分の保存済み記事と突合し、新規分だけ返す
+ *
+ * id の頭にはソース名が入るので、ソースを跨いだ同じ URL は 1. では落ちない。
  *
  * Phase 2 で検討する Levenshtein 距離ベースのタイトル類似度判定は本ファイルでは扱わない。
  */
@@ -26,6 +29,20 @@ export function dedupeWithin(articles: Article[]): Article[] {
     result.push(a);
   }
   return result;
+}
+
+/**
+ * 中教審(chukyo)と同じ URL の文科省(mext)記事を落とす(ADR 0077)。
+ * chukyo は mext の RSS を中教審の語で絞った派生ソースなので、中教審の記事は常に同じバッチで
+ * 文科省の記事と対になる。残すのは中教審側。同じソースの同じ URL(日付を変えた出し直し)には触れない。
+ */
+export function dropMextTwinsOfChukyo(articles: Article[]): Article[] {
+  const chukyoUrls = new Set(
+    articles.filter((a) => a.sourceId === "chukyo").map((a) => a.sourceUrl)
+  );
+  return articles.filter(
+    (a) => !(a.sourceId === "mext" && chukyoUrls.has(a.sourceUrl))
+  );
 }
 
 /**

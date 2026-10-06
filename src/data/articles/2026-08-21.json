@@ -185,20 +185,6 @@
     "language": "ja"
   },
   {
-    "id": "mext-2026-08-21-26d0033dbca162fd",
-    "title": "中央教育審議会（第144回）　配付資料",
-    "sourceId": "mext",
-    "sourceName": "文部科学省",
-    "sourceUrl": "https://www.mext.go.jp/b_menu/shingi/chukyo/chukyo0/gijiroku/mext_0821.html",
-    "publishedAt": "2026-08-21T01:00:00.000Z",
-    "collectedAt": "2026-08-21T10:56:27.146Z",
-    "categories": [
-      "政策・制度"
-    ],
-    "layer": 1,
-    "language": "ja"
-  },
-  {
     "id": "chukyo-2026-08-21-26d0033dbca162fd",
     "title": "中央教育審議会（第144回）　配付資料",
     "sourceId": "chukyo",

@@ -30,39 +30,11 @@
     "requiresMembership": true
   },
   {
-    "id": "mext-2026-06-05-a02d067901c73a67",
-    "title": "中央教育審議会大学分科会（第190回）の開催案内を掲載しました",
-    "sourceId": "mext",
-    "sourceName": "文部科学省",
-    "sourceUrl": "https://www.mext.go.jp/b_menu/shingi/chukyo/chukyo4/kaisai/1422340_00061.html",
-    "publishedAt": "2026-06-05T05:00:00.000Z",
-    "collectedAt": "2026-06-05T13:33:23.549Z",
-    "categories": [
-      "政策・制度"
-    ],
-    "layer": 1,
-    "language": "ja"
-  },
-  {
     "id": "mext-2026-06-05-5f4d35a547bfc8ab",
     "title": "教育課程部会　体育・保健体育、健康、安全ワーキンググループ（第10回）　配付資料",
     "sourceId": "mext",
     "sourceName": "文部科学省",
     "sourceUrl": "https://www.mext.go.jp/b_menu/shingi/chukyo/chukyo3/112/siryo/mext_00010.html",
-    "publishedAt": "2026-06-05T05:00:00.000Z",
-    "collectedAt": "2026-06-05T13:33:23.549Z",
-    "categories": [
-      "政策・制度"
-    ],
-    "layer": 1,
-    "language": "ja"
-  },
-  {
-    "id": "mext-2026-06-05-43986f44f9142c4d",
-    "title": "中央教育審議会初等中等教育分科会教育課程部会家庭ワーキンググループ（第8回）を開催します",
-    "sourceId": "mext",
-    "sourceName": "文部科学省",
-    "sourceUrl": "https://www.mext.go.jp/b_menu/shingi/chukyo/chukyo3/114/kaisai/mext_00008.html",
     "publishedAt": "2026-06-05T05:00:00.000Z",
     "collectedAt": "2026-06-05T13:33:23.549Z",
     "categories": [
@@ -146,20 +118,6 @@
       "教員・働き方"
     ],
     "layer": 2,
-    "language": "ja"
-  },
-  {
-    "id": "mext-2026-06-05-c8b9d2c4cfbfb60a",
-    "title": "中央教育審議会初等中等教育分科会教育課程部会幼児教育ワーキンググループ（第9回）の配付資料を掲載しました",
-    "sourceId": "mext",
-    "sourceName": "文部科学省",
-    "sourceUrl": "https://www.mext.go.jp/b_menu/shingi/chukyo/chukyo3/104/siryo/mext_00013.html",
-    "publishedAt": "2026-06-05T01:00:00.000Z",
-    "collectedAt": "2026-06-05T13:33:23.549Z",
-    "categories": [
-      "政策・制度"
-    ],
-    "layer": 1,
     "language": "ja"
   },
   {

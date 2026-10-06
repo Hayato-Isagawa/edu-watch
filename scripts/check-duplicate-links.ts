@@ -2,8 +2,8 @@
  * sourceUrl の重複を調査する(削除はしない)。
  *
  * 同一 sourceId 内で sourceUrl が完全一致する記事を「重複」として検出する。
- * 異なる sourceId 間で sourceUrl が偶然一致する場合(例: mext と chukyo で
- * 同じ URL を共有する派生記事)は、別媒体扱いなのでこのスクリプトでは除外しない。
+ * 異なる sourceId 間で sourceUrl が一致する場合は検出しない。mext と chukyo の一致は
+ * 派生ソースによる重複で、収集時に mext 側を落とす(ADR 0077)。
  *
  * 出力:
  *   1. 同日(publishedAt 日)+ 同 sourceId 内の重複 — 最優先で消す候補

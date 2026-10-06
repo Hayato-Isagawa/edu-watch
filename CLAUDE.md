@@ -28,7 +28,7 @@ npm run format             # oxfmt で整形(.ts/.js/.json 等。.astro / .md / 
 npm run format:check       # 同上の差分検査(CI はこちら)
 npm run check              # Astro 型チェック
 npm run vrt                # ビジュアルリグレッションテスト(現 dist を撮影・比較。権威ある比較は CI、後述)
-npm run test:workflows     # link-check.yml の通知分岐・VRT の配線・ci-summary.yml の通知判定・digest の中身検査の回帰テスト(下限つき・check:all に含む)
+npm run test:workflows     # link-check.yml の通知分岐・VRT の配線・ci-summary.yml の通知判定・digest の中身検査・収集時の重複排除(ADR 0077)の回帰テスト(下限つき・check:all に含む)
 npm run test:hooks         # .claude/hooks/ の回帰テスト(下限つき)
 ```
 
@@ -64,7 +64,7 @@ okinawa-in-data では open な link-check Issue があると後続の検出を�
 PR のコンテンツ」で撮る配線(ADR 0068)も、**壊れても CI は緑のまま**だから — 運ぶ素材を 1 つ
 落としても、テストは走り、多くのページは通る。一番腐りやすいのは運ぶ素材の allowlist なので、
 `src/` の実ディレクトリを走査して「運ぶ・`paths` で監視する・描画に入らないと明言する」の
-三択を強制している。**テストを足したら `package.json` の下限(現在 110、実測ちょうど)も上げること。**
+三択を強制している。**テストを足したら `package.json` の下限(現在 118、実測ちょうど)も上げること。**
 
 `vrt-targets.test.mjs` も同じ口にある。VRT の撮影が**静かに減る**経路(対象を消す・ループを絞る・
 projects を削る・skip に落とす・`fullPage` を落とす・比較設定を緩める・比較ステップを撮り直しにする・
@@ -102,6 +102,11 @@ action だけが exit 1 する**ので、`exit_code` だけを見ていると通
 壊れて節や記事 id がビルドを通ったまま消える形(節の消失・記事データに無い id・本文への落ち込み・キーや id のコメントアウト・
 値への吸い込み・行区切りに似た文字)を止める。**壊れても静かに壊れる**ので、一時ディレクトリに最小のリポを作って
 検査ごとに 1 か所ずつ壊し、exit を見ている。
+
+`mext-chukyo-twins.test.mjs` も同じ口。中教審は文科省の RSS を絞った派生ソースで、同じ資料が文科省の記事と対になる
+(ADR 0077)。収集時に文科省側を落とす `dropMextTwinsOfChukyo` と、文科省の RSS を 1 回の収集で 1 度だけ取って
+中教審と共有すること(`parseURL` を差し替えてネットワークに出ずに確かめる)、`fetch-news.ts` がその関数を
+通していることを見る。同じソースの日付違いの出し直しはまとめない(落とさないことも見ている)。
 
 `test:workflows` / `test:hooks` は `assert-test-files.mjs` / `assert-test-results.mjs` を通している。
 `node --test` は「glob が 0 件」「中身が空」「全件 skip」のどれでも exit 0 で終わるので、守って

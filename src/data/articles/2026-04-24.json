@@ -49,20 +49,6 @@
     "requiresMembership": true
   },
   {
-    "id": "mext-2026-04-24-b67af78dd301d3a6",
-    "title": "中央教育審議会初等中等教育分科会教育課程部会社会・地理歴史・公民ワーキンググループの配付資料を掲載しました",
-    "sourceId": "mext",
-    "sourceName": "文部科学省",
-    "sourceUrl": "https://www.mext.go.jp/b_menu/shingi/chukyo/chukyo3/109/siryo/mext_00007.html",
-    "publishedAt": "2026-04-24T06:00:00.000Z",
-    "collectedAt": "2026-04-26T12:49:39.835Z",
-    "categories": [
-      "政策・制度"
-    ],
-    "layer": 1,
-    "language": "ja"
-  },
-  {
     "id": "chukyo-2026-04-24-b67af78dd301d3a6",
     "title": "中央教育審議会初等中等教育分科会教育課程部会社会・地理歴史・公民ワーキンググループの配付資料を掲載しました",
     "sourceId": "chukyo",
@@ -105,21 +91,6 @@
       "研究・エビデンス"
     ],
     "layer": 2,
-    "language": "ja"
-  },
-  {
-    "id": "mext-2026-04-24-36979ab2d5260b63",
-    "title": "中央教育審議会初等中等教育分科会教育課程部会不登校児童生徒に係る特別の教育課程ワーキンググループ（第6回）を開催します",
-    "sourceId": "mext",
-    "sourceName": "文部科学省",
-    "sourceUrl": "https://www.mext.go.jp/b_menu/shingi/chukyo/chukyo3/119/kaisai/mext_00009.html",
-    "publishedAt": "2026-04-24T02:07:00.000Z",
-    "collectedAt": "2026-04-26T12:49:39.835Z",
-    "categories": [
-      "不登校",
-      "政策・制度"
-    ],
-    "layer": 1,
     "language": "ja"
   },
   {
@@ -182,20 +153,6 @@
     "layer": 2,
     "language": "ja",
     "requiresMembership": true
-  },
-  {
-    "id": "mext-2026-04-24-725e98d2164377c0",
-    "title": "第17回中央教育審議会生涯学習分科会社会教育の在り方に関する特別部会の配布資料を更新しました",
-    "sourceId": "mext",
-    "sourceName": "文部科学省",
-    "sourceUrl": "https://www.mext.go.jp/b_menu/shingi/chukyo/chukyo2/015/giji_list/mext_00021.html",
-    "publishedAt": "2026-04-24T00:00:00.000Z",
-    "collectedAt": "2026-04-26T12:49:39.835Z",
-    "categories": [
-      "政策・制度"
-    ],
-    "layer": 1,
-    "language": "ja"
   },
   {
     "id": "chukyo-2026-04-24-725e98d2164377c0",

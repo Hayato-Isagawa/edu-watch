@@ -77,20 +77,6 @@
     "language": "ja"
   },
   {
-    "id": "mext-2026-08-03-e57a918020350084",
-    "title": "中央教育審議会初等中等教育分科会教育課程部会体育・保健体育、健康、安全ワーキンググループ取りまとめ（案）を掲載しました",
-    "sourceId": "mext",
-    "sourceName": "文部科学省",
-    "sourceUrl": "https://www.mext.go.jp/b_menu/shingi/chukyo/chukyo3/112/mext_00001.html",
-    "publishedAt": "2026-08-03T08:00:00.000Z",
-    "collectedAt": "2026-08-03T13:23:36.846Z",
-    "categories": [
-      "政策・制度"
-    ],
-    "layer": 1,
-    "language": "ja"
-  },
-  {
     "id": "mext-2026-08-03-c90fd2b330e824c6",
     "title": "令和8年度全国学力・学習状況調査の報告書・集計結果について",
     "sourceId": "mext",
@@ -166,20 +152,6 @@
     "layer": 2,
     "language": "ja",
     "requiresMembership": true
-  },
-  {
-    "id": "mext-2026-08-03-052797c1fc4ef382",
-    "title": "中央教育審議会初等中等教育分科会教育課程部会産業教育ワーキンググループ取りまとめ（案）を掲載しました",
-    "sourceId": "mext",
-    "sourceName": "文部科学省",
-    "sourceUrl": "https://www.mext.go.jp/b_menu/shingi/chukyo/chukyo3/016/mext_00002.html",
-    "publishedAt": "2026-08-03T05:00:00.000Z",
-    "collectedAt": "2026-08-03T13:23:36.846Z",
-    "categories": [
-      "政策・制度"
-    ],
-    "layer": 1,
-    "language": "ja"
   },
   {
     "id": "mext-2026-08-03-fd316586aa201c7d",
