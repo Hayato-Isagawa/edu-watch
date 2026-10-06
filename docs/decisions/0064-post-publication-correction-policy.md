@@ -1,6 +1,6 @@
 # 0064. 公開後の訂正を changelog で可視化し、書き換えた文の再照合を後段検証ゲートに加える
 
-- 状態: 採用
+- 状態: 採用 / D2 の本文の差し替えと、D3 のうち changelog 行に書く内容(第 2 段落と「訂正行の型」の項目 2・3)は、原典が出ないまま持ち越した claim を直す場合に限り [`ADR 0076`](0076-correction-line-without-source.md) で上書き
 - 日付: 2026-07-26
 - 関連 ADR: [`ADR 0008`](0008-citation-scope-policy.md)(引用範囲遵守ポリシー) / [`ADR 0047`](0047-digest-sections-multi-article.md)(digest sections 構造)
 - 関連: [`docs/digest-workflow.md`](../digest-workflow.md)「後段検証ゲート」(PR #332 で導入)
