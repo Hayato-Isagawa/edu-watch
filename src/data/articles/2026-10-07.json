@@ -1,0 +1,32 @@
+[
+  {
+    "id": "resemom-2026-10-07-b6e9a760896e0d5f",
+    "title": "金沢泉丘の大学合格実績2026、東大20人・京大21人・阪大37人",
+    "sourceId": "resemom",
+    "sourceName": "リセマム",
+    "sourceUrl": "https://resemom.jp/article/2026/10/07/87793.html",
+    "publishedAt": "2026-10-07T00:15:02.000Z",
+    "collectedAt": "2026-10-07T01:10:10.779Z",
+    "summary": "石川県立金沢泉丘高等学校（石川県金沢市）が公表した2026年の進路実績によると、東京大学に20人、京都大学に21人、大阪大学に37人などが合格した。私立大学では、立命館大学に89人、同志社大学に84人などが合格している。いずれも現役・既卒をあわせた合格者数。",
+    "categories": [
+      "研究・エビデンス"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "mext-2026-10-07-092b57260d1d8dd0",
+    "title": "令和８年度「日本語教員養成課程・実践研修実態調査業務」（総合評価落札方式）",
+    "sourceId": "mext",
+    "sourceName": "文部科学省",
+    "sourceUrl": "https://www.mext.go.jp/a_menu/nihongo_kyoiku/mext_00234.html",
+    "publishedAt": "2026-10-07T00:00:00.000Z",
+    "collectedAt": "2026-10-07T01:10:10.779Z",
+    "categories": [
+      "研究・エビデンス",
+      "教員・働き方"
+    ],
+    "layer": 1,
+    "language": "ja"
+  }
+]
