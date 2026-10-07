@@ -1,5 +1,66 @@
 [
   {
+    "id": "kkn-2026-10-06-dc9247b0a365508f",
+    "title": "『塩野米松の　いのち　わくわく　おはなし絵本　やまんばの12にんのむすめ』塩野米松／文、小沢さかえ／絵",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/post_library/260928_5g",
+    "publishedAt": "2026-10-06T22:00:36.000Z",
+    "collectedAt": "2026-10-07T01:10:10.779Z",
+    "summary": "都会のおばあちゃん達、実は… 山姥と聞くと昔話の妖怪が思い浮かぶが、この絵本は様子が違う。山姥の12人の娘は、お洒落な装いで一見普通の可愛らしいおばあちゃんたち。都会の高層マンションに暮らすなどして現代社会に溶け込んでい […]",
+    "categories": [
+      "その他"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-10-06-4d3e3bbc19be71d6",
+    "title": "渋谷区の探究学習「シブヤ未来科」3年目の挑戦と裏側を語る教員向けオンラインセミナー10/27に開催〜Inspire High",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20261007o03",
+    "publishedAt": "2026-10-06T22:00:31.000Z",
+    "collectedAt": "2026-10-07T01:10:10.779Z",
+    "summary": "Inspire Highは10月27日に、探究学習の推進をテーマとした教員・教育委員会向けのオンラインセミナーを開催する。 渋谷区では幼児期の没頭する姿を原点に、2024年度から探究「シブヤ未来科」を開始。授業時数特例校 […]",
+    "categories": [
+      "政策・制度",
+      "教員・働き方"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-10-06-5a057d0c871206ee",
+    "title": "文化庁「国語に関する世論調査」2025年度結果公表――若年層で「ら抜き言葉」使用が多数派、国語意識や手書き習慣にも変化",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20261007o01",
+    "publishedAt": "2026-10-06T22:00:23.000Z",
+    "collectedAt": "2026-10-07T01:10:10.779Z",
+    "summary": "文化庁はこのほど、2025年度「国語に関する世論調査」結果を公表した。国語施策の立案や国民の関心喚起を目的として毎年実施しているもので、今回は2026年1月13日から3月3日にかけて実施した。 調査は全国の16歳以上の日 […]",
+    "categories": [
+      "研究・エビデンス"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-10-06-fb4ecae80a0e433b",
+    "title": "都立総合芸術高校の生徒が制作　東京都庁で新作プロジェクションマッピング「君に届くまで」が10/9上映開始",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20261007o04",
+    "publishedAt": "2026-10-06T22:00:07.000Z",
+    "collectedAt": "2026-10-07T01:10:10.779Z",
+    "summary": "東京都は、東京の夜を彩る観光コンテンツとして都庁舎を活用したプロジェクションマッピング「TOKYO Night & Light」にて、都立総合芸術高校と連携した新作「君に届くまで」を10月9日から上映する。高校生 […]",
+    "categories": [
+      "その他"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
     "id": "nikkyo-2026-10-06-b417ba762d599eb6",
     "title": "学習指導要領改訂へ　「審議まとめ」で文科省がパブコメ開始",
     "sourceId": "nikkyo",
@@ -118,6 +179,20 @@
       "教員・働き方"
     ],
     "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "mext-2026-10-06-95c0efe07e5b1232",
+    "title": "令和8年度 「学校魅力化フォーラム」の開催について",
+    "sourceId": "mext",
+    "sourceName": "文部科学省",
+    "sourceUrl": "https://www.mext.go.jp/a_menu/shotou/tekisei/1421853_00021.htm",
+    "publishedAt": "2026-10-06T01:28:00.000Z",
+    "collectedAt": "2026-10-07T01:10:10.779Z",
+    "categories": [
+      "政策・制度"
+    ],
+    "layer": 1,
     "language": "ja"
   },
   {
