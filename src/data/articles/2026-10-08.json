@@ -1,5 +1,126 @@
 [
   {
+    "id": "resemom-2026-10-08-e48d3999900f2db8",
+    "title": "ノートルダム清心女子大学、男女共学化…2028年度から",
+    "sourceId": "resemom",
+    "sourceName": "リセマム",
+    "sourceUrl": "https://resemom.jp/article/2026/10/08/87825.html",
+    "publishedAt": "2026-10-08T11:43:08.000Z",
+    "collectedAt": "2026-10-08T17:29:01.373Z",
+    "summary": "ノートルダム清心女子大学は2026年10月8日、創立80周年を迎える2029年に向けて「教育改革プロジェクト」を始動すると発表した。2028年度からの男女共学化と、2029年度以降の新たな教育体制構築に向けた改組の検討を開始する。",
+    "categories": [
+      "その他"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "resemom-2026-10-08-358a1392d704fecd",
+    "title": "東京理科大「数学研究と数学教育の世界」高校生向け授業体験12/24",
+    "sourceId": "resemom",
+    "sourceName": "リセマム",
+    "sourceUrl": "https://resemom.jp/article/2026/10/08/87822.html",
+    "publishedAt": "2026-10-08T08:15:03.000Z",
+    "collectedAt": "2026-10-08T17:29:01.373Z",
+    "summary": "東京理科大学は2026年12月24日、高校生のためのサイエンスプログラム「あなたも1日大学生」の企画として、「『数学研究』と『数学教育』の世界」を開催する。理学部第一部数学科の授業や研究を体験するほか、在学生との座談会が行われる。おもな対象は高校生、定員20人。参加費無料、申込締切は12月16日。",
+    "categories": [
+      "研究・エビデンス"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "mext-2026-10-08-da7ef9496e107415",
+    "title": "教育課程部会　体育・保健体育、健康、安全ワーキンググループ（第11回）　議事録",
+    "sourceId": "mext",
+    "sourceName": "文部科学省",
+    "sourceUrl": "https://www.mext.go.jp/b_menu/shingi/chukyo/chukyo3/112/gijiroku/mext_00012.html",
+    "publishedAt": "2026-10-08T05:00:00.000Z",
+    "collectedAt": "2026-10-08T17:29:01.373Z",
+    "categories": [
+      "政策・制度"
+    ],
+    "layer": 1,
+    "language": "ja"
+  },
+  {
+    "id": "chukyo-2026-10-08-77cd6449f0d87ca9",
+    "title": "中央教育審議会初等中等教育分科会教育課程部会教育課程企画特別部会（第20回）を開催します",
+    "sourceId": "chukyo",
+    "sourceName": "中央教育審議会",
+    "sourceUrl": "https://www.mext.go.jp/b_menu/shingi/chukyo/chukyo3/kaisai/mext_00155.html",
+    "publishedAt": "2026-10-08T05:00:00.000Z",
+    "collectedAt": "2026-10-08T17:29:01.373Z",
+    "categories": [
+      "政策・制度"
+    ],
+    "layer": 1,
+    "language": "ja"
+  },
+  {
+    "id": "nikkyo-2026-10-08-aac9fdf5b96fb4c9",
+    "title": "校長公募の1次選考にAI面接　茨城県教委",
+    "sourceId": "nikkyo",
+    "sourceName": "日本教育新聞",
+    "sourceUrl": "https://www.kyoiku-press.com/post-316727/",
+    "publishedAt": "2026-10-08T04:41:00.000Z",
+    "collectedAt": "2026-10-08T17:29:01.373Z",
+    "summary": "茨城県教委は本年度、県立の併設型中高一貫校、中等教育学校、高校の校長公募の第1次選考にAI面接を導入した。民間企業での勤務経験など、多様な経歴のある候補者の強みを引き出す。AIとの面接を録画したもの…",
+    "categories": [
+      "ICT / GIGA",
+      "教員・働き方"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "nikkyo-2026-10-08-adb235edf7f0778f",
+    "title": "自民文科部会長に本田氏　元文科政務官",
+    "sourceId": "nikkyo",
+    "sourceName": "日本教育新聞",
+    "sourceUrl": "https://www.kyoiku-press.com/post-316724/",
+    "publishedAt": "2026-10-08T04:39:00.000Z",
+    "collectedAt": "2026-10-08T17:29:01.373Z",
+    "summary": "自民党政務調査会文部科学部会の部会長に本田顕子参院議員が就いた。これまで岸田内閣の文科政務官や参院文教科学委員会の筆頭理事を務めた。本田氏の経歴は以下の通り。 　ほんだ・あきこ　星薬科大卒（薬剤師）…",
+    "categories": [
+      "その他"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "nikkyo-2026-10-08-b2b42eb7c98e2a95",
+    "title": "授業時数の柔軟化、質の確保求める　中教審、教育団体から意見聴取",
+    "sourceId": "nikkyo",
+    "sourceName": "日本教育新聞",
+    "sourceUrl": "https://www.kyoiku-press.com/post-316721/",
+    "publishedAt": "2026-10-08T04:29:00.000Z",
+    "collectedAt": "2026-10-08T17:29:01.373Z",
+    "summary": "中央教育審議会の教育課程企画特別部会は8日、次期学習指導要領に向けた審議まとめについて、教育関係団体から意見を聞いた。授業時数の柔軟化や情報教育の充実を評価する一方、授業の質の確保や教員の配置、地域…",
+    "categories": [
+      "ICT / GIGA",
+      "政策・制度",
+      "教員・働き方"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "resemom-2026-10-08-662d212e62eebf78",
+    "title": "「高校無償化」2026年度の変更点…私立も所得制限撤廃、支給上限45万円に引き上げなど",
+    "sourceId": "resemom",
+    "sourceName": "リセマム",
+    "sourceUrl": "https://resemom.jp/article/2026/10/08/87815.html",
+    "publishedAt": "2026-10-08T04:15:03.000Z",
+    "collectedAt": "2026-10-08T17:29:01.373Z",
+    "summary": "高校生への修学支援制度「高校無償化（高等学校等就学支援金制度）」は、2025年度の公立高校に引き続き、2026年度には私立高校も対象を拡大する制度改正が行われた。授業料に対する所得制限が撤廃されたほか、就学支援金の支給上限額が引き上げられた。",
+    "categories": [
+      "その他"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
     "id": "resemom-2026-10-08-a3045a1e617620d7",
     "title": "札幌南の大学合格実績2026、東大19人・京大22人・北大81人…医学部56人",
     "sourceId": "resemom",
