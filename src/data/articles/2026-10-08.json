@@ -1,5 +1,52 @@
 [
   {
+    "id": "kkn-2026-10-08-c0bddcf544d3784b",
+    "title": "子供のAI利用「禁止」は逆効果？ 家庭でのルール設計と活用法を解説するアーカイブ動画を無料公開〜SHIFT AI",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20261009o03",
+    "publishedAt": "2026-10-08T22:00:54.000Z",
+    "collectedAt": "2026-10-09T01:37:14.325Z",
+    "summary": "生成AI学習コミュニティを運営するSHIFT AIは、9月29日に開催したオンラインセミナー「子どもに生成AIをどう使わせる？ 専門家が解説する『家庭のAIルール10か条』」のアーカイブ動画を、11月5日までの期間限定で […]",
+    "categories": [
+      "ICT / GIGA"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-10-08-707bb2802b2d0d03",
+    "title": "不登校支援のNIJIN、自治体・学校関係者向けメタバース校舎視察ツアーを11月に3回開催",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20261009o02",
+    "publishedAt": "2026-10-08T22:00:46.000Z",
+    "collectedAt": "2026-10-09T01:37:14.325Z",
+    "summary": "不登校支援を行うNIJINは、運営する不登校オルタナティブスクール「NIJINアカデミー」において、自治体や学校の校長、教職員らを対象とした「メタバース校舎視察ツアー」を11月10日、17日、24日の3回にわたりオンライ […]",
+    "categories": [
+      "不登校",
+      "教員・働き方"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-10-08-ae01158140c9ecf3",
+    "title": "次期学習指導要領の審議まとめ公表 文科省がパブコメ実施中〜11/5まで",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20261009o04",
+    "publishedAt": "2026-10-08T22:00:18.000Z",
+    "collectedAt": "2026-10-09T01:37:14.325Z",
+    "summary": "文部科学省は10月6日、「次期学習指導要領等に向けた審議まとめ」についてのパブリック・コメント（意見公募手続）を開始した。2028年度以降に順次実施が予定されている次期学習指導要領に向け、教育内容の基本的な方向性や各教科 […]",
+    "categories": [
+      "政策・制度",
+      "研究・エビデンス"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
     "id": "resemom-2026-10-08-e48d3999900f2db8",
     "title": "ノートルダム清心女子大学、男女共学化…2028年度から",
     "sourceId": "resemom",
