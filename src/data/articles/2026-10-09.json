@@ -1,5 +1,97 @@
 [
   {
+    "id": "resemom-2026-10-09-4d1a712a488794c7",
+    "title": "不登校・通信制高校から考える進学・就職セミナー10/14",
+    "sourceId": "resemom",
+    "sourceName": "リセマム",
+    "sourceUrl": "https://resemom.jp/article/2026/10/09/87841.html",
+    "publishedAt": "2026-10-09T10:45:02.000Z",
+    "collectedAt": "2026-10-09T17:06:45.265Z",
+    "summary": "ベネッセコーポレーションが運営する「不登校ライフナビ」は2026年10月14日午後7時から午後8時まで、オンラインセミナー「うちの子、将来社会でやっていける？不登校・通信制高校から考える、進学・就職のリアル by 不登校ライフナビ」をZoomウェビナーで開催する。参加費は無料。",
+    "categories": [
+      "不登校"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "nikkyo-2026-10-09-55fc67e131b228d2",
+    "title": "異業種から教職に転職、日本は0・9％　OECD調査",
+    "sourceId": "nikkyo",
+    "sourceName": "日本教育新聞",
+    "sourceUrl": "https://www.kyoiku-press.com/post-316740/",
+    "publishedAt": "2026-10-09T07:55:00.000Z",
+    "collectedAt": "2026-10-09T17:06:45.265Z",
+    "summary": "経済協力開発機構（OECD）が9月29日に公表した「図表でみる教育2026年版」で、加盟国の多くが教員不足に直面し、特に理数系や地方、社会経済的に不利な地域で確保が難しくなっていることが分かった。日…",
+    "categories": [
+      "研究・エビデンス",
+      "国際・海外",
+      "教員・働き方"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "nikkyo-2026-10-09-0dfd14e38e0384f2",
+    "title": "普通科の文理解消目指す　静岡県が高校改革計画案",
+    "sourceId": "nikkyo",
+    "sourceName": "日本教育新聞",
+    "sourceUrl": "https://www.kyoiku-press.com/post-316737/",
+    "publishedAt": "2026-10-09T06:24:00.000Z",
+    "collectedAt": "2026-10-09T17:06:45.265Z",
+    "summary": "静岡県教委は、普通科高校で文系・理系の区分の解消を目指すことなどを掲げた「高校教育改革実行計画」の案をまとめた。文理の枠を超えた学校設定科目の導入や、単位制普通科の設置など、教育課程の見直しを進める…",
+    "categories": [
+      "その他"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "mext-2026-10-09-0328c5a615bc511b",
+    "title": "令和7年度「全国学生調査（本格実施）」の結果を掲載しました",
+    "sourceId": "mext",
+    "sourceName": "文部科学省",
+    "sourceUrl": "https://www.mext.go.jp/a_menu/koutou/chousa/1421136.htm",
+    "publishedAt": "2026-10-09T05:00:00.000Z",
+    "collectedAt": "2026-10-09T17:06:45.265Z",
+    "categories": [
+      "政策・制度"
+    ],
+    "layer": 1,
+    "language": "ja"
+  },
+  {
+    "id": "resemom-2026-10-09-ddfd4ad69ff51c15",
+    "title": "岩手・東京に拠点で寮生活も…広域通信制「ドルトンX学園」2027年開校",
+    "sourceId": "resemom",
+    "sourceName": "リセマム",
+    "sourceUrl": "https://resemom.jp/article/2026/10/09/87828.html",
+    "publishedAt": "2026-10-09T02:15:03.000Z",
+    "collectedAt": "2026-10-09T17:06:45.265Z",
+    "summary": "河合塾学園は、2027年4月開校予定の広域通信制高校「ドルトンX学園高等学校」について、2026年10月6日に岩手県より設置認可を受けた。岩手県一関市に本校となる一関キャンパス、東京都調布市に東京キャンパスを設置し、生徒は両キャンパスおよび国内外の地域拠点を行き来しながら探究学習に取り組む。",
+    "categories": [
+      "その他"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "nikkyo-2026-10-09-928d2109a745d909",
+    "title": "教師考現学【第1回】教師の判断を支える「ひととなり」",
+    "sourceId": "nikkyo",
+    "sourceName": "日本教育新聞",
+    "sourceUrl": "https://www.kyoiku-press.com/post-316730/",
+    "publishedAt": "2026-10-09T01:25:00.000Z",
+    "collectedAt": "2026-10-09T17:06:45.265Z",
+    "summary": "山辺恵理子・早稲田大学准教授 　夏に参加した学会の一つで、シンポジウムに登壇した現職の教師が日々の葛藤について話してくれた。 　その先生は、1学期に水鉄砲大会を開いた際、体調不良で泣く泣く欠席した児童…",
+    "categories": [
+      "研究・エビデンス",
+      "教員・働き方"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
     "id": "resemom-2026-10-09-5e11e10b2d4b99b8",
     "title": "洛南の大学合格実績2026、東大18人・京大68人…医学部155人",
     "sourceId": "resemom",
@@ -23,6 +115,21 @@
     "publishedAt": "2026-10-09T00:00:00.000Z",
     "collectedAt": "2026-10-09T01:37:14.325Z",
     "summary": "イベント",
+    "categories": [
+      "研究・エビデンス"
+    ],
+    "layer": 1,
+    "language": "ja"
+  },
+  {
+    "id": "nier-2026-10-09-bd3e0bad4bfc0c4a",
+    "title": "令和９年度全国学力・学習状況調査サンプル問題を掲載しました。",
+    "sourceId": "nier",
+    "sourceName": "国立教育政策研究所",
+    "sourceUrl": "https://www.nier.go.jp/kaihatsu/27sample/index.html",
+    "publishedAt": "2026-10-09T00:00:00.000Z",
+    "collectedAt": "2026-10-09T17:06:45.265Z",
+    "summary": "研究・事業活動",
     "categories": [
       "研究・エビデンス"
     ],
