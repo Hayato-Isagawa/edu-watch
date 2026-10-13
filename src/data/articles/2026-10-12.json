@@ -1,5 +1,68 @@
 [
   {
+    "id": "kkn-2026-10-12-9c99348f823bc08f",
+    "title": "近畿大学情報学部がAppleの「Swift」を必修化 日本の大学で初　実践的なアプリ開発教育を展開",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20261013o03",
+    "publishedAt": "2026-10-12T22:00:50.000Z",
+    "collectedAt": "2026-10-13T02:47:36.993Z",
+    "summary": "近畿大学情報学部（大阪府東大阪市）は、Appleが開発したプログラミング言語「Swift」を日本の大学で初めて学部必修科目として設定する。後期授業（10月〜）から導入を開始する。     ■従来のプロ […]",
+    "categories": [
+      "その他"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-10-12-f50f4cf51f22bc10",
+    "title": "カシオ、学習アプリ「ClassPad.net」にAIフィードバック機能を搭載　教員の評価・添削業務を支援",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20261013o02",
+    "publishedAt": "2026-10-12T22:00:39.000Z",
+    "collectedAt": "2026-10-13T02:47:36.993Z",
+    "summary": "カシオ計算機は、ICT学習アプリ「ClassPad.net（クラスパッド ドット ネット）」において、生徒の提出物をAIが解析して評価案を自動生成する「AIフィードバック機能」を2027年1月より提供開始すると発表した。 […]",
+    "categories": [
+      "ICT / GIGA",
+      "教員・働き方"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-10-12-421ddaa12131a2b5",
+    "title": "円安などで日本人留学生の派遣数が減少に 私大連が「国際教育・交流調査」結果を発表",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20261013o04",
+    "publishedAt": "2026-10-12T22:00:28.000Z",
+    "collectedAt": "2026-10-13T02:47:36.993Z",
+    "summary": "一社・日本私立大学連盟（私大連）は10月9日、加盟する115大学を対象とした「国際教育・交流調査2025」の最新結果を公表した。2024年度の日本人学生の海外派遣数は、コロナ禍以降で初めて減少に転じたことが明らかになった […]",
+    "categories": [
+      "研究・エビデンス",
+      "国際・海外"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-10-12-cc81cd3c5c00390f",
+    "title": "日本のユネスコ加盟75周年記念「第18回ユネスコスクール全国大会」11/14にハイブリッド開催",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20261013o01",
+    "publishedAt": "2026-10-12T22:00:03.000Z",
+    "collectedAt": "2026-10-13T02:47:36.993Z",
+    "summary": "文部科学省などは11月14日、第18回ユネスコスクール全国大会を開催する。日本のユネスコ加盟75周年を記念する本大会のテーマは、「ユネスコ登録サイトをはじめとする地域の文化・自然とともに育む学び」。世界遺産やエコパークな […]",
+    "categories": [
+      "政策・制度",
+      "国際・海外"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
     "id": "resemom-2026-10-12-5b680ad3898b782f",
     "title": "仲間とつなぐ歌声…第93回Nコン、名古屋市立滝ノ水中学校が金賞受賞で日本一の栄冠",
     "sourceId": "resemom",
@@ -44,5 +107,118 @@
     ],
     "layer": 2,
     "language": "ja"
+  },
+  {
+    "id": "nikkyo-2026-10-12-bdd10183924ee324",
+    "title": "FP招き人生設計考える　千葉の小学校",
+    "sourceId": "nikkyo",
+    "sourceName": "日本教育新聞",
+    "sourceUrl": "https://www.kyoiku-press.com/post-316756/",
+    "publishedAt": "2026-10-12T00:00:00.000Z",
+    "collectedAt": "2026-10-13T02:47:36.993Z",
+    "summary": "ワークシートへの記入に臨む児童ら ６年、卒業文集に生かす 　千葉県柏市立名戸ケ谷小学校（津久井智洋校長、児童４２５人）は本年度、６年生の児童がファイナンシャルプランナー（FP）から指導を受けつつ自分の…",
+    "categories": [
+      "教員・働き方"
+    ],
+    "layer": 2,
+    "language": "ja",
+    "requiresMembership": true
+  },
+  {
+    "id": "nikkyo-2026-10-12-3e985f5a2ad16405",
+    "title": "不易流行",
+    "sourceId": "nikkyo",
+    "sourceName": "日本教育新聞",
+    "sourceUrl": "https://www.kyoiku-press.com/post-316761/",
+    "publishedAt": "2026-10-12T00:00:00.000Z",
+    "collectedAt": "2026-10-13T02:47:36.993Z",
+    "summary": "◆「酷暑日」という気象用語ができた今年。厳しい暑さの中で熊本にまたも大地震が発生。そして千葉県では、線状降水帯や台風によって大雨となり、冠水や土砂崩れなどの被害が続いた。ネパールと中国の国境地帯でも大…",
+    "categories": [
+      "その他"
+    ],
+    "layer": 2,
+    "language": "ja",
+    "requiresMembership": true
+  },
+  {
+    "id": "nikkyo-2026-10-12-1f1e8d9f62dcd7d5",
+    "title": "保護者対応で専門職チーム設置へ　大阪市教委",
+    "sourceId": "nikkyo",
+    "sourceName": "日本教育新聞",
+    "sourceUrl": "https://www.kyoiku-press.com/post-316681/",
+    "publishedAt": "2026-10-12T00:00:00.000Z",
+    "collectedAt": "2026-10-13T02:47:36.993Z",
+    "summary": "学校への過剰な苦情や不当要求への対応として大阪市教委は来年度から、弁護士や福祉・心理の専門家などでつくる専門職チームを常設する。９月に開かれた総合教育会議で明らかにした。専門家が直接介入することで早…",
+    "categories": [
+      "その他"
+    ],
+    "layer": 2,
+    "language": "ja",
+    "requiresMembership": true
+  },
+  {
+    "id": "nikkyo-2026-10-12-6295239df916b546",
+    "title": "余白つくり、可能性に変えて　全附P連が大会　羌会長訴え",
+    "sourceId": "nikkyo",
+    "sourceName": "日本教育新聞",
+    "sourceUrl": "https://www.kyoiku-press.com/post-316750/",
+    "publishedAt": "2026-10-12T00:00:00.000Z",
+    "collectedAt": "2026-10-13T02:47:36.993Z",
+    "summary": "開会あいさつに立つ羌会長 　全国国立大学附属学校PTA連合会は９月２５日から２日間にわたり、PTA研修会全国大会を横浜市内で開いた。開会あいさつで同連合会の羌叡應会長は、「教育現場に余白をつくる。PT…",
+    "categories": [
+      "教員・働き方"
+    ],
+    "layer": 2,
+    "language": "ja",
+    "requiresMembership": true
+  },
+  {
+    "id": "nikkyo-2026-10-12-85aa02e380921925",
+    "title": "企業の免許保有者らを教員に　人事交流制度導入求める",
+    "sourceId": "nikkyo",
+    "sourceName": "日本教育新聞",
+    "sourceUrl": "https://www.kyoiku-press.com/post-316482/",
+    "publishedAt": "2026-10-12T00:00:00.000Z",
+    "collectedAt": "2026-10-13T02:47:36.993Z",
+    "summary": "文科省 　文科省は全国の教育委員会に、首長部局や地元企業に勤務する教員免許保有者を教員として任用できる人事交流制度の導入を検討するよう求めた。８月１０日付で通知を出した。深刻な教員不足の中、多様な背景…",
+    "categories": [
+      "政策・制度",
+      "教員・働き方"
+    ],
+    "layer": 2,
+    "language": "ja",
+    "requiresMembership": true
+  },
+  {
+    "id": "nikkyo-2026-10-12-23eda97fce8df04b",
+    "title": "学校版カスハラ対応　各教委、相次ぎ方針",
+    "sourceId": "nikkyo",
+    "sourceName": "日本教育新聞",
+    "sourceUrl": "https://www.kyoiku-press.com/post-316748/",
+    "publishedAt": "2026-10-12T00:00:00.000Z",
+    "collectedAt": "2026-10-13T02:47:36.993Z",
+    "summary": "複数人で・電話録音・専門機関と連携 　カスタマーハラスメント（カスハラ）の防止措置が１０月１日から事業主に義務付けられたことを受け、教育委員会が学校での対応方針を相次いで整備している。国が８月に示した…",
+    "categories": [
+      "政策・制度"
+    ],
+    "layer": 2,
+    "language": "ja",
+    "requiresMembership": true
+  },
+  {
+    "id": "nikkyo-2026-10-12-2848a577d2839aea",
+    "title": "公立校教職員の性犯罪歴　都教委が独自調査へ",
+    "sourceId": "nikkyo",
+    "sourceName": "日本教育新聞",
+    "sourceUrl": "https://www.kyoiku-press.com/post-316468/",
+    "publishedAt": "2026-10-12T00:00:00.000Z",
+    "collectedAt": "2026-10-13T02:47:36.993Z",
+    "summary": "東京都教委は、こども性暴力防止法施行に向けて、都内公立学校に勤務する教職員の性犯罪歴を独自に確認する。同法では、現職者に対する性犯罪歴確認は「施行後３年以内」に行うとしているが、児童・生徒の安全確保…",
+    "categories": [
+      "教員・働き方"
+    ],
+    "layer": 2,
+    "language": "ja",
+    "requiresMembership": true
   }
 ]
