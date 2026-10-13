@@ -1,5 +1,184 @@
 [
   {
+    "id": "oecd-2026-10-13-f52b6c325989dd98",
+    "title": "Generative AI and student learning: What the PISA data reveal",
+    "sourceId": "oecd",
+    "sourceName": "OECD Education and Skills Today",
+    "sourceUrl": "https://oecdedutoday.com/generative-ai-and-student-learning-what-the-pisa-data-reveal/",
+    "publishedAt": "2026-10-13T12:00:37.000Z",
+    "collectedAt": "2026-10-13T17:41:55.586Z",
+    "summary": "By OECD Director for Education and Skills Andreas Schleicher The arrival of generative artificial intelligence in classrooms has been swift …",
+    "categories": [
+      "ICT / GIGA",
+      "国際・海外"
+    ],
+    "layer": 1,
+    "language": "en"
+  },
+  {
+    "id": "resemom-2026-10-13-7f8c9345826f3c18",
+    "title": "子供の読書、半数近くが1日15分以上…教育は紙重視6割",
+    "sourceId": "resemom",
+    "sourceName": "リセマム",
+    "sourceUrl": "https://resemom.jp/article/2026/10/13/87859.html",
+    "publishedAt": "2026-10-13T09:15:03.000Z",
+    "collectedAt": "2026-10-13T17:41:55.586Z",
+    "summary": "新興出版社啓林館は2026年9月17日、「デジタル時代における子供の紙の本・絵本の読書実態に関する調査」の結果を発表した。小学生以下の子供をもつ保護者の約半数が読書時間を意識的に確保しており、約6割が教育においてデジタルより紙の本や絵本を多く、またはすべて紙にすべきと考えていることがわかった。",
+    "categories": [
+      "その他"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "nikkyo-2026-10-13-5fe34c48e8732dac",
+    "title": "特色検査にマークシート導入　神奈川県立高18校、来春入試から",
+    "sourceId": "nikkyo",
+    "sourceName": "日本教育新聞",
+    "sourceUrl": "https://www.kyoiku-press.com/post-316978/",
+    "publishedAt": "2026-10-13T07:13:00.000Z",
+    "collectedAt": "2026-10-13T17:41:55.586Z",
+    "summary": "神奈川県教委は9日、令和9年度高校入試で、学力向上進学重点校など県立高18校が実施する特色検査にマークシート方式を導入し、記号選択式と記述式の問題を併用すると発表した。対象は、横浜翠嵐、湘南、厚木な…",
+    "categories": [
+      "その他"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "mext-2026-10-13-72d5f76042065cfd",
+    "title": "令和8年度教科用図書検定調査審議会総会（第2回）・総括部会（第3回）合同会議　配付資料",
+    "sourceId": "mext",
+    "sourceName": "文部科学省",
+    "sourceUrl": "https://www.mext.go.jp/b_menu/shingi/tosho/016-5/siryo/1414759_00002.htm",
+    "publishedAt": "2026-10-13T07:00:00.000Z",
+    "collectedAt": "2026-10-13T17:41:55.586Z",
+    "categories": [
+      "政策・制度"
+    ],
+    "layer": 1,
+    "language": "ja"
+  },
+  {
+    "id": "mext-2026-10-13-1a4b7be0b83cf6b9",
+    "title": "令和8年度教科用図書検定調査審議会総会（第2回）・総括部会（第3回）合同会議　配付資料",
+    "sourceId": "mext",
+    "sourceName": "文部科学省",
+    "sourceUrl": "https://www.mext.go.jp/b_menu/shingi/tosho/116/siryo/1414759_00005.htm",
+    "publishedAt": "2026-10-13T07:00:00.000Z",
+    "collectedAt": "2026-10-13T17:41:55.586Z",
+    "categories": [
+      "政策・制度"
+    ],
+    "layer": 1,
+    "language": "ja"
+  },
+  {
+    "id": "nikkyo-2026-10-13-02ef109385e1531c",
+    "title": "岐阜県が「健康経営」宣言　首長部局など横断的に推進",
+    "sourceId": "nikkyo",
+    "sourceName": "日本教育新聞",
+    "sourceUrl": "https://www.kyoiku-press.com/post-316974/",
+    "publishedAt": "2026-10-13T06:36:00.000Z",
+    "collectedAt": "2026-10-13T17:41:55.586Z",
+    "summary": "岐阜県は首長部局と教育委員会、県警本部の三者が一体となり、職員の働き方改革や健康づくりを推進する「健康経営」の考えを導入した。先月、職員の健康や安全を保障する職場の実現を掲げる「宣言」を知事名で出し…",
+    "categories": [
+      "政策・制度",
+      "教員・働き方"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "nikkyo-2026-10-13-05874bc9d191c06b",
+    "title": "児童・生徒が献立、「ひろしま給食」の投票始まる",
+    "sourceId": "nikkyo",
+    "sourceName": "日本教育新聞",
+    "sourceUrl": "https://www.kyoiku-press.com/post-316971/",
+    "publishedAt": "2026-10-13T06:34:00.000Z",
+    "collectedAt": "2026-10-13T17:41:55.586Z",
+    "summary": "広島ならではの給食用献立を公募し、選ばれた献立を実際に学校で提供する広島県教委の「ひろしま給食100万食プロジェクト」は平成25年度の開始から14年目を迎え、9日から県民投票が始まった。小学生部門、…",
+    "categories": [
+      "その他"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "nikkyo-2026-10-13-3f542691f3f66d31",
+    "title": "教員養成フラッグシップ大、12月にシンポ",
+    "sourceId": "nikkyo",
+    "sourceName": "日本教育新聞",
+    "sourceUrl": "https://www.kyoiku-press.com/post-316968/",
+    "publishedAt": "2026-10-13T06:29:00.000Z",
+    "collectedAt": "2026-10-13T17:41:55.586Z",
+    "summary": "大阪教育大学に事務局を置く「教員養成フラッグシップ4大学協議会」は12月12日、フラッグシップ大学としての取り組みを発表するシンポジウムをオンライン併用型で開く。会場は大阪教育大学天王寺キャンパス。…",
+    "categories": [
+      "研究・エビデンス",
+      "教員・働き方"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "resemom-2026-10-13-43eddcbf639bed01",
+    "title": "超多忙な教務部長、教員共働き夫婦の実態とは…Teacher’s［Shift］",
+    "sourceId": "resemom",
+    "sourceName": "リセマム",
+    "sourceUrl": "https://resemom.jp/article/2026/10/13/87854.html",
+    "publishedAt": "2026-10-13T06:15:03.000Z",
+    "collectedAt": "2026-10-13T17:41:55.586Z",
+    "summary": "先生の働き方改革を応援するラジオ風YouTube番組「TDXラジオ」は2026年10月12日、「Teacher’s［Shift］～新しい学びと先生の働き方改革～」第288回を公開した。岩倉高等学校（東京都台東区）の岸勇弥先生をゲストに迎え、教員夫婦の生活の実態について迫る。",
+    "categories": [
+      "教員・働き方"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "mext-2026-10-13-a57c748f30a74c2b",
+    "title": "「学校給食衛生管理基準」の在り方に関する有識者会議（第5回）の開催について",
+    "sourceId": "mext",
+    "sourceName": "文部科学省",
+    "sourceUrl": "https://www.mext.go.jp/b_menu/shingi/chousa/shotou/205/kaisai/mext_00006.html",
+    "publishedAt": "2026-10-13T05:00:00.000Z",
+    "collectedAt": "2026-10-13T17:41:55.586Z",
+    "categories": [
+      "政策・制度"
+    ],
+    "layer": 1,
+    "language": "ja"
+  },
+  {
+    "id": "mext-2026-10-13-b0e1baac527267fb",
+    "title": "令和8年度学校保健及び学校安全表彰の被表彰者等を決定しました",
+    "sourceId": "mext",
+    "sourceName": "文部科学省",
+    "sourceUrl": "https://www.mext.go.jp/b_menu/houdou/2025/mext_00011.html",
+    "publishedAt": "2026-10-13T05:00:00.000Z",
+    "collectedAt": "2026-10-13T17:41:55.586Z",
+    "categories": [
+      "政策・制度"
+    ],
+    "layer": 1,
+    "language": "ja"
+  },
+  {
+    "id": "resemom-2026-10-13-7eed0e8b24b476b6",
+    "title": "高校生の「偏愛」探究ピッチ、10/31まで募集",
+    "sourceId": "resemom",
+    "sourceName": "リセマム",
+    "sourceUrl": "https://resemom.jp/article/2026/10/13/87852.html",
+    "publishedAt": "2026-10-13T04:15:03.000Z",
+    "collectedAt": "2026-10-13T17:41:55.586Z",
+    "summary": "全国の教育委員会や学校への支援を行う国際エデュテイメント協会は、全国の高校1～3年生を対象に「偏愛ピッチ2026」のエントリーを2026年10月31日午後5時まで受け付けている。自身が夢中になっている「偏愛」と、そこから生まれた探究や取組みを400字以内で応募する。",
+    "categories": [
+      "政策・制度"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
     "id": "resemom-2026-10-13-9067274d34e802c2",
     "title": "宇都宮高の大学合格実績2026、東大17人・京大10人…国公立189人",
     "sourceId": "resemom",
