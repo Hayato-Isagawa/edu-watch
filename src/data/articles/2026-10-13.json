@@ -1,5 +1,35 @@
 [
   {
+    "id": "kkn-2026-10-13-229d51f438a62275",
+    "title": "『｢コンピュータ、マジわからん｣と思ったときに読む本』小高知宏／著",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/post_library/260928_5f",
+    "publishedAt": "2026-10-13T22:00:23.000Z",
+    "collectedAt": "2026-10-14T00:47:44.543Z",
+    "summary": "前提知識がなくても理解できる コンピュータとは何か、どこで使われ、何ができて、なぜ動くのか。コンピュータに関する様々な疑問について‘とにかくわかりやすく’説明。ITに関する前提知識がなくてもコンピュータの基本が理解できる […]",
+    "categories": [
+      "その他"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-10-13-4baf623f42579e86",
+    "title": "ドルトンX学園高校が設置認可、2027年4月に開校へ　岩手県一関市と東京都調布市にキャンパス",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20261014o02",
+    "publishedAt": "2026-10-13T22:00:09.000Z",
+    "collectedAt": "2026-10-14T00:47:44.543Z",
+    "summary": "河合塾学園は、2027年4月に開校予定の広域通信制高校「ドルトンX学園高等学校」について、10月6日に岩手県より設置認可を受けた。岩手県一関市に一関キャンパス、東京都調布市に東京キャンパスを設置し、生徒は両キャンパスや国 […]",
+    "categories": [
+      "その他"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
     "id": "oecd-2026-10-13-f52b6c325989dd98",
     "title": "Generative AI and student learning: What the PISA data reveal",
     "sourceId": "oecd",
