@@ -1,5 +1,201 @@
 [
   {
+    "id": "kkn-2026-10-14-a980b3cfed9c2505",
+    "title": "教科書研究センター、若手研究者向け教科書研究助成の公募10/20より受付開始",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20261015o02",
+    "publishedAt": "2026-10-14T22:00:35.000Z",
+    "collectedAt": "2026-10-15T00:13:41.586Z",
+    "summary": "公財・教科書研究センターは、初等中等教育の教科書および教材に関する研究を支援するため、10月20日より若手研究者を対象とした教科書研究助成事業の公募を開始する。教科書研究者の育成と教科書研究の振興を図るのが狙い。 &nb […]",
+    "categories": [
+      "研究・エビデンス"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-10-14-39a2ef06880b3bd3",
+    "title": "DriveChecker、教育機関向け「ClassroomChecker」12月提供開始へ　Google Classroomの安全な運用を支援",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20261015o01",
+    "publishedAt": "2026-10-14T22:00:01.000Z",
+    "collectedAt": "2026-10-15T00:13:41.586Z",
+    "summary": "DriveCheckerは、Google ClassroomやGoogleドライブの運用管理を支援するため、新製品「ClassroomChecker」を12月に提供開始する。これに伴い、教職員向けの課題や解決策を紹介する […]",
+    "categories": [
+      "教員・働き方"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "resemom-2026-10-14-537755dba3639c25",
+    "title": "大阪私立校の3学期編転入、中学27校・高校29校で受入",
+    "sourceId": "resemom",
+    "sourceName": "リセマム",
+    "sourceUrl": "https://resemom.jp/article/2026/10/14/87877.html",
+    "publishedAt": "2026-10-14T08:45:03.000Z",
+    "collectedAt": "2026-10-15T00:13:41.586Z",
+    "summary": "大阪私立中学校高等学校連合会は2026年10月13日、大阪府私立中学校・高等学校の3学期編入・転入受入情報を掲載した。中学校27校、全日制高校29校、通信制・単位制高校10校で3学期に転入・編入を受け入れる。",
+    "categories": [
+      "その他"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "resemom-2026-10-14-ad630af50fb1a3c3",
+    "title": "たまごっちで漢字学習、漢検コラボ「検定プリント」公開",
+    "sourceId": "resemom",
+    "sourceName": "リセマム",
+    "sourceUrl": "https://resemom.jp/article/2026/10/14/87876.html",
+    "publishedAt": "2026-10-14T08:15:03.000Z",
+    "collectedAt": "2026-10-15T00:13:41.586Z",
+    "summary": "日本漢字能力検定協会は2026年10月13日、バンダイの「たまごっち」とコラボレーションしたオリジナルプリント「『たまごっち』漢字検定」を、同協会のWebサイトなどで公開した。30周年を迎える「たまごっち」の世界観を楽しみながら、小学校で習う漢字問題に挑戦できる。",
+    "categories": [
+      "その他"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "nikkyo-2026-10-14-7276f892e1119e58",
+    "title": "超党派の教育立国推進協議会が総会　AIや「人材未来庁」設置など議論",
+    "sourceId": "nikkyo",
+    "sourceName": "日本教育新聞",
+    "sourceUrl": "https://www.kyoiku-press.com/post-317000/",
+    "publishedAt": "2026-10-14T07:48:00.000Z",
+    "collectedAt": "2026-10-15T00:13:41.586Z",
+    "summary": "超党派でつくる「教育立国推進協議会」（会長＝下村博文・元文科相）は13日、国会内で総会を開いた。今後の方針として、AI活用や日本文化体験の推進などの三つの分科会に分かれて議論していくことを確認した。…",
+    "categories": [
+      "ICT / GIGA"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "resemom-2026-10-14-126361f517e1828b",
+    "title": "東大総長選、教職員有志が経緯説明求める要望書",
+    "sourceId": "resemom",
+    "sourceName": "リセマム",
+    "sourceUrl": "https://resemom.jp/article/2026/10/14/87875.html",
+    "publishedAt": "2026-10-14T07:45:03.000Z",
+    "collectedAt": "2026-10-15T00:13:41.586Z",
+    "summary": "総長選考をめぐり、東京大学の教職員有志は2026年10月13日、次期総長決定の経緯説明を求める要望書を総長選考・監察会議に提出した。同会議は9月28日、学内の意向投票で2位だった大学院総合文化研究科教授の藤垣裕子氏（64）の選出を発表している。",
+    "categories": [
+      "研究・エビデンス",
+      "教員・働き方"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "nikkyo-2026-10-14-f2c049d5787d6d33",
+    "title": "教科書の動画、1本3分を上限に　教科別に総量も制限　検定見直し案",
+    "sourceId": "nikkyo",
+    "sourceName": "日本教育新聞",
+    "sourceUrl": "https://www.kyoiku-press.com/post-316998/",
+    "publishedAt": "2026-10-14T06:53:00.000Z",
+    "collectedAt": "2026-10-15T00:13:41.586Z",
+    "summary": "文科省は13日、教科書検定調査審議会を開き、デジタルを含む新たな教科書の検定基準を見直す方針を示した。掲載する動画は1本当たり3分程度までとし、教科書1点当たりの動画の総量にも上限を設ける。教師に代…",
+    "categories": [
+      "政策・制度",
+      "教員・働き方"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "resemom-2026-10-14-9f7ab5f942191546",
+    "title": "IPU・環太平洋大学、北海道に「農学部」2028年4月開設へ",
+    "sourceId": "resemom",
+    "sourceName": "リセマム",
+    "sourceUrl": "https://resemom.jp/article/2026/10/14/87871.html",
+    "publishedAt": "2026-10-14T05:45:03.000Z",
+    "collectedAt": "2026-10-15T00:13:41.586Z",
+    "summary": "IPU・環太平洋大学（岡山県岡山市）は、2028年4月の開設を目指し、北海道に新たな農学部を設置する構想を進めている。北海道の農業環境を生かし、先端テクノロジーやビジネスの視点を取り入れた実践教育により、次世代の農業を担う人材の育成を目指す。なお、同計画は設置構想中で変更となる場合がある。",
+    "categories": [
+      "その他"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "chukyo-2026-10-14-6594f060edc7e80b",
+    "title": "中央教育審議会初等中等教育分科会教育課程部会教育課程企画特別部会（第21回）を開催します",
+    "sourceId": "chukyo",
+    "sourceName": "中央教育審議会",
+    "sourceUrl": "https://www.mext.go.jp/b_menu/shingi/chukyo/chukyo3/kaisai/mext_00156.html",
+    "publishedAt": "2026-10-14T05:00:00.000Z",
+    "collectedAt": "2026-10-15T00:13:41.586Z",
+    "categories": [
+      "政策・制度"
+    ],
+    "layer": 1,
+    "language": "ja"
+  },
+  {
+    "id": "chukyo-2026-10-14-48678cb4a6cbea0f",
+    "title": "中央教育審議会大学分科会質向上・質保証システム部会（第12回）を開催します",
+    "sourceId": "chukyo",
+    "sourceName": "中央教育審議会",
+    "sourceUrl": "https://www.mext.go.jp/b_menu/shingi/chukyo/chukyo4/055/kaisai/1422340_00015.html",
+    "publishedAt": "2026-10-14T05:00:00.000Z",
+    "collectedAt": "2026-10-15T00:13:41.586Z",
+    "categories": [
+      "政策・制度"
+    ],
+    "layer": 1,
+    "language": "ja"
+  },
+  {
+    "id": "nikkyo-2026-10-14-1d132474d2dbebf5",
+    "title": "来年度全国学力調査のサンプル問題公表　CBT移行に備え",
+    "sourceId": "nikkyo",
+    "sourceName": "日本教育新聞",
+    "sourceUrl": "https://www.kyoiku-press.com/post-316989/",
+    "publishedAt": "2026-10-14T04:28:00.000Z",
+    "collectedAt": "2026-10-15T00:13:41.586Z",
+    "summary": "国立教育政策研究所は9日、令和9年度の全国学力・学習状況調査のサンプル問題を公表した。来年度から国語と算数・数学の調査がコンピューターを使ったCBT方式に移行することを受け、子どもたちが端末上で解答…",
+    "categories": [
+      "ICT / GIGA",
+      "研究・エビデンス"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "resemom-2026-10-14-754da868d9154628",
+    "title": "都立国立の大学合格実績2026、東大17人・京大13人・早慶197人…国公立医学部15人",
+    "sourceId": "resemom",
+    "sourceName": "リセマム",
+    "sourceUrl": "https://resemom.jp/article/2026/10/14/87866.html",
+    "publishedAt": "2026-10-14T03:15:03.000Z",
+    "collectedAt": "2026-10-15T00:13:41.586Z",
+    "summary": "東京都立国立高等学校（東京都国立市）が公表した2026年度の合格実績によると、東京大学に17人、京都大学に13人、一橋大学に23人、東京科学大学に11人などが合格した。私立大学では早稲田大学に126人、慶應義塾大学に71人などが合格している。いずれも現役・既卒をあわせた合格者数。",
+    "categories": [
+      "研究・エビデンス"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "nikkyo-2026-10-14-e4b18c4b1371eff7",
+    "title": "『「中学の部活廃止」過半数望む　本社調査』が2位にランクイン　記事ランキング　2026年10月5日～10月11日",
+    "sourceId": "nikkyo",
+    "sourceName": "日本教育新聞",
+    "sourceUrl": "https://www.kyoiku-press.com/post-316991/",
+    "publishedAt": "2026-10-14T03:00:00.000Z",
+    "collectedAt": "2026-10-15T00:13:41.586Z",
+    "summary": "日本教育新聞電子版でアクセス数が多かった先週（2026年10月5日～10月11日）の記事のトップ5です。 1位　中高英語科は「英検準1級」以上の資格保有を条件に　茨城県教採、来年度から （2026年…",
+    "categories": [
+      "その他"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
     "id": "resemom-2026-10-14-20b0e70fe42f79f7",
     "title": "学芸大附属の大学合格実績2026、東大17人・京大8人・早慶203人…医学部68人",
     "sourceId": "resemom",
