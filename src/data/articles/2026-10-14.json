@@ -30,6 +30,20 @@
     "language": "ja"
   },
   {
+    "id": "mext-2026-10-14-e0ba3005445dfb18",
+    "title": "児童生徒の体験活動の充実のための取組について",
+    "sourceId": "mext",
+    "sourceName": "文部科学省",
+    "sourceUrl": "https://www.mext.go.jp/mext_02347.html",
+    "publishedAt": "2026-10-14T15:00:00.000Z",
+    "collectedAt": "2026-10-15T15:11:07.671Z",
+    "categories": [
+      "政策・制度"
+    ],
+    "layer": 1,
+    "language": "ja"
+  },
+  {
     "id": "resemom-2026-10-14-537755dba3639c25",
     "title": "大阪私立校の3学期編転入、中学27校・高校29校で受入",
     "sourceId": "resemom",
@@ -88,6 +102,20 @@
       "教員・働き方"
     ],
     "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "chukyo-2026-10-14-5109505b0d2f8f66",
+    "title": "中央教育審議会教育振興基本計画部会（第1回）の開催について",
+    "sourceId": "chukyo",
+    "sourceName": "中央教育審議会",
+    "sourceUrl": "https://www.mext.go.jp/b_menu/shingi/chukyo/chukyo18/kaisai/mext_00015.html",
+    "publishedAt": "2026-10-14T07:00:00.000Z",
+    "collectedAt": "2026-10-15T15:11:07.671Z",
+    "categories": [
+      "政策・制度"
+    ],
+    "layer": 1,
     "language": "ja"
   },
   {
