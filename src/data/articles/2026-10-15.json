@@ -1,5 +1,68 @@
 [
   {
+    "id": "kkn-2026-10-15-87d2ae9457c244b5",
+    "title": "東大松尾研のAI講座、累計受講者数が27万人突破　AXエバンジェリスト講座や海外学生向け講座など幅広い層に学習機会を提供",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20261016o01",
+    "publishedAt": "2026-10-15T22:00:59.000Z",
+    "collectedAt": "2026-10-16T00:00:13.264Z",
+    "summary": "東京大学大学院工学系研究科の松尾・岩澤研究室は10月13日、提供するAIやデータサイエンス関連講座の累計受講者数が2014年からの総計で27万人を突破したと発表した。直近3か月間で約12万人が受講するなど、急速に規模を拡 […]",
+    "categories": [
+      "ICT / GIGA",
+      "研究・エビデンス",
+      "国際・海外"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-10-15-362bcc30ec573b47",
+    "title": "クラスター、高校生向けメタバース制作コンテスト「Cluster INNOVATION CUP for youth」開催へ　10/23に教職員向け説明会実施",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20261016o03",
+    "publishedAt": "2026-10-15T22:00:38.000Z",
+    "collectedAt": "2026-10-16T00:00:13.264Z",
+    "summary": "バーチャル空間のプラットフォーム開発・運営などを行うクラスターは10月13日、スクーミーの協力のもと、全国の高校生を対象としたメタバース制作コンテスト「Cluster INNOVATION CUP for youth」を […]",
+    "categories": [
+      "教員・働き方"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-10-15-3a56bab2a2b02625",
+    "title": "茨木市×NTT西日本、純国産LLMを活用した小中学校向け校務AI実証を開始",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20261016o04",
+    "publishedAt": "2026-10-15T22:00:03.000Z",
+    "collectedAt": "2026-10-16T00:00:13.264Z",
+    "summary": "大阪府茨木市とNTT西日本は、全国初となる純国産プライベートLLMを活用した小中学校向け校務AIの実証実験を10月13日より市立小中学校で開始した。教育分野に特化したオンプレミス環境の生成AIアプリケーションを用いて、業 […]",
+    "categories": [
+      "ICT / GIGA",
+      "研究・エビデンス"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-10-15-6bbfab4f488151a9",
+    "title": "関西大学、AI・データ活用できる次世代人材の育成に向けサークレイスと実践授業を開講",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20261016o02",
+    "publishedAt": "2026-10-15T22:00:02.000Z",
+    "collectedAt": "2026-10-16T00:00:13.264Z",
+    "summary": "関西大学ビジネスデータサイエンス学部は、サークレイスグループと連携し、AIおよびデータ活用の実践を学ぶ全15回の授業を10月より開始した。両者が2026年3月に締結した、次世代人材育成に関する協定に基づく取り組みとなる。 […]",
+    "categories": [
+      "ICT / GIGA"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
     "id": "resemom-2026-10-15-e84ba74e809963eb",
     "title": "全33テーマの工作・体験「長野高専キッズサイエンス」10/31",
     "sourceId": "resemom",
