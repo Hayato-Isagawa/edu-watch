@@ -57,3 +57,14 @@ updates:
     labels:
       - "dependencies"
       - "github-actions"
+    # minor / patch は 1 本の PR にまとめる。別々の PR で同じ日に来ると、先にマージされた
+    # 側がワークフローを書き換え、古い main を基にした残りの PR は GITHUB_TOKEN に
+    # workflows 権限が無いため GitHub にマージを拒否される(2026-10-12 に発生)。
+    # major は auto-merge の対象外なので、個別の PR のまま人が見る。
+    groups:
+      github-actions:
+        patterns:
+          - "*"
+        update-types:
+          - "minor"
+          - "patch"
