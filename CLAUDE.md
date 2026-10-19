@@ -28,7 +28,7 @@ npm run format             # oxfmt で整形(.ts/.js/.json 等。.astro / .md / 
 npm run format:check       # 同上の差分検査(CI はこちら)
 npm run check              # Astro 型チェック
 npm run vrt                # ビジュアルリグレッションテスト(現 dist を撮影・比較。権威ある比較は CI、後述)
-npm run test:workflows     # link-check.yml の通知分岐・VRT の配線・ci-summary.yml の通知判定・digest の中身検査・収集時の重複排除(ADR 0077)の回帰テスト(下限つき・check:all に含む)
+npm run test:workflows     # link-check.yml の通知分岐・VRT の配線・ci-summary.yml の通知判定・digest の中身検査・収集時の重複排除(ADR 0077)・Dependabot の自動マージ判定(ADR 0078)の回帰テスト(下限つき・check:all に含む)
 npm run test:hooks         # .claude/hooks/ の回帰テスト(下限つき)
 ```
 
@@ -64,7 +64,7 @@ okinawa-in-data では open な link-check Issue があると後続の検出を�
 PR のコンテンツ」で撮る配線(ADR 0068)も、**壊れても CI は緑のまま**だから — 運ぶ素材を 1 つ
 落としても、テストは走り、多くのページは通る。一番腐りやすいのは運ぶ素材の allowlist なので、
 `src/` の実ディレクトリを走査して「運ぶ・`paths` で監視する・描画に入らないと明言する」の
-三択を強制している。**テストを足したら `package.json` の下限(現在 118、実測ちょうど)も上げること。**
+三択を強制している。**テストを足したら `package.json` の下限(現在 133、実測ちょうど)も上げること。**
 
 `vrt-targets.test.mjs` も同じ口にある。VRT の撮影が**静かに減る**経路(対象を消す・ループを絞る・
 projects を削る・skip に落とす・`fullPage` を落とす・比較設定を緩める・比較ステップを撮り直しにする・
@@ -107,6 +107,11 @@ action だけが exit 1 する**ので、`exit_code` だけを見ていると通
 (ADR 0077)。収集時に文科省側を落とす `dropMextTwinsOfChukyo` と、文科省の RSS を 1 回の収集で 1 度だけ取って
 中教審と共有すること(`parseURL` を差し替えてネットワークに出ずに確かめる)、`fetch-news.ts` がその関数を
 通していることを見る。同じソースの日付違いの出し直しはまとめない(落とさないことも見ている)。
+
+`dependabot-auto-merge-workflow.test.mjs` も同じ口。`dependabot-auto-merge.yml` は major・判定できない更新・
+0.x の本番依存の minor 更新を自動マージせず、理由を PR にコメントする(ADR 0078)。判定が自動マージ側に崩れても
+人が見る側に崩れても何も赤くならないので、link-check と同じく `run:` を取り出して bash で走らせ、`gh` はスタブに
+差し替える。グループ PR の 2 件目以降の依存、空や `v` 付きのバージョン、空の JSON(jq が何も出さず exit 0 になる)も見る。
 
 `test:workflows` / `test:hooks` は `assert-test-files.mjs` / `assert-test-results.mjs` を通している。
 `node --test` は「glob が 0 件」「中身が空」「全件 skip」のどれでも exit 0 で終わるので、守って
@@ -155,7 +160,7 @@ Sprint 1〜4(基盤構築・RSS 自動収集パイプライン・フロント実
   pixelmatch の既定 `threshold: 0.2` 未満の色差は比率を下げても数えられないため(edu-law の実測)
 - **リトライは入れない**。差分が実測 0 なら、リトライは間欠的な問題を握り潰すだけになる
 - **対象**: `vrt/targets.mjs` の 12 URL(トップ / ダイジェスト一覧・詳細 / アーカイブ一覧・詳細 / カテゴリ一覧・詳細 / ソース一覧・詳細 / about / 検索 / 404)を `vrt/pages.spec.ts` がフルページ撮影(`src/pages/` のテンプレート 13 本と 1 対 1)。テンプレートを追加したら代表 URL を 1 行追記する — 忘れると `test:workflows` が赤にする。ダーク断面は #655 で追加(それまで 1 枚も撮っていなかった)。**`/changelog` は入れない** — PR ごとに先頭へ 1 件増えるので、内容の追加だけで必ず差分が出て本当の崩れが埋もれる(理由は同ファイル冒頭。`.github/workflows/vrt.yml` の `paths` でも `!src/pages/changelog.astro` で除外している)
-- **ゲート**: `.github/workflows/vrt.yml` が `pull_request` の `paths` で描画に効くパスに限定起動する。記事データ・ダイジェストだけの PR では走らない(`workflow_dispatch` で手動実行可)。依存 bump(`package-lock.json`)では走るが、auto-merge は required しか待たないので非 major では事後の記録にしかならない。**列挙の正典は同ファイルで、ここには写さない** — 写すと片方だけが古くなる
+- **ゲート**: `.github/workflows/vrt.yml` が `pull_request` の `paths` で描画に効くパスに限定起動する。記事データ・ダイジェストだけの PR では走らない(`workflow_dispatch` で手動実行可)。依存 bump(`package-lock.json`)では走るが、auto-merge は required しか待たないので、自動マージされる bump では事後の記録にしかならない(major と 0.x の本番依存の minor は人が見る。ADR 0078)。**列挙の正典は同ファイルで、ここには写さない** — 写すと片方だけが古くなる
 - **比較方式(案A + コンテンツ中立)**: CI 内で main と PR を両方ビルドし、同一 Linux 環境で撮影・比較する。ベースライン PNG はコミットしない(`vrt/__screenshots__/` は gitignore)。システムフォント描画の macOS↔Linux 差を回避するため。
   **main 側は「main のコード × PR のコンテンツ」でビルドする**(`src/content` / `src/data` / `src/content.config.ts` を運ぶ)。記事の自動収集で一覧が伸びただけの赤を消すため(ADR 0068)。運ぶ素材の allowlist と degraded 経路は `scripts/__tests__/vrt-baseline.test.mjs` が固定している(`test:workflows` の口)
 - **逃がし**: コンテンツ側の値の描画幅をわざと変えるときは、Actions から VRT を `workflow_dispatch` で `neutral: false` にして手動実行し、素の main ベースラインと撮り比べる

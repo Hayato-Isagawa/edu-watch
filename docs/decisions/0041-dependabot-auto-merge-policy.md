@@ -1,6 +1,6 @@
 # 0041. Dependabot patch/minor 自動マージ運用と main ブランチ保護
 
-- 状態: 採用
+- 状態: 採用 / 0.x の本番依存の minor 更新は [`ADR 0078`](0078-hold-zero-major-production-deps-and-og-render-check.md) で上書き(人が見る)
 - 日付: 2026-05-14
 - 関連 ADR: 0006(vite major pin の運用、本 ADR の major 手動レビュー方針と整合)
 - 関連 PR: #136(`dependabot-auto-merge.yml` 導入、2026-05-13 マージ)/ TBD(本 ADR 起票 PR)
