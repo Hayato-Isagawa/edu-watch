@@ -126,3 +126,4 @@ EduEvidence JP と共通の運営方針(植物モチーフブランド体系 / N
 - [0075. digest の frontmatter の壊れを、スキーマと CI の中身検査で止める](0075-digest-structure-check.md)
 - [0076. 原典が出ないまま持ち越した claim を直すとき、changelog 行の書き方を読み替える](0076-correction-line-without-source.md)
 - [0077. 中教審と同じ URL の文科省記事を落とし、中教審の 1 件にする](0077-drop-mext-twins-of-chukyo.md)
+- [0078. 0.x の本番依存の minor 更新を自動マージから外し、OG の描画を E2E で検査する](0078-hold-zero-major-production-deps-and-og-render-check.md)

@@ -18,9 +18,67 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Enable auto-merge for patch and minor updates
-        if: steps.metadata.outputs.update-type != 'version-update:semver-major'
+      # 自動マージするかどうかを決める(ADR 0041 / 0078)。人が見るのは次のどれか:
+      #   - major 更新、または update-type・updated-dependencies-json を読めなかった更新
+      #   - 本番依存(direct:production)の 0.x の minor 更新。0.x では minor が
+      #     破壊的変更を含みうる(satori 0.42.0 の box-sizing の既定変更は、#867 で
+      #     0.33.5 → 0.56.1 の minor として自動マージされ、OG 画像を全号で崩した)
+      #   - 本番依存のバージョンを読めない更新
+      # dependencyType が direct:development / indirect と明示されたもの以外は本番依存として扱う。
+      #
+      # previous-version / new-version の出力は先頭の依存 1 件分しか持たないので、
+      # グループ化された PR の 2 件目以降も見るために updated-dependencies-json を読む。
+      # 人が見る場合は理由を PR にコメントする。ci-summary.yml は Dependabot の PR に
+      # 完了通知を出さない(2026-10-19 時点)ので、同じく @メンションを付けて直接の通知にする。
+      - name: Enable auto-merge, or explain why not
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PR_URL: ${{ github.event.pull_request.html_url }}
-        run: gh pr merge --auto --squash --delete-branch "$PR_URL"
+          UPDATE_TYPE: ${{ steps.metadata.outputs.update-type }}
+          DEPS_JSON: ${{ steps.metadata.outputs.updated-dependencies-json }}
+        run: |
+          set -euo pipefail
+          reasons=""
+          add() { reasons="${reasons}- $1"$'\n'; }
+
+          case "$UPDATE_TYPE" in
+            version-update:semver-major) add "major 更新" ;;
+            version-update:semver-minor | version-update:semver-patch) ;;
+            *) add "update-type を判定できなかった(\`${UPDATE_TYPE}\`)" ;;
+          esac
+
+          # -s で入力全体を配列に包む。空文字だと jq は何も出力せず exit 0 になり、
+          # 「理由なし = 自動マージ」に倒れるので、値がちょうど 1 つあることを先に見る。
+          filter='
+            if length != 1 then
+              "updated-dependencies-json が空か、JSON の値が 1 つでない"
+            elif (.[0] | type) != "array" or (.[0] | length) == 0 then
+              "updated-dependencies-json が空か、配列でない"
+            else
+              .[0][]
+              | select(((.dependencyType // "") | IN("direct:development", "indirect")) | not)
+              | (.prevVersion // "" | tostring | ltrimstr("v")) as $p
+              | (.newVersion // "" | tostring | ltrimstr("v")) as $n
+              | if ($p | test("^[0-9]") | not) or ($n | test("^[0-9]") | not) then
+                  "\(.dependencyName // "?"): バージョンを読めない(`\(.prevVersion // "")` → `\(.newVersion // "")`)"
+                elif ($p | split(".")[0]) == "0"
+                  and ((($n | split(".")[0]) != "0") or (($n | split(".")[1]) != ($p | split(".")[1]))) then
+                  "\(.dependencyName): 0.x の本番依存の minor 更新(\($p) → \($n))"
+                else empty end
+            end'
+          if found=$(printf '%s' "$DEPS_JSON" | jq -rs "$filter" 2>/dev/null); then
+            while IFS= read -r line; do
+              [ -n "$line" ] && add "$line"
+            done <<< "$found"
+          else
+            add "updated-dependencies-json を読めなかった"
+          fi
+
+          if [ -z "$reasons" ]; then
+            gh pr merge --auto --squash --delete-branch "$PR_URL"
+            exit 0
+          fi
+
+          printf '自動マージしなかった:\n%s' "$reasons"
+          body="$(printf '@Hayato-Isagawa 自動マージの対象外なので、人がレビューしてマージしてください(ADR 0078)。\n\n%s' "$reasons")"
+          gh pr comment "$PR_URL" --body "$body"

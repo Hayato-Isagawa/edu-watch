@@ -153,7 +153,7 @@ digest は先にブランチを切り（[`sprint-4-design.md`](./sprint-4-design
 ### このゲートで見つからないもの
 
 - ピクセル単位の視覚回帰は **VRT** の担当で、そちらが権威。ただし VRT は `paths` 限定起動で、**digest PR では走らない**。理由は 2 つあり、digest 本体の `src/content/**` が対象外なのに加えて、同 PR で必ず触る `src/pages/changelog.astro` が `!` で明示除外されている（`src/pages/**` 自体は対象）。**列挙の正典は [`.github/workflows/vrt.yml`](../.github/workflows/vrt.yml)** で、ここには写さない。
-- **本ゲートに機械検査は無い。** CI では一切検出されず、抜けても静かに通る。人が見る前提の関門である。
+- **本ゲートに機械検査は無い。** CI では一切検出されず、抜けても静かに通る。人が見る前提の関門である。例外は手順 4 の OG のうち、枠からのはみ出しと下端のチップ・URL の欠落で、これだけは required の E2E(`e2e/og-image.spec.ts`、ADR 0078)が止める。行数や読みやすさは見ない。
 
 ## Claude がやってはいけないこと
 
