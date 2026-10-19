@@ -14,4 +14,4 @@ export const OG_DEFAULT_VERSION = "20260715"; // ブランド行をヘッダー�
 // 号ごとに版を持たせないのは、frontmatter の publishedAt が一覧の並び順・公開日表示・
 // RSS の pubDate を兼ねており、キャッシュ更新日を上書きすると読者向けの表示が壊れるため。
 // frontmatter の updatedAt(ADR 0071)は Article.dateModified 専用で、OG の版元には使わない。
-export const OG_DIGEST_VERSION = "20260822"; // title を 2 行に分割した日(#553)
+export const OG_DIGEST_VERSION = "20261019"; // satori 0.42.0 の box-sizing 既定の変更で崩れたレイアウトを戻した日
