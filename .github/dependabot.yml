@@ -11,7 +11,6 @@ updates:
     open-pull-requests-limit: 5
     labels:
       - "dependencies"
-      - "npm"
     # typescript の major 更新は @astrojs/check の peer dependency
     # (typescript@^5.0.0) と衝突して npm ci が失敗するため除外。
     # @astrojs/check が TypeScript 6 に対応した時点で、この ignore を削除する。
@@ -56,7 +55,6 @@ updates:
       timezone: "Asia/Tokyo"
     labels:
       - "dependencies"
-      - "github-actions"
     # minor / patch は 1 本の PR にまとめる。別々の PR で同じ日に来ると、先にマージされた
     # 側がワークフローを書き換え、古い main を基にした残りの PR は GITHUB_TOKEN に
     # workflows 権限が無いため GitHub にマージを拒否される(2026-10-12 に発生)。
