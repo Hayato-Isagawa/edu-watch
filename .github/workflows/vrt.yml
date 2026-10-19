@@ -45,7 +45,7 @@ on:
       # dependabot-auto-merge.yml の `gh pr merge --auto` は required しか待たない。
       # 自動マージされる bump は VRT の結果が出る前にマージされる。得られるのは事後に
       # check の色と(7 日間の)差分画像が残ることだけ。major と 0.x の本番依存の minor は
-      # オートマージされないので(ADR 0078)、そこでは事前に効く。
+      # 自動マージされないので(ADR 0078)、そこでは事前に効く。
       - "package-lock.json"
   workflow_dispatch:
     inputs:

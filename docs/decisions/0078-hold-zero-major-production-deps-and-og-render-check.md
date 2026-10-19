@@ -1,6 +1,6 @@
 # 0078. 0.x の本番依存の minor 更新を自動マージから外し、OG の描画を E2E で検査する
 
-- 状態: 採用(0041 の「patch / minor は自動マージ」を、0.x の本番依存の minor 更新について上書き)
+- 状態: 採用(0041 の「major 以外は自動マージ」を、0.x の本番依存の minor 更新と、判定できない更新〈update-type・バージョン・依存の一覧を読めない〉について上書き)
 - 日付: 2026-10-19
 - 関連 PR: `ci/og-render-guard`(本 ADR 起票)
 - 関連 ADR: [`ADR 0041`](0041-dependabot-auto-merge-policy.md)(自動マージの方針) / [`ADR 0067`](0067-og-cache-version-source.md)(OG のキャッシュ版数) / [`ADR 0068`](0068-content-neutral-vrt-baseline-and-exact-threshold.md)(VRT のベースライン)
@@ -23,7 +23,7 @@ satori 0.42.0 で `boxSizing` の既定が `border-box` から `content-box` に
 
 `e2e/og-image.spec.ts` が、配信される全号の `/og/digest/<slug>.png` を画素で確かめる。E2E(「Playwright E2E」)は required check なので、依存更新の自動マージもここで止まる。
 
-- 1200×630 で、背景色と違う画素が padding の内側を 20px 広げた箱の外に無い。許容を置くのは、行頭の A / V / Y / j の字形が padding の外へ数 px はみ出すため。崩れたときの字は x≥1162 に出た。
+- 1200×630 で、背景色と違う画素が padding の内側を 20px 広げた箱の外に無い。許容を置くのは、行頭の A / V / Y / j の字形が padding の外へ数 px はみ出すため。boxSizing を外して崩した 26 号では、許容の外(x≥1150)にも各号 138〜1,465 画素の字があった。
 - 下端の行の、チップの右端(x=920)より右に URL がある。左にチップ(アクセント色)がある。topics は全号で必須(`content.config.ts` の `min(1)`)なので条件にしない。
 - ダイジェストが 0 件なら失敗する。
 
@@ -33,9 +33,12 @@ satori 0.42.0 で `boxSizing` の既定が `border-box` から `content-box` に
 
 - major 更新(ADR 0041 のまま)
 - update-type を判定できなかった更新
+- `updated-dependencies-json` を読めない・空・配列でない更新
 - 本番依存(`dependencyType` が `direct:development` / `indirect` 以外)のうち、0.x から minor 以上が変わるもの、またはバージョンを読めないもの
 
 0.x では minor が破壊的変更を含みうる(npm のキャレット `^0.33.5` も `0.34` を許さない)。#867 はこの形だった。
+
+**D2 だけでは #867 は止まらない。** 破壊的変更はリリースノートに載っていなかったので、人が PR を見ても気づけたとは限らない。崩れを止めるのは D1 で、D2 は「0.x の本番依存の更新を、人がビルド結果を見てから入れる」機会を作るもの。
 
 判定は fetch-metadata の `updated-dependencies-json` で行う。`previous-version` / `new-version` の出力は先頭の依存 1 件分しか持たず、グループ化された PR の 2 件目以降が見えない。判定ステップは `scripts/__tests__/dependabot-auto-merge-workflow.test.mjs`(`test:workflows`)が固定している。
 
@@ -52,10 +55,10 @@ VRT は required check ではないので、自動マージを止められない
 
 ## 帰結
 
-- satori と sharp の minor 更新は手でマージする。2026-07-19〜10-19 の satori の minor は 5 本だった。
+- satori と sharp の minor 更新は手でマージする。2026-07-19〜10-19 の satori の minor 更新の PR は 5 本(#413 / #433 / #563 / #867 / #881)で、うち 2 本は直近の 3 日間に出た。
 - 保留した PR は開いたまま残り、Dependabot の `open-pull-requests-limit`(npm は 5)に数えられる。溜めると新しい更新の PR が開かなくなる。
-- Dependabot の PR は `ci-summary.yml` の完了通知の対象外なので、保留に気づく経路は D2 のコメント(GitHub の通知)になる。
-- D1 は og-image.ts の数値をテストに直接書いている。枠を縮める変更をすると赤になるので、合わせて直す。
+- `ci-summary.yml` は Dependabot の PR に完了通知を出さない(2026-10-19 時点)。そこで D2 のコメントは `ci-summary.yml` と同じく @メンションを付け、直接の通知として届くようにする。
+- D1 は og-image.ts の数値をテストに直接書いている。padding を減らすなど描ける範囲を広げる変更をすると赤になるので、合わせて直す。
 
 ## 撤回 / 再検討の条件
 

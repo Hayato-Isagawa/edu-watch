@@ -10,11 +10,12 @@ import { test, expect } from "@playwright/test";
  * 依存の更新で描画が崩れても、ビルドは通り PNG も出る。satori 0.42.0 で
  * box-sizing の既定が content-box に変わったときは、title が右端で切れ、
  * 下端のチップと URL が画像の外に出たまま、非 major の自動マージで main に入った
- * (#867 / #884)。VRT は required ではなく、自動マージは required しか待たないので、
+ * (#867。修正は #884)。VRT は required ではなく、自動マージは required しか待たないので、
  * 止めるならこの E2E(required)で止める。
  *
  * 数値は og-image.ts の 1200×630・padding 60px 70px・チップの maxWidth 850px から。
- * 向こうで枠を縮める変更をするとここが赤になるので、そのときは合わせて直す。
+ * 向こうで padding を減らすなど、描ける範囲を広げる変更をするとここが赤になるので、
+ * そのときは合わせて直す。
  */
 
 const WIDTH = 1200;
@@ -23,7 +24,8 @@ const BACKGROUND = [0xfa, 0xf9, 0xf5];
 
 // padding の内側(x 70〜1130、y 60〜570)を 20px 広げた箱。行頭の A / V / Y / j は
 // 字形が padding の外へ 1〜4px はみ出す(行頭が「生成AI」の「AI」だと x=69)。
-// 崩れたときは x が 1162 以上に出たので、20px の許容で取りこぼさない。
+// boxSizing を外して崩した 26 号では、x≥1150 にも各号 138〜1,465 画素の字があった
+// (右端は x 1162〜1199。2026-10-19 時点)ので、20px の許容で取りこぼさない。
 const ALLOWED = { left: 50, right: 1150, top: 40, bottom: 590 };
 
 // 下端の行。チップは maxWidth 850px なので x 70+850=920 より右には出ない。
@@ -31,7 +33,8 @@ const ALLOWED = { left: 50, right: 1150, top: 40, bottom: 590 };
 const BOTTOM_ROW = { top: 500, bottom: 570 };
 const CHIP_RIGHT = 920;
 
-// 2026-10-19 時点の 26 号では URL が 971 画素、チップ(アクセント色)が 2,200〜3,855 画素。
+// 2026-10-19 時点の 26 号では URL が 1,315 画素、チップ(アクセント色)が 2,284〜4,000 画素
+// (macOS で測定)。
 // 消えると 0 になる。はぐれた数画素で通らないように下限を置く。
 const MIN_INK = 100;
 

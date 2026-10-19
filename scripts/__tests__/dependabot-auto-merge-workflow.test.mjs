@@ -128,7 +128,10 @@ test("0.x の本番依存の minor 更新は自動マージせず、理由をコ
   assert.equal(r.code, 0, r.out);
   assert.equal(r.merged, false, r.ghArgs.join(" / "));
   assert.ok(r.comment, "コメントが無い");
-  assert.ok(r.comment.startsWith(`pr comment ${PR_URL} --body `), r.comment);
+  assert.ok(
+    r.comment.startsWith(`pr comment ${PR_URL} --body @Hayato-Isagawa `),
+    r.comment
+  );
   assert.match(
     r.comment,
     /satori: 0\.x の本番依存の minor 更新\(0\.33\.5 → 0\.56\.1\)/

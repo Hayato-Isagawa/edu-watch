@@ -19,7 +19,7 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
       # 自動マージするかどうかを決める(ADR 0041 / 0078)。人が見るのは次のどれか:
-      #   - major 更新、または update-type を判定できなかった更新
+      #   - major 更新、または update-type・updated-dependencies-json を読めなかった更新
       #   - 本番依存(direct:production)の 0.x の minor 更新。0.x では minor が
       #     破壊的変更を含みうる(satori 0.42.0 の box-sizing の既定変更は、#867 で
       #     0.33.5 → 0.56.1 の minor として自動マージされ、OG 画像を全号で崩した)
@@ -28,8 +28,8 @@ jobs:
       #
       # previous-version / new-version の出力は先頭の依存 1 件分しか持たないので、
       # グループ化された PR の 2 件目以降も見るために updated-dependencies-json を読む。
-      # 人が見る場合は理由を PR にコメントする。Dependabot の PR は ci-summary.yml の
-      # 通知の対象外なので、これが保留に気づく経路になる。
+      # 人が見る場合は理由を PR にコメントする。ci-summary.yml は Dependabot の PR に
+      # 完了通知を出さない(2026-10-19 時点)ので、同じく @メンションを付けて直接の通知にする。
       - name: Enable auto-merge, or explain why not
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -80,5 +80,5 @@ jobs:
           fi
 
           printf '自動マージしなかった:\n%s' "$reasons"
-          body="$(printf '自動マージの対象外なので、人がレビューしてマージしてください(ADR 0078)。\n\n%s' "$reasons")"
+          body="$(printf '@Hayato-Isagawa 自動マージの対象外なので、人がレビューしてマージしてください(ADR 0078)。\n\n%s' "$reasons")"
           gh pr comment "$PR_URL" --body "$body"
