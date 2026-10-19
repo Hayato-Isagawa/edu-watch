@@ -75,6 +75,8 @@ async function buildDefaultOg(): Promise<Buffer> {
       style: {
         width: "1200px",
         height: "630px",
+        // satori 0.42.0 で既定が content-box に変わった(src/lib/og-image.ts と同じ理由)
+        boxSizing: "border-box",
         display: "flex",
         flexDirection: "column",
         justifyContent: "space-between",

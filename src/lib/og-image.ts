@@ -64,6 +64,10 @@ export async function generateOgImage(params: OgParams): Promise<Buffer> {
       style: {
         width: "1200px",
         height: "630px",
+        // satori 0.42.0 で既定が border-box から CSS の初期値 content-box に変わった。
+        // 指定しないと padding が 1200×630 の外側に足され、title が右端で切れ、
+        // 下端のチップと URL が画像の外に出る。
+        boxSizing: "border-box",
         display: "flex",
         flexDirection: "column",
         justifyContent: "space-between",
