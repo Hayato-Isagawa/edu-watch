@@ -1,5 +1,36 @@
 [
   {
+    "id": "kkn-2026-10-19-6838c39fda9877da",
+    "title": "Shinonome、非認知能力の可視化システムを開発 生徒やクラスの特性をデータで把握",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20261020o04",
+    "publishedAt": "2026-10-19T22:00:19.000Z",
+    "collectedAt": "2026-10-20T00:51:52.863Z",
+    "summary": "東京理科大学発ベンチャーのShinonomeは、非認知能力を可視化するシステム「EduCompass」を開発した。このシステムは、生徒一人ひとりやクラス全体の特性をデータで見える化し、教員が指導に活用できるようにするもの […]",
+    "categories": [
+      "教員・働き方"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-10-19-ea00864cb2c9b975",
+    "title": "筑波大学附属中、2026年度第54回研究協議会を11/14に開催",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20261020o03",
+    "publishedAt": "2026-10-19T22:00:12.000Z",
+    "collectedAt": "2026-10-20T00:51:52.863Z",
+    "summary": "筑波大学附属中学校は、2026年度第54回研究協議会を11月14日に開催する。 同校では、学習指導要領に基づきつつ、各教科の特性を生かした独自の学習指導を追求している。今年度の研究協議会では、国語・社会・数学・理科・美術 […]",
+    "categories": [
+      "政策・制度",
+      "研究・エビデンス"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
     "id": "oecd-2026-10-19-d26489d6f7fedb44",
     "title": "What happened to Finnish education?",
     "sourceId": "oecd",
