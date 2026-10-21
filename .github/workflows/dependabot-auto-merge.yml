@@ -30,9 +30,12 @@ jobs:
       # グループ化された PR の 2 件目以降も見るために updated-dependencies-json を読む。
       # 人が見る場合は理由を PR にコメントする。ci-summary.yml は Dependabot の PR に
       # 完了通知を出さない(2026-10-19 時点)ので、同じく @メンションを付けて直接の通知にする。
+      # pull_request は synchronize でも走るので、同じ理由のコメントは 1 PR に 1 度だけ付ける。
       - name: Enable auto-merge, or explain why not
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_REPO: ${{ github.repository }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
           PR_URL: ${{ github.event.pull_request.html_url }}
           UPDATE_TYPE: ${{ steps.metadata.outputs.update-type }}
           DEPS_JSON: ${{ steps.metadata.outputs.updated-dependencies-json }}
@@ -80,5 +83,15 @@ jobs:
           fi
 
           printf '自動マージしなかった:\n%s' "$reasons"
-          body="$(printf '@Hayato-Isagawa 自動マージの対象外なので、人がレビューしてマージしてください(ADR 0078)。\n\n%s' "$reasons")"
+
+          # 一度変数に受け、パイプを使わずに探す(理由は ci-summary.yml の同じ箇所)。
+          # 鍵を理由ごとに変えるので、同じ PR でも理由が変われば改めて通知する。
+          marker="<!-- dependabot-auto-merge: hold $(printf '%s' "$reasons" | cksum | tr ' ' '-') -->"
+          comments=$(gh api --paginate "repos/${GH_REPO}/issues/${PR_NUMBER}/comments" --jq '.[].body')
+          if [[ "$comments" == *"$marker"* ]]; then
+            echo "already commented on #${PR_NUMBER} with the same reasons"
+            exit 0
+          fi
+
+          body="$(printf '@Hayato-Isagawa 自動マージの対象外なので、人がレビューしてマージしてください(ADR 0078)。\n\n%s\n%s' "$reasons" "$marker")"
           gh pr comment "$PR_URL" --body "$body"
