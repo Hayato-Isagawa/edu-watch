@@ -9,6 +9,8 @@ updates:
       time: "09:00"
       timezone: "Asia/Tokyo"
     open-pull-requests-limit: 5
+    cooldown:
+      default-days: 7
     labels:
       - "dependencies"
     # typescript の major 更新は @astrojs/check の peer dependency
@@ -53,6 +55,8 @@ updates:
       day: "monday"
       time: "09:00"
       timezone: "Asia/Tokyo"
+    cooldown:
+      default-days: 7
     labels:
       - "dependencies"
     # minor / patch は 1 本の PR にまとめる。別々の PR で同じ日に来ると、先にマージされた
