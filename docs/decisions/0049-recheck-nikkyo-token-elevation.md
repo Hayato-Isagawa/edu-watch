@@ -1,6 +1,6 @@
 # 0049. recheck-nikkyo-membership の token を Fine-grained PAT に切り替えて再判定 PR の required CI を発火させる
 
-- 状態: 採用
+- 状態: 採用 / PAT を persist したまま同じ job で収集を実行する形は [`ADR 0079`](0079-split-bot-collect-and-push-jobs.md) で上書き(PAT を checkout に渡すことは有効)
 - 日付: 2026-05-19
 - 関連 ADR: 0041(Dependabot auto-merge policy、required check 設定の前提)/ 0042(fetch-news token elevation、本 ADR のミラー元)/ 0022(recheck-nikkyo-membership、本 workflow の出自)/ 0044(AUTO_COLLECT_PAT 期限監視)
 - 関連 PR: #167(本 ADR 採用判断のトリガーとなった BLOCKED PR、応急処置で 2026-05-19 merged)/ TBD(本 ADR 起票 PR)
