@@ -6,7 +6,8 @@
 // PR が開いたまま溜まるだけで何も赤くならない。
 //
 // 写しを置かず、**ワークフローに埋まっている本体**を取り出して走らせる。gh はスタブに
-// 差し替えて、呼ばれた引数(merge か comment か)を控える。jq は実物を使う。
+// 差し替えて、呼ばれた引数(merge か comment か)を控え、既存コメントを返し、指定した
+// 呼び出しを失敗させる。jq は実物を使う。
 
 import test from "node:test";
 import assert from "node:assert/strict";
@@ -63,21 +64,32 @@ const dep = (name, prev, next, type = "direct:production", extra = {}) => ({
  *
  * @param updateType  fetch-metadata の `update-type`。
  * @param deps        `updated-dependencies-json` に入る配列。文字列ならそのまま渡す。
+ * @param failOn      この前方一致の gh 呼び出し(`pr merge` / `pr comment` / `api`)を exit 1 にする。
+ * @param existing    PR に既にあるコメント本文の配列。gh api はこれを 1 件 1 行で返す。
  */
 function runStep({
   updateType = "version-update:semver-minor",
   deps = [],
+  failOn = "",
+  existing = [],
 } = {}) {
   const dir = fs.realpathSync(
     fs.mkdtempSync(path.join(os.tmpdir(), "automerge-"))
   );
   const stubs = path.join(dir, "stubs");
   fs.mkdirSync(stubs);
+  if (existing.length > 0) {
+    fs.writeFileSync(path.join(dir, "comments"), `${existing.join("\n")}\n`);
+  }
   // 1 回の呼び出しを 1 件として控える。コメント本文は複数行なので、区切りは改行でなく RS(0x1e)。
+  // --jq は解釈しない。既存コメントが無ければ空出力で exit 0(コメントの無い PR と同じ)。
   fs.writeFileSync(
     path.join(stubs, "gh"),
     `#!/usr/bin/env bash
 printf '%s\\036' "$*" >> "$DIR/gh-args"
+if [ -n "$GH_FAIL" ] && [[ "$*" == "$GH_FAIL"* ]]; then exit 1; fi
+if [ "$1" = api ] && [ -f "$DIR/comments" ]; then cat "$DIR/comments"; fi
+exit 0
 `,
     { mode: 0o755 }
   );
@@ -90,7 +102,10 @@ printf '%s\\036' "$*" >> "$DIR/gh-args"
     env: {
       PATH: `${stubs}:${process.env.PATH}`,
       DIR: dir,
+      GH_FAIL: failOn,
       GH_TOKEN: "stub",
+      GH_REPO: "example/repo",
+      PR_NUMBER: "42",
       PR_URL,
       UPDATE_TYPE: updateType,
       DEPS_JSON: typeof deps === "string" ? deps : JSON.stringify(deps),
@@ -103,12 +118,16 @@ printf '%s\\036' "$*" >> "$DIR/gh-args"
   fs.rmSync(dir, { recursive: true, force: true });
   const merged = ghArgs.some((a) => a.startsWith("pr merge "));
   const comment = ghArgs.find((a) => a.startsWith("pr comment ")) ?? null;
+  const commentPrefix = `pr comment ${PR_URL} --body `;
   return {
     code: res.status,
     out: `${res.stdout}${res.stderr}`,
     ghArgs,
     merged,
     comment,
+    body: comment?.startsWith(commentPrefix)
+      ? comment.slice(commentPrefix.length)
+      : null,
   };
 }
 
@@ -219,6 +238,67 @@ test("updated-dependencies-json が読めない・空・配列でなければ自
   }
 });
 
+test("自動マージの有効化に失敗したら job を落とす", () => {
+  const r = runStep({
+    deps: [dep("astro", "7.3.1", "7.4.0")],
+    failOn: "pr merge",
+  });
+  assert.ok(
+    r.ghArgs.some((a) => a.startsWith("pr merge ")),
+    r.out
+  );
+  assert.notEqual(r.code, 0, r.out);
+});
+
+test("保留コメントの投稿に失敗したら job を落とす", () => {
+  const r = runStep({
+    deps: [dep("satori", "0.33.5", "0.56.1")],
+    failOn: "pr comment",
+  });
+  assert.ok(r.comment, r.out);
+  assert.notEqual(r.code, 0, r.out);
+});
+
+test("既存コメントの取得に失敗したら、投稿せずに job を落とす", () => {
+  const r = runStep({
+    deps: [dep("satori", "0.33.5", "0.56.1")],
+    failOn: "api",
+  });
+  assert.ok(
+    r.ghArgs.some((a) => a.startsWith("api ")),
+    r.out
+  );
+  assert.equal(r.comment, null, r.out);
+  assert.notEqual(r.code, 0, r.out);
+});
+
+test("同じ理由のコメントが既にあれば、push し直しても投稿しない", () => {
+  const deps = [dep("satori", "0.33.5", "0.56.1")];
+  const first = runStep({ deps });
+  assert.ok(first.body, first.out);
+
+  const r = runStep({ deps, existing: ["LGTM", first.body] });
+  assert.equal(r.code, 0, r.out);
+  assert.equal(r.comment, null, r.out);
+  const list = r.ghArgs.find((a) => a.startsWith("api "));
+  assert.ok(list, r.out);
+  assert.ok(list.includes("repos/example/repo/issues/42/comments"), list);
+  assert.ok(list.split(" ").includes("--paginate"), list);
+});
+
+test("理由が変われば、前の保留コメントがあっても投稿する", () => {
+  const before = runStep({ deps: [dep("satori", "0.33.5", "0.56.1")] });
+  assert.ok(before.body, before.out);
+
+  const r = runStep({
+    deps: [dep("satori", "0.33.5", "0.57.0")],
+    existing: [before.body],
+  });
+  assert.equal(r.code, 0, r.out);
+  assert.ok(r.comment, r.out);
+  assert.match(r.comment, /0\.33\.5 → 0\.57\.0/);
+});
+
 test("run: | ブロックは 1 つだけ(テストが別のステップを走らせていない)", () => {
   const count = yaml()
     .split("\n")
@@ -234,6 +314,8 @@ test("run: に式を展開せず、読む値は env で渡っている", () => {
     ["UPDATE_TYPE", "steps.metadata.outputs.update-type"],
     ["DEPS_JSON", "steps.metadata.outputs.updated-dependencies-json"],
     ["PR_URL", "github.event.pull_request.html_url"],
+    ["PR_NUMBER", "github.event.pull_request.number"],
+    ["GH_REPO", "github.repository"],
   ]) {
     assert.match(
       y,
