@@ -1,5 +1,67 @@
 [
   {
+    "id": "kkn-2026-10-20-f718d2f3df0248dc",
+    "title": "愛知県、デジタルハリウッド大と連携し教職員の生成AI活用やSTEAM教育を強化",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20261021o02",
+    "publishedAt": "2026-10-20T22:00:44.000Z",
+    "collectedAt": "2026-10-21T00:18:01.460Z",
+    "summary": "愛知県は10月19日、教職員の資質向上およびデジタル技術を活用した教育の充実を図り、デジタル社会を担う人材を育成するため、デジタルハリウッド大学（DHU）と教育連携に関する協定を締結した。     & […]",
+    "categories": [
+      "ICT / GIGA",
+      "教員・働き方"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-10-20-7a30a8e39c89de58",
+    "title": "VISH、園見学からWEB願書までを一元管理するクラウドサービス「Wakapass」を提供開始",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20261021o01",
+    "publishedAt": "2026-10-20T22:00:23.000Z",
+    "collectedAt": "2026-10-21T00:18:01.460Z",
+    "summary": "VISHはこのほど、幼稚園や認定こども園などの入園前業務を一元管理する新クラウドサービス「Wakapass（ワカパス）」の提供を開始した。園見学や未就園児向けイベントのWEB予約受付から保護者・子供の情報管理、WEB願書 […]",
+    "categories": [
+      "その他"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-10-20-0561473a34da0774",
+    "title": "サイバーセキュリティ、専門家のいない大学はどうするか――OCC、「Team Swimmy 大学経営研究会」第2回を10/24に開催",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20261021o04",
+    "publishedAt": "2026-10-20T22:00:21.000Z",
+    "collectedAt": "2026-10-21T00:18:01.460Z",
+    "summary": "OCC 教育テック大学院大学は10月24日に、Team Swimmy 大学経営研究会 第3期第2回セミナー「サイバーセキュリティの動向と大学に必要とされる備え」をハイブリッドで開催する。 AIの活用やデータの重要性が高ま […]",
+    "categories": [
+      "ICT / GIGA",
+      "研究・エビデンス"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-10-20-e0b6d0243866ab32",
+    "title": "小中高一貫オルタナティブ教育の東京賢治シュタイナー学校、「学校祭2026」を10/25に開催",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20261021o03",
+    "publishedAt": "2026-10-20T22:00:14.000Z",
+    "collectedAt": "2026-10-21T00:18:01.460Z",
+    "summary": "東京賢治シュタイナー学校（東京都立川市）は、10月25日に「学校祭2026」を開催する。 小中高一貫のシュタイナー教育を実践する同校の生徒たちが日頃の学びや作品を発表し、来場者とともに楽しむイベント。会場では各学年のノー […]",
+    "categories": [
+      "その他"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
     "id": "resemom-2026-10-20-f6f759b315366fc3",
     "title": "私学フェア2027、ビリギャル小林さやか氏が講演…伊勢崎2/27",
     "sourceId": "resemom",
