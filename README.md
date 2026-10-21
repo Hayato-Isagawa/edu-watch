@@ -26,6 +26,7 @@ EduEvidence JP(edu-evidence.org)の姉妹サイト。文部科学省・国立教
 ```bash
 mise install
 npm ci
+npm run prepare   # Git フックを有効化(clone ごとに 1 回。.npmrc の ignore-scripts=true により npm ci では有効にならない)
 npm run dev
 ```
 

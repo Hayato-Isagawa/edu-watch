@@ -4,7 +4,7 @@
 # that the Claude Code hook cannot see.
 #
 # Bypass for the rare hotfix case: standard Git escape hatch on commit.
-# Auto-installed via `npm install` (see package.json `scripts.prepare`).
+# Enable once per clone with `npm run prepare` (sets core.hooksPath; see CONTRIBUTING.md).
 
 set -euo pipefail
 
