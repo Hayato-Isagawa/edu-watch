@@ -7,7 +7,7 @@
 //
 // 写しを置かず、**ワークフローに埋まっている本体**を取り出して走らせる。gh はスタブに
 // 差し替えて、呼ばれた引数(merge か comment か)を控え、既存コメントを返し、指定した
-// 呼び出しを失敗させる。jq は実物を使う。
+// 呼び出しを失敗させる。jq は判定のフィルタも gh の `--jq` も実物を使う。
 
 import test from "node:test";
 import assert from "node:assert/strict";
@@ -65,7 +65,8 @@ const dep = (name, prev, next, type = "direct:production", extra = {}) => ({
  * @param updateType  fetch-metadata の `update-type`。
  * @param deps        `updated-dependencies-json` に入る配列。文字列ならそのまま渡す。
  * @param failOn      この前方一致の gh 呼び出し(`pr merge` / `pr comment` / `api`)を exit 1 にする。
- * @param existing    PR に既にあるコメント本文の配列。gh api はこれを 1 件 1 行で返す。
+ * @param existing    PR に既にあるコメント本文の配列。gh api は REST の形(`[{ body }]`)に
+ *                    包んで、ワークフローの `--jq` を実 jq に通して返す。
  */
 function runStep({
   updateType = "version-update:semver-minor",
@@ -78,18 +79,27 @@ function runStep({
   );
   const stubs = path.join(dir, "stubs");
   fs.mkdirSync(stubs);
-  if (existing.length > 0) {
-    fs.writeFileSync(path.join(dir, "comments"), `${existing.join("\n")}\n`);
-  }
+  fs.writeFileSync(
+    path.join(dir, "comments.json"),
+    JSON.stringify(existing.map((body) => ({ id: 1, body })))
+  );
   // 1 回の呼び出しを 1 件として控える。コメント本文は複数行なので、区切りは改行でなく RS(0x1e)。
-  // --jq は解釈しない。既存コメントが無ければ空出力で exit 0(コメントの無い PR と同じ)。
+  // `api` の `--jq` は実 jq に通す。フィルタを素通りさせると、本文を取り出せなくなる退行
+  // (印が見つからず push のたびに再投稿される)を検出できない。
   fs.writeFileSync(
     path.join(stubs, "gh"),
     `#!/usr/bin/env bash
+set -uo pipefail
 printf '%s\\036' "$*" >> "$DIR/gh-args"
 if [ -n "$GH_FAIL" ] && [[ "$*" == "$GH_FAIL"* ]]; then exit 1; fi
-if [ "$1" = api ] && [ -f "$DIR/comments" ]; then cat "$DIR/comments"; fi
-exit 0
+[ "$1" = api ] || exit 0
+filter=""; prev=""
+for a in "$@"; do
+  [ "$prev" = --jq ] && filter="$a"
+  prev="$a"
+done
+[ -n "$filter" ] || { echo "gh api without --jq" >&2; exit 1; }
+jq -r "$filter" "$DIR/comments.json"
 `,
     { mode: 0o755 }
   );
