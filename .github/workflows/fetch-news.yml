@@ -13,19 +13,21 @@ concurrency:
   group: fetch-news
   cancel-in-progress: false
 
+# 収集(npm の依存を実行する)と publish(PAT で push する)を別 job に分ける(ADR 0079)。
+# 同じ job に置くと、依存のコードが persist された PAT を読めるうえ、後続の step に
+# 仕掛け(.git/hooks・$GITHUB_PATH)を残せる。publish は依存を入れない。
 jobs:
   fetch:
     runs-on: ubuntu-latest
     permissions:
-      contents: write       # ボット用 feature ブランチへの push に必要
-      pull-requests: write  # PR 作成 + auto-merge enable に必要
-      issues: write         # `gh label create` は labels API(issues スコープ)を使う
+      contents: read
     timeout-minutes: 15
+    outputs:
+      changed: ${{ steps.diff.outputs.changed }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
-          persist-credentials: true
-          token: ${{ secrets.AUTO_COLLECT_PAT }}
+          persist-credentials: false
       - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
           node-version-file: ".tool-versions"
@@ -33,6 +35,43 @@ jobs:
       - run: npm ci
       - name: Run fetch-news
         run: npx tsx scripts/fetch-news.ts
+      - name: Detect changes
+        id: diff
+        run: |
+          if [ -n "$(git status --porcelain -- src/data/articles/)" ]; then
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "[fetch-news] no new articles, skipping PR"
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          fi
+      # 隠しファイル(.gitkeep)は既定で入らない。publish は上書きで展開するので消えない。
+      # fetch-news.ts はファイルを足すか書き換えるだけで、消さない。
+      - name: Upload articles
+        if: steps.diff.outputs.changed == 'true'
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7
+        with:
+          name: articles
+          path: src/data/articles/
+          retention-days: 1
+
+  publish:
+    needs: fetch
+    if: needs.fetch.outputs.changed == 'true'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write       # ボット用 feature ブランチへの push に必要
+      pull-requests: write  # PR 作成 + auto-merge enable に必要
+      issues: write         # `gh label create` は labels API(issues スコープ)を使う
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: true
+          token: ${{ secrets.AUTO_COLLECT_PAT }}
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          name: articles
+          path: src/data/articles/
       - name: Commit, push branch, and open auto-merge PR
         env:
           GH_TOKEN: ${{ secrets.AUTO_COLLECT_PAT }}

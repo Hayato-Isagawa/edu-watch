@@ -76,7 +76,7 @@ jobs:
 
           ## 影響
 
-          失効後は \`fetch-news\` と本 \`pat-expiry-check\` が \`actions/checkout\` の \`Input required and not supplied: token\` で失敗し、ニュース取りこぼしが発生します(参考: 2026-05-15 〜 16 の 3 連続失敗、ADR 0044 §背景)。
+          失効後は本 \`pat-expiry-check\` が失敗し、\`fetch-news\` の publish job も \`actions/checkout\` の \`Input required and not supplied: token\` で失敗し、ニュース取りこぼしが発生します(参考: 2026-05-15 〜 16 の 3 連続失敗、ADR 0044 §背景)。publish job は新着があった回だけ動くので、新着の無い回の \`fetch-news\` は失効していても緑で終わります(ADR 0079)。
 
           ## 復旧手順
 
@@ -84,7 +84,7 @@ jobs:
              - Repository access: \`Hayato-Isagawa/edu-watch\` のみ
              - Permissions: \`Contents: Read and write\` / \`Pull requests: Read and write\` / \`Issues: Read and write\` / \`Metadata: Read-only\`
           2. \`gh secret set AUTO_COLLECT_PAT -R Hayato-Isagawa/edu-watch\` で再登録
-          3. \`gh workflow run fetch-news.yml -R Hayato-Isagawa/edu-watch\` で動作確認
+          3. \`gh workflow run pat-expiry-check.yml -R Hayato-Isagawa/edu-watch\` で動作確認(毎回 PAT で API を呼ぶ。\`fetch-news\` は新着が無いと PAT を使わずに緑で終わるので、確認には使えない)
           4. 本 Issue をクローズ
 
           ## 関連

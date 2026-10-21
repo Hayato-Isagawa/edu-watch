@@ -1,6 +1,6 @@
 # 0042. fetch-news の token を Fine-grained PAT に切り替えて auto-collect PR の required CI を発火させる
 
-- 状態: 採用
+- 状態: 採用 / PAT を persist したまま同じ job で収集を実行する形は [`ADR 0079`](0079-split-bot-collect-and-push-jobs.md) で上書き(PAT を checkout に渡すことは有効)
 - 日付: 2026-05-14
 - 関連 ADR: 0041(Dependabot auto-merge policy、required check 設定の前提)/ 0009(cron schedule)/ 0020(persistent denylist、required check 対象)
 - 関連 PR: #138(本 ADR 採用判断のトリガーとなった 14h+ BLOCKED の auto-collect PR、2026-05-14 admin マージで解消)/ TBD(本 ADR 起票 PR)
