@@ -21,6 +21,7 @@ Node.js は `.tool-versions` で固定(`nodejs 24.19.0`)。[mise](https://mise.j
 ```bash
 mise install               # Node 24 を導入
 npm ci                     # 依存復元
+npm run prepare            # Git フックを有効化(clone ごとに 1 回。.npmrc の ignore-scripts=true で npm ci は prepare を走らせない)
 npm run dev                # 開発サーバー(localhost:4323。ファミリー各リポで固定・4321 は未設定プロジェクト用に空けている)
 npm run build              # 本番ビルド
 npm run lint               # oxlint(correctness ルール。warning でも止める。.astro は frontmatter と <script> を見る)
