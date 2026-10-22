@@ -81,9 +81,9 @@ edu-watch の編集ポリシーは `docs/PRD.md` §6 に集約されています
 
 ### ローカル側の二段ガード
 
-GitHub 側のブランチ保護に加え、ローカルでも `main` への直接編集・直接コミットをツールレベルで拒否します(コミット側のフックは、下記のとおり clone ごとに有効化が必要です)。
+GitHub 側のブランチ保護に加え、ローカルでも `main` への直接編集・直接コミットをツールレベルで拒否します(編集側のフックはメンテナの環境だけで発火し、コミット側のフックは下記のとおり clone ごとに有効化が必要です)。
 
-- **Claude Code 経由の編集**: `.claude/hooks/branch-guard.sh` が `Edit` / `Write` / `MultiEdit` の前に発動し、現ブランチが `main` / `master` のときに編集を拒否
+- **Claude Code 経由の編集**: `.claude/hooks/branch-guard.sh` が `Edit` / `Write` / `MultiEdit` の前に発動し、現ブランチが `main` / `master` のときに編集を拒否。このリポの `.claude/settings.json` には配線していないため、発火するのはメンテナの環境だけ(グローバルなディスパッチャから呼ぶ)
 - **任意のツール経由のコミット**: `.githooks/pre-commit` が `main` / `master` への直接コミットを拒否
 
 `.githooks/` は clone ごとに 1 回、`npm run prepare` で有効にしてください(`package.json` の `prepare` スクリプトが `core.hooksPath` を設定します)。`.npmrc` の `ignore-scripts=true` により `npm install` / `npm ci` は `prepare` を走らせないため、インストールだけでは有効になりません。確認:
