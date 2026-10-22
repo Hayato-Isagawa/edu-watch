@@ -65,8 +65,9 @@ const dep = (name, prev, next, type = "direct:production", extra = {}) => ({
  * @param updateType  fetch-metadata の `update-type`。
  * @param deps        `updated-dependencies-json` に入る配列。文字列ならそのまま渡す。
  * @param failOn      この前方一致の gh 呼び出し(`pr merge` / `pr comment` / `api`)を exit 1 にする。
- * @param existing    PR に既にあるコメント本文の配列。gh api は REST の形(`[{ body }]`)に
- *                    包んで、ワークフローの `--jq` を実 jq に通して返す。
+ * @param existing    PR に既にあるコメントの配列。文字列なら github-actions[bot] の本文、
+ *                    `{ body, login }` なら作者も指定する。gh api は REST の形
+ *                    (`[{ body, user: { login } }]`)に包んで、ワークフローの `--jq` を実 jq に通して返す。
  */
 function runStep({
   updateType = "version-update:semver-minor",
@@ -81,7 +82,13 @@ function runStep({
   fs.mkdirSync(stubs);
   fs.writeFileSync(
     path.join(dir, "comments.json"),
-    JSON.stringify(existing.map((body) => ({ id: 1, body })))
+    JSON.stringify(
+      existing.map((c) => {
+        const { body, login = "github-actions[bot]" } =
+          typeof c === "string" ? { body: c } : c;
+        return { id: 1, body, user: { login } };
+      })
+    )
   );
   // 1 回の呼び出しを 1 件として控える。コメント本文は複数行なので、区切りは改行でなく RS(0x1e)。
   // `api` の `--jq` は実 jq に通す。フィルタを素通りさせると、本文を取り出せなくなる退行
@@ -294,6 +301,29 @@ test("同じ理由のコメントが既にあれば、push し直しても投稿
   assert.ok(list, r.out);
   assert.ok(list.includes("repos/example/repo/issues/42/comments"), list);
   assert.ok(list.split(" ").includes("--paginate"), list);
+});
+
+test("同じ印でも github-actions[bot] 以外が書いたコメントは数えない", () => {
+  const deps = [dep("satori", "0.33.5", "0.56.1")];
+  const first = runStep({ deps });
+  assert.ok(first.body, first.out);
+
+  for (const login of ["someone", "dependabot[bot]", "github-actions"]) {
+    const r = runStep({ deps, existing: [{ body: first.body, login }] });
+    assert.equal(r.code, 0, `${login}: ${r.out}`);
+    assert.ok(r.comment, `${login}: 投稿されなかった`);
+  }
+});
+
+test("同じ PR の run は PR 番号を鍵に直列化する", () => {
+  const y = yaml();
+  const block = y.match(/^concurrency:\n((?:[ \t]+.*\n)+)/m);
+  assert.ok(block, "最上位に concurrency: が無い");
+  assert.match(
+    block[1],
+    /^\s+group: dependabot-auto-merge-\$\{\{ github\.event\.pull_request\.number \}\}\s*$/m
+  );
+  assert.match(block[1], /^\s+cancel-in-progress: false\s*$/m);
 });
 
 test("理由が変われば、前の保留コメントがあっても投稿する", () => {

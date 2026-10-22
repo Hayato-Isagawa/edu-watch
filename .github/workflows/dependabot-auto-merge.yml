@@ -6,6 +6,12 @@ permissions:
   contents: write
   pull-requests: write
 
+# 同じ PR の run を直列化する。opened と synchronize が重なると、両方が既存コメントを
+# 読んでから投稿し、同じ保留コメントが 2 件付く。
+concurrency:
+  group: dependabot-auto-merge-${{ github.event.pull_request.number }}
+  cancel-in-progress: false
+
 jobs:
   auto-merge:
     if: github.actor == 'dependabot[bot]'
@@ -31,6 +37,8 @@ jobs:
       # 人が見る場合は理由を PR にコメントする。ci-summary.yml は Dependabot の PR に
       # 完了通知を出さない(2026-10-19 時点)ので、同じく @メンションを付けて直接の通知にする。
       # pull_request は synchronize でも走るので、同じ理由のコメントは 1 PR に 1 度だけ付ける。
+      # 照合するのはこの workflow(github-actions[bot])のコメントだけ。公開リポなので、
+      # 誰かが印を先に書けば保留の通知を止められてしまう。
       - name: Enable auto-merge, or explain why not
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -87,7 +95,7 @@ jobs:
           # 一度変数に受け、パイプを使わずに探す(理由は ci-summary.yml の同じ箇所)。
           # 鍵を理由ごとに変えるので、同じ PR でも理由が変われば改めて通知する。
           marker="<!-- dependabot-auto-merge: hold $(printf '%s' "$reasons" | cksum | tr ' ' '-') -->"
-          comments=$(gh api --paginate "repos/${GH_REPO}/issues/${PR_NUMBER}/comments" --jq '.[].body')
+          comments=$(gh api --paginate "repos/${GH_REPO}/issues/${PR_NUMBER}/comments" --jq '.[] | select(.user.login == "github-actions[bot]") | .body')
           if [[ "$comments" == *"$marker"* ]]; then
             echo "already commented on #${PR_NUMBER} with the same reasons"
             exit 0
