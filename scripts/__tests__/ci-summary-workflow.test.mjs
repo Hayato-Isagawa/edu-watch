@@ -16,11 +16,52 @@ import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { isDeepStrictEqual } from "node:util";
+import YAML from "yaml";
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const WORKFLOWS_DIR = path.join(HERE, "..", "..", ".github", "workflows");
 const WORKFLOW = path.join(WORKFLOWS_DIR, "ci-summary.yml");
 const yaml = () => fs.readFileSync(WORKFLOW, "utf8");
+
+/**
+ * 権限と if の規則に反している箇所を返す(例: `job notify permissions` / `step notify[0] if`)。
+ *
+ * 字面ではなくパース結果で見る。字面だと `"permissions":` / `? permissions` / フロー形のような
+ * YAML として等価な書き方も、step の if も、notify より前に置いた別の job も素通りする(#723)。
+ * `merge: true` はマージキー(`<<:`)を展開する。既定では `<<` が 1 つのキーとして残り、
+ * `<<: {permissions: …}` と書いた権限が job の permissions に見えない。
+ * edu-law の同じテスト(Hayato-Isagawa/edu-law#273 / #336 / #340)からの移植。
+ *
+ * 実ファイルでは違反 0 しか見えず、判定を無効にしても緑のまま通るので、下の fixture で
+ * 規則ごとに発火することも確かめている。
+ */
+function violations(src) {
+  const doc = YAML.parse(src, { merge: true });
+  const found = [];
+  if (
+    !isDeepStrictEqual(doc?.permissions, {
+      checks: "read",
+      "pull-requests": "write",
+    })
+  )
+    found.push("workflow permissions");
+  for (const [name, job] of Object.entries(doc?.jobs ?? {})) {
+    // job 直下の permissions は workflow 直下の宣言より優先され、token の権限が静かに広がる
+    if (Object.hasOwn(job ?? {}, "permissions"))
+      found.push(`job ${name} permissions`);
+    // conclusion で絞ると、最後に完了した workflow が skipped のとき再判定が走らず通知が消える
+    if (String(job?.if ?? "").includes("conclusion"))
+      found.push(`job ${name} if`);
+    (job?.steps ?? []).forEach((step, i) => {
+      if (Object.hasOwn(step ?? {}, "permissions"))
+        found.push(`step ${name}[${i}] permissions`);
+      // step の if は値によらず通知を止めうる(`if: false` でも黙って skip される)ので置かない
+      if (Object.hasOwn(step ?? {}, "if")) found.push(`step ${name}[${i}] if`);
+    });
+  }
+  return found;
+}
 
 const SHA = "0123456789abcdef0123456789abcdef01234567";
 const MARKER = `<!-- ci-summary: ${SHA} -->`;
@@ -365,32 +406,32 @@ test("run: が読む値は env で渡っている(SELF は job 名)", () => {
 });
 
 test("token の権限は check-run の参照とコメント投稿だけ", () => {
-  const block = yaml().match(/^permissions:\n((?: {2}\S.*\n)+)/m);
-  assert.ok(block, "permissions: が無い");
-  const keys = block[1]
-    .split("\n")
-    .filter(Boolean)
-    .map((l) => l.trim().replace(/\s*#.*$/, ""));
-  assert.deepEqual(keys.sort(), ["checks: read", "pull-requests: write"]);
+  assert.deepEqual(
+    violations(yaml()).filter((v) => v === "workflow permissions"),
+    []
+  );
 });
 
 test("PR 由来の run だけを、Dependabot と自動収集 PR を除いて扱う", () => {
-  const src = yaml();
-  assert.match(src, /github\.event\.workflow_run\.event == 'pull_request'/);
-  assert.match(
-    src,
-    /github\.event\.workflow_run\.triggering_actor\.login != 'dependabot\[bot\]'/
-  );
+  // 字面ではなく notify の if の値で見る(コメント行に移しただけの式を拾わない)。
+  // 部分一致だと `… != 'dependabot[bot]' || true` のように字面を残したまま条件を
+  // 無効にできるので、空白を詰めた式全体を固定する。式を変えるときはこの期待値も直す。
+  //
   // fetch-news / recheck-nikkyo-membership が PAT で作る自動 PR は actor がユーザー本人なので、
   // ブランチ名で除く。外すと自動 PR の CI が緑になるたび(最大 1 日 2 回)通知が届く。
-  assert.match(
-    src,
-    /!startsWith\(github\.event\.workflow_run\.head_branch, 'chore\/auto-collect-'\)/
+  const cond = String(
+    YAML.parse(yaml(), { merge: true }).jobs?.notify?.if ?? ""
+  )
+    .replace(/\s+/g, " ")
+    .trim();
+  assert.equal(
+    cond,
+    "github.event.workflow_run.event == 'pull_request' && " +
+      "github.event.workflow_run.triggering_actor.login != 'dependabot[bot]' && " +
+      "!startsWith(github.event.workflow_run.head_branch, 'chore/auto-collect-') && " +
+      "!startsWith(github.event.workflow_run.head_branch, 'chore/recheck-nikkyo-')"
   );
-  assert.match(
-    src,
-    /!startsWith\(github\.event\.workflow_run\.head_branch, 'chore\/recheck-nikkyo-'\)/
-  );
+  const src = yaml();
   assert.doesNotMatch(
     src,
     /workflow_run\.conclusion == 'success'\s*&&/,
@@ -399,38 +440,139 @@ test("PR 由来の run だけを、Dependabot と自動収集 PR を除いて扱
 });
 
 test("permissions: は workflow 直下の 1 か所だけ(job / step には置かない)", () => {
-  // job 直下の `permissions:` は workflow 直下の宣言より優先される。job に `contents: write`
-  // を足すと token の権限が静かに広がるが、workflow 直下だけを読む検査では緑のまま通る。
-  // 字面の `permissions:` を全行拾い、列 0 の 1 行に固定する。
-  const lines = yaml()
-    .split("\n")
-    .filter((l) => /^\s*permissions:/.test(l));
-  assert.deepEqual(lines, ["permissions:"]);
+  assert.deepEqual(
+    violations(yaml()).filter((v) => v.endsWith(" permissions")),
+    []
+  );
 });
 
-test("job の if: の式のどこにも起動元の conclusion を置かない(末尾形も含む)", () => {
+test("job の if: に起動元の conclusion を置かず、step には if: を置かない", () => {
   // `conclusion == 'success' &&` の先頭形だけでなく、末尾に
   // `&& github.event.workflow_run.conclusion == 'success'` と付ける形でも、最後に完了した
-  // workflow が skipped のとき再判定が走らず通知が消える。式を丸ごと取り出して見る。
-  const lines = yaml().split("\n");
-  const start = lines.findIndex((l) => /^ {4}if:/.test(l));
-  assert.notEqual(start, -1, "job 直下の if: が見つからない");
-  const expr = [lines[start].replace(/^ {4}if:\s*/, "")];
-  // 継続行は `if:` の列(4)より深い行すべて。`>-` の 6 スペース固定にすると、plain スカラーで
-  // 値の列(8 スペース)に揃えた末尾形が 1 行目で打ち切られて素通りする(YAML の値は同一文字列)。
-  // 空行は折り畳みの途中にも置けるので飛ばす。
-  for (const l of lines.slice(start + 1)) {
-    if (l.trim() === "") continue;
-    if (!/^ {5,}\S/.test(l)) break;
-    expr.push(l.trim());
-  }
-  const joined = expr.join("\n");
-  assert.match(
-    joined,
-    /workflow_run\.event == 'pull_request'/,
-    "if: の式が取れていない"
+  // workflow が skipped のとき再判定が走らず通知が消える。notify の if の式そのものは
+  // 「PR 由来の run だけを…」が完全一致で見ている。
+  assert.deepEqual(
+    violations(yaml()).filter((v) => v.endsWith(" if")),
+    []
   );
-  assert.doesNotMatch(joined, /conclusion/);
+});
+
+// ---- 判定そのものの fixture(#723 で素通りしていた書き方)----
+
+const FIXTURE = `on:
+  workflow_run:
+    workflows: [Checks]
+    types: [completed]
+permissions:
+  checks: read
+  pull-requests: write
+jobs:
+  notify:
+    if: github.event.workflow_run.event == 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo ok
+`;
+
+/** FIXTURE の一部を置き換える。置き換え元が無ければ fixture が意味を失うので落とす */
+function fixture(from, to) {
+  assert.ok(FIXTURE.includes(from), `fixture に ${from} が無い`);
+  return FIXTURE.replace(from, to);
+}
+
+const JOB_PERMS = (key) =>
+  fixture(
+    "    runs-on: ubuntu-latest\n",
+    `    runs-on: ubuntu-latest\n    ${key}\n      contents: write\n`
+  );
+
+test("fixture: 手を加えない形では違反 0(以下の fixture の対照)", () => {
+  assert.deepEqual(violations(FIXTURE), []);
+});
+
+test('fixture: job の "permissions": を拾う', () => {
+  assert.deepEqual(violations(JOB_PERMS('"permissions":')), [
+    "job notify permissions",
+  ]);
+});
+
+test("fixture: job の 'permissions': を拾う", () => {
+  assert.deepEqual(violations(JOB_PERMS("'permissions':")), [
+    "job notify permissions",
+  ]);
+});
+
+test("fixture: job の permissions : (コロンの前に空白)を拾う", () => {
+  assert.deepEqual(violations(JOB_PERMS("permissions :")), [
+    "job notify permissions",
+  ]);
+});
+
+test("fixture: job の ? permissions(明示キー)を拾う", () => {
+  const src = fixture(
+    "    runs-on: ubuntu-latest\n",
+    "    runs-on: ubuntu-latest\n    ? permissions\n    : {contents: write}\n"
+  );
+  assert.deepEqual(violations(src), ["job notify permissions"]);
+});
+
+test("fixture: フロー形の job の permissions を拾う", () => {
+  const src = fixture(
+    FIXTURE.slice(FIXTURE.indexOf("  notify:\n")),
+    "  notify: {permissions: {contents: write}, runs-on: ubuntu-latest, steps: [{run: echo ok}]}\n"
+  );
+  assert.deepEqual(violations(src), ["job notify permissions"]);
+});
+
+test("fixture: マージキー(<<:)で入れた job の permissions を拾う", () => {
+  const src = fixture(
+    "    runs-on: ubuntu-latest\n",
+    "    runs-on: ubuntu-latest\n    <<: {permissions: {contents: write}}\n"
+  );
+  assert.deepEqual(violations(src), ["job notify permissions"]);
+});
+
+test("fixture: step の permissions を拾う", () => {
+  const src = fixture(
+    "      - run: echo ok\n",
+    "      - run: echo ok\n        permissions:\n          contents: write\n"
+  );
+  assert.deepEqual(violations(src), ["step notify[0] permissions"]);
+});
+
+test("fixture: step の if: false を拾う", () => {
+  const src = fixture(
+    "      - run: echo ok\n",
+    "      - if: false\n        run: echo ok\n"
+  );
+  assert.deepEqual(violations(src), ["step notify[0] if"]);
+});
+
+test("fixture: step の if: の conclusion を拾う", () => {
+  const src = fixture(
+    "      - run: echo ok\n",
+    "      - if: github.event.workflow_run.conclusion == 'success'\n        run: echo ok\n"
+  );
+  assert.deepEqual(violations(src), ["step notify[0] if"]);
+});
+
+test("fixture: notify より前に別の job があっても、notify の末尾形の conclusion を拾う", () => {
+  const src = fixture(
+    "jobs:\n  notify:\n    if: github.event.workflow_run.event == 'pull_request'\n",
+    "jobs:\n  pre:\n    if: github.event.workflow_run.event == 'pull_request'\n" +
+      "    runs-on: ubuntu-latest\n    steps:\n      - run: echo pre\n" +
+      "  notify:\n    if: github.event.workflow_run.event == 'pull_request'" +
+      " && github.event.workflow_run.conclusion == 'success'\n"
+  );
+  assert.deepEqual(violations(src), ["job notify if"]);
+});
+
+test("fixture: workflow 直下の permissions に空行を挟んで足した権限を拾う", () => {
+  const src = fixture(
+    "  pull-requests: write\n",
+    "  pull-requests: write\n\n  contents: write\n"
+  );
+  assert.deepEqual(violations(src), ["workflow permissions"]);
 });
 
 test("同じ commit の判定は head_sha で直列化する", () => {
