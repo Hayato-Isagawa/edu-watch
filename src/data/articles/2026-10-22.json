@@ -1,5 +1,35 @@
 [
   {
+    "id": "kkn-2026-10-22-88eadc07635325e3",
+    "title": "ガイアックス、全国の高校のアントレ教育を無償サポート開始　学校の取組状況に合った支援を提供",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20261023o01",
+    "publishedAt": "2026-10-22T22:00:51.000Z",
+    "collectedAt": "2026-10-23T00:19:38.292Z",
+    "summary": "ガイアックスは、全国の高校を対象に、アントレプレナーシップ教育の立ち上げや拡充を無償でサポートする取り組みを11月から開始すると発表した。東京都が主催するビジネスプランコンテスト「TOKYO STARTUP GATEWA […]",
+    "categories": [
+      "その他"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-10-22-6953cf9249932e30",
+    "title": "チエル、統合ID管理「ExtraConsole ID Manager」でBox連携機能を提供へ",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20261023o02",
+    "publishedAt": "2026-10-22T22:00:10.000Z",
+    "collectedAt": "2026-10-23T00:19:38.292Z",
+    "summary": "チエルは10月末に、統合ID管理システムExtraConsole ID Managerの最新版「Version 6.6」をリリースする。クラウドストレージ「Box」との連携に新たに対応し、教育機関におけるアカウント運用負 […]",
+    "categories": [
+      "その他"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
     "id": "resemom-2026-10-22-e7b170f9458fcc88",
     "title": "高校サッカー全国選手権、12/28開幕…組合せ抽選11/16",
     "sourceId": "resemom",
