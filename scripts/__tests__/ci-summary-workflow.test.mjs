@@ -62,8 +62,8 @@ const ACTIONS_GREEN = [
  * 通知ステップを 1 回走らせる。
  *
  * @param checkRuns  `commits/{sha}/check-runs` が返す check_runs。
- * @param comments   `issues/{n}/comments` が返す既存コメント(body の配列)。null なら
- *                   API エラー(fixture 無し → exit 1)。
+ * @param comments   `issues/{n}/comments` が返す既存コメント。文字列なら github-actions[bot] の
+ *                   本文、`{ body, login }` なら作者も指定する。null なら API エラー(fixture 無し → exit 1)。
  * @param pulls      `commits/{sha}/pulls` が返す PR。`prFromEvent` が空のときだけ引かれる。
  * @param prFromEvent  `workflow_run.pull_requests[0].number` に相当する env。
  * @param self       `SELF`(job 名)。同名の check-run は除外される。
@@ -89,7 +89,13 @@ function runStep({
   if (comments !== null) {
     fs.writeFileSync(
       path.join(dir, "comments.json"),
-      JSON.stringify(comments.map((body) => ({ body })))
+      JSON.stringify(
+        comments.map((c) => {
+          const { body, login = "github-actions[bot]" } =
+            typeof c === "string" ? { body: c } : c;
+          return { body, user: { login } };
+        })
+      )
     );
   }
 
@@ -288,6 +294,14 @@ test("マーカーの後ろに大量のコメントがあっても、重複を�
   });
   assert.equal(r.code, 0, r.out);
   assert.equal(r.commentedBody, null, "SIGPIPE 経路で二重投稿している");
+});
+
+test("同じ sha のマーカーでも github-actions[bot] 以外が書いたものは数えない", () => {
+  for (const login of ["someone", "dependabot[bot]", "github-actions"]) {
+    const r = runStep({ comments: [{ body: `✅ 前回\n${MARKER}`, login }] });
+    assert.equal(r.code, 0, `${login}: ${r.out}`);
+    assert.ok(r.commentedBody, `${login}: 投稿されなかった`);
+  }
 });
 
 test("別の sha のマーカーしか無ければ投稿する(再 push は別扱い)", () => {
