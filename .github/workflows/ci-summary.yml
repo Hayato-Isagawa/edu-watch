@@ -94,8 +94,10 @@ jobs:
 
           # 一度変数に受け、パイプを使わずに探す。`gh ... | grep -q` だと、grep が先に抜けたときの
           # SIGPIPE や API エラーが pipefail で「未投稿」と読まれ、二重投稿になる(printf | grep でも同じ)。
+          # 照合するのは github-actions[bot] のコメントだけ。公開リポなので、誰かが印を先に書けば
+          # 通知を止められてしまう。
           marker="<!-- ci-summary: ${SHA} -->"
-          comments=$(gh api --paginate "repos/${GH_REPO}/issues/${pr}/comments" --jq '.[].body')
+          comments=$(gh api --paginate "repos/${GH_REPO}/issues/${pr}/comments" --jq '.[] | select(.user.login == "github-actions[bot]") | .body')
           if [[ "$comments" == *"$marker"* ]]; then
             echo "already commented on #${pr} for ${SHA}"
             exit 0

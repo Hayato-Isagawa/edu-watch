@@ -65,7 +65,7 @@ okinawa-in-data では open な link-check Issue があると後続の検出を�
 PR のコンテンツ」で撮る配線(ADR 0068)も、**壊れても CI は緑のまま**だから — 運ぶ素材を 1 つ
 落としても、テストは走り、多くのページは通る。一番腐りやすいのは運ぶ素材の allowlist なので、
 `src/` の実ディレクトリを走査して「運ぶ・`paths` で監視する・描画に入らないと明言する」の
-三択を強制している。**テストを足したら `package.json` の下限(現在 140、実測ちょうど)も上げること。**
+三択を強制している。**テストを足したら `package.json` の下限(現在 141、実測ちょうど)も上げること。**
 
 `vrt-targets.test.mjs` も同じ口にある。VRT の撮影が**静かに減る**経路(対象を消す・ループを絞る・
 projects を削る・skip に落とす・`fullPage` を落とす・比較設定を緩める・比較ステップを撮り直しにする・
@@ -90,7 +90,7 @@ project 側に `baseURL` を置くことも許さない。CI では `!process.en
 判定が崩れて通知が消えても workflow は exit 0 のまま。link-check と同じく `run:` を取り出して bash で
 走らせ、`gh` はスタブに差し替える。`--jq` のフィルタは**実 jq に通す** — `.app.slug == "github-actions"` の
 絞り込みが無いと Cloudflare の check-run(`workflow_run` を起こさない)を待ち続けて通知が消えるので、
-フィルタを素通りさせると退行を検出できない。YAML 側は `workflows:` の列挙が「`on:` に `pull_request` を
+フィルタを素通りさせると退行を検出できない。重複防止の印は github-actions[bot] のコメントからだけ拾うことも見る。YAML 側は `workflows:` の列挙が「`on:` に `pull_request` を
 持つ workflow の `name:`」と過不足なく一致することも見る(PR 起動の workflow を足したのに列挙し忘れると、
 その完了では再判定が走らない)。
 
