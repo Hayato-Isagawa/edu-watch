@@ -38,8 +38,8 @@ const PR_URL = "https://github.com/example/repo/pull/42";
 
 /**
  * ワークフローの `run: |` ブロックを取り出す。
- * dependabot-auto-merge.yml の `run: |` は判定ステップの 1 つだけ。
- * 2 つ目が増えたらこの前提が崩れるので、そのことも下でテストしている。
+ * 字面で最初の `run: |` を取るので、取り出した本文が判定ステップの run と一致することを
+ * 下でテストしている。
  */
 function extractRunBlock() {
   const lines = yaml().split("\n");
@@ -321,17 +321,6 @@ test("同じ印でも github-actions[bot] 以外が書いたコメントは数�
   }
 });
 
-test("同じ PR の run は PR 番号を鍵に直列化する", () => {
-  const y = yaml();
-  const block = y.match(/^concurrency:\n((?:[ \t]+.*\n)+)/m);
-  assert.ok(block, "最上位に concurrency: が無い");
-  assert.match(
-    block[1],
-    /^\s+group: dependabot-auto-merge-\$\{\{ github\.event\.pull_request\.number \}\}\s*$/m
-  );
-  assert.match(block[1], /^\s+cancel-in-progress: false\s*$/m);
-});
-
 test("理由が変われば、前の保留コメントがあっても投稿する", () => {
   const before = runStep({ deps: [dep("satori", "0.33.5", "0.56.1")] });
   assert.ok(before.body, before.out);
@@ -343,40 +332,6 @@ test("理由が変われば、前の保留コメントがあっても投稿す�
   assert.equal(r.code, 0, r.out);
   assert.ok(r.comment, r.out);
   assert.match(r.comment, /0\.33\.5 → 0\.57\.0/);
-});
-
-test("run: | ブロックは 1 つだけ(テストが別のステップを走らせていない)", () => {
-  const count = yaml()
-    .split("\n")
-    .filter((l) => /^\s+run: \|\s*$/.test(l)).length;
-  assert.equal(count, 1);
-  assert.doesNotMatch(yaml(), /^\s+run: [^|\s]/m, "1 行の run: がある");
-});
-
-test("run: に式を展開せず、読む値は env で渡っている", () => {
-  assert.doesNotMatch(extractRunBlock(), /\$\{\{/);
-  const y = yaml();
-  for (const [name, expr] of [
-    ["UPDATE_TYPE", "steps.metadata.outputs.update-type"],
-    ["DEPS_JSON", "steps.metadata.outputs.updated-dependencies-json"],
-    ["PR_URL", "github.event.pull_request.html_url"],
-    ["PR_NUMBER", "github.event.pull_request.number"],
-    ["GH_REPO", "github.repository"],
-  ]) {
-    assert.match(
-      y,
-      new RegExp(
-        `^\\s+${name}: \\$\\{\\{ ${expr.replace(/[.-]/g, "\\$&")} \\}\\}\\s*$`,
-        "m"
-      ),
-      `${name} が ${expr} から渡っていない`
-    );
-  }
-  assert.match(
-    y,
-    /^\s+id: metadata\s*$/m,
-    "fetch-metadata のステップに id: metadata が無い"
-  );
 });
 
 const DECIDE = "Enable auto-merge, or explain why not";
@@ -475,6 +430,171 @@ test("fixture: 判定ステップと同じ名前のステップが 2 つある�
     DECIDE_HEAD + "        run: echo duplicate\n" + DECIDE_HEAD
   );
   assert.deepEqual(autoMergeViolations(src), ["decide steps 2"]);
+});
+
+// 判定ステップの run が読む値。キーだけでなく値も固定する。余分なキーは見ない
+const ENV = {
+  GH_TOKEN: "${{ secrets.GITHUB_TOKEN }}",
+  GH_REPO: "${{ github.repository }}",
+  PR_NUMBER: "${{ github.event.pull_request.number }}",
+  PR_URL: "${{ github.event.pull_request.html_url }}",
+  UPDATE_TYPE: "${{ steps.metadata.outputs.update-type }}",
+  DEPS_JSON: "${{ steps.metadata.outputs.updated-dependencies-json }}",
+};
+
+/** run を持つステップを全 job から集める */
+const runSteps = (doc) =>
+  Object.entries(doc?.jobs ?? {}).flatMap(([jobName, job]) =>
+    (job?.steps ?? [])
+      .filter((step) => Object.hasOwn(step ?? {}, "run"))
+      .map((step) => ({ jobName, step }))
+  );
+
+/**
+ * 判定ステップの配線(run の所在・env の値・メタデータの id・直列化)に反している箇所を返す。
+ * `autoMergeViolations()` と同じくパース結果で見る(#940)。マージキーの検出は
+ * `autoMergeViolations()` が受け持つ。
+ *
+ * run を持つステップがちょうど 1 つで、それが判定ステップであることまで見る。名前だけで
+ * 特定すると、本物のステップを改名して `if:` を付け、run の無い同名のダミーを置いた形が
+ * 素通りする。job に concurrency を置くと、workflow 直下の group に加えてもう 1 つ group が
+ * かかり、既定の queue: single が待っている run を cancel しうる。
+ */
+function autoMergeWiring(src) {
+  const doc = parseWorkflow(src);
+  const found = [];
+  const c = doc?.concurrency;
+  if (
+    c?.group !== "dependabot-auto-merge-${{ github.event.pull_request.number }}"
+  )
+    found.push("concurrency group");
+  if (c?.["cancel-in-progress"] !== false)
+    found.push("concurrency cancel-in-progress");
+  for (const [name, job] of Object.entries(doc?.jobs ?? {}))
+    if (Object.hasOwn(job ?? {}, "concurrency"))
+      found.push(`job ${name} concurrency`);
+  const runs = runSteps(doc);
+  if (runs.length !== 1) found.push(`run steps ${runs.length}`);
+  else if (runs[0].step?.name !== DECIDE) found.push("run step is not decide");
+  const decide = stepsNamed(doc, DECIDE);
+  const env = decide.length === 1 ? (decide[0].step?.env ?? {}) : {};
+  for (const [key, value] of Object.entries(ENV))
+    if (env[key] !== value) found.push(`env ${key}`);
+  const metadata = stepsNamed(doc, "Fetch Dependabot metadata");
+  if (metadata.length !== 1) found.push(`metadata steps ${metadata.length}`);
+  else if (metadata[0].step?.id !== "metadata") found.push("metadata id");
+  return found;
+}
+
+test("同じ PR の run は PR 番号を鍵に直列化する", () => {
+  assert.deepEqual(
+    autoMergeWiring(yaml()).filter((v) => v.includes("concurrency")),
+    []
+  );
+});
+
+test("テストが走らせる本文は、判定ステップの run そのもの", () => {
+  // extractRunBlock は字面で最初の `run: |` を取る。run を持つステップの本数と、本文の一致の両方で見る
+  assert.deepEqual(
+    autoMergeWiring(yaml()).filter((v) => v.startsWith("run step")),
+    []
+  );
+  const [decide] = stepsNamed(parseWorkflow(yaml()), DECIDE);
+  assert.equal(
+    String(decide?.step?.run).trimEnd(),
+    extractRunBlock().trimEnd(),
+    "extractRunBlock が判定ステップの run と別の本文を取り出している"
+  );
+});
+
+test("run: に式を展開せず、読む値は env で渡っている", () => {
+  const [decide] = stepsNamed(parseWorkflow(yaml()), DECIDE);
+  assert.doesNotMatch(String(decide?.step?.run), /\$\{\{/);
+  assert.deepEqual(
+    autoMergeWiring(yaml()).filter(
+      (v) => v.startsWith("env ") || v.startsWith("metadata ")
+    ),
+    []
+  );
+});
+
+// ---- autoMergeWiring の fixture。実ファイルの 1 か所だけを書き換える ----
+
+test("fixture: 実ファイルのままでは配線の違反 0(以下の fixture の対照)", () => {
+  assert.deepEqual(autoMergeWiring(yaml()), []);
+});
+
+test("fixture: job に置いた concurrency を拾う", () => {
+  const src = real(
+    "    timeout-minutes: 10\n",
+    "    timeout-minutes: 10\n    concurrency: auto-merge\n"
+  );
+  assert.deepEqual(autoMergeWiring(src), ["job auto-merge concurrency"]);
+});
+
+test("fixture: cancel-in-progress を true にすると拾う", () => {
+  const src = real(
+    "  cancel-in-progress: false\n",
+    "  cancel-in-progress: true\n"
+  );
+  assert.deepEqual(autoMergeWiring(src), ["concurrency cancel-in-progress"]);
+});
+
+test("fixture: group を PR 番号以外にすると拾う", () => {
+  const src = real(
+    "  group: dependabot-auto-merge-${{ github.event.pull_request.number }}\n",
+    "  group: dependabot-auto-merge-${{ github.run_id }}\n"
+  );
+  assert.deepEqual(autoMergeWiring(src), ["concurrency group"]);
+});
+
+test("fixture: concurrency をマージキーで書くと、無いものとして拾う", () => {
+  const src = real(
+    "concurrency:\n  group: dependabot-auto-merge-${{ github.event.pull_request.number }}\n  cancel-in-progress: false\n",
+    "concurrency:\n  <<: {group: 'dependabot-auto-merge-${{ github.event.pull_request.number }}', cancel-in-progress: false}\n"
+  );
+  assert.deepEqual(autoMergeWiring(src), [
+    "concurrency group",
+    "concurrency cancel-in-progress",
+  ]);
+  assert.deepEqual(autoMergeViolations(src), ["merge key concurrency"]);
+});
+
+test("fixture: env の値を変えると拾う", () => {
+  const src = real(
+    "          PR_NUMBER: ${{ github.event.pull_request.number }}",
+    "          PR_NUMBER: ${{ github.run_id }}"
+  );
+  assert.deepEqual(autoMergeWiring(src), ["env PR_NUMBER"]);
+});
+
+test("fixture: env のキーを引用符で書いても、値が同じなら違反にしない", () => {
+  const src = real("          GH_REPO:", '          "GH_REPO":');
+  assert.deepEqual(autoMergeWiring(src), []);
+});
+
+test("fixture: メタデータ取得のステップの id を変えると拾う", () => {
+  const src = real("        id: metadata\n", "        id: meta\n");
+  assert.deepEqual(autoMergeWiring(src), ["metadata id"]);
+});
+
+test("fixture: run を持つステップをもう 1 つ足すと拾う", () => {
+  const src = real("    steps:\n", "    steps:\n      - run: echo before\n");
+  assert.deepEqual(autoMergeWiring(src), ["run steps 2"]);
+});
+
+test("fixture: 判定ステップを改名して if を付け、run の無い同名のダミーを置くと拾う", () => {
+  // #940 の形。名前だけで判定ステップを特定すると、if の検査も字面の本数も通ってしまう
+  const src = real(
+    DECIDE_HEAD,
+    `      - name: ${DECIDE}\n        uses: actions/github-script@v7\n` +
+      "      - name: Renamed\n        if: false\n"
+  );
+  assert.deepEqual(autoMergeViolations(src), []);
+  assert.deepEqual(autoMergeWiring(src), [
+    "run step is not decide",
+    ...Object.keys(ENV).map((k) => `env ${k}`),
+  ]);
 });
 
 test("job の if: が、作成者・head のリポ・actor の 3 条件と理由つきの抑止を持つ", () => {
