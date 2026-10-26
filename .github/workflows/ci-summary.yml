@@ -16,7 +16,10 @@
 name: CI summary
 
 on:
-  workflow_run:
+  # workflow_run は既定ブランチの定義で、PR が fork からでも対象リポのトークンで走る(zizmor の
+  # dangerous-triggers)。権限は checks: read と pull-requests: write だけで、run に渡すイベント由来の
+  # 値は head の SHA と PR 番号だけ(どちらも PR 側が任意の文字列にできない)。この trigger の理由は冒頭。
+  workflow_run: # zizmor: ignore[dangerous-triggers] 権限は checks と pull-requests だけ、run に渡すイベント由来の値は SHA と PR 番号だけ
     # PR で走りうる workflow の name:。PR 起動の workflow を足したらここにも足す。
     # Dependabot auto-merge も入れる。人間の PR では job が skipped で完了するが、
     # それが最後に完了した workflow だと再判定の機会が無くなる(Dependabot の PR 自体は

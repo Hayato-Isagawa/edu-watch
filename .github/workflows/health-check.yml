@@ -14,9 +14,9 @@ concurrency:
   group: health-check-${{ github.ref }}
   cancel-in-progress: true
 
+# issues: write は issue を開く job だけに置く(PR でも走る excluded-ids には渡さない)。
 permissions:
   contents: read
-  issues: write
 
 jobs:
   excluded-ids:

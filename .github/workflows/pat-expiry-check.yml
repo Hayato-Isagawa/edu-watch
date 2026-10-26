@@ -54,10 +54,13 @@ jobs:
 
       - name: Open issue if PAT expires within 14 days
         if: steps.expiry.outputs.skip != 'true'
+        env:
+          DAYS_LEFT: ${{ steps.expiry.outputs.days_left }}
+          EXPIRY: ${{ steps.expiry.outputs.expiry }}
         run: |
           set -euo pipefail
-          days_left="${{ steps.expiry.outputs.days_left }}"
-          expiry="${{ steps.expiry.outputs.expiry }}"
+          days_left="$DAYS_LEFT"
+          expiry="$EXPIRY"
           if [ "$days_left" -gt 14 ]; then
             echo "[pat-expiry-check] days_left=$days_left, no action needed"
             exit 0

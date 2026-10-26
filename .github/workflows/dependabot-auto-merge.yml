@@ -14,7 +14,10 @@ concurrency:
 
 jobs:
   auto-merge:
-    if: github.actor == 'dependabot[bot]'
+    # 作成者は user.login で見る。github.actor は最後に動いた者で、作成者ではない(zizmor の
+    # bot-conditions)。head が別リポの PR は対象にしない。actor も Dependabot に限るのは、
+    # 人が push した後の run では動かないようにするため(作成者の判定には使っていない)。
+    if: github.event.pull_request.user.login == 'dependabot[bot]' && github.repository == github.event.pull_request.head.repo.full_name && github.actor == 'dependabot[bot]' # zizmor: ignore[bot-conditions] actor は作成者の判定でなく、人の push 後の run を外すために残している
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
