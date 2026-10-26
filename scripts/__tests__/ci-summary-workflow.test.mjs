@@ -583,7 +583,7 @@ test("同じ commit の判定は head_sha で直列化する", () => {
   assert.match(yaml(), /^ {2}cancel-in-progress: false$/m);
 });
 
-test("workflows: の列挙は、PR で起動する workflow の name と過不足なく一致する", () => {
+test("on: は workflow_run だけで、workflows: の列挙は PR で起動する workflow の name と過不足なく一致する", () => {
   // PR 起動の workflow を足したのにここへ足し忘れると、その完了では再判定が走らない。
   // `on: pull_request`(1 行形)と `on:` ブロック直下の `pull_request:` の両方を拾う。
   // コメント・`if:` 式・ci-summary 自身の `workflow_run.event == 'pull_request'` は拾わない。
@@ -610,4 +610,11 @@ test("workflows: の列挙は、PR で起動する workflow の name と過不�
   assert.ok(listed, "workflows: [...] の 1 行形が読めない");
   const actual = listed[1].split(",").map((s) => s.trim());
   assert.deepEqual(actual.sort(), expected.sort());
+  // workflow_run: の行の ignore[dangerous-triggers] は on: 全体に効き、ここに足したトリガーの指摘も
+  // zizmor から消える(1.31.1 で実測)。トリガーを足すなら、抑止を外して zizmor を当て直すこと。
+  assert.deepEqual(
+    Object.keys(YAML.parse(yaml(), { merge: true }).on ?? {}),
+    ["workflow_run"],
+    "on: に workflow_run 以外のトリガーがある(抑止がその指摘も黙らせる)"
+  );
 });
