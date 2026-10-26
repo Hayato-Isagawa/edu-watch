@@ -23,10 +23,9 @@
 #   CLOUDFLARE_ACCOUNT_ID - Cloudflare account id
 #   CLOUDFLARE_ZONE_ID    - the shared edu-evidence.org zone id
 #
-# The token previously needed "Cloudflare Pages: Read" instead; it was re-scoped
-# on 2026-08-05. The fallback below stays anyway: if the lookup ever fails (a
-# rotated or mis-scoped token), the job waits a fixed interval and purges rather
-# than erroring — the cache still gets purged, just less precisely.
+# If the build cannot be checked (the tag lookup or the builds API keeps
+# failing, e.g. a rotated or mis-scoped token), the job still purges after a
+# fixed wait, then fails so the cause gets fixed (ADR 0081).
 name: Purge Cloudflare cache on deploy
 
 on:
@@ -45,11 +44,11 @@ jobs:
   purge:
     name: Wait for the Workers deploy, then purge cache
     runs-on: ubuntu-latest
-    # 内部で Workers Builds の完了を最大 25 分ポーリングし(seq 1 100 × sleep 15)、
-    # script tag を解決できないときは固定で 3 分待つ。35 分はポーリング上限に 10 分足した値。
-    # ポーリングを 10 分から延ばしたのは、成功するまで約 12.5 分・約 20 分かかった
-    # ビルドがあり(2026-09-30 / 2026-10-21)、10 分では purge に届かなかったため(ADR 0080)。
-    timeout-minutes: 35
+    # 待ちは経過時間で打ち切る(ADR 0081)。自分のビルドに OWN_BUILD_SECONDS、
+    # 置き換えた新しいビルドを追う分を含めて全体で TOTAL_SECONDS。期限の判定は
+    # API を呼ぶ前なので、最後の 1 回の待ち(最長 MAX_RETRY_AFTER)と curl 2 回分
+    # (CURL_MAX_TIME × 2)だけ期限を越えうる。55 分はその合計に余裕を足した値。
+    timeout-minutes: 55
     steps:
       - name: Purge after deployment is live
         env:
@@ -57,6 +56,18 @@ jobs:
           CF_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           CF_ZONE_ID: ${{ secrets.CLOUDFLARE_ZONE_ID }}
           WORKER_NAME: edu-watch
+          # 自分のビルドを待つ上限。成功までに約 12.5 分・約 20 分かかったビルドが
+          # あり(2026-09-30 / 2026-10-21)、10 分では purge に届かなかった(ADR 0080)。
+          OWN_BUILD_SECONDS: "1500"
+          # skipped の後に新しいビルドを追う分も含めた上限。skipped から置き換えた
+          # ビルドが終わるまでの実測の最長は約 27 分(全 839 件、2026-10-26)。
+          TOTAL_SECONDS: "2700"
+          POLL_INTERVAL: "15"
+          FALLBACK_WAIT: "180"
+          CURL_MAX_TIME: "20"
+          MAX_API_ERRORS: "5"
+          MAX_RETRY_AFTER: "300"
+          PER_PAGE: "50"
         run: |
           set -euo pipefail
 
@@ -67,74 +78,176 @@ jobs:
 
           sha="${GITHUB_SHA}"
           api="https://api.cloudflare.com/client/v4"
+          body_file="$(mktemp)"
+          hdr_file="$(mktemp)"
+          api_errors=0
+
+          now() { date +%s; }
+          start=$(now)
+          own_deadline=$((start + OWN_BUILD_SECONDS))
+          total_deadline=$((start + TOTAL_SECONDS))
+
+          snippet() { head -c 500 "${body_file}" | tr '\n' ' '; }
+
+          purge() {
+            local resp
+            resp=$(curl -sS --max-time "${CURL_MAX_TIME}" -X POST \
+              -H "Authorization: Bearer ${CF_API_TOKEN}" \
+              -H "Content-Type: application/json" \
+              "${api}/zones/${CF_ZONE_ID}/purge_cache" \
+              --data '{"purge_everything":true}') || resp="curl exited $?"
+            if ! jq -e '.success == true' >/dev/null 2>&1 <<<"${resp}"; then
+              echo "::error::Purge failed: ${resp}"
+              exit 1
+            fi
+            echo "Cache purged."
+          }
+
+          # The build cannot be checked. Purge anyway so the cache is cleared,
+          # then fail so the cause (usually the token) gets fixed.
+          fallback() {
+            local wait
+            echo "::error::$1 The build could not be checked; purging after a fixed wait, then failing."
+            wait=$((start + FALLBACK_WAIT - $(now)))
+            if [ "${wait}" -gt 0 ]; then sleep "${wait}"; fi
+            purge
+            exit 1
+          }
+
+          # A failure that may clear up: count it, give up after MAX_API_ERRORS
+          # in a row, otherwise wait one interval.
+          transient() {
+            api_errors=$((api_errors + 1))
+            echo "::warning::$1 (${api_errors}/${MAX_API_ERRORS} in a row)"
+            if [ "${api_errors}" -ge "${MAX_API_ERRORS}" ]; then
+              fallback "Cloudflare API failed ${api_errors} times in a row. Last: $1"
+            fi
+            sleep "${POLL_INTERVAL}"
+          }
+
+          # GET a Cloudflare API URL into body_file. Returns 0 on success and 1
+          # when the caller should try again (this function has already waited).
+          #   429                 -> wait Retry-After (capped), not counted
+          #   5xx / curl failure / success != true -> transient (counted)
+          #   any other status    -> fallback (401 / 403 / 404 do not heal)
+          cf_get() {
+            local code ra
+            : > "${body_file}"
+            : > "${hdr_file}"
+            code=$(curl -sS --max-time "${CURL_MAX_TIME}" -o "${body_file}" -D "${hdr_file}" \
+              -w '%{http_code}' -H "Authorization: Bearer ${CF_API_TOKEN}" "$1") || code="000"
+            case "${code}" in
+              2??)
+                if jq -e '.success == true' "${body_file}" >/dev/null 2>&1; then
+                  return 0
+                fi ;;
+              429)
+                ra=$(tr -d '\r' < "${hdr_file}" | awk -F': *' 'tolower($1) == "retry-after" { v = $2 } END { print v }')
+                case "${ra}" in ''|*[!0-9]*) ra="${POLL_INTERVAL}" ;; esac
+                if [ "${ra}" -gt "${MAX_RETRY_AFTER}" ]; then ra="${MAX_RETRY_AFTER}"; fi
+                echo "Rate limited by the Cloudflare API; waiting ${ra}s"
+                sleep "${ra}"
+                return 1 ;;
+              000|5??) ;;
+              *)
+                fallback "Cloudflare API returned HTTP ${code}: $(snippet)" ;;
+            esac
+            transient "Cloudflare API call failed (HTTP ${code}): $(snippet)"
+            return 1
+          }
 
           # Workers Builds is addressed by script tag, so resolve it from the name.
-          tag=$(curl -sS -H "Authorization: Bearer ${CF_API_TOKEN}" \
-            "${api}/accounts/${CF_ACCOUNT_ID}/workers/services/${WORKER_NAME}" 2>/dev/null \
-            | jq -r '.result.default_environment.script.tag // empty' 2>/dev/null || echo "")
-
+          tag=""
+          until cf_get "${api}/accounts/${CF_ACCOUNT_ID}/workers/services/${WORKER_NAME}"; do
+            if [ "$(now)" -ge "${own_deadline}" ]; then
+              fallback "Timed out looking up the script tag for ${WORKER_NAME}."
+            fi
+          done
+          tag=$(jq -r '.result.default_environment.script.tag // empty' "${body_file}")
           if [ -z "${tag}" ]; then
-            # Most likely the API token still carries the old Pages scope.
-            echo "::warning::Could not resolve the script tag for ${WORKER_NAME}; the token may lack Account > Workers Scripts: Read. Waiting a fixed 3 min instead."
-            sleep 180
-          else
-            live=0
-            # Poll Workers Builds until this commit's production build finishes
-            # (max ~25 min). Preview builds run on other branches, so the branch
-            # is matched too.
-            #
-            # build_outcome is null until the build stops, and then one of
-            # success / fail / skipped / cancelled / terminated (Cloudflare API
-            # schema, builds_BuildOutcome). "pending" below is our own marker for
-            # "null, not listed yet, or the API call failed".
-            #   - fail / terminated (and unknown values): production still serves
-            #     the previous deploy, so fail the job to make it visible. A
-            #     terminated build gets no check-run on the commit, and before
-            #     this the job waited out the poll and ended green (2026-10-23).
-            #   - cancelled / skipped: not red. skipped means a newer queued build
-            #     superseded this one (Workers Builds does this since 2026-07-24).
-            #     This build put nothing live. The newer build is not watched
-            #     here: its commit may have no run of this workflow at all
-            #     (merges made with GITHUB_TOKEN, e.g. Dependabot's, trigger no
-            #     push workflows), so its deploy can stay unpurged until the
-            #     Edge TTL expires. The docs do not say whether a build stopped
-            #     by hand reports cancelled or terminated.
-            # failure / canceled are the spellings Workers Builds event
-            # subscriptions use; kept in case the REST API ever returns them.
-            for i in $(seq 1 100); do
-              outcome=$(curl -sS -H "Authorization: Bearer ${CF_API_TOKEN}" \
-                "${api}/accounts/${CF_ACCOUNT_ID}/builds/workers/${tag}/builds?per_page=20" 2>/dev/null \
-                | jq -r --arg sha "$sha" \
-                  'first(.result[]? | select(.build_trigger_metadata.commit_hash == $sha and .build_trigger_metadata.branch == "main") | .build_outcome) // "pending"' \
-                2>/dev/null || echo "pending")
-              echo "attempt ${i}: build outcome = ${outcome}"
-              case "${outcome}" in
-                success) live=1; break ;;
-                pending) sleep 15 ;;
-                cancelled|canceled|skipped)
-                  echo "Build of ${sha} was ${outcome}; nothing new went live, skipping purge"
-                  exit 0 ;;
-                fail|failure|terminated)
-                  echo "::error::Workers build of ${sha} ended as ${outcome}; production still serves the previous deploy. Skipping purge."
-                  exit 1 ;;
-                *)
-                  echo "::error::Unknown build outcome '${outcome}' for ${sha}; skipping purge. Check Workers Builds and update this list."
-                  exit 1 ;;
-              esac
-            done
+            fallback "Could not resolve the script tag for ${WORKER_NAME}; the token may lack Account > Workers Scripts: Read."
+          fi
+          api_errors=0
 
-            if [ "${live}" -ne 1 ]; then
+          # build_outcome is null until the build stops, and then one of
+          # success / fail / skipped / cancelled / terminated (Cloudflare API
+          # schema, builds_BuildOutcome). The list has no sort parameter, so
+          # builds are ordered by created_on here. Preview builds run on other
+          # branches, so the branch is matched too.
+          #   - fail / terminated (and unknown values): production does not serve
+          #     this commit, so fail the job to make it visible. A terminated
+          #     build gets no check-run on the commit (2026-10-23, ADR 0080).
+          #   - skipped / cancelled: this build put nothing live. skipped means a
+          #     newer queued build with the same trigger superseded it (Workers
+          #     Builds does this since 2026-07-24). That newer commit may have no
+          #     run of this workflow at all (merges made with GITHUB_TOKEN, e.g.
+          #     Dependabot's, trigger no push workflows), so follow the newest
+          #     build that came after this one and purge when it succeeds. If no
+          #     newer build is listed (e.g. cancelled by hand), skip the purge.
+          # failure / canceled are the spellings Workers Builds event
+          # subscriptions use; kept in case the REST API ever returns them.
+          builds_url="${api}/accounts/${CF_ACCOUNT_ID}/builds/workers/${tag}/builds?per_page=${PER_PAGE}"
+          defs='def ts: (capture("^(?<s>[^.]+?)(?<f>\\.[0-9]+)?Z$") // error("unexpected created_on: \(.)")) | (.s + "Z" | fromdateiso8601) + (("0" + (.f // "")) | tonumber);
+                def row: "\(.build_outcome // "pending") \(.created_on) \(.trigger.trigger_uuid // "-") \(.build_trigger_metadata.commit_hash)";'
+          own_filter='[.result[]? | select(.build_trigger_metadata.commit_hash == $sha and .build_trigger_metadata.branch == "main")]
+                | sort_by(.created_on | ts) | last | if . == null then "pending - - -" else row end'
+          newer_filter='[.result[]? | select(.build_trigger_metadata.branch == "main"
+                  and ($trig == "-" or .trigger.trigger_uuid == $trig)
+                  and (.created_on | ts) > ($created | ts))]
+                | sort_by(.created_on | ts) | last | if . == null then "none - - -" else row end'
+
+          phase=own
+          created="-"
+          trig="-"
+          attempt=0
+          while :; do
+            if [ "${phase}" = own ] && [ "$(now)" -ge "${own_deadline}" ]; then
               echo "::error::Timed out waiting for the build of ${sha}; skipping purge"
               exit 1
             fi
-          fi
+            if [ "${phase}" = follow ] && [ "$(now)" -ge "${total_deadline}" ]; then
+              echo "::error::Timed out waiting for the build that superseded ${sha}; skipping purge"
+              exit 1
+            fi
+            cf_get "${builds_url}" || continue
+            attempt=$((attempt + 1))
+            if [ "${phase}" = own ]; then
+              line=$(jq -r --arg sha "${sha}" "${defs} ${own_filter}" "${body_file}") || line=""
+            else
+              line=$(jq -r --arg trig "${trig}" --arg created "${created}" "${defs} ${newer_filter}" "${body_file}") || line=""
+            fi
+            if [ -z "${line}" ]; then
+              transient "Could not read the builds list: $(snippet)"
+              continue
+            fi
+            api_errors=0
+            read -r outcome b_created b_trig b_sha <<<"${line}"
+            echo "attempt ${attempt} (${phase}): build outcome = ${outcome}${b_sha:+ (${b_sha})}"
+            case "${outcome}" in
+              success)
+                break ;;
+              pending)
+                sleep "${POLL_INTERVAL}" ;;
+              none)
+                echo "No newer build superseded ${sha}; nothing new went live, skipping purge"
+                exit 0 ;;
+              cancelled|canceled|skipped)
+                if [ "${phase}" = follow ]; then
+                  echo "The newer build ${b_sha} was ${outcome}; nothing new went live, skipping purge"
+                  exit 0
+                fi
+                echo "Build of ${sha} was ${outcome}; following the newer build that superseded it"
+                phase=follow
+                created="${b_created}"
+                trig="${b_trig}" ;;
+              fail|failure|terminated)
+                echo "::error::Workers build ${b_sha} ended as ${outcome}; production does not serve ${sha}. Skipping purge."
+                exit 1 ;;
+              *)
+                echo "::error::Unknown build outcome '${outcome}' for ${b_sha}; skipping purge. Check Workers Builds and update this list."
+                exit 1 ;;
+            esac
+          done
 
           echo "Deployment live; purging zone cache"
-          resp=$(curl -sS -X POST \
-            -H "Authorization: Bearer ${CF_API_TOKEN}" \
-            -H "Content-Type: application/json" \
-            "${api}/zones/${CF_ZONE_ID}/purge_cache" \
-            --data '{"purge_everything":true}')
-          echo "${resp}" | jq -e '.success == true' >/dev/null \
-            || { echo "::error::Purge failed: ${resp}"; exit 1; }
-          echo "Cache purged."
+          purge

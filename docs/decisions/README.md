@@ -129,3 +129,4 @@ EduEvidence JP と共通の運営方針(植物モチーフブランド体系 / N
 - [0078. 0.x の本番依存の minor 更新を自動マージから外し、OG の描画を E2E で検査する](0078-hold-zero-major-production-deps-and-og-render-check.md)
 - [0079. bot の収集と push を別 job に分け、PAT を依存のコードから隔てる](0079-split-bot-collect-and-push-jobs.md)
 - [0080. cf-purge は、ビルドが本番に出なかったときに赤で終わる](0080-cf-purge-terminal-build-outcomes.md)
+- [0081. cf-purge は、置き換えた新しいビルドを追い、確かめられないときは purge して赤で終わる](0081-cf-purge-follow-superseding-build.md)
