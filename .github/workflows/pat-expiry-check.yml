@@ -47,7 +47,7 @@ jobs:
         if: steps.expiry.outputs.skip != 'true'
         run: |
           gh label create pat-expiry \
-            --repo "${{ github.repository }}" \
+            --repo "$GITHUB_REPOSITORY" \
             --description "PAT 有効期限 14 日以内の警告(ADR 0044)" \
             --color d76d77 \
             --force 2>/dev/null || true
@@ -66,7 +66,7 @@ jobs:
             exit 0
           fi
           existing=$(gh issue list \
-            --repo "${{ github.repository }}" \
+            --repo "$GITHUB_REPOSITORY" \
             --label pat-expiry \
             --state open \
             --json number --jq 'length')
@@ -97,7 +97,7 @@ jobs:
           EOF
           )
           gh issue create \
-            --repo "${{ github.repository }}" \
+            --repo "$GITHUB_REPOSITORY" \
             --title "AUTO_COLLECT_PAT expires in ${days_left} days (${expiry})" \
             --body "$body" \
             --label pat-expiry

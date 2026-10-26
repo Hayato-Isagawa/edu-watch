@@ -379,3 +379,14 @@ test("判定ステップは continue-on-error で黙らず、if: で飛ばされ
   const decide = steps.find((s) => s.includes("run: |"));
   assert.doesNotMatch(decide, /^\s+if:/m);
 });
+
+test("job の if: が、作成者・head のリポ・actor の 3 条件と理由つきの抑止を持つ", () => {
+  // この行には zizmor の bot-conditions を抑止するコメントが付いていて、抑止は条件を書き換えても
+  // 残る(作成者の判定を消して actor だけに戻しても zizmor は何も出さない。1.31.1 で実測)ので、
+  // ここで行ごと固定する。
+  assert.match(
+    yaml(),
+    /^ {4}if: github\.event\.pull_request\.user\.login == 'dependabot\[bot\]' && github\.repository == github\.event\.pull_request\.head\.repo\.full_name && github\.actor == 'dependabot\[bot\]' # zizmor: ignore\[bot-conditions\] \S.*$/m,
+    "Dependabot の判定(作成者・head のリポ・actor)と、actor を残す理由つきの抑止が無い"
+  );
+});
