@@ -17,7 +17,7 @@ import os from "node:os";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { isDeepStrictEqual } from "node:util";
-import YAML from "yaml";
+import { mergeKeyPaths, parseWorkflow, replaceOnce } from "./workflow-yaml.mjs";
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const WORKFLOWS_DIR = path.join(HERE, "..", "..", ".github", "workflows");
@@ -28,17 +28,17 @@ const yaml = () => fs.readFileSync(WORKFLOW, "utf8");
  * 権限と if の規則に反している箇所を返す(例: `job notify permissions` / `step notify[0] if`)。
  *
  * 字面ではなくパース結果で見る。字面だと `"permissions":` / `? permissions` / フロー形のような
- * YAML として等価な書き方も、step の if も、notify より前に置いた別の job も素通りする(#723)。
- * `merge: true` はマージキー(`<<:`)を展開する。既定では `<<` が 1 つのキーとして残り、
- * `<<: {permissions: …}` と書いた権限が job の permissions に見えない。
+ * YAML として等価な書き方も、step の if も、notify より前に置いた別の job も素通りする(#723 / #920)。
  * edu-law の同じテスト(Hayato-Isagawa/edu-law#273 / #336 / #340)からの移植。
+ *
+ * マージキー(`<<:`)は、使っていること自体を違反にする(workflow-yaml.mjs)。
  *
  * 実ファイルでは違反 0 しか見えず、判定を無効にしても緑のまま通るので、下の fixture で
  * 規則ごとに発火することも確かめている。
  */
 function violations(src) {
-  const doc = YAML.parse(src, { merge: true });
-  const found = [];
+  const doc = parseWorkflow(src);
+  const found = mergeKeyPaths(src).map((at) => `merge key ${at}`);
   if (
     !isDeepStrictEqual(doc?.permissions, {
       checks: "read",
@@ -63,13 +63,54 @@ function violations(src) {
   return found;
 }
 
+// 通知ステップの run が読む値。SELF が空だと `grep -v -F ""` が全行を落として無音で終わるので、
+// キーだけでなく値も固定する。余分なキーは見ない
+const ENV = {
+  GH_TOKEN: "${{ github.token }}",
+  GH_REPO: "${{ github.repository }}",
+  SHA: "${{ github.event.workflow_run.head_sha }}",
+  PR_FROM_EVENT: "${{ github.event.workflow_run.pull_requests[0].number }}",
+  SELF: "${{ github.job }}",
+};
+
+/**
+ * 通知ステップの配線(run の所在・env の値・直列化)に反している箇所を返す。
+ * `violations()` と同じくパース結果で見る。マージキーの検出は `violations()` が受け持つ。
+ *
+ * job に concurrency を置くと、workflow 直下の group に加えてもう 1 つ group がかかる。
+ * 既定の queue: single は待っている run を cancel し、cancel-in-progress も効くので、
+ * どちらでも通知が消えうる。
+ */
+function wiring(src) {
+  const doc = parseWorkflow(src);
+  const found = [];
+  const c = doc?.concurrency;
+  if (c?.group !== "ci-summary-${{ github.event.workflow_run.head_sha }}")
+    found.push("concurrency group");
+  if (c?.["cancel-in-progress"] !== false)
+    found.push("concurrency cancel-in-progress");
+  for (const [name, job] of Object.entries(doc?.jobs ?? {}))
+    if (Object.hasOwn(job ?? {}, "concurrency"))
+      found.push(`job ${name} concurrency`);
+  const runs = notifyRunSteps(doc);
+  if (runs.length !== 1) found.push(`notify run steps ${runs.length}`);
+  const env = runs[0]?.env ?? {};
+  for (const [key, value] of Object.entries(ENV))
+    if (env[key] !== value) found.push(`env ${key}`);
+  return found;
+}
+
+/** notify job で run を持つステップ。テストが走らせる本体はこの 1 つ */
+const notifyRunSteps = (doc) =>
+  (doc?.jobs?.notify?.steps ?? []).filter((s) => Object.hasOwn(s ?? {}, "run"));
+
 const SHA = "0123456789abcdef0123456789abcdef01234567";
 const MARKER = `<!-- ci-summary: ${SHA} -->`;
 
 /**
  * ワークフローの `run: |` ブロックを取り出す。
- * ci-summary.yml の `run: |` は通知ステップの 1 つだけ。
- * 2 つ目が増えたらこの前提が崩れるので、そのことも下でテストしている。
+ * 字面で最初の `run: |` を取るので、取り出した本文が notify の run と一致することを
+ * 下でテストしている。
  */
 function extractRunBlock(yamlPath) {
   const lines = fs.readFileSync(yamlPath, "utf8").split("\n");
@@ -380,29 +421,33 @@ test("コメント一覧の API が失敗したら、投稿せずステップご
   assert.equal(r.commentedBody, null, "API エラーなのに投稿している");
 });
 
-test("run: | ブロックは 1 つだけ(テストが別のステップを走らせていない)", () => {
-  const count = yaml()
-    .split("\n")
-    .filter((l) => /^\s+run: \|\s*$/.test(l)).length;
+test("テストが走らせる本文は、notify の run そのもの", () => {
+  // extractRunBlock は字面で最初の `run: |` を取る。別のステップに run を足すと、
+  // テストが本体とは別のスクリプトを検証することになる
+  assert.deepEqual(
+    wiring(yaml()).filter((v) => v.startsWith("notify run steps")),
+    []
+  );
+  const [step] = notifyRunSteps(parseWorkflow(yaml()));
   assert.equal(
-    count,
-    1,
-    `run: | が ${count} 個ある。extractRunBlock の前提が崩れている`
+    String(step.run).trimEnd(),
+    extractRunBlock(WORKFLOW).trimEnd(),
+    "extractRunBlock が notify の run と別の本文を取り出している"
   );
 });
 
 test("run: が読む値は env で渡っている(SELF は job 名)", () => {
-  // SELF が空だと `grep -v -F ""` が全行を落として無音で終わる。キーだけでなく値も固定する。
-  const src = yaml();
-  for (const line of [
-    /^ {10}GH_TOKEN: \$\{\{ github\.token \}\}$/m,
-    /^ {10}GH_REPO: \$\{\{ github\.repository \}\}/m,
-    /^ {10}SHA: \$\{\{ github\.event\.workflow_run\.head_sha \}\}$/m,
-    /^ {10}PR_FROM_EVENT: \$\{\{ github\.event\.workflow_run\.pull_requests\[0\]\.number \}\}$/m,
-    /^ {10}SELF: \$\{\{ github\.job \}\}/m,
-  ]) {
-    assert.match(src, line);
-  }
+  assert.deepEqual(
+    wiring(yaml()).filter((v) => v.startsWith("env ")),
+    []
+  );
+});
+
+test("マージキー(<<:)を使っていない(GitHub Actions は展開しない)", () => {
+  assert.deepEqual(
+    violations(yaml()).filter((v) => v.startsWith("merge key")),
+    []
+  );
 });
 
 test("token の権限は check-run の参照とコメント投稿だけ", () => {
@@ -415,13 +460,11 @@ test("token の権限は check-run の参照とコメント投稿だけ", () => 
 test("PR 由来の run だけを、Dependabot と自動収集 PR を除いて扱う", () => {
   // 字面ではなく notify の if の値で見る(コメント行に移しただけの式を拾わない)。
   // 部分一致だと `… != 'dependabot[bot]' || true` のように字面を残したまま条件を
-  // 無効にできるので、空白を詰めた式全体を固定する。式を変えるときはこの期待値も直す。
+  // 無効にできるので、空白を詰めた式全体を固定する。式を変えるときはこの期待値も直す
   //
   // fetch-news / recheck-nikkyo-membership が PAT で作る自動 PR は actor がユーザー本人なので、
   // ブランチ名で除く。外すと自動 PR の CI が緑になるたび(最大 1 日 2 回)通知が届く。
-  const cond = String(
-    YAML.parse(yaml(), { merge: true }).jobs?.notify?.if ?? ""
-  )
+  const cond = String(parseWorkflow(yaml()).jobs?.notify?.if ?? "")
     .replace(/\s+/g, " ")
     .trim();
   assert.equal(
@@ -474,11 +517,7 @@ jobs:
       - run: echo ok
 `;
 
-/** FIXTURE の一部を置き換える。置き換え元が無ければ fixture が意味を失うので落とす */
-function fixture(from, to) {
-  assert.ok(FIXTURE.includes(from), `fixture に ${from} が無い`);
-  return FIXTURE.replace(from, to);
-}
+const fixture = (from, to) => replaceOnce(FIXTURE, from, to);
 
 const JOB_PERMS = (key) =>
   fixture(
@@ -524,12 +563,25 @@ test("fixture: フロー形の job の permissions を拾う", () => {
   assert.deepEqual(violations(src), ["job notify permissions"]);
 });
 
-test("fixture: マージキー(<<:)で入れた job の permissions を拾う", () => {
+test("fixture: マージキー(<<:)で入れた job の permissions は、マージキーとして拾う", () => {
+  // GitHub は展開しないので permissions としては効かないが、書いた側の意図はそれ
   const src = fixture(
     "    runs-on: ubuntu-latest\n",
     "    runs-on: ubuntu-latest\n    <<: {permissions: {contents: write}}\n"
   );
-  assert.deepEqual(violations(src), ["job notify permissions"]);
+  assert.deepEqual(violations(src), ["merge key jobs.notify"]);
+});
+
+test("fixture: workflow 直下の permissions をマージキーで書くと、権限が無いものとして拾う", () => {
+  // merge: true で読むと deepEqual が通ってしまう形(GitHub では権限が宣言されていない)
+  const src = fixture(
+    "permissions:\n  checks: read\n  pull-requests: write\n",
+    "permissions:\n  <<: {checks: read, pull-requests: write}\n"
+  );
+  assert.deepEqual(violations(src), [
+    "merge key permissions",
+    "workflow permissions",
+  ]);
 });
 
 test("fixture: step の permissions を拾う", () => {
@@ -576,11 +628,75 @@ test("fixture: workflow 直下の permissions に空行を挟んで足した権�
 });
 
 test("同じ commit の判定は head_sha で直列化する", () => {
-  assert.match(
-    yaml(),
-    /^ {2}group: ci-summary-\$\{\{ github\.event\.workflow_run\.head_sha \}\}$/m
+  assert.deepEqual(
+    wiring(yaml()).filter((v) => v.includes("concurrency")),
+    []
   );
-  assert.match(yaml(), /^ {2}cancel-in-progress: false$/m);
+});
+
+// ---- 配線(wiring)の fixture。実ファイルの 1 か所だけを書き換える ----
+
+const real = (from, to) => replaceOnce(yaml(), from, to);
+
+test("fixture: 実ファイルのままでは配線の違反 0(以下の fixture の対照)", () => {
+  assert.deepEqual(wiring(yaml()), []);
+});
+
+test("fixture: job に置いた concurrency を拾う", () => {
+  const src = real("  notify:\n", "  notify:\n    concurrency: notify\n");
+  assert.deepEqual(wiring(src), ["job notify concurrency"]);
+});
+
+test('fixture: job に置いた "concurrency": (引用符付き)を拾う', () => {
+  const src = real("  notify:\n", '  notify:\n    "concurrency": notify\n');
+  assert.deepEqual(wiring(src), ["job notify concurrency"]);
+});
+
+test("fixture: cancel-in-progress を true にすると拾う", () => {
+  const src = real(
+    "  cancel-in-progress: false\n",
+    "  cancel-in-progress: true\n"
+  );
+  assert.deepEqual(wiring(src), ["concurrency cancel-in-progress"]);
+});
+
+test("fixture: group を head_sha 以外にすると拾う", () => {
+  const src = real(
+    "  group: ci-summary-${{ github.event.workflow_run.head_sha }}\n",
+    "  group: ci-summary-${{ github.run_id }}\n"
+  );
+  assert.deepEqual(wiring(src), ["concurrency group"]);
+});
+
+test("fixture: concurrency をマージキーで書くと、無いものとして拾う", () => {
+  const src = real(
+    "concurrency:\n  group: ci-summary-${{ github.event.workflow_run.head_sha }}\n  cancel-in-progress: false\n",
+    "concurrency:\n  <<: {group: 'ci-summary-${{ github.event.workflow_run.head_sha }}', cancel-in-progress: false}\n"
+  );
+  assert.deepEqual(wiring(src), [
+    "concurrency group",
+    "concurrency cancel-in-progress",
+  ]);
+  assert.deepEqual(violations(src), ["merge key concurrency"]);
+});
+
+test("fixture: env の SELF を空にすると拾う", () => {
+  const src = real("          SELF: ${{ github.job }}", '          SELF: ""');
+  assert.deepEqual(wiring(src), ["env SELF"]);
+});
+
+test("fixture: env のキーを引用符で書いても、値が同じなら違反にしない", () => {
+  const src = real("          GH_TOKEN:", '          "GH_TOKEN":');
+  assert.deepEqual(wiring(src), []);
+});
+
+test("fixture: notify に run を持つステップをもう 1 つ足すと拾う", () => {
+  const src = real("    steps:\n", "    steps:\n      - run: echo before\n");
+  // 先頭に足したステップには env が無いので、env も全部欠けて見える
+  assert.deepEqual(wiring(src), [
+    "notify run steps 2",
+    ...Object.keys(ENV).map((k) => `env ${k}`),
+  ]);
 });
 
 test("on: は workflow_run だけで、workflows: の列挙は PR で起動する workflow の name と過不足なく一致する", () => {
@@ -593,9 +709,8 @@ test("on: は workflow_run だけで、workflows: の列挙は PR で起動す�
     .readdirSync(WORKFLOWS_DIR)
     .filter((n) => /\.ya?ml$/.test(n))) {
     if (f === "ci-summary.yml") continue;
-    const wf = YAML.parse(
-      fs.readFileSync(path.join(WORKFLOWS_DIR, f), "utf8"),
-      { merge: true }
+    const wf = parseWorkflow(
+      fs.readFileSync(path.join(WORKFLOWS_DIR, f), "utf8")
     );
     assert.ok(
       typeof wf?.name === "string" && wf.name.trim(),
@@ -619,7 +734,7 @@ test("on: は workflow_run だけで、workflows: の列挙は PR で起動す�
   // workflow_run: の行の ignore[dangerous-triggers] は on: 全体に効き、ここに足したトリガーの指摘も
   // zizmor から消える(1.31.1 で実測)。トリガーを足すなら、抑止を外して zizmor を当て直すこと。
   assert.deepEqual(
-    Object.keys(YAML.parse(yaml(), { merge: true }).on ?? {}),
+    Object.keys(parseWorkflow(yaml()).on ?? {}),
     ["workflow_run"],
     "on: に workflow_run 以外のトリガーがある(抑止がその指摘も黙らせる)"
   );

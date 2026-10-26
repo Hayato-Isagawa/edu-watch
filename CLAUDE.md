@@ -53,6 +53,11 @@ okinawa-in-data では open な link-check Issue があると後続の検出を�
 - `Upload report` が job を落とさないこと(落ちると通知ステップの暗黙の `success()` が偽になる)
 - `output:` とシェルが読むファイル名が一致していること
 
+権限・`id`・`continue-on-error` は、字面ではなく `yaml` でパースした結果で、対象の job / ステップに束縛して見る
+(`"continue-on-error":` や `? continue-on-error` のような等価な書き方を素通りさせない。job 直下の
+`continue-on-error` も見る。#920)。共通部分は `scripts/__tests__/workflow-yaml.mjs`。マージキー(`<<:`)は
+GitHub Actions が展開しないので(actions/runner#1182)、`merge: false` で読み、使っていること自体を違反にする。
+
 通知は 3 分岐。タイトルが実態と食い違わないようにしてある:
 
 | 状況 | タイトル |
@@ -65,7 +70,7 @@ okinawa-in-data では open な link-check Issue があると後続の検出を�
 PR のコンテンツ」で撮る配線(ADR 0068)も、**壊れても CI は緑のまま**だから — 運ぶ素材を 1 つ
 落としても、テストは走り、多くのページは通る。一番腐りやすいのは運ぶ素材の allowlist なので、
 `src/` の実ディレクトリを走査して「運ぶ・`paths` で監視する・描画に入らないと明言する」の
-三択を強制している。**テストを足したら `package.json` の下限(現在 171、実測ちょうど)も上げること。**
+三択を強制している。**テストを足したら `package.json` の下限(現在 206、実測ちょうど)も上げること。**
 
 `vrt-targets.test.mjs` も同じ口にある。VRT の撮影が**静かに減る**経路(対象を消す・ループを絞る・
 projects を削る・skip に落とす・`fullPage` を落とす・比較設定を緩める・比較ステップを撮り直しにする・
@@ -92,8 +97,10 @@ project 側に `baseURL` を置くことも許さない。CI では `!process.en
 絞り込みが無いと Cloudflare の check-run(`workflow_run` を起こさない)を待ち続けて通知が消えるので、
 フィルタを素通りさせると退行を検出できない。重複防止の印は github-actions[bot] のコメントからだけ拾うことも見る。YAML 側は `workflows:` の列挙が「`on:` に `pull_request` を
 持つ workflow の `name:`」と過不足なく一致することも見る(PR 起動の workflow を足したのに列挙し忘れると、
-その完了では再判定が走らない)。権限の置き場所・job と step の `if:`・notify の `if:` の式は、字面ではなく
-`yaml` でパースした結果で見る(`"permissions":` や `? permissions` のような等価な書き方を素通りさせない。#723)。
+その完了では再判定が走らない)。権限の置き場所・job と step の `if:`・notify の `if:` の式・通知ステップの env の値・`concurrency`
+(workflow 直下の値と、job に置かないこと)・テストが走らせる本文が通知ステップの `run` と一致することは、字面ではなく
+`yaml` でパースした結果で見る(`"permissions":` や `? permissions` のような等価な書き方を素通りさせない。#723 / #920)。
+マージキーは使っていること自体を違反にする。
 実ファイルでは違反 0 しか見えないので、規則ごとに発火することを fixture で確かめている。
 
 3 つ目は `lychee-action` の `failIfEmpty`(既定 true)の経路。**lychee の終了コードを 0 のまま残して
@@ -119,7 +126,8 @@ action だけが exit 1 する**ので、`exit_code` だけを見ていると通
 1 PR に 1 度しか付かないこと(理由が変われば付け直す。照合するのは github-actions[bot] のコメントだけ)と、
 同じ PR の run を PR 番号の `concurrency` で直列化していることも固定している。
 job の `if:`(作成者・head のリポ・actor の 3 条件と、zizmor の `bot-conditions` を理由つきで抑止するコメント)は
-`run:` の外なので行ごと固定する。抑止は条件を書き換えても残るので、actor だけの判定に戻しても zizmor は何も出さない(1.31.1 で実測)。
+`run:` の外なので行ごと固定する。判定ステップに `if:` が無いことと、どの job・ステップにも `continue-on-error` が
+無いことはパース結果で見る(#920)。抑止は条件を書き換えても残るので、actor だけの判定に戻しても zizmor は何も出さない(1.31.1 で実測)。
 
 `cf-purge-workflow.test.mjs` も同じ口。`cf-purge.yml` は Workers Builds の `build_outcome` を見て purge するかを決める。
 case 文が知らない終端値は以前「待つ」に落ち、2026-10-23 に `terminated` のビルドを 10 分待って exit 0 で終わった

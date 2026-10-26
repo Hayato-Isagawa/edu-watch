@@ -22,6 +22,12 @@ import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import {
+  mergeKeyPaths,
+  parseWorkflow,
+  replaceOnce,
+  stepsNamed,
+} from "./workflow-yaml.mjs";
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const WORKFLOW = path.join(
@@ -48,8 +54,8 @@ const RE_REPORT = REPORT_FILE.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 
 /**
  * ワークフローの `run: |` ブロックを取り出す。
- * link-check.yml の `run: |` は Report broken links ステップの 1 つだけ。
- * 2 つ目が増えたらこの前提が崩れるので、そのことも下でテストしている。
+ * 字面で最初の `run: |` を取るので、取り出した本文が Report broken links ステップの
+ * run と一致することを下でテストしている。
  */
 function extractRunBlock(yamlPath) {
   const lines = fs.readFileSync(yamlPath, "utf8").split("\n");
@@ -495,15 +501,50 @@ test("gh issue create が失敗したら、ステップごと落ちる", () => {
   assert.notEqual(r.code, 0, "Issue 作成に失敗したのに成功扱いになっている");
 });
 
-// 次の 3 件は run: ブロックの外側。ステップに届く前に潰される経路は、
+// ここから下は run: ブロックの外側。ステップに届く前に潰される経路は、
 // スクリプトをいくら走らせても見えない。
-//
-// **インデントまで固定する。** YAML は同じキーが階層違いで並ぶので、
-// 深さを見ないと「どこかに 1 行あれば緑」になる。実際 `^ +issues: write$` は、
-// job 側を read に落としてワークフロー全体に write を足すと素通りした
-// (実効権限は job 側＝read なので、本番では通知だけが 403 で消える)。
-// 姉妹リポ(portfolio / okinawa-in-data)の同名テストも同じ深さで締めている。
 const yaml = () => fs.readFileSync(WORKFLOW, "utf8");
+
+/**
+ * 通知が届く前提(権限・lychee の id と continue-on-error・通知を黙らせないこと)に
+ * 反している箇所を返す(例: `job lychee issues permission`)。
+ *
+ * **字面ではなくパース結果で、対象の job / ステップに束縛して見る。** YAML は同じキーが
+ * 階層違いで並ぶので、深さを見ないと「どこかに 1 行あれば緑」になる。実際 `^ +issues: write$`
+ * は、job 側を read に落としてワークフロー全体に write を足すと素通りした(実効権限は
+ * job 側＝read なので、本番では通知だけが 403 で消える)。インデントを固定しても、
+ * `"continue-on-error":` / `? continue-on-error` / フロー形のような等価な書き方は素通りする
+ * (#920)。マージキーは、使っていること自体を違反にする(workflow-yaml.mjs)。
+ */
+function linkCheckViolations(src) {
+  const doc = parseWorkflow(src);
+  const found = mergeKeyPaths(src).map((at) => `merge key ${at}`);
+  const lychee = stepsNamed(doc, "Run lychee");
+  const report = stepsNamed(doc, "Report broken links");
+  if (lychee.length !== 1) found.push(`Run lychee steps ${lychee.length}`);
+  if (report.length !== 1)
+    found.push(`Report broken links steps ${report.length}`);
+  if (lychee.length === 1) {
+    const { step } = lychee[0];
+    // id が消えると steps.lychee.outputs.exit_code が空文字になり、`'' != '0'` が真＝
+    // リンクが全部生きていても毎週 Issue が立つ
+    if (step.id !== "lychee") found.push("lychee id");
+    if (step["continue-on-error"] !== true)
+      found.push("lychee continue-on-error");
+  }
+  if (report.length === 1) {
+    const { jobName, job, step } = report[0];
+    if (job?.permissions?.issues !== "write")
+      found.push(`job ${jobName} issues permission`);
+    // ステップの continue-on-error は gh の失敗をステップで、job の continue-on-error は
+    // job の失敗を run で握り潰す
+    if (Object.hasOwn(step, "continue-on-error"))
+      found.push("report continue-on-error");
+    if (Object.hasOwn(job ?? {}, "continue-on-error"))
+      found.push(`job ${jobName} continue-on-error`);
+  }
+  return found;
+}
 
 test("通知ステップは lychee が異常終了した回に走る", () => {
   // `!= '0'` を `== '0'` にすると、検出があった回にだけ走らなくなる。
@@ -520,7 +561,12 @@ test("通知ステップは lychee が異常終了した回に走る", () => {
 
 test("Issue を書く権限が job に宣言されている", () => {
   // read に落ちると、検出はあるのに通知だけが 403 で消える。
-  assert.match(yaml(), /^ {6}issues: write$/m);
+  assert.deepEqual(
+    linkCheckViolations(yaml()).filter(
+      (v) => v.endsWith(" issues permission") || v.includes(" steps ")
+    ),
+    []
+  );
 });
 
 test("lychee ステップは continue-on-error で、通知ステップを skip させない", () => {
@@ -530,11 +576,12 @@ test("lychee ステップは continue-on-error で、通知ステップを skip 
   // success() が偽 → **通知ステップごと skip** される。
   // つまり「lychee 自体が壊れた回に通知する」というこの PR の目的が、
   // ワークフローの別の行 1 つで無効化される。
-  // `id:` も一緒に縛る。消えると `steps.lychee.outputs.exit_code` が空文字になり、
-  // `'' != '0'` が真＝**リンクが全部生きていても毎週 Issue が立つ**。
-  assert.match(
-    yaml(),
-    /^ {6}- name: Run lychee\n {8}id: lychee\n(?: {8}.*\n)*? {8}continue-on-error: true$/m
+  // `id:` も一緒に縛る(linkCheckViolations のコメント)。
+  assert.deepEqual(
+    linkCheckViolations(yaml()).filter(
+      (v) => v.startsWith("lychee ") || v.startsWith("Run lychee ")
+    ),
+    []
   );
 });
 
@@ -720,25 +767,144 @@ test("lychee の outcome が env で渡っている", () => {
   );
 });
 
+// 通知ステップを黙らせる違反(通知ステップか、それを含む job の continue-on-error)。
+// lychee の continue-on-error は「あること」を求める別の規則なので含めない
+const silencesReport = (v) =>
+  v === "report continue-on-error" || /^job \S+ continue-on-error$/.test(v);
+
 test("通知ステップは continue-on-error で黙らない", () => {
   // lychee 側は continue-on-error が**あること**を固定しているのに、通知側は
   // **無いこと**を誰も見ていなかった。1 行足すだけで gh の 403 が job に伝わらなくなり、
   // 「gh が失敗したら赤くなる」を固定した 3 本が丸ごと無意味になる(シェルの exit code は
   // 非ゼロのままなので、走らせる形のテストでは原理的に捕まらない)。
-  // **ステップ全体を見る。** 以前は `run: |` の手前までしか見ていなかったが、YAML の
-  // マッピングキーは順不同なので `continue-on-error: true` を `run:` の**後ろ**に置けば
-  // 有効な YAML として効く(実測: 置いても 47 件が緑のまま通った)。run ブロックの中身は
-  // 10 スペース以上なので、8 スペース固定で見れば本文と取り違えない。
-  const src = yaml();
-  const from = src.indexOf("      - name: Report broken links");
-  const after = src.slice(from + 1);
-  const next = after.search(/^ {6}- name: /m);
-  const step = next === -1 ? src.slice(from) : src.slice(from, from + 1 + next);
-  assert.doesNotMatch(
-    step,
-    /^ {8}continue-on-error/m,
+  // パース結果のキーで見るので、`run:` の後ろに置いた形も、引用符付きのキーも拾う。
+  // job 直下の continue-on-error も、job の失敗を run の失敗にしないので同じく拾う。
+  assert.deepEqual(
+    linkCheckViolations(yaml()).filter(silencesReport),
+    [],
     "通知ステップの失敗が握り潰される"
   );
+});
+
+test("マージキー(<<:)を使っていない(GitHub Actions は展開しない)", () => {
+  assert.deepEqual(
+    linkCheckViolations(yaml()).filter((v) => v.startsWith("merge key")),
+    []
+  );
+});
+
+// ---- linkCheckViolations の fixture。実ファイルの 1 か所だけを書き換える ----
+
+const real = (from, to) => replaceOnce(yaml(), from, to);
+const LYCHEE_HEAD = "      - name: Run lychee\n        id: lychee\n";
+
+test("fixture: 実ファイルのままでは違反 0(以下の fixture の対照)", () => {
+  assert.deepEqual(linkCheckViolations(yaml()), []);
+});
+
+test("fixture: job の issues を read に落とし、ワークフロー直下に write を足すと拾う", () => {
+  // 旧検査(`^ +issues: write$`)が素通りした形
+  const src = replaceOnce(
+    real("      issues: write\n", "      issues: read\n"),
+    "\njobs:\n",
+    "\npermissions:\n  issues: write\njobs:\n"
+  );
+  assert.deepEqual(linkCheckViolations(src), ["job lychee issues permission"]);
+});
+
+test("fixture: job の permissions をフロー形で read にすると拾う", () => {
+  const src = real(
+    "    permissions:\n      contents: read\n      issues: write\n",
+    "    permissions: {contents: read, issues: read}\n"
+  );
+  assert.deepEqual(linkCheckViolations(src), ["job lychee issues permission"]);
+});
+
+test("fixture: lychee の id を変えると拾う", () => {
+  const src = real(
+    LYCHEE_HEAD,
+    "      - name: Run lychee\n        id: links\n"
+  );
+  assert.deepEqual(linkCheckViolations(src), ["lychee id"]);
+});
+
+test("fixture: lychee の continue-on-error を外すと拾う", () => {
+  const src = real(
+    "        continue-on-error: true\n        with:\n",
+    "        with:\n"
+  );
+  assert.deepEqual(linkCheckViolations(src), ["lychee continue-on-error"]);
+  // 通知ステップの検査の側には出ない(原因を取り違えた赤にしない)
+  assert.deepEqual(linkCheckViolations(src).filter(silencesReport), []);
+});
+
+test("fixture: lychee の id をマージキーで入れると、無いものとして拾う", () => {
+  // merge: true で読むと通ってしまう形(GitHub では id が効かない)
+  const src = real(
+    LYCHEE_HEAD,
+    "      - name: Run lychee\n        <<: {id: lychee}\n"
+  );
+  assert.deepEqual(linkCheckViolations(src), [
+    "merge key jobs.lychee.steps[5]",
+    "lychee id",
+  ]);
+});
+
+// `!!merge` を付けるか、文書を `%YAML 1.1` にすると、yaml は merge: false でも展開する。
+// 展開後の値では id があるように見えるので、マージキーの検出(文書の木で探す)だけが拾う
+for (const [label, build] of [
+  ["!!merge タグ", (src) => replaceOnce(src, "<<:", "!!merge <<:")],
+  ["%YAML 1.1", (src) => `%YAML 1.1\n---\n${src}`],
+]) {
+  test(`fixture: 展開される書き方(${label})のマージキーも拾う`, () => {
+    const src = build(
+      real(LYCHEE_HEAD, "      - name: Run lychee\n        <<: {id: lychee}\n")
+    );
+    assert.deepEqual(linkCheckViolations(src), [
+      "merge key jobs.lychee.steps[5]",
+    ]);
+  });
+}
+
+const REPORT_HEAD = "      - name: Report broken links\n";
+for (const [label, lines] of [
+  ["そのまま", "        continue-on-error: true\n"],
+  ["引用符付きのキー", '        "continue-on-error": true\n'],
+  ["明示キー", "        ? continue-on-error\n        : true\n"],
+]) {
+  test(`fixture: 通知ステップに continue-on-error(${label})を足すと拾う`, () => {
+    const src = real(REPORT_HEAD, REPORT_HEAD + lines);
+    assert.deepEqual(linkCheckViolations(src), ["report continue-on-error"]);
+  });
+}
+
+test("fixture: エイリアスで書いた << キーで continue-on-error を隠しても拾う", () => {
+  // `&k <<` を置いて `*k :` と書くと、yaml は展開しないが値が `<<` の下に隠れ、
+  // 通知ステップに continue-on-error が「無い」ように見える
+  const src = replaceOnce(
+    real(LYCHEE_HEAD, `${LYCHEE_HEAD}        x-key: &k <<\n`),
+    REPORT_HEAD,
+    `${REPORT_HEAD}        *k : {continue-on-error: true}\n`
+  );
+  assert.deepEqual(linkCheckViolations(src), [
+    "merge key jobs.lychee.steps[7]",
+  ]);
+});
+
+test("fixture: job に continue-on-error を足すと拾う", () => {
+  const src = real(
+    "    timeout-minutes: 30\n",
+    "    timeout-minutes: 30\n    continue-on-error: true\n"
+  );
+  assert.deepEqual(linkCheckViolations(src), ["job lychee continue-on-error"]);
+});
+
+test("fixture: 通知ステップと同じ名前のステップが 2 つあると拾う", () => {
+  const src = real(
+    REPORT_HEAD,
+    REPORT_HEAD + "        run: echo duplicate\n" + REPORT_HEAD
+  );
+  assert.deepEqual(linkCheckViolations(src), ["Report broken links steps 2"]);
 });
 
 test("レポートのアップロードは、欠けていても job を落とさない", () => {
@@ -898,14 +1064,15 @@ test("oxlint と oxfmt の口が checks.yml に配線されている", () => {
   assert.equal(pkg.scripts["format:check"], "oxfmt --check");
 });
 
-test("run: | ブロックは 1 つだけ(テストが別のステップを走らせていない)", () => {
-  const src = fs.readFileSync(WORKFLOW, "utf8");
-  const count = src.split("\n").filter((l) => /^\s+run: \|\s*$/.test(l)).length;
-  // extractRunBlock は最初の 1 つを取る。2 つ目が増えたら、このテストは
-  // 意図しないステップを検証していることになる。
+test("テストが走らせる本文は、通知ステップの run そのもの", () => {
+  // extractRunBlock は字面で最初の `run: |` を取る。手前のステップに `run: |` を足すと、
+  // このテストは意図しないステップを検証することになる。本数ではなく一致で見る
+  // (このワークフローには run を持つステップが他にもある)
+  const report = stepsNamed(parseWorkflow(yaml()), "Report broken links");
+  assert.equal(report.length, 1, "通知ステップがちょうど 1 つ見つからない");
   assert.equal(
-    count,
-    1,
-    `run: | が ${count} 個ある。extractRunBlock の前提が崩れている`
+    String(report[0].step.run).trimEnd(),
+    extractRunBlock(WORKFLOW).trimEnd(),
+    "extractRunBlock が通知ステップの run と別の本文を取り出している"
   );
 });
