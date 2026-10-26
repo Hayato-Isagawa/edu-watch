@@ -65,7 +65,7 @@ okinawa-in-data では open な link-check Issue があると後続の検出を�
 PR のコンテンツ」で撮る配線(ADR 0068)も、**壊れても CI は緑のまま**だから — 運ぶ素材を 1 つ
 落としても、テストは走り、多くのページは通る。一番腐りやすいのは運ぶ素材の allowlist なので、
 `src/` の実ディレクトリを走査して「運ぶ・`paths` で監視する・描画に入らないと明言する」の
-三択を強制している。**テストを足したら `package.json` の下限(現在 170、実測ちょうど)も上げること。**
+三択を強制している。**テストを足したら `package.json` の下限(現在 171、実測ちょうど)も上げること。**
 
 `vrt-targets.test.mjs` も同じ口にある。VRT の撮影が**静かに減る**経路(対象を消す・ループを絞る・
 projects を削る・skip に落とす・`fullPage` を落とす・比較設定を緩める・比較ステップを撮り直しにする・
@@ -118,6 +118,8 @@ action だけが exit 1 する**ので、`exit_code` だけを見ていると通
 `gh` の失敗(自動マージの有効化・コメントの取得と投稿)で job が落ちることと、push し直しても同じ理由のコメントは
 1 PR に 1 度しか付かないこと(理由が変われば付け直す。照合するのは github-actions[bot] のコメントだけ)と、
 同じ PR の run を PR 番号の `concurrency` で直列化していることも固定している。
+job の `if:`(作成者・head のリポ・actor の 3 条件と、zizmor の `bot-conditions` を理由つきで抑止するコメント)は
+`run:` の外なので行ごと固定する。抑止は条件を書き換えても残るので、actor だけの判定に戻しても zizmor は何も出さない(1.31.1 で実測)。
 
 `cf-purge-workflow.test.mjs` も同じ口。`cf-purge.yml` は Workers Builds の `build_outcome` を見て purge するかを決める。
 case 文が知らない終端値は以前「待つ」に落ち、2026-10-23 に `terminated` のビルドを 10 分待って exit 0 で終わった

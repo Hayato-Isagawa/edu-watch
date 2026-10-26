@@ -95,7 +95,7 @@ jobs:
 
           ## ワークフロー実行
 
-          [Run #${{ github.run_id }}](${RUN_URL})
+          [Run #${GITHUB_RUN_ID}](${RUN_URL})
 
           ## ログ抜粋
 

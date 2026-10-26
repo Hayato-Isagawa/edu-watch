@@ -585,26 +585,32 @@ test("同じ commit の判定は head_sha で直列化する", () => {
 
 test("on: は workflow_run だけで、workflows: の列挙は PR で起動する workflow の name と過不足なく一致する", () => {
   // PR 起動の workflow を足したのにここへ足し忘れると、その完了では再判定が走らない。
-  // `on: pull_request`(1 行形)と `on:` ブロック直下の `pull_request:` の両方を拾う。
-  // コメント・`if:` 式・ci-summary 自身の `workflow_run.event == 'pull_request'` は拾わない。
+  // トリガーはパースした `on` から読む。1 行形・フロー形・ブロック形のどれでも、`on:` の中に
+  // 列 0 のコメントがあっても拾い、`if:` 式や ci-summary 自身の `workflow_run.event == 'pull_request'`
+  // は拾わない。`on` が読めない形(`%YAML 1.1` の下ではキーの `on` が真偽値として読まれ、`on` が無くなる)は落とす。
   const expected = [];
   for (const f of fs
     .readdirSync(WORKFLOWS_DIR)
     .filter((n) => /\.ya?ml$/.test(n))) {
     if (f === "ci-summary.yml") continue;
-    const src = fs.readFileSync(path.join(WORKFLOWS_DIR, f), "utf8");
-    const name = src.match(/^name: (.+)$/m);
-    assert.ok(name, `${f} に name: が無い`);
-    const onScalar = /^on: pull_request\s*$/m.test(src);
-    const onBlock = src.match(/^on:\n((?: {2}.*\n|\n)*)/m);
-    const onKeys = onBlock
-      ? onBlock[1]
-          .split("\n")
-          .filter((l) => /^ {2}\S/.test(l))
-          .map((l) => l.trim().replace(/:.*$/, ""))
-      : [];
-    if (onScalar || onKeys.includes("pull_request"))
-      expected.push(name[1].trim());
+    const wf = YAML.parse(
+      fs.readFileSync(path.join(WORKFLOWS_DIR, f), "utf8"),
+      { merge: true }
+    );
+    assert.ok(
+      typeof wf?.name === "string" && wf.name.trim(),
+      `${f} に name: が無い`
+    );
+    const on = wf.on;
+    const triggers =
+      typeof on === "string"
+        ? [on]
+        : Array.isArray(on)
+          ? on
+          : on !== null && typeof on === "object"
+            ? Object.keys(on)
+            : assert.fail(`${f} の on: が読めない: ${JSON.stringify(on)}`);
+    if (triggers.includes("pull_request")) expected.push(wf.name.trim());
   }
   const listed = yaml().match(/^ {4}workflows: \[(.*)\]$/m);
   assert.ok(listed, "workflows: [...] の 1 行形が読めない");
