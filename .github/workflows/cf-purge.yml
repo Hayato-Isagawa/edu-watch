@@ -45,10 +45,11 @@ jobs:
   purge:
     name: Wait for the Workers deploy, then purge cache
     runs-on: ubuntu-latest
-    # 内部で Workers Builds の完了を最大 10 分ポーリングし(seq 1 40 × sleep 15)、
-    # script tag を解決できないときは固定で 3 分待つ。20 分はその上限の約 2 倍。
-    # (実測の最大は Workers 移行後で 3.4 分)
-    timeout-minutes: 20
+    # 内部で Workers Builds の完了を最大 25 分ポーリングし(seq 1 100 × sleep 15)、
+    # script tag を解決できないときは固定で 3 分待つ。35 分はポーリング上限に 10 分足した値。
+    # ポーリングを 10 分から延ばしたのは、成功するまで約 12.5 分・約 20 分かかった
+    # ビルドがあり(2026-09-30 / 2026-10-21)、10 分では purge に届かなかったため。
+    timeout-minutes: 35
     steps:
       - name: Purge after deployment is live
         env:
@@ -79,9 +80,23 @@ jobs:
           else
             live=0
             # Poll Workers Builds until this commit's production build finishes
-            # (max ~10 min). Preview builds run on other branches, so the branch
+            # (max ~25 min). Preview builds run on other branches, so the branch
             # is matched too.
-            for i in $(seq 1 40); do
+            #
+            # build_outcome is null until the build stops, and then one of
+            # success / fail / skipped / cancelled / terminated (Cloudflare API
+            # schema, builds_BuildOutcome). "pending" below is our own marker for
+            # "null, not listed yet, or the API call failed".
+            #   - fail / terminated (and unknown values): production still serves
+            #     the previous deploy, so fail the job to make it visible. A
+            #     terminated build gets no check-run on the commit, and before
+            #     this the job waited out the poll and ended green (2026-10-23).
+            #   - cancelled / skipped: someone stopped it, or a newer queued build
+            #     superseded it (skipping superseded builds began 2026-07-24).
+            #     Nothing new went live; the newer push's run purges.
+            # failure / canceled are the spellings Workers Builds event
+            # subscriptions use; kept in case the REST API ever returns them.
+            for i in $(seq 1 100); do
               outcome=$(curl -sS -H "Authorization: Bearer ${CF_API_TOKEN}" \
                 "${api}/accounts/${CF_ACCOUNT_ID}/builds/workers/${tag}/builds?per_page=20" 2>/dev/null \
                 | jq -r --arg sha "$sha" \
@@ -90,14 +105,22 @@ jobs:
               echo "attempt ${i}: build outcome = ${outcome}"
               case "${outcome}" in
                 success) live=1; break ;;
-                fail|failure|cancelled|canceled) echo "build did not succeed (${outcome}); skipping purge"; exit 0 ;;
-                *) sleep 15 ;;
+                pending) sleep 15 ;;
+                cancelled|canceled|skipped)
+                  echo "Build of ${sha} was ${outcome}; nothing new went live, skipping purge"
+                  exit 0 ;;
+                fail|failure|terminated)
+                  echo "::error::Workers build of ${sha} ended as ${outcome}; production still serves the previous deploy. Skipping purge."
+                  exit 1 ;;
+                *)
+                  echo "::error::Unknown build outcome '${outcome}' for ${sha}; skipping purge. Check Workers Builds and update this list."
+                  exit 1 ;;
               esac
             done
 
             if [ "${live}" -ne 1 ]; then
-              echo "::warning::Timed out waiting for the build of ${sha}; skipping purge"
-              exit 0
+              echo "::error::Timed out waiting for the build of ${sha}; skipping purge"
+              exit 1
             fi
           fi
 
