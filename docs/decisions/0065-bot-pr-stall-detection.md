@@ -1,6 +1,6 @@
 # 0065. bot PR の滞留を検知する。監視の起点はラベルに置き、全 job に timeout を宣言する
 
-- 状態: 採用
+- 状態: 採用 / D6 の `cf-purge` の行は [ADR 0080](0080-cf-purge-terminal-build-outcomes.md) で上書き
 - 日付: 2026-08-19
 - 関連 ADR: [`ADR 0022`](0022-recheck-nikkyo-membership.md)(週次 paywall 再判定) / [`ADR 0042`](0042-fetch-news-token-elevation.md)(fetch-news の PAT 昇格) / [`ADR 0020`](0020-persistent-article-denylist.md)(削除記事 ID の永続追跡。週次ヘルスチェックはその §残タスク)
 - 関連 PR: 本 ADR の実装

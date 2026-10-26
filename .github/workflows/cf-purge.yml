@@ -48,7 +48,7 @@ jobs:
     # 内部で Workers Builds の完了を最大 25 分ポーリングし(seq 1 100 × sleep 15)、
     # script tag を解決できないときは固定で 3 分待つ。35 分はポーリング上限に 10 分足した値。
     # ポーリングを 10 分から延ばしたのは、成功するまで約 12.5 分・約 20 分かかった
-    # ビルドがあり(2026-09-30 / 2026-10-21)、10 分では purge に届かなかったため。
+    # ビルドがあり(2026-09-30 / 2026-10-21)、10 分では purge に届かなかったため(ADR 0080)。
     timeout-minutes: 35
     steps:
       - name: Purge after deployment is live
@@ -91,9 +91,14 @@ jobs:
             #     the previous deploy, so fail the job to make it visible. A
             #     terminated build gets no check-run on the commit, and before
             #     this the job waited out the poll and ended green (2026-10-23).
-            #   - cancelled / skipped: someone stopped it, or a newer queued build
-            #     superseded it (skipping superseded builds began 2026-07-24).
-            #     Nothing new went live; the newer push's run purges.
+            #   - cancelled / skipped: not red. skipped means a newer queued build
+            #     superseded this one (Workers Builds does this since 2026-07-24).
+            #     This build put nothing live. The newer build is not watched
+            #     here: its commit may have no run of this workflow at all
+            #     (merges made with GITHUB_TOKEN, e.g. Dependabot's, trigger no
+            #     push workflows), so its deploy can stay unpurged until the
+            #     Edge TTL expires. The docs do not say whether a build stopped
+            #     by hand reports cancelled or terminated.
             # failure / canceled are the spellings Workers Builds event
             # subscriptions use; kept in case the REST API ever returns them.
             for i in $(seq 1 100); do
