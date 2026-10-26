@@ -16,6 +16,12 @@ import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import {
+  mergeKeyPaths,
+  parseWorkflow,
+  replaceOnce,
+  stepsNamed,
+} from "./workflow-yaml.mjs";
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const WORKFLOW = path.join(
@@ -373,11 +379,102 @@ test("run: に式を展開せず、読む値は env で渡っている", () => {
   );
 });
 
+const DECIDE = "Enable auto-merge, or explain why not";
+
+/**
+ * 判定ステップが黙らず飛ばされない前提に反している箇所を返す(例: `decide if`)。
+ *
+ * 字面ではなくパース結果で見る。字面だと `"continue-on-error":` / `? if` / フロー形のような
+ * YAML として等価な書き方が素通りする(#920)。continue-on-error は判定ステップだけでなく、
+ * どの job・どのステップにも置かない(以前の検査はファイル全体で禁じていたので、保証を
+ * 縮めない)。マージキーは、使っていること自体を違反にする(workflow-yaml.mjs)。
+ */
+function autoMergeViolations(src) {
+  const doc = parseWorkflow(src);
+  const found = mergeKeyPaths(src).map((at) => `merge key ${at}`);
+  const decide = stepsNamed(doc, DECIDE);
+  if (decide.length !== 1) found.push(`decide steps ${decide.length}`);
+  // if: で飛ばされると、自動マージも保留のコメントも出ないまま緑で終わる
+  else if (Object.hasOwn(decide[0].step ?? {}, "if")) found.push("decide if");
+  for (const [jobName, job] of Object.entries(doc?.jobs ?? {})) {
+    // job の continue-on-error は job の失敗を run の失敗にしない
+    if (Object.hasOwn(job ?? {}, "continue-on-error"))
+      found.push(`job ${jobName} continue-on-error`);
+    (job?.steps ?? []).forEach((step, i) => {
+      if (Object.hasOwn(step ?? {}, "continue-on-error"))
+        found.push(`step ${jobName}[${i}] continue-on-error`);
+    });
+  }
+  return found;
+}
+
 test("判定ステップは continue-on-error で黙らず、if: で飛ばされない", () => {
-  assert.doesNotMatch(yaml(), /continue-on-error/);
-  const steps = yaml().split(/^\s+- name: /m);
-  const decide = steps.find((s) => s.includes("run: |"));
-  assert.doesNotMatch(decide, /^\s+if:/m);
+  assert.deepEqual(autoMergeViolations(yaml()), []);
+});
+
+// ---- autoMergeViolations の fixture。実ファイルの 1 か所だけを書き換える ----
+
+const real = (from, to) => replaceOnce(yaml(), from, to);
+const DECIDE_HEAD = `      - name: ${DECIDE}\n`;
+
+for (const [label, lines] of [
+  ["そのまま", "        continue-on-error: true\n"],
+  ["引用符付きのキー", '        "continue-on-error": true\n'],
+  ["明示キー", "        ? continue-on-error\n        : true\n"],
+]) {
+  test(`fixture: 判定ステップに continue-on-error(${label})を足すと拾う`, () => {
+    const src = real(DECIDE_HEAD, DECIDE_HEAD + lines);
+    assert.deepEqual(autoMergeViolations(src), [
+      "step auto-merge[1] continue-on-error",
+    ]);
+  });
+}
+
+test("fixture: メタデータ取得のステップに continue-on-error を足しても拾う", () => {
+  const src = real(
+    "        id: metadata\n",
+    "        id: metadata\n        continue-on-error: true\n"
+  );
+  assert.deepEqual(autoMergeViolations(src), [
+    "step auto-merge[0] continue-on-error",
+  ]);
+});
+
+test("fixture: job に continue-on-error を足すと拾う", () => {
+  const src = real(
+    "    timeout-minutes: 10\n",
+    "    timeout-minutes: 10\n    continue-on-error: true\n"
+  );
+  assert.deepEqual(autoMergeViolations(src), [
+    "job auto-merge continue-on-error",
+  ]);
+});
+
+for (const [label, lines] of [
+  ["if: false", "        if: false\n"],
+  ["明示キー", "        ? if\n        : false\n"],
+]) {
+  test(`fixture: 判定ステップに if(${label})を足すと拾う`, () => {
+    const src = real(DECIDE_HEAD, DECIDE_HEAD + lines);
+    assert.deepEqual(autoMergeViolations(src), ["decide if"]);
+  });
+}
+
+test("fixture: 判定ステップの if をマージキーで入れると、マージキーとして拾う", () => {
+  // merge: false で読むので、`<<` の下の if は判定ステップの if に見えない。
+  // GitHub もマージキーを展開しないが、使っていること自体を違反にする
+  const src = real(DECIDE_HEAD, DECIDE_HEAD + "        <<: {if: false}\n");
+  assert.deepEqual(autoMergeViolations(src), [
+    "merge key jobs.auto-merge.steps[1]",
+  ]);
+});
+
+test("fixture: 判定ステップと同じ名前のステップが 2 つあると拾う", () => {
+  const src = real(
+    DECIDE_HEAD,
+    DECIDE_HEAD + "        run: echo duplicate\n" + DECIDE_HEAD
+  );
+  assert.deepEqual(autoMergeViolations(src), ["decide steps 2"]);
 });
 
 test("job の if: が、作成者・head のリポ・actor の 3 条件と理由つきの抑止を持つ", () => {
