@@ -29,7 +29,7 @@ npm run format             # oxfmt で整形(.ts/.js/.json 等。.astro / .md / 
 npm run format:check       # 同上の差分検査(CI はこちら)
 npm run check              # Astro 型チェック
 npm run vrt                # ビジュアルリグレッションテスト(現 dist を撮影・比較。権威ある比較は CI、後述)
-npm run test:workflows     # link-check.yml の通知分岐・VRT の配線・ci-summary.yml の通知判定・digest の中身検査・収集時の重複排除(ADR 0077)・Dependabot の自動マージ判定(ADR 0078)・cf-purge の終端値の扱いの回帰テスト(下限つき・check:all に含む)
+npm run test:workflows     # link-check.yml の通知分岐・VRT の配線・ci-summary.yml の通知判定・digest の中身検査・収集時の重複排除(ADR 0077)・Dependabot の自動マージ判定(ADR 0078)・cf-purge のビルドの扱いの回帰テスト(下限つき・check:all に含む)
 npm run test:hooks         # .claude/hooks/ の回帰テスト(下限つき)
 ```
 
@@ -70,7 +70,7 @@ GitHub Actions が展開しないので(actions/runner#1182)、`merge: false` �
 PR のコンテンツ」で撮る配線(ADR 0068)も、**壊れても CI は緑のまま**だから — 運ぶ素材を 1 つ
 落としても、テストは走り、多くのページは通る。一番腐りやすいのは運ぶ素材の allowlist なので、
 `src/` の実ディレクトリを走査して「運ぶ・`paths` で監視する・描画に入らないと明言する」の
-三択を強制している。**テストを足したら `package.json` の下限(現在 216、実測ちょうど)も上げること。**
+三択を強制している。**テストを足したら `package.json` の下限(現在 258、実測ちょうど)も上げること。**
 
 `vrt-targets.test.mjs` も同じ口にある。VRT の撮影が**静かに減る**経路(対象を消す・ループを絞る・
 projects を削る・skip に落とす・`fullPage` を落とす・比較設定を緩める・比較ステップを撮り直しにする・
@@ -132,8 +132,10 @@ job の `if:`(作成者・head のリポ・actor の 3 条件と、zizmor の `b
 
 `cf-purge-workflow.test.mjs` も同じ口。`cf-purge.yml` は Workers Builds の `build_outcome` を見て purge するかを決める。
 case 文が知らない終端値は以前「待つ」に落ち、2026-10-23 に `terminated` のビルドを 10 分待って exit 0 で終わった
-(job は緑、purge もせず)。`run:` を取り出して bash で走らせ、`curl` と `sleep` をスタブに、jq は実物に通して、
-終端値ごとの exit と purge の有無、ポーリング回数、`timeout-minutes` がポーリング上限より長いことを固定している。
+(job は緑、purge もせず)。`skipped` の後は置き換えた新しいビルドを追い、ビルドを確かめられないときは purge してから赤で
+終わる(ADR 0081)。`run:` を取り出して bash で走らせ、`curl`・`sleep`・`date` をスタブに、jq は実物に通して、
+終端値ごとの exit と purge の有無、追う先の選び方、API のエラーの分け方、経過時間での期限、`timeout-minutes` が
+期限を越えうる最大の時間より長いことを固定している。期限・間隔・回数はステップの `env` から読む。
 
 `test:workflows` / `test:hooks` は `assert-test-files.mjs` / `assert-test-results.mjs` を通している。
 `node --test` は「glob が 0 件」「中身が空」「全件 skip」のどれでも exit 0 で終わるので、守って

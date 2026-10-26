@@ -1,6 +1,6 @@
 # 0080. cf-purge は、ビルドが本番に出なかったときに赤で終わる
 
-- 状態: 採用(0065 D6 の `cf-purge` の行を上書き)
+- 状態: 採用(0065 D6 の `cf-purge` の行を上書き) / `cancelled`・`skipped` の扱い、ポーリングと `timeout-minutes`、script tag を引けないときの経路は [`ADR 0081`](0081-cf-purge-follow-superseding-build.md) で上書き
 - 日付: 2026-10-26
 - 関連 PR: `fix/cf-purge-terminal-outcomes`(本 ADR 起票)
 - 関連 ADR: [`ADR 0065`](0065-bot-pr-stall-detection.md)(全 job の `timeout-minutes` と D4「壊れたときに緑で終わらせない」)
