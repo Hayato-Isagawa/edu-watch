@@ -13,7 +13,10 @@
 // そこで実行結果そのものを検査する。TAP の集計行を読み、
 // pass が下限を割るか、skip / todo が 1 件でもあれば落とす。
 //
-// 使い方: node scripts/assert-test-results.mjs <min-pass> "<glob>"
+// `--exact` を付けると、pass が下限より多くても落とす。下限を「実測ちょうど」で持つ口で、
+// テストを足す PR が並んで下限の書き換えが squash で消えたとき、気づけるようにするため(#949)。
+//
+// 使い方: node scripts/assert-test-results.mjs [--exact] <min-pass> "<glob>"
 
 import { spawnSync } from "node:child_process";
 
@@ -25,11 +28,15 @@ import { spawnSync } from "node:child_process";
 // Linux の pipe への書き込みは同期なので CI では起きない)。
 // exitCode を返して Node に flush させるため、本体を関数にして return で抜ける。
 function main() {
-  const [minPassRaw, pattern] = process.argv.slice(2);
+  const args = process.argv.slice(2);
+  const exact = args[0] === "--exact";
+  const [minPassRaw, pattern] = exact ? args.slice(1) : args;
   const minPass = Number(minPassRaw);
 
   if (!Number.isInteger(minPass) || minPass < 1 || !pattern) {
-    console.error('usage: assert-test-results.mjs <min-pass> "<glob>"');
+    console.error(
+      'usage: assert-test-results.mjs [--exact] <min-pass> "<glob>"'
+    );
     return 2;
   }
 
@@ -70,14 +77,19 @@ function main() {
   if (fail > 0) problems.push(`${fail} 件が失敗`);
   if (pass < minPass)
     problems.push(`pass ${pass} 件が下限 ${minPass} を下回る`);
+  if (exact && pass > minPass)
+    problems.push(
+      `pass ${pass} 件が下限 ${minPass} より多い(テストを足したら下限も上げる)`
+    );
   if (skipped) problems.push(`${skipped} 件が skip されている`);
   if (todo) problems.push(`${todo} 件が todo になっている`);
 
   if (problems.length) {
     console.error(`[assert-test-results] ${problems.join(" / ")}`);
-    console.error(
-      "[assert-test-results] テストが消えた・skip されたままになっていないか確認してください。"
-    );
+    if (!(exact && pass > minPass))
+      console.error(
+        "[assert-test-results] テストが消えた・skip されたままになっていないか確認してください。"
+      );
     return 1;
   }
 

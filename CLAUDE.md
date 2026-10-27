@@ -29,7 +29,7 @@ npm run format             # oxfmt で整形(.ts/.js/.json 等。.astro / .md / 
 npm run format:check       # 同上の差分検査(CI はこちら)
 npm run check              # Astro 型チェック
 npm run vrt                # ビジュアルリグレッションテスト(現 dist を撮影・比較。権威ある比較は CI、後述)
-npm run test:workflows     # link-check.yml の通知分岐・VRT の配線・ci-summary.yml の通知判定・digest の中身検査・収集時の重複排除(ADR 0077)・Dependabot の自動マージ判定(ADR 0078)・cf-purge のビルドの扱いの回帰テスト(下限つき・check:all に含む)
+npm run test:workflows     # link-check.yml の通知分岐・VRT の配線・ci-summary.yml の通知判定・digest の中身検査・収集時の重複排除(ADR 0077)・Dependabot の自動マージ判定(ADR 0078)・cf-purge のビルドの扱い・下限の完全一致を見る判定器の回帰テスト(下限つき・check:all に含む)
 npm run test:hooks         # .claude/hooks/ の回帰テスト(下限つき)
 ```
 
@@ -70,7 +70,7 @@ GitHub Actions が展開しないので(actions/runner#1182)、`merge: false` �
 PR のコンテンツ」で撮る配線(ADR 0068)も、**壊れても CI は緑のまま**だから — 運ぶ素材を 1 つ
 落としても、テストは走り、多くのページは通る。一番腐りやすいのは運ぶ素材の allowlist なので、
 `src/` の実ディレクトリを走査して「運ぶ・`paths` で監視する・描画に入らないと明言する」の
-三択を強制している。**テストを足したら `package.json` の下限(現在 265、実測ちょうど)も上げること。**
+三択を強制している。**テストを足したら `package.json` の下限(現在 270、実測ちょうど)も上げること。**
 
 `vrt-targets.test.mjs` も同じ口にある。VRT の撮影が**静かに減る**経路(対象を消す・ループを絞る・
 projects を削る・skip に落とす・`fullPage` を落とす・比較設定を緩める・比較ステップを撮り直しにする・
@@ -142,9 +142,15 @@ case 文が知らない終端値は以前「待つ」に落ち、2026-10-23 に 
 `node --test` は「glob が 0 件」「中身が空」「全件 skip」のどれでも exit 0 で終わるので、守って
 いるつもりのガードが no-op に落ちても気づけないため。
 
-**下限の決め方は口ごとに違う。** `test:workflows` は実測ちょうど(余裕ゼロ)なので、
-**テストを足したら下限も上げること**。`test:hooks` の下限は実数追随ではなく
-「1 ファイルを空にしても割る」境界値なので、実測と離れていてよい。
+**下限の決め方は口ごとに違う。** `test:workflows` は実測ちょうど(余裕ゼロ)で、判定器に `--exact` を
+渡しているので pass が下限より多くても落ちる(ADR 0083)。**テストを足したら下限も上げること**。
+テストを足す PR が並ぶと、同じ下限の行の書き換えが squash で消えて下限が実測より低く残る(#944 / #946)。
+このとき PR の CI は緑のまま通り、マージ後の main の `checks.yml` が赤になって気づく。
+**赤の間に CI が走った PR(記事収集などの自動マージを含む)も必須チェックで止まり、下限を直しても自動では戻らない**
+(re-run は古いマージ結果で走るので効かない)。下限を直す PR を出し、止まった PR は push し直すか close / reopen する(ADR 0083)。
+判定器のこの分岐は `assert-test-results.test.mjs` が一時ディレクトリのテストで固定している。
+`test:hooks` の下限は実数追随ではなく「1 ファイルを空にしても割る」境界値なので、
+`--exact` を付けず、実測と離れていてよい。
 
 ## プロジェクト構造
 
