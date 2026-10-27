@@ -455,6 +455,7 @@ test("VRT が main と PR の 2 ビルドを撮り比べている", () => {
   // `Checkout PR` は `with: ref: …` で PR 以外を取り出せるので、`with` の中身まで固定する。
   assert.deepEqual(blockLines(byName.get("Checkout PR"), "with"), [
     "fetch-depth: 0",
+    "persist-credentials: false",
   ]);
   // dist-pr / dist-main に触るステップの集合(コメントは除く)。前段に dist を差し替える
   // ステップを足すと、名前の並びとここの両方で赤になる。glob や変数で綴りを隠した
