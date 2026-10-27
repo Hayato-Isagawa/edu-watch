@@ -70,3 +70,25 @@ export const stepsNamed = (doc, name) =>
       .filter((step) => step?.name === name)
       .map((step) => ({ jobName, job, step }))
   );
+
+/**
+ * `on:` のトリガー名を返す。1 行形(`on: pull_request`)・列(`on: [push, pull_request]`)・
+ * マップ形のどれでも読み、`on:` の中に列 0 のコメントがあっても読める。読めない形は null —
+ * 空の `on:`・空の列やマップ・文字列でない要素を含む列・`%YAML 1.1` の下(キーの `on` が
+ * 真偽値 true として読まれ、`on` が無くなる)・`true:` と書いた形など。呼ぶ側は null を
+ * 「起動しない」と読まずに落とすこと。マージキーは呼ぶ側が `mergeKeyPaths` で落とす
+ */
+export function triggerNames(on) {
+  if (typeof on === "string" && on.trim()) return [on.trim()];
+  if (
+    Array.isArray(on) &&
+    on.length > 0 &&
+    on.every((t) => typeof t === "string" && t.trim())
+  )
+    return on.map((t) => t.trim());
+  if (on !== null && typeof on === "object" && !Array.isArray(on)) {
+    const keys = Object.keys(on);
+    if (keys.length > 0) return keys;
+  }
+  return null;
+}
