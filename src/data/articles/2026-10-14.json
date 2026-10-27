@@ -86,7 +86,8 @@
       "ICT / GIGA"
     ],
     "layer": 2,
-    "language": "ja"
+    "language": "ja",
+    "requiresMembership": true
   },
   {
     "id": "resemom-2026-10-14-126361f517e1828b",
