@@ -568,6 +568,16 @@ test("tag の解決での失敗の回数は、builds の取得に持ち越さな
   purged(r);
 });
 
+test("tag の解決が 429 のまま期限に届く: purge して exit 1(ADR 0082)", () => {
+  const limited = http(429, { success: false }, { "Retry-After": "60" });
+  const r = runStep({ services: [limited] });
+  assert.equal(r.code, 1, r.out);
+  assert.equal(r.builds, 0);
+  purged(r);
+  assert.match(r.out, /::error::Timed out looking up the script tag/);
+  assert.equal(r.services, Math.ceil(KNOBS.OWN_BUILD_SECONDS / 60));
+});
+
 test("tag の解決の 5xx が上限まで続く: purge して exit 1", () => {
   const r = runStep({ services: [http(503)] });
   assert.equal(r.code, 1, r.out);
