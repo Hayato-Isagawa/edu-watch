@@ -260,6 +260,20 @@
     "language": "ja"
   },
   {
+    "id": "mext-2026-10-26-4c183faa90897124",
+    "title": "教育委員会月報　令和8年10月号",
+    "sourceId": "mext",
+    "sourceName": "文部科学省",
+    "sourceUrl": "https://www.mext.go.jp/b_menu/shuppan/geppou/mext_091001_00016.html",
+    "publishedAt": "2026-10-26T05:45:00.000Z",
+    "collectedAt": "2026-10-27T15:56:34.133Z",
+    "categories": [
+      "政策・制度"
+    ],
+    "layer": 1,
+    "language": "ja"
+  },
+  {
     "id": "resemom-2026-10-26-5e770943cc9a3c55",
     "title": "山脇学園「青い繭」で文科大臣賞…高校化学グランドコンテスト",
     "sourceId": "resemom",
@@ -476,6 +490,22 @@
     "summary": "中央教育審議会の教育課程企画特別部会は１５日、次期学習指導要領に向けた審議まとめについて関係団体から２回目のヒアリングを実施した。教育課程の柔軟化を支える体制整備や、授業時数・学習内容の削減を求める…",
     "categories": [
       "政策・制度"
+    ],
+    "layer": 2,
+    "language": "ja",
+    "requiresMembership": true
+  },
+  {
+    "id": "nikkyo-2026-10-26-98230cfa7fa49fce",
+    "title": "不易流行",
+    "sourceId": "nikkyo",
+    "sourceName": "日本教育新聞",
+    "sourceUrl": "https://www.kyoiku-press.com/post-317423/",
+    "publishedAt": "2026-10-26T00:00:00.000Z",
+    "collectedAt": "2026-10-27T15:56:34.133Z",
+    "summary": "◆「つるべ落とし」という言葉を最近あまり聞かなくなった。井戸のつるべが落ちるように、秋の日があっという間に沈む様子をいう。年配者にはなじみ深い言葉だが、子どもにはどう響くのだろう。秋の夕暮れを眺めてい…",
+    "categories": [
+      "その他"
     ],
     "layer": 2,
     "language": "ja",
