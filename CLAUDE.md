@@ -134,7 +134,7 @@ job の `if:`(作成者・head のリポ・actor の 3 条件と、zizmor の `b
 `cf-purge-workflow.test.mjs` も同じ口。`cf-purge.yml` は Workers Builds の `build_outcome` を見て purge するかを決める。
 case 文が知らない終端値は以前「待つ」に落ち、2026-10-23 に `terminated` のビルドを 10 分待って exit 0 で終わった
 (job は緑、purge もせず)。`skipped` の後は置き換えた新しいビルドを追い、ビルドを確かめられないときは purge してから赤で
-終わる(ADR 0081)。`run:` を取り出して bash で走らせ、`curl`・`sleep`・`date` をスタブに、jq は実物に通して、
+終わる(ADR 0081 / 0082)。`run:` を取り出して bash で走らせ、`curl`・`sleep`・`date` をスタブに、jq は実物に通して、
 終端値ごとの exit と purge の有無、追う先の選び方、API のエラーの分け方、経過時間での期限、`timeout-minutes` が
 期限を越えうる最大の時間より長いことを固定している。期限・間隔・回数はステップの `env` から読む。
 

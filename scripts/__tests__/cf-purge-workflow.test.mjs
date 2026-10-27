@@ -659,6 +659,39 @@ test("429 の Retry-After は上限で切り、無ければ通常の間隔で待
   assert.deepEqual(r.sleeps, [KNOBS.MAX_RETRY_AFTER, KNOBS.POLL_INTERVAL]);
 });
 
+test("429 の Retry-After が通常の間隔より短ければ、通常の間隔で待つ", () => {
+  // 0 や 1 のまま従うと、回数に数えないので期限まで API を叩き続ける(#943)
+  const r = runStep({
+    builds: [
+      http(429, { success: false }, { "Retry-After": "0" }),
+      http(429, { success: false }, { "Retry-After": "1" }),
+      own("success"),
+    ],
+  });
+  assert.equal(r.code, 0, r.out);
+  assert.deepEqual(r.sleeps, [KNOBS.POLL_INTERVAL, KNOBS.POLL_INTERVAL]);
+});
+
+test("429 のまま期限に届いたら、確かめられないので purge して exit 1", () => {
+  const limited = http(429, { success: false }, { "Retry-After": "60" });
+  const r = runStep({ builds: [limited] });
+  assert.equal(r.code, 1, r.out);
+  purged(r);
+  assert.match(
+    r.out,
+    /::error::Rate limited by the Cloudflare API until the deadline/
+  );
+  assert.equal(r.builds, Math.ceil(KNOBS.OWN_BUILD_SECONDS / 60));
+});
+
+test("429 を挟んでも、最後が進行中なら期限切れは purge しない", () => {
+  const limited = http(429, { success: false }, { "Retry-After": "60" });
+  const r = runStep({ builds: [limited, limited, own(null)] });
+  assert.equal(r.code, 1, r.out);
+  notPurged(r);
+  assert.match(r.out, /::error::Timed out waiting for the build of /);
+});
+
 test("purge が success:false: exit 1(本文を出す)", () => {
   const r = runStep({
     purge: [

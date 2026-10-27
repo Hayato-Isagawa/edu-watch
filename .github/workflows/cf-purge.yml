@@ -59,8 +59,9 @@ jobs:
           # 自分のビルドを待つ上限。成功までに約 12.5 分・約 20 分かかったビルドが
           # あり(2026-09-30 / 2026-10-21)、10 分では purge に届かなかった(ADR 0080)。
           OWN_BUILD_SECONDS: "1500"
-          # skipped の後に新しいビルドを追う分も含めた上限。skipped から置き換えた
-          # ビルドが終わるまでの実測の最長は約 27 分(全 839 件、2026-10-26)。
+          # skipped の後に新しいビルドを追う分も含めた上限。push から置き換えた
+          # ビルドが終わるまでの実測の最長は約 32 分(skipped のビルドの作成時刻から
+          # 数えた。main の skipped 全 61 件、2026-10-26)。
           TOTAL_SECONDS: "2700"
           POLL_INTERVAL: "15"
           FALLBACK_WAIT: "180"
@@ -81,6 +82,7 @@ jobs:
           body_file="$(mktemp)"
           hdr_file="$(mktemp)"
           api_errors=0
+          rate_limited=0
 
           now() { date +%s; }
           start=$(now)
@@ -127,11 +129,13 @@ jobs:
 
           # GET a Cloudflare API URL into body_file. Returns 0 on success and 1
           # when the caller should try again (this function has already waited).
-          #   429                 -> wait Retry-After (capped), not counted
+          #   429                 -> wait Retry-After (at least POLL_INTERVAL, capped),
+          #                          not counted; still limited at the deadline -> fallback
           #   5xx / curl failure / success != true -> transient (counted)
           #   any other status    -> fallback (401 / 403 / 404 do not heal)
           cf_get() {
             local code ra
+            rate_limited=0
             : > "${body_file}"
             : > "${hdr_file}"
             code=$(curl -sS --max-time "${CURL_MAX_TIME}" -o "${body_file}" -D "${hdr_file}" \
@@ -144,7 +148,9 @@ jobs:
               429)
                 ra=$(tr -d '\r' < "${hdr_file}" | awk -F': *' 'tolower($1) == "retry-after" { v = $2 } END { print v }')
                 case "${ra}" in ''|*[!0-9]*) ra="${POLL_INTERVAL}" ;; esac
+                if [ "${ra}" -lt "${POLL_INTERVAL}" ]; then ra="${POLL_INTERVAL}"; fi
                 if [ "${ra}" -gt "${MAX_RETRY_AFTER}" ]; then ra="${MAX_RETRY_AFTER}"; fi
+                rate_limited=1
                 echo "Rate limited by the Cloudflare API; waiting ${ra}s"
                 sleep "${ra}"
                 return 1 ;;
@@ -201,12 +207,17 @@ jobs:
           trig="-"
           attempt=0
           while :; do
-            if [ "${phase}" = own ] && [ "$(now)" -ge "${own_deadline}" ]; then
-              echo "::error::Timed out waiting for the build of ${sha}; skipping purge"
-              exit 1
-            fi
-            if [ "${phase}" = follow ] && [ "$(now)" -ge "${total_deadline}" ]; then
-              echo "::error::Timed out waiting for the build that superseded ${sha}; skipping purge"
+            deadline="${own_deadline}"
+            if [ "${phase}" = follow ]; then deadline="${total_deadline}"; fi
+            if [ "$(now)" -ge "${deadline}" ]; then
+              if [ "${rate_limited}" = 1 ]; then
+                fallback "Rate limited by the Cloudflare API until the deadline."
+              fi
+              if [ "${phase}" = own ]; then
+                echo "::error::Timed out waiting for the build of ${sha}; skipping purge"
+              else
+                echo "::error::Timed out waiting for the build that superseded ${sha}; skipping purge"
+              fi
               exit 1
             fi
             cf_get "${builds_url}" || continue
