@@ -1,6 +1,6 @@
 # 0081. cf-purge は、置き換えた新しいビルドを追い、確かめられないときは purge して赤で終わる
 
-- 状態: 採用(0080 の「`cancelled` / `canceled` / `skipped` は exit 0」「ポーリングと `timeout-minutes`」と、帰結の「script tag を引けないときの経路は変えていない」を上書き)
+- 状態: 採用(0080 の「`cancelled` / `canceled` / `skipped` は exit 0」「ポーリングと `timeout-minutes`」と、帰結の「script tag を引けないときの経路は変えていない」を上書き) / 429 の扱いは [`ADR 0082`](0082-cf-purge-rate-limit-floor-and-deadline.md) で上書き
 - 日付: 2026-10-26
 - 関連 PR: `fix/cf-purge-follow-superseding`(本 ADR 起票)
 - 関連 ADR: [`ADR 0080`](0080-cf-purge-terminal-build-outcomes.md)
