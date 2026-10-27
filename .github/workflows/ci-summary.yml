@@ -25,7 +25,7 @@ on:
     # Dependabot auto-merge も入れる。人間の PR では job が skipped で完了するが、
     # それが最後に完了した workflow だと再判定の機会が無くなる(Dependabot の PR 自体は
     # 下の if で除外している)。
-    workflows: [Checks, E2E Tests, VRT, Security Audit, Health check, Bot PR watchdog, Dependabot auto-merge]
+    workflows: [Checks, E2E Tests, VRT, Security Audit, Health check, Bot PR watchdog, Dependabot auto-merge, zizmor]
     types: [completed]
 
 permissions:
