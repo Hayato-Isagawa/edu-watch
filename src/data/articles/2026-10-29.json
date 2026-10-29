@@ -1,5 +1,94 @@
 [
   {
+    "id": "resemom-2026-10-29-bd5329c00c89cd4f",
+    "title": "関関同立小学校・灘 井上先生が特別セミナー「キッズ未来博・大阪」見どころ Vol.1",
+    "sourceId": "resemom",
+    "sourceName": "リセマム",
+    "sourceUrl": "https://resemom.jp/article/2026/10/29/88103.html",
+    "publishedAt": "2026-10-29T09:45:03.000Z",
+    "collectedAt": "2026-10-29T17:00:58.775Z",
+    "summary": "リセマムは2026年11月8日、親子向け体験イベント「リセマム・キッズ未来博 in 大阪」を梅田クリスタルホール（大阪・梅田）にて開催する。昨年好評を博したイベントで、今年も子供たちの好奇心や探究心を育む学びと体験の場を提供する。関西では初開催。",
+    "categories": [
+      "その他"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "resemom-2026-10-29-d45bbda84565faec",
+    "title": "小中高生対象、手描き×生成AIでラベルデザインWS…神戸11/28",
+    "sourceId": "resemom",
+    "sourceName": "リセマム",
+    "sourceUrl": "https://resemom.jp/article/2026/10/29/88102.html",
+    "publishedAt": "2026-10-29T09:15:02.000Z",
+    "collectedAt": "2026-10-29T17:00:58.775Z",
+    "summary": "オリバーソースとA＆Iは2026年11月28日、小学生から高校生を対象に、手描きのイラストと生成AIを組み合わせてオリジナルラベルを作るワークショップを神戸電子専門学校北野館で開催する。参加無料。保護者や職員の同伴が必要で、公式サイトの申込フォームから参加を受け付けている。",
+    "categories": [
+      "ICT / GIGA"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "resemom-2026-10-29-c8a4be58d7c3a61d",
+    "title": "「理科ダマン」の科学実験キット4種、11月発売…アーテック",
+    "sourceId": "resemom",
+    "sourceName": "リセマム",
+    "sourceUrl": "https://resemom.jp/article/2026/10/29/88101.html",
+    "publishedAt": "2026-10-29T08:45:03.000Z",
+    "collectedAt": "2026-10-29T17:00:58.775Z",
+    "summary": "学校教材メーカーのアーテックは2026年11月上旬より、学習まんが「つかめ！理科ダマン」とコラボレーションした科学実験キット4商品を、Amazonや楽天市場、Yahoo!ショッピングなど各種ネット通販サイトにて順次販売する。参考上代は各1,650円（税込）。",
+    "categories": [
+      "その他"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "nikkyo-2026-10-29-e4d0acbb6cb734d2",
+    "title": "AIの活用過程を評価　流通経済大が新入試",
+    "sourceId": "nikkyo",
+    "sourceName": "日本教育新聞",
+    "sourceUrl": "https://www.kyoiku-press.com/post-317695/",
+    "publishedAt": "2026-10-29T07:44:00.000Z",
+    "collectedAt": "2026-10-29T17:00:58.775Z",
+    "summary": "流通経済大学（千葉県松戸市、茨城県龍ケ崎市）は令和9年度入試から、総合型選抜の「課題チャレンジ型」に、生成AIを活用した課題解決の過程や取り組みを評価する「生成AI利用タイプ」を新設した。AIにどの…",
+    "categories": [
+      "ICT / GIGA"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "nikkyo-2026-10-29-168c76ba64dc2e14",
+    "title": "千葉・船橋市、学童保育待機児童解消に向け短時間利用制度",
+    "sourceId": "nikkyo",
+    "sourceName": "日本教育新聞",
+    "sourceUrl": "https://www.kyoiku-press.com/post-317692/",
+    "publishedAt": "2026-10-29T07:42:00.000Z",
+    "collectedAt": "2026-10-29T17:00:58.775Z",
+    "summary": "船橋市は来年度から、放課後児童クラブ（学童保育）の待機児童解消に向け、午後5時から7時までの短時間利用制度を導入する。学童保育では午後5時までに帰る児童や欠席者が一定数いることから、利用者が減る夕方…",
+    "categories": [
+      "その他"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "chukyo-2026-10-29-5e8470b9ae2f4414",
+    "title": "中央教育審議会初等中等教育分科会学校安全部会（第4回）配布資料",
+    "sourceId": "chukyo",
+    "sourceName": "中央教育審議会",
+    "sourceUrl": "https://www.mext.go.jp/b_menu/shingi/chukyo/chukyo3/128/siryo/1412213_00003.htm",
+    "publishedAt": "2026-10-29T03:00:00.000Z",
+    "collectedAt": "2026-10-29T17:00:58.775Z",
+    "categories": [
+      "政策・制度"
+    ],
+    "layer": 1,
+    "language": "ja"
+  },
+  {
     "id": "resemom-2026-10-29-fdef41810788cebc",
     "title": "親子で口内をミクロ体験する特別企画11/7…花王✕アトレ新浦安",
     "sourceId": "resemom",
@@ -12,6 +101,37 @@
       "その他"
     ],
     "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "nier-2026-10-29-e5ac12e0c55583ec",
+    "title": "「教員のウェルビーイングに関する実態調査第１波の結果（中間報告）」を掲載しました。",
+    "sourceId": "nier",
+    "sourceName": "国立教育政策研究所",
+    "sourceUrl": "https://www.nier.go.jp/05_kenkyu_seika/seika_digest_r08.html",
+    "publishedAt": "2026-10-29T00:00:00.000Z",
+    "collectedAt": "2026-10-29T17:00:58.775Z",
+    "summary": "研究・事業活動",
+    "categories": [
+      "研究・エビデンス",
+      "教員・働き方"
+    ],
+    "layer": 1,
+    "language": "ja"
+  },
+  {
+    "id": "nier-2026-10-29-e70140ebc3c56791",
+    "title": "広報誌 NIERNEWS 第229号(令和8年10月発行)を掲載しました。",
+    "sourceId": "nier",
+    "sourceName": "国立教育政策研究所",
+    "sourceUrl": "https://www.nier.go.jp/03_laboratory/kankou_kouhou.html",
+    "publishedAt": "2026-10-29T00:00:00.000Z",
+    "collectedAt": "2026-10-29T17:00:58.775Z",
+    "summary": "研究・事業活動",
+    "categories": [
+      "研究・エビデンス"
+    ],
+    "layer": 1,
     "language": "ja"
   }
 ]
