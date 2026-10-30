@@ -1,5 +1,81 @@
 [
   {
+    "id": "kkn-2026-10-29-009e69e562fbf76b",
+    "title": "東京通信大、インドネシアのサイバーアジア大学とMOU締結 オンライン教育の国際連携を推進",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20261030o03",
+    "publishedAt": "2026-10-29T22:00:56.000Z",
+    "collectedAt": "2026-10-30T01:29:13.334Z",
+    "summary": "東京通信大学は10月27日、インドネシアのサイバーアジア大学（Universitas Siber Asia）とMOU（基本協定）を締結し、オンライン教育を軸としたグローバルな連携を強化することを発表した。    […]",
+    "categories": [
+      "その他"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-10-29-7e4aa40cfe03c17e",
+    "title": "予約本貸出ロッカー～都内初　八王子市で導入",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/post_library/261026_8e",
+    "publishedAt": "2026-10-29T22:00:24.000Z",
+    "collectedAt": "2026-10-30T01:29:13.334Z",
+    "summary": "八王子市では㈱内田洋行の｢予約本貸出ロッカー｣を導入し、10月より運用を開始した。東京都内では初の導入となる。 予約本貸出ロッカーは利用者が図書館の蔵書を予約すると、ロッカーに配達され、図書館の開館時間に限らず好きな時間 […]",
+    "categories": [
+      "その他"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-10-29-2634a4c084db216f",
+    "title": "中高生がAI提供者の視点でデジタルヒューマンを開発～中学生・高校生向け職業体験プログラム",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20261030o02",
+    "publishedAt": "2026-10-29T22:00:23.000Z",
+    "collectedAt": "2026-10-30T01:29:13.334Z",
+    "summary": "東京都が実施する中高生向け職業体験事業「Job EX」の一環として、中学生・高校生向け職業体験プログラム「AI・デジタルヒューマン構築体験」が8月18日・19日の2日間にわたり開催された。デル・テクノロジーズが主催し、J […]",
+    "categories": [
+      "ICT / GIGA"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-10-29-1c1b904e773e4b6a",
+    "title": "高専生の国際人材育成プログラム「KOSEN Global Camp」を前川製作所で開催　“社会に近い学び”で次世代育む",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20261030o04",
+    "publishedAt": "2026-10-29T22:00:21.000Z",
+    "collectedAt": "2026-10-30T01:29:13.334Z",
+    "summary": "産業機械の製造・販売などを行う前川製作所は、国立高等専門学校機構が展開する「KOSEN Global Camp」に賛同し、8月31日から9月4日までの5日間、研修施設「マエカワアカデミー」（茨城県守谷市）にて「KOSEN […]",
+    "categories": [
+      "教員・働き方"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-10-29-37181302fff3f114",
+    "title": "相模原市教育委員会が教員志望者向け「公式note」を開設 自治体独自の試みで魅力発信",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20261030o01",
+    "publishedAt": "2026-10-29T22:00:07.000Z",
+    "collectedAt": "2026-10-30T01:29:13.334Z",
+    "summary": "相模原市教育委員会教職員課は10月、教員を目指す学生や社会人に向けた「公式note」を開設した。採用試験の準備や採用後の働き方に関する情報を自治体自らが発信し、全国の教員志望者増加を目指す。 ■自治体の生の声を発信するこ […]",
+    "categories": [
+      "政策・制度",
+      "教員・働き方"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
     "id": "resemom-2026-10-29-bd5329c00c89cd4f",
     "title": "関関同立小学校・灘 井上先生が特別セミナー「キッズ未来博・大阪」見どころ Vol.1",
     "sourceId": "resemom",
