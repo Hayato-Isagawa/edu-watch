@@ -1,5 +1,200 @@
 [
   {
+    "id": "mext-2026-10-30-71fbc43c3016badc",
+    "title": "高等教育局任期付職員の採用のお知らせ",
+    "sourceId": "mext",
+    "sourceName": "文部科学省",
+    "sourceUrl": "https://www.mext.go.jp/b_menu/saiyou/sonota/1417284_00051.htm",
+    "publishedAt": "2026-10-30T10:29:00.000Z",
+    "collectedAt": "2026-10-30T16:45:43.729Z",
+    "categories": [
+      "教員・働き方"
+    ],
+    "layer": 1,
+    "language": "ja"
+  },
+  {
+    "id": "resemom-2026-10-30-ec1d622d522610fd",
+    "title": "静岡県、中高生のための教職セミナー11/8・15…オンラインも",
+    "sourceId": "resemom",
+    "sourceName": "リセマム",
+    "sourceUrl": "https://resemom.jp/article/2026/10/30/88120.html",
+    "publishedAt": "2026-10-30T09:15:02.000Z",
+    "collectedAt": "2026-10-30T16:45:43.729Z",
+    "summary": "静岡県教育委員会は2026年11月8日と15日、県内3会場で「中学生・高校生のための教職セミナー」を開催する。教職に関心のある中高生を対象に、若手教員による仕事内容の紹介やパネルディスカッション、質疑応答などを行う。申込みは各開催日の3日前まで。",
+    "categories": [
+      "政策・制度",
+      "教員・働き方"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "oecd-2026-10-30-4fd9afbafe9a71c4",
+    "title": "When AI does the work, who does the learning?",
+    "sourceId": "oecd",
+    "sourceName": "OECD Education and Skills Today",
+    "sourceUrl": "https://oecdedutoday.com/when-ai-does-the-work-who-does-the-learning/",
+    "publishedAt": "2026-10-30T09:13:12.000Z",
+    "collectedAt": "2026-10-30T16:45:43.729Z",
+    "summary": "By Guillermo Fossati, PhD, psychologist and education researcher Artificial intelligence can help students write better essays, solve problems and produce …",
+    "categories": [
+      "ICT / GIGA"
+    ],
+    "layer": 1,
+    "language": "en"
+  },
+  {
+    "id": "resemom-2026-10-30-facca01fb904f04d",
+    "title": "小中高の保護者向け「学びと睡眠」講演会11/3…名古屋",
+    "sourceId": "resemom",
+    "sourceName": "リセマム",
+    "sourceUrl": "https://resemom.jp/article/2026/10/30/88119.html",
+    "publishedAt": "2026-10-30T08:46:52.000Z",
+    "collectedAt": "2026-10-30T16:45:43.729Z",
+    "summary": "学研ホールディングスのグループ会社エヌイーホールディングスは2026年11月3日、小・中・高校生の保護者を対象とした「学びと睡眠の特別講演会」を名古屋市内で開催する。教育と睡眠の専門家が学習習慣や生活リズムの整え方を解説する。参加費無料、先着70名で事前申込制。",
+    "categories": [
+      "その他"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "mext-2026-10-30-1eda040bb02836e8",
+    "title": "いじめ対策・不登校支援等推進事業（いじめ・不登校等の未然防止等に向けた魅力ある学校づくりに関する調査研究 （医療及び学校現場の連携による自殺対策の強化事業））（総合評価落札方式）",
+    "sourceId": "mext",
+    "sourceName": "文部科学省",
+    "sourceUrl": "https://www.mext.go.jp/b_menu/boshu/mext_00085.html",
+    "publishedAt": "2026-10-30T08:43:00.000Z",
+    "collectedAt": "2026-10-30T16:45:43.729Z",
+    "categories": [
+      "いじめ",
+      "不登校",
+      "研究・エビデンス"
+    ],
+    "layer": 1,
+    "language": "ja"
+  },
+  {
+    "id": "mext-2026-10-30-04e88de760801e5f",
+    "title": "令和8年度「文部科学省日本語教育大会」の実施について",
+    "sourceId": "mext",
+    "sourceName": "文部科学省",
+    "sourceUrl": "https://www.mext.go.jp/a_menu/nihongo_kyoiku/mext_02916.html",
+    "publishedAt": "2026-10-30T08:00:00.000Z",
+    "collectedAt": "2026-10-30T16:45:43.729Z",
+    "categories": [
+      "政策・制度"
+    ],
+    "layer": 1,
+    "language": "ja"
+  },
+  {
+    "id": "resemom-2026-10-30-d3106110bcf414dd",
+    "title": "探究発表とロボット・科学・アート体験「探究フェス東北」11/3",
+    "sourceId": "resemom",
+    "sourceName": "リセマム",
+    "sourceUrl": "https://resemom.jp/article/2026/10/30/88117.html",
+    "publishedAt": "2026-10-30T07:15:02.000Z",
+    "collectedAt": "2026-10-30T16:45:43.729Z",
+    "summary": "未来創生STREAM教育総合研究所は2026年11月3日、仙台で「探究フェス2026 東北」を開催する。子供たちによるロボットやアイデアポスターの発表に加え、東北大学の学生団体による科学体験や、東北芸術工科大学の学生によるアート体験などを実施。参加無料。体験プログラムなどは当日受付で参加できる。",
+    "categories": [
+      "研究・エビデンス"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "nikkyo-2026-10-30-0892deea6bc3534e",
+    "title": "中学35人学級着実に　教育関係23団体が集会",
+    "sourceId": "nikkyo",
+    "sourceName": "日本教育新聞",
+    "sourceUrl": "https://www.kyoiku-press.com/post-317711/",
+    "publishedAt": "2026-10-30T06:50:00.000Z",
+    "collectedAt": "2026-10-30T16:45:43.729Z",
+    "summary": "集会であいさつする関文科相＝27日、東京・千代田区 　教育長会や校長会、PTAなどの教育関係23団体は27日、都内で全国集会を開き、教職員定数の改善や教育予算の拡充を求めるアピールを採択した。 　アピ…",
+    "categories": [
+      "教員・働き方"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "nikkyo-2026-10-30-0ead07aaeb221b95",
+    "title": "上越市立大手町小、来月11日に公開研究会",
+    "sourceId": "nikkyo",
+    "sourceName": "日本教育新聞",
+    "sourceUrl": "https://www.kyoiku-press.com/post-317707/",
+    "publishedAt": "2026-10-30T06:47:00.000Z",
+    "collectedAt": "2026-10-30T16:45:43.729Z",
+    "summary": "新潟県上越市立大手町小学校は12月11日、「探究夢中～次期学習指導要領を見据えた教育課程の創造～」を主題に、公開型研究会を開く。公開授業や、同校の元教諭で文科省主任視学官の田村学さんによる基調講演な…",
+    "categories": [
+      "政策・制度",
+      "研究・エビデンス"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "nikkyo-2026-10-30-ca25c8ceabe94aea",
+    "title": "福祉施設などの送迎車で通学支援を実証　岡山県笠岡市",
+    "sourceId": "nikkyo",
+    "sourceName": "日本教育新聞",
+    "sourceUrl": "https://www.kyoiku-press.com/post-317704/",
+    "publishedAt": "2026-10-30T06:46:00.000Z",
+    "collectedAt": "2026-10-30T16:45:43.729Z",
+    "summary": "岡山県笠岡市と、自動車販売や通信などの民間企業・団体6者は23日、福祉施設や医療機関などの送迎車両を小・中学生の登下校や部活動に伴う移動に活用する実証事業を始めると発表した。公共交通の担い手不足や路…",
+    "categories": [
+      "研究・エビデンス"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "mext-2026-10-30-90a24809439867dd",
+    "title": "CSユースリーダーによる大学生対象イベントを開催します",
+    "sourceId": "mext",
+    "sourceName": "文部科学省",
+    "sourceUrl": "https://www.mext.go.jp/b_menu/houdou/mext_01698.html",
+    "publishedAt": "2026-10-30T05:00:00.000Z",
+    "collectedAt": "2026-10-30T16:45:43.729Z",
+    "categories": [
+      "政策・制度"
+    ],
+    "layer": 1,
+    "language": "ja"
+  },
+  {
+    "id": "resemom-2026-10-30-84ba02f5a2ac6a0c",
+    "title": "「おえかきお弁当美術館」3Dで復活、ハロウィン特別展も無料公開",
+    "sourceId": "resemom",
+    "sourceName": "リセマム",
+    "sourceUrl": "https://resemom.jp/article/2026/10/30/88112.html",
+    "publishedAt": "2026-10-30T03:15:03.000Z",
+    "collectedAt": "2026-10-30T16:45:43.729Z",
+    "summary": "キャラ弁作家・アニメーション作家の宮澤真理は2026年10月26日、「おえかきお弁当美術館」をブラウザで歩いて鑑賞できる3D美術館として再建し、公式Webサイト「e-お弁当作っちゃいました！」で公開した。常設展のほか、ハロウィン特別展も開催中。パソコンやスマホ、タブレットから無料・登録不要で鑑賞できる。",
+    "categories": [
+      "ICT / GIGA"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "resemom-2026-10-30-6748afb2c71ca1ff",
+    "title": "英語サッカースクールGA、Global KA参画…留学支援も",
+    "sourceId": "resemom",
+    "sourceName": "リセマム",
+    "sourceUrl": "https://resemom.jp/article/2026/10/30/88111.html",
+    "publishedAt": "2026-10-30T02:45:02.000Z",
+    "collectedAt": "2026-10-30T16:45:43.729Z",
+    "summary": "Global KA Holdingsは2026年10月29日、英語サッカースクールなどを運営するグローバルアスリート（GA）がグループに参画したと発表した。英語とスポーツの教育ノウハウを組み合わせ、子供たちの学びの機会を広げるとともに、スポーツ留学や海外で競技に取り組む学生の就職支援に取り組む。",
+    "categories": [
+      "国際・海外"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
     "id": "resemom-2026-10-30-34835536e740e802",
     "title": "難関10国立大現役進学者数、千葉県私立の最多「渋幕」127人",
     "sourceId": "resemom",
@@ -12,6 +207,36 @@
       "研究・エビデンス"
     ],
     "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "nier-2026-10-30-6392d4acf17cb1d3",
+    "title": "全国学力・学習状況調査の過去の教科調査問題等を閲覧できる「教科調査問題アーカイブ」に令和８年度調査を追加しました。",
+    "sourceId": "nier",
+    "sourceName": "国立教育政策研究所",
+    "sourceUrl": "https://www.nier.go.jp/edsc/edp/index.html",
+    "publishedAt": "2026-10-30T00:00:00.000Z",
+    "collectedAt": "2026-10-30T16:45:43.729Z",
+    "summary": "研究・事業活動",
+    "categories": [
+      "研究・エビデンス"
+    ],
+    "layer": 1,
+    "language": "ja"
+  },
+  {
+    "id": "nier-2026-10-30-2bafaecd21429569",
+    "title": "公教育データ・プラットフォーム「データで見る日本の教育」に「学校における教育の情報化の実態等に関する調査」のページを追加しました。",
+    "sourceId": "nier",
+    "sourceName": "国立教育政策研究所",
+    "sourceUrl": "https://www.nier.go.jp/edsc/edp/data/zyouhou/index.html",
+    "publishedAt": "2026-10-30T00:00:00.000Z",
+    "collectedAt": "2026-10-30T16:45:43.729Z",
+    "summary": "研究・事業活動",
+    "categories": [
+      "研究・エビデンス"
+    ],
+    "layer": 1,
     "language": "ja"
   }
 ]
