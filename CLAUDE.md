@@ -140,9 +140,10 @@ case 文が知らない終端値は以前「待つ」に落ち、2026-10-23 に 
 
 `zizmor-workflow.test.mjs` も同じ口。`run:` を走らせず、`yaml` でパースした `zizmor.yml` を見る。zizmor-action に
 渡すのが `advanced-security: false`・CI 用の空の設定(`rules: {}`)を指す `config:`・`collect: all` の 3 つだけである
-こと、その設定を action の前の step で書くこと、job に `continue-on-error` / `if:` が無いこと、トリガーが
-`pull_request`・週 1 回の `schedule`・`workflow_dispatch` であること、マージキーを使っていないこと。どれが崩れても
-job は緑のまま検査だけが効かなくなる。`uses:` の SHA は Dependabot が上げるので形だけを見る。
+こと、その設定を action の前の step で書くこと、トリガーが `pull_request`・週 1 回の `schedule`・`workflow_dispatch`
+であること、マージキーを使っていないこと、そして workflow 全体が決まった形であること(`env` の `ZIZMOR_OFFLINE`・
+`continue-on-error`・`if`・Checkout の中身も足せない)。どれが崩れても job は緑のまま検査だけが効かなくなる。
+`uses:` は Dependabot が上げるので形だけを見る(同じ action の古い SHA への差し替えは通る)。
 
 `test:workflows` / `test:hooks` は `assert-test-files.mjs` / `assert-test-results.mjs` を通している。
 `node --test` は「glob が 0 件」「中身が空」「全件 skip」のどれでも exit 0 で終わるので、守って

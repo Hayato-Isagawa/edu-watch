@@ -8,9 +8,10 @@
 # 変えていなくても advisory の側が増えたときに拾うため。毎時 0 分は GitHub の遅延・取りこぼしが
 # 多いので分をずらす。定期実行が落ちたときの通知は、GitHub の既定(cron を最後に変えた人への
 # メール)に任せる。
+# public のリポでは 60 日間アクティビティが無いと定期実行が止まる(止まる前にメールが来ることがあるが、Docs には記載が無い)。止まったら Actions から有効にし直す。
 #
-# zizmor の版は action の中のロックで決まる(v0.7.1 は 1.31.1。wheel はハッシュで検証される)ので、
-# action を上げると zizmor も上がる。advanced-security: false は、結果を code scanning に上げず、
+# zizmor の版は action の中のロックで決まる(version: を渡していないので action の版ごとに固定され、wheel はハッシュで検証される)ので、
+# action を上げると zizmor も上がりうる。advanced-security: false は、結果を code scanning に上げず、
 # 指摘があればこの job を落とすため(true では SARIF を上げるだけで、指摘があっても落ちない)。
 # config: には直前の step で書いた CI 用の空の設定(rules: {})を渡す。zizmor は --config を明示されると
 # 他の設定ファイルを探さないので、リポに zizmor.yml などを置いても CI の検査は外れない(空のファイルは
