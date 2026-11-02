@@ -1,5 +1,132 @@
 [
   {
+    "id": "nikkyo-2026-11-01-02ef109385e1531c",
+    "title": "「健康経営」を宣言　岐阜県、職員の安全や多様な働き方を保障",
+    "sourceId": "nikkyo",
+    "sourceName": "日本教育新聞",
+    "sourceUrl": "https://www.kyoiku-press.com/post-316974/",
+    "publishedAt": "2026-11-01T23:50:00.000Z",
+    "collectedAt": "2026-11-02T01:09:42.320Z",
+    "summary": "岐阜県は首長部局と教育委員会、県警本部の三者が一体となり、職員の働き方改革や健康づくりを推進する「健康経営」の考えを導入した。９月、職員の健康や安全を保障する職場の実現を掲げる「宣言」を知事名で出し…",
+    "categories": [
+      "政策・制度",
+      "教員・働き方"
+    ],
+    "layer": 2,
+    "language": "ja",
+    "requiresMembership": true
+  },
+  {
+    "id": "nikkyo-2026-11-01-c2769363dab96276",
+    "title": "熊本市教委　火災時の避難経路を調査　市立校園８０施設に課題",
+    "sourceId": "nikkyo",
+    "sourceName": "日本教育新聞",
+    "sourceUrl": "https://www.kyoiku-press.com/post-317655/",
+    "publishedAt": "2026-11-01T23:50:00.000Z",
+    "collectedAt": "2026-11-02T01:09:42.320Z",
+    "summary": "熊本市教委は１０月２２日、市立学校・幼稚園を対象に、火災などが発生した際の避難経路の確保に課題があるかどうかを調べた結果を公表した。８０施設から問題があるとの回答があった。６月に東京都北区の小学校で…",
+    "categories": [
+      "研究・エビデンス"
+    ],
+    "layer": 2,
+    "language": "ja",
+    "requiresMembership": true
+  },
+  {
+    "id": "nikkyo-2026-11-01-0755e530b806a3d1",
+    "title": "教員のわいせつ「初犯」どう防ぐ　「こども性暴力防止法」来月施行",
+    "sourceId": "nikkyo",
+    "sourceName": "日本教育新聞",
+    "sourceUrl": "https://www.kyoiku-press.com/post-317733/",
+    "publishedAt": "2026-11-01T23:50:00.000Z",
+    "collectedAt": "2026-11-02T01:09:42.320Z",
+    "summary": "子どもと接する仕事に就く人の性犯罪歴を確認することが主な柱の「こども性暴力防止法」が１２月２５日に施行される。ただ、過去に性犯罪歴がない人の「初犯」をどう防ぐかは課題となっている。教員を性加害者に、…",
+    "categories": [
+      "教員・働き方"
+    ],
+    "layer": 2,
+    "language": "ja",
+    "requiresMembership": true
+  },
+  {
+    "id": "nikkyo-2026-11-01-44097f9b4cc82abe",
+    "title": "教員の奨学金免除に難色　財務省　効果や公平性を疑問視",
+    "sourceId": "nikkyo",
+    "sourceName": "日本教育新聞",
+    "sourceUrl": "https://www.kyoiku-press.com/post-317403/",
+    "publishedAt": "2026-11-01T23:40:00.000Z",
+    "collectedAt": "2026-11-02T01:09:42.320Z",
+    "summary": "財務省は１０月２２日、財政制度等審議会を開き、文科省が令和９年度予算の概算要求に盛り込んだ新任教員の奨学金返還免除について、教員確保への効果や他の職業との公平性を慎重に検討する必要があるとの考えを示…",
+    "categories": [
+      "政策・制度",
+      "教員・働き方"
+    ],
+    "layer": 2,
+    "language": "ja",
+    "requiresMembership": true
+  },
+  {
+    "id": "kkn-2026-11-01-65da229142607998",
+    "title": "｢ぷしゅぷしゅボトル｣で子供も自分でお茶を作ろう～伊藤園",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/post_health/261026_6b",
+    "publishedAt": "2026-11-01T22:00:48.000Z",
+    "collectedAt": "2026-11-02T01:09:42.320Z",
+    "summary": "㈱伊藤園は、湯でも冷水でもすぐに溶けるお茶｢さらさらとける｣シリーズの新商品｢ボトル入り　さらさらとける　お～いお茶　抹茶入り緑茶｣｢同　健康ミネラルむぎ茶｣（以下｢ぷしゅぷしゅボトル｣）を発売した。いずれも40㌘入り、 […]",
+    "categories": [
+      "その他"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-11-01-af8b844e8ba58036",
+    "title": "全国187大学の実態調査、研究費管理の課題浮き彫りに　調査レポート無料配布中〜自治体DX推進協議会",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20261102o03",
+    "publishedAt": "2026-11-01T22:00:28.000Z",
+    "collectedAt": "2026-11-02T01:09:42.320Z",
+    "summary": "一社・自治体DX推進協議会が運営する大学研究費ガバナンス研究会は、全国187の大学・研究機関を対象に実施した「大学における研究費・経費ガバナンスに関する実態調査」の集計・分析レポートを公開した。 本レポートでは、旅費規程 […]",
+    "categories": [
+      "研究・エビデンス"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-11-01-f9064a43bfd7e3e0",
+    "title": "大阪教育大×大阪公立大×岡山大がシンポ「1日10分のeラーニングが子どもの学力を大きく上げた」11/21にハイブリッド開催",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20261102o02",
+    "publishedAt": "2026-11-01T22:00:21.000Z",
+    "collectedAt": "2026-11-02T01:09:42.320Z",
+    "summary": "大阪教育大学、大阪公立大学、岡山大学は11月21日に、シンポジウム「1日10分のeラーニングが子どもの学力を大きく上げた－知識習得に人の関与が必須とならない時代の到来－」をハイブリッドで開催する。 本シンポジウムでは、革 […]",
+    "categories": [
+      "研究・エビデンス"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-11-01-67e669740f352281",
+    "title": "近大、学生ポータルアプリのAI機能実証実験を開始〜学生支援窓口の24時間オンライン化を推進",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20261102o01",
+    "publishedAt": "2026-11-01T22:00:14.000Z",
+    "collectedAt": "2026-11-02T01:09:42.320Z",
+    "summary": "近畿大学は、サイバーエデュケーションテクノロジーズと共同で、学生ポータルアプリ「KDU Mobile」に生成AI機能を搭載した実証実験を10月19日より実施している。対象は理工学部・総合理工学研究科の学生合計5,151人 […]",
+    "categories": [
+      "ICT / GIGA",
+      "研究・エビデンス"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
     "id": "kkn-2026-11-01-bbfd66205ad1586b",
     "title": "武田科学振興財団、2026年度「理科教育振興助成」80件を決定",
     "sourceId": "kkn",
