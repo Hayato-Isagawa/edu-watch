@@ -4,13 +4,18 @@
 # offline では飛ぶ audit(impostor-commit・known-vulnerable-actions・ref-confusion・
 # stale-action-refs・ref-version-mismatch)も走る。
 #
-# .github/ を変える PR でだけ走らせる。そのため advisory の側が増えても、次に .github/ を変える
-# PR が来るまでは拾わない。
+# .github/ を変える PR と、週 1 回(月曜 0:17 UTC)の定期実行で走らせる。定期実行は、workflow を
+# 変えていなくても advisory の側が増えたときに拾うため。毎時 0 分は GitHub の遅延・取りこぼしが
+# 多いので分をずらす。定期実行が落ちたときの通知は、GitHub の既定(cron を最後に変えた人への
+# メール)に任せる。
 #
 # zizmor の版は action の中のロックで決まる(v0.7.1 は 1.31.1。wheel はハッシュで検証される)ので、
 # action を上げると zizmor も上がる。advanced-security: false は、結果を code scanning に上げず、
 # 指摘があればこの job を落とすため(true では SARIF を上げるだけで、指摘があっても落ちない)。
-# リポの中に zizmor の設定ファイルがあると action はそれを読むので、audit ごと外す設定は置かない。
+# config: には直前の step で書いた CI 用の空の設定(rules: {})を渡す。zizmor は --config を明示されると
+# 他の設定ファイルを探さないので、リポに zizmor.yml などを置いても CI の検査は外れない(空のファイルは
+# zizmor が読めずに落ちるので rules: {} を書く)。collect: all は、既定の収集が .gitignore に従うので、
+# workflow を .gitignore に書いて検査から外す道を塞ぐため。インラインの zizmor: ignore[...] は効く。
 
 name: zizmor
 
@@ -19,6 +24,8 @@ on:
     branches: [main]
     paths:
       - ".github/**"
+  schedule:
+    - cron: "17 0 * * 1"
   workflow_dispatch:
 
 concurrency:
@@ -39,7 +46,13 @@ jobs:
         with:
           persist-credentials: false
 
+      - name: Write the CI zizmor config
+        run: |
+          printf 'rules: {}\n' > "$RUNNER_TEMP/zizmor-ci.yml"
+
       - name: Run zizmor
         uses: zizmorcore/zizmor-action@85b2b9fb8e3325e7a23d7d0a9d7ba5ae0f999e3e # v0.7.1
         with:
           advanced-security: false
+          config: ${{ runner.temp }}/zizmor-ci.yml
+          collect: all

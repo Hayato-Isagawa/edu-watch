@@ -70,7 +70,7 @@ GitHub Actions が展開しないので(actions/runner#1182)、`merge: false` �
 PR のコンテンツ」で撮る配線(ADR 0068)も、**壊れても CI は緑のまま**だから — 運ぶ素材を 1 つ
 落としても、テストは走り、多くのページは通る。一番腐りやすいのは運ぶ素材の allowlist なので、
 `src/` の実ディレクトリを走査して「運ぶ・`paths` で監視する・描画に入らないと明言する」の
-三択を強制している。**テストを足したら `package.json` の下限(現在 270、実測ちょうど)も上げること。**
+三択を強制している。**テストを足したら `package.json` の下限(現在 275、実測ちょうど)も上げること。**
 
 `vrt-targets.test.mjs` も同じ口にある。VRT の撮影が**静かに減る**経路(対象を消す・ループを絞る・
 projects を削る・skip に落とす・`fullPage` を落とす・比較設定を緩める・比較ステップを撮り直しにする・
@@ -137,6 +137,12 @@ case 文が知らない終端値は以前「待つ」に落ち、2026-10-23 に 
 終わる(ADR 0081 / 0082)。`run:` を取り出して bash で走らせ、`curl`・`sleep`・`date` をスタブに、jq は実物に通して、
 終端値ごとの exit と purge の有無、追う先の選び方、API のエラーの分け方、経過時間での期限、`timeout-minutes` が
 期限を越えうる最大の時間より長いことを固定している。期限・間隔・回数はステップの `env` から読む。
+
+`zizmor-workflow.test.mjs` も同じ口。`run:` を走らせず、`yaml` でパースした `zizmor.yml` を見る。zizmor-action に
+渡すのが `advanced-security: false`・CI 用の空の設定(`rules: {}`)を指す `config:`・`collect: all` の 3 つだけである
+こと、その設定を action の前の step で書くこと、job に `continue-on-error` / `if:` が無いこと、トリガーが
+`pull_request`・週 1 回の `schedule`・`workflow_dispatch` であること、マージキーを使っていないこと。どれが崩れても
+job は緑のまま検査だけが効かなくなる。`uses:` の SHA は Dependabot が上げるので形だけを見る。
 
 `test:workflows` / `test:hooks` は `assert-test-files.mjs` / `assert-test-results.mjs` を通している。
 `node --test` は「glob が 0 件」「中身が空」「全件 skip」のどれでも exit 0 で終わるので、守って
