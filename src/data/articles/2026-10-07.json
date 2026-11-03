@@ -92,7 +92,8 @@
       "教員・働き方"
     ],
     "layer": 2,
-    "language": "ja"
+    "language": "ja",
+    "requiresMembership": true
   },
   {
     "id": "chukyo-2026-10-07-f4924b85c5035910",
@@ -150,7 +151,8 @@
       "その他"
     ],
     "layer": 2,
-    "language": "ja"
+    "language": "ja",
+    "requiresMembership": true
   },
   {
     "id": "nikkyo-2026-10-07-246067933291f765",
@@ -165,7 +167,8 @@
       "その他"
     ],
     "layer": 2,
-    "language": "ja"
+    "language": "ja",
+    "requiresMembership": true
   },
   {
     "id": "resemom-2026-10-07-618a6eae7e4800cb",
