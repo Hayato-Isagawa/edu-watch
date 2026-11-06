@@ -1,5 +1,66 @@
 [
   {
+    "id": "kkn-2026-11-05-7dfd30a0d835c1ba",
+    "title": "教員志望の学生や新任教員を社会全体で祝う「Next Teachers’ Party 2027」3/6に港区で開催",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20261106o03",
+    "publishedAt": "2026-11-05T22:00:55.000Z",
+    "collectedAt": "2026-11-06T01:56:43.490Z",
+    "summary": "一社・もあふるは2027年3月6日、教員免許の取得予定者や新任教員の門出を社会全体で祝うイベント「Next Teachers’ Party 2027」を東京都港区の札の辻スクエアで開催する。教職を志す学生が抱 […]",
+    "categories": [
+      "教員・働き方"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-11-05-d7132f528b3d7ef8",
+    "title": "文部科学省「諸外国の教育情報」2026年版を公表　国別ファイル化や留学生データ追加で利便性向上",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20261106o04",
+    "publishedAt": "2026-11-05T22:00:37.000Z",
+    "collectedAt": "2026-11-06T01:56:43.490Z",
+    "summary": "文部科学省は、主要6カ国（アメリカ、イギリス、フランス、ドイツ、中国、韓国）の教育状況を取りまとめた「諸外国の教育情報」2026年版を公表した。 本資料は「諸外国の教育統計」の後継として、各国の教育制度や統計データを幅広 […]",
+    "categories": [
+      "政策・制度",
+      "研究・エビデンス"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-11-05-6364794cb75d36df",
+    "title": "全国の高校生がIT知識競う「第2回 ITチャレンジバトル」2027年3月に全国10会場で開催決定",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20261106o01",
+    "publishedAt": "2026-11-05T22:00:25.000Z",
+    "collectedAt": "2026-11-06T01:56:43.490Z",
+    "summary": "立志舎は、高校生などを対象にIT知識の精度を競うコンテスト「第2回 ITチャレンジバトル」を2027年3月20日に全国10会場で同時開催する。同大会はITパスポート試験レベルの知識を競い合うもので、CBT（Compute […]",
+    "categories": [
+      "その他"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-11-05-dc8b131d65aec6ac",
+    "title": "キッズドア、高校生向け無料金融教育講座を12/1に開催 著書の進呈や交通費補助も",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20261106o02",
+    "publishedAt": "2026-11-05T22:00:09.000Z",
+    "collectedAt": "2026-11-06T01:56:43.490Z",
+    "summary": "認定NPO法人キッズドアは12月1日、高校生年代を対象とした特別講座「お金を知れば、未来が変わる。高校生のための『本当に大事なお金の話』」を開催する。対面とオンラインのハイブリッド形式で行われ、参加費は無料。講師には経済 […]",
+    "categories": [
+      "その他"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
     "id": "resemom-2026-11-05-dc817c2a1a4a91ed",
     "title": "東大阪市、中学生の塾代・習い事費用を助成…2027年4月開始予定",
     "sourceId": "resemom",
