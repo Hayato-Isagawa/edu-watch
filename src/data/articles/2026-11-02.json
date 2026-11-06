@@ -60,6 +60,20 @@
     "language": "ja"
   },
   {
+    "id": "mext-2026-11-02-054faceecfa844e4",
+    "title": "令和8年度日本語教員試験出願状況について",
+    "sourceId": "mext",
+    "sourceName": "文部科学省",
+    "sourceUrl": "https://www.mext.go.jp/b_menu/houdou/2026/mext_00012.html",
+    "publishedAt": "2026-11-02T09:36:00.000Z",
+    "collectedAt": "2026-11-06T17:37:26.055Z",
+    "categories": [
+      "教員・働き方"
+    ],
+    "layer": 1,
+    "language": "ja"
+  },
+  {
     "id": "resemom-2026-11-02-fba38764d9383a0c",
     "title": "千葉県立中高の転・編入学…千葉や東葛飾など全日制118校、中学2校",
     "sourceId": "resemom",
@@ -104,6 +118,20 @@
       "研究・エビデンス"
     ],
     "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "mext-2026-11-02-cd19410c8dd530f9",
+    "title": "大学における教育内容等の改革状況について（令和6年度）の結果について",
+    "sourceId": "mext",
+    "sourceName": "文部科学省",
+    "sourceUrl": "https://www.mext.go.jp/a_menu/koutou/daigaku/04052801/1417336_00017.htm",
+    "publishedAt": "2026-11-02T02:26:00.000Z",
+    "collectedAt": "2026-11-06T17:37:26.055Z",
+    "categories": [
+      "政策・制度"
+    ],
+    "layer": 1,
     "language": "ja"
   },
   {
