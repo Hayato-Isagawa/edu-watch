@@ -61,7 +61,7 @@
     "@playwright/test": "^1.64.1",
     "oxfmt": "^0.74.0",
     "oxlint": "^1.90.0",
-    "pagefind": "^1.5.2",
+    "pagefind": "^1.6.0",
     "serve": "^14.2.6",
     "textlint": "^15.8.0",
     "textlint-rule-no-mix-dearu-desumasu": "^6.0.4",
