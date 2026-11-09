@@ -1,5 +1,68 @@
 [
   {
+    "id": "kkn-2026-11-08-1fb0ee662046ffe1",
+    "title": "どう使ってる？ 先生たちの生成AI活用術「ロイロTV 拡大版」を11/17から全5回、オンラインで無料配信",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20261109o02",
+    "publishedAt": "2026-11-08T22:00:55.000Z",
+    "collectedAt": "2026-11-09T01:20:31.240Z",
+    "summary": "LoiLoは、全国の教員による実践事例を紹介する無料のオンライン番組「ロイロTV 拡大版」を、11月17日から全5回にわたり配信する。今回のテーマは「どう使ってる？先生たちの生成AI活用術」。学校現場で生成AIを取り入れ […]",
+    "categories": [
+      "ICT / GIGA",
+      "教員・働き方"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-11-08-94a176ecde966db2",
+    "title": "岩手県久慈市、学校ネットワークを一元管理 通信トラブル激減でICT活用が本格化",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20261109o03",
+    "publishedAt": "2026-11-08T22:00:37.000Z",
+    "collectedAt": "2026-11-09T01:20:31.240Z",
+    "summary": "久慈市教育委員会（岩手県）は、市内22拠点の学校ネットワークを一元管理・可視化する統合システムを導入。通信環境の不安定さを解消し、AIドリルやデジタル教科書などを活用した教育ICT基盤を整えた。導入をサポートしたアライド […]",
+    "categories": [
+      "ICT / GIGA",
+      "政策・制度"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-11-08-5dc5c1f7ced885c9",
+    "title": "岡山理科大学が女子中高生向け宇宙研究現場ツアーを開催 「Girls Meet STEM」一環で",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20261109o01",
+    "publishedAt": "2026-11-08T22:00:31.000Z",
+    "collectedAt": "2026-11-09T01:20:31.240Z",
+    "summary": "岡山理科大学は10月31日、岡山キャンパスで中高生女子向け体験プログラム「宇宙研究の舞台裏をのぞいてみよう ― 先輩研究者になんでも聞こう」を開催した。公財・山田進太郎D&I財団が推進する「Girls Meet  […]",
+    "categories": [
+      "ICT / GIGA",
+      "研究・エビデンス"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-11-08-59d1a1df0eafeedc",
+    "title": "立命館守山中高、保健室や事務室などに校内BGMを導入　BGMの効果検証・熱中症注意喚起等も実施",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20261109o04",
+    "publishedAt": "2026-11-08T22:00:08.000Z",
+    "collectedAt": "2026-11-09T01:20:31.240Z",
+    "summary": "立命館守山中学校・高等学校（滋賀県守山市）は11月6日、保健室、サポートルーム（オルバ）、事務室の3か所に、USENのBGMサービス「USEN MUSIC」を導入した。音楽を通じて、生徒が安心して過ごせる居場所づくりと教 […]",
+    "categories": [
+      "その他"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
     "id": "kkn-2026-11-08-ddc535e67c4a2514",
     "title": "＜AI・デジタル活用実態＞大学ポータル普及も「情報埋もれる」 学生の約4割が重要連絡見落とす〜JAST調査",
     "sourceId": "kkn",
