@@ -1,5 +1,94 @@
 [
   {
+    "id": "nikkyo-2026-11-10-297566db474b3492",
+    "title": "不登校の子、3人に1人が「学校に行きたい」　岡山市が子どもと保護者に調査",
+    "sourceId": "nikkyo",
+    "sourceName": "日本教育新聞",
+    "sourceUrl": "https://www.kyoiku-press.com/post-318277/",
+    "publishedAt": "2026-11-10T07:18:00.000Z",
+    "collectedAt": "2026-11-10T18:03:17.006Z",
+    "summary": "岡山市は、不登校の小・中学生と保護者を対象に実施したアンケート調査の結果を公表した。学校を休んでいるときの気持ちについて、子どもの33・5％が「できれば学校に行きたい」と回答し、最も多かった。一方、…",
+    "categories": [
+      "不登校",
+      "研究・エビデンス"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "mext-2026-11-10-5977b58eed0109f3",
+    "title": "今後の学校における医療的ケアの在り方に関する有識者会議（第1回）の開催について",
+    "sourceId": "mext",
+    "sourceName": "文部科学省",
+    "sourceUrl": "https://www.mext.go.jp/b_menu/shingi/chousa/shotou/213/1418128_00001.html",
+    "publishedAt": "2026-11-10T06:47:00.000Z",
+    "collectedAt": "2026-11-10T18:03:17.006Z",
+    "categories": [
+      "政策・制度"
+    ],
+    "layer": 1,
+    "language": "ja"
+  },
+  {
+    "id": "resemom-2026-11-10-9d1448400deb26c3",
+    "title": "ベネッセ高等学院、27年4月デジタルクリエイティブ科など新設…12月募集開始",
+    "sourceId": "resemom",
+    "sourceName": "リセマム",
+    "sourceUrl": "https://resemom.jp/article/2026/11/10/88248.html",
+    "publishedAt": "2026-11-10T05:15:02.000Z",
+    "collectedAt": "2026-11-10T18:03:17.006Z",
+    "summary": "ベネッセコーポレーションが運営する通信制サポート校「ベネッセ高等学院」は、2027年4月に「デジタルクリエイティブ科」と「強化個別指導：特進科」を新設する。デジタルハリウッド、東京個別指導学院とそれぞれ連携し、専門分野の学習と大学進学への支援を充実させる。募集開始は2026年12月1日。",
+    "categories": [
+      "その他"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "mext-2026-11-10-167c206841b4c65b",
+    "title": "「学校給食衛生管理基準」の在り方に関する有識者会議（第6回）の開催について",
+    "sourceId": "mext",
+    "sourceName": "文部科学省",
+    "sourceUrl": "https://www.mext.go.jp/b_menu/shingi/chousa/shotou/205/kaisai/mext_00013.html",
+    "publishedAt": "2026-11-10T05:00:00.000Z",
+    "collectedAt": "2026-11-10T18:03:17.006Z",
+    "categories": [
+      "政策・制度"
+    ],
+    "layer": 1,
+    "language": "ja"
+  },
+  {
+    "id": "resemom-2026-11-10-3ec735ad2473649b",
+    "title": "高校生による芸術文化の祭典「2027いしかわ総文」7/31-8/5",
+    "sourceId": "resemom",
+    "sourceName": "リセマム",
+    "sourceUrl": "https://resemom.jp/article/2026/11/10/88246.html",
+    "publishedAt": "2026-11-10T04:15:03.000Z",
+    "collectedAt": "2026-11-10T18:03:17.006Z",
+    "summary": "「第51回全国高等学校総合文化祭」が2027年7月31日から8月5日、石川県で開催される。テーマは「はじけろ創造 彩れ未来 いざ百万石の地へ」。全国や海外から約2万人の高校生が参加し、22の部門で発表、展示、競技が繰り広げられる。",
+    "categories": [
+      "国際・海外"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "chukyo-2026-11-10-08e9ffd1dcc19ebb",
+    "title": "中央教育審議会初等中等教育分科会教員養成部会（第165回）の開催について",
+    "sourceId": "chukyo",
+    "sourceName": "中央教育審議会",
+    "sourceUrl": "https://www.mext.go.jp/b_menu/shingi/chukyo/chukyo3/002/mext_00027.html",
+    "publishedAt": "2026-11-10T04:00:00.000Z",
+    "collectedAt": "2026-11-10T18:03:17.006Z",
+    "categories": [
+      "政策・制度",
+      "教員・働き方"
+    ],
+    "layer": 1,
+    "language": "ja"
+  },
+  {
     "id": "resemom-2026-11-10-a42656b5920ece73",
     "title": "帰国子女アカデミー、大阪校プレオープン2027年1月",
     "sourceId": "resemom",
