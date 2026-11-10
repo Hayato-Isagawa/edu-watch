@@ -72,7 +72,8 @@
       "政策・制度"
     ],
     "layer": 2,
-    "language": "ja"
+    "language": "ja",
+    "requiresMembership": true
   },
   {
     "id": "nikkyo-2026-10-16-df4892ff9dfae608",
@@ -162,6 +163,7 @@
       "ICT / GIGA"
     ],
     "layer": 2,
-    "language": "ja"
+    "language": "ja",
+    "requiresMembership": true
   }
 ]
