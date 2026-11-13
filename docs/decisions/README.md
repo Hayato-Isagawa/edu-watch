@@ -26,7 +26,7 @@
 
 ## 姉妹サイトとの整合
 
-EduEvidence JP と共通の運営方針(植物モチーフブランド体系 / Node 24 LTS / 公開氏名 / 本体非営利 + SaaS 分離)は、edu-evidence の `docs/decisions/0001` `0002` `0004` `0005` を参照し、本リポジトリには edu-watch 固有の判断のみを置く。
+EduEvidence JP と共通の運営方針(植物モチーフブランド体系 / Node の LTS / 公開氏名 / 本体非営利 + SaaS 分離)は、edu-evidence の `docs/decisions/0001` `0002` `0004` `0005` `0046` を参照し、本リポジトリには edu-watch 固有の判断のみを置く。
 
 ## テンプレート
 

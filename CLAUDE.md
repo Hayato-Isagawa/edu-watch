@@ -16,10 +16,10 @@
 
 ## 環境
 
-Node.js は `.tool-versions` で固定(`nodejs 24.22.3`)。[mise](https://mise.jdx.dev/) 前提。
+Node.js は `.tool-versions` で固定(`nodejs 26.13.1`)。[mise](https://mise.jdx.dev/) 前提。
 
 ```bash
-mise install               # Node 24 を導入
+mise install               # Node 26 を導入
 npm ci                     # 依存復元
 npm run prepare            # Git フックを有効化(clone ごとに 1 回。.npmrc の ignore-scripts=true で npm ci は prepare を走らせない)
 npm run dev                # 開発サーバー(localhost:4323。ファミリー各リポで固定・4321 は未設定プロジェクト用に空けている)
@@ -35,14 +35,13 @@ npm run test:hooks         # .claude/hooks/ の回帰テスト(下限つき)
 
 `package.json` の `engines.node` は `>=24.0.0`。
 
-**Node の版を上げるときは、Cloudflare 側のビルド変数 `NODE_VERSION` も同じ値に上げる。** Workers Builds は `.tool-versions` を読むが、その版ではビルドしない(2026-11-12 実測: 24.22.2 を指定しても既定の 24.22.1 で走った)。ビルドの版を決めるのは Worker `edu-watch` の `NODE_VERSION` で、本番(`main`)とプレビュー(それ以外のブランチ)の 2 つのトリガーに別々に持つ。また出たばかりの版は、Workers Builds のツールのインストール段階でビルドが落ちる(2026-11 の 24.22.3 は通るまで 1 日以上かかった)。このため次の順で上げる。
+**Node の版を上げるときは、Cloudflare 側のビルド変数 `NODE_VERSION` も同じ値に上げる。** Workers Builds は `.tool-versions` を読むが、その版ではビルドしない(2026-11-12 実測: 24.22.2 を指定しても既定の 24.22.1 で走った)。ビルドの版を決めるのは Worker `edu-watch` の `NODE_VERSION` で、`.node-version` より優先される(2026-11-13 実測: `.node-version` に 26.13.1 を置いても `NODE_VERSION` の 24.22.3 で走った)。ダッシュボードのビルド変数は、本番(`main`)とプレビュー(それ以外のブランチ)の 2 つのトリガーに同じ値をまとめて保存する。出たばかりの版は、Workers Builds のツールのインストール段階でビルドが落ちる(2026-11 の 24.22.3 は通るまで 1 日以上かかった)。このため次の順で上げる。
 
-1. プレビュー側のトリガーの `NODE_VERSION` を新しい版にする
-2. `.tool-versions` を上げる PR を出し、プレビュービルドが通るのを確かめる(ツールのインストール段階で落ちたら、時間を置いて再実行する)
-3. 本番側のトリガーの `NODE_VERSION` を上げる
-4. PR をマージする
+1. ダッシュボードで `NODE_VERSION` を新しい版にする(本番とプレビューの両方に入る)
+2. `.tool-versions` を上げる PR を出し、プレビュービルドのログの `Detected the following tools from environment:` に `nodejs@<新しい版>` が出て、成功するのを確かめる。ツールのインストール段階で落ちたら、`NODE_VERSION` を元の版に戻し、時間を置いてやり直す
+3. CI も通ったら PR をマージする
 
-本番側を先に上げると、その版が入るまで `main` のビルドが落ちうる(2026-11-12 に `.node-version` で 24.22.3 を指定したビルドは、ツールのインストール段階で落ちた)。手順 1 の後、その版が入るまでは、他のブランチのプレビュービルドも同じ理由で落ちうる。
+手順 1 から手順 2 の確認までの間に `main` へ入った変更(Dependabot と、fetch-news・recheck-nikkyo-membership の workflow の自動マージを含む)は、そのビルドも新しい版で走り、入らない版なら落ちる(デプロイのコマンドまで進まないので、配信は前のビルドのまま残る)。この間は手で `main` に入れない。
 
 ### `test:workflows` — link-check の通知分岐と VRT のベースライン配線・ci-summary の通知判定・digest の中身検査
 
