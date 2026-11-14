@@ -1,0 +1,48 @@
+[
+  {
+    "id": "kkn-2026-11-14-bba898fd0166db4b",
+    "title": "第12回ロボット大賞決定、文部科学大臣賞に東京大学の「MEVIUS」",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20261114o02",
+    "publishedAt": "2026-11-14T01:00:46.000Z",
+    "collectedAt": "2026-11-14T01:55:47.942Z",
+    "summary": "文部科学省は11月11日、経済産業省などとの共催による「第12回ロボット大賞」の受賞者を発表し、文部科学大臣賞に東京大学の「オープンソース四脚ロボットMEVIUS」を選出した。 ロボット技術の発展や社会実装の促進を目的に […]",
+    "categories": [
+      "政策・制度"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-11-14-a63a1b6c100fcff8",
+    "title": "横須賀市、生成AI活用相談サービス「よこすかAIフレンド AIちゃん」をこども性暴力防止法に対応する相談窓口として活用へ",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20261114o04",
+    "publishedAt": "2026-11-14T01:00:42.000Z",
+    "collectedAt": "2026-11-14T01:55:47.942Z",
+    "summary": "神奈川県横須賀市は、同市立学校で利用している生成AI活用相談サービス「よこすかAIフレンド AI（あい）ちゃん」（提供元：つながりAI）を、12月25日施行の「こども性暴力防止法」に対応する性被害等の相談窓口として運用開 […]",
+    "categories": [
+      "ICT / GIGA"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-11-14-50d26c24a7b4e6ea",
+    "title": "近大附属豊岡高・中、全校生徒向けに「AI教育講演会」を開催 SNS時代の著作権と情報モラルを学ぶ",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20261114o03",
+    "publishedAt": "2026-11-14T01:00:26.000Z",
+    "collectedAt": "2026-11-14T01:55:47.942Z",
+    "summary": "近畿大学附属豊岡高等学校・中学校（兵庫県豊岡市）は11月17日に、全校生徒763人と教職員を対象とした同校初の「AI教育講演会」を開催する。急速に進む情報化社会を見据えた情報リテラシー教育の一環として行われるものだ。 & […]",
+    "categories": [
+      "ICT / GIGA",
+      "教員・働き方"
+    ],
+    "layer": 2,
+    "language": "ja"
+  }
+]
