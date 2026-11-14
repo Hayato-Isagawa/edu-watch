@@ -33,12 +33,12 @@ npm run test:workflows     # link-check.yml の通知分岐・VRT の配線・ci
 npm run test:hooks         # .claude/hooks/ の回帰テスト(下限つき)
 ```
 
-`package.json` の `engines.node` は `>=24.0.0`。
+`package.json` の `engines.node` は `>=26.0.0`。
 
-**Node の版を上げるときは、Cloudflare 側のビルド変数 `NODE_VERSION` も同じ値に上げる。** Workers Builds は `.tool-versions` を読むが、その版ではビルドしない(2026-11-12 実測: 24.22.2 を指定しても既定の 24.22.1 で走った)。ビルドの版を決めるのは Worker `edu-watch` の `NODE_VERSION` で、`.node-version` より優先される(2026-11-13 実測: `.node-version` に 26.13.1 を置いても `NODE_VERSION` の 24.22.3 で走った)。ダッシュボードのビルド変数は、本番(`main`)とプレビュー(それ以外のブランチ)の 2 つのトリガーに同じ値をまとめて保存する。出たばかりの版は、Workers Builds のツールのインストール段階でビルドが落ちる(2026-11 の 24.22.3 は通るまで 1 日以上かかった)。このため次の順で上げる。
+**Node の版を上げるときは、Cloudflare 側のビルド変数 `NODE_VERSION` も同じ値に上げる。** Workers Builds は `.tool-versions` を読むが、その版ではビルドしない(2026-11-12 実測: 24.22.2 を指定しても既定の 24.22.1 で走った)。ビルドの版を決めるのは Worker `edu-watch` の `NODE_VERSION` で、`.node-version` より優先される(2026-11-13 実測: `.node-version` に 26.13.1 を置いても `NODE_VERSION` の 24.22.3 で走った)。ダッシュボードのビルド変数は、本番(`main`)とプレビュー(それ以外のブランチ)の 2 つのトリガーに同じ値をまとめて保存する。出たばかりの版は、Workers Builds のツールのインストール段階でビルドが落ちる(2026-11 の 24.22.3 は通るまで 1 日以上かかった)。Workers Builds の npm は `package.json` の `packageManager` でしか変わらず、無ければ既定の 10.9.2 になる。新しい Node に同梱の npm の版(nodejs.org の `dist/index.json` の `npm` 欄)に合わせる。このため次の順で上げる。
 
 1. ダッシュボードで `NODE_VERSION` を新しい版にする(本番とプレビューの両方に入る)
-2. `.tool-versions` を上げる PR を出し、プレビュービルドのログの `Detected the following tools from environment:` に `nodejs@<新しい版>` が出て、成功するのを確かめる。ツールのインストール段階で落ちたら、`NODE_VERSION` を元の版に戻し、時間を置いてやり直す
+2. `.tool-versions` と、`package.json` の `packageManager` を上げる PR を出し、プレビュービルドのログの `Detected the following tools from environment:` に `nodejs@<新しい版>` と `npm@<同梱の版>` が出て、成功するのを確かめる。ツールのインストール段階で落ちたら、`NODE_VERSION` を元の版に戻し、時間を置いてやり直す
 3. CI も通ったら PR をマージする
 
 手順 1 から手順 2 の確認までの間に `main` へ入った変更(Dependabot と、fetch-news・recheck-nikkyo-membership の workflow の自動マージを含む)は、そのビルドも新しい版で走り、入らない版なら落ちる(デプロイのコマンドまで進まないので、配信は前のビルドのまま残る)。この間は手で `main` に入れない。
