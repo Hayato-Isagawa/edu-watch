@@ -1,5 +1,99 @@
 [
   {
+    "id": "nikkyo-2026-11-15-03d3a033de77c332",
+    "title": "増えるコミュニティ校、公立校の7割近くに",
+    "sourceId": "nikkyo",
+    "sourceName": "日本教育新聞",
+    "sourceUrl": "https://www.kyoiku-press.com/post-318038/",
+    "publishedAt": "2026-11-15T23:50:00.000Z",
+    "collectedAt": "2026-11-16T01:30:58.592Z",
+    "summary": "学校運営協議会制度を取り入れた公立学校の割合が増え、全国で約７割に達したことが４日、文科省の調査で分かった。小・中学校を中心に、前年度よりコミュニティ・スクールの導入が進んだ。 　調査は、全国の教育…",
+    "categories": [
+      "政策・制度"
+    ],
+    "layer": 2,
+    "language": "ja",
+    "requiresMembership": true
+  },
+  {
+    "id": "nikkyo-2026-11-15-5cc8475f3422a4f7",
+    "title": "地域特性、より広く把握を　教委対象に災害への備え調査",
+    "sourceId": "nikkyo",
+    "sourceName": "日本教育新聞",
+    "sourceUrl": "https://www.kyoiku-press.com/post-318338/",
+    "publishedAt": "2026-11-15T23:50:00.000Z",
+    "collectedAt": "2026-11-16T01:30:58.592Z",
+    "summary": "東京大学大学院の小田隆史准教授らで構成する研究グループが全国の教委を対象に、学校防災に関する地域特性の把握について調べたところ、通学圏全体の災害リスクへの着目は限定的だったことが分かった。グループで…",
+    "categories": [
+      "研究・エビデンス"
+    ],
+    "layer": 2,
+    "language": "ja",
+    "requiresMembership": true
+  },
+  {
+    "id": "nikkyo-2026-11-15-84614de8dc30dfab",
+    "title": "「附属学校は社会資源」　全附P連の羌会長訴え",
+    "sourceId": "nikkyo",
+    "sourceName": "日本教育新聞",
+    "sourceUrl": "https://www.kyoiku-press.com/post-318345/",
+    "publishedAt": "2026-11-15T23:50:00.000Z",
+    "collectedAt": "2026-11-16T01:30:58.592Z",
+    "summary": "全国国立大学附属学校PTA連合会の羌叡應会長は１０月１８日、北海道教育大学附属函館校の関係者を前に講演した。同大学は、函館地区を含め５キャンパスを持つ。昨年１２月には、函館地区の教員養成機能縮小に向…",
+    "categories": [
+      "教員・働き方"
+    ],
+    "layer": 2,
+    "language": "ja",
+    "requiresMembership": true
+  },
+  {
+    "id": "nikkyo-2026-11-15-c01b861c246ad210",
+    "title": "児童・生徒の自殺、最多更新",
+    "sourceId": "nikkyo",
+    "sourceName": "日本教育新聞",
+    "sourceUrl": "https://www.kyoiku-press.com/post-317609/",
+    "publishedAt": "2026-11-15T23:50:00.000Z",
+    "collectedAt": "2026-11-16T01:30:58.592Z",
+    "summary": "昨年、自ら命を絶った小・中学生、高校生の合計は５３８人で統計のある昭和５５年以降、最多を更新したことが分かった。１０月２３日閣議決定の令和８年版自殺対策白書によると、前年と比べ小学生は５人減の１０人…",
+    "categories": [
+      "研究・エビデンス"
+    ],
+    "layer": 2,
+    "language": "ja",
+    "requiresMembership": true
+  },
+  {
+    "id": "kkn-2026-11-15-b7370ecd19d002b7",
+    "title": "しくみデザイン、Web版「Springin’ Classroom」提供開始　2027年3月末まで小中学校等に無償公開",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20261116o02",
+    "publishedAt": "2026-11-15T22:00:44.000Z",
+    "collectedAt": "2026-11-16T01:30:58.592Z",
+    "summary": "しくみデザインは11月12日、教育機関向け創作・プログラミングサービス「Springin’ Classroom（スプリンギン クラスルーム）」のWebブラウザ対応を開始したと発表。専用アプリのインストールが不 […]",
+    "categories": [
+      "その他"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-11-15-3d7eea184740ec3d",
+    "title": "AI教材「キュビナ」、学習eポータル「tomoLinks」と連携へ 名簿管理やログインの手間を削減",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20261116o01",
+    "publishedAt": "2026-11-15T22:00:14.000Z",
+    "collectedAt": "2026-11-16T01:30:58.592Z",
+    "summary": "COMPASSは11月12日、同社が提供するAI型教材「キュビナ」について、コニカミノルタジャパンの学習eポータル「tomoLinks」との連携機能に対応すると発表した。今年度より順次提供を開始する予定で、連携に伴う追加 […]",
+    "categories": [
+      "ICT / GIGA"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
     "id": "kkn-2026-11-15-36ee13997c358dbf",
     "title": "桜美林大・近畿大・NTTグループが4者共同で実証実験 AIカメラ等で学修行動や施設評価を検証",
     "sourceId": "kkn",
