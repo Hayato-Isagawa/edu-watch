@@ -63,7 +63,7 @@
     "oxfmt": "^0.74.0",
     "oxlint": "^1.90.0",
     "pagefind": "^1.6.0",
-    "serve": "^14.2.6",
+    "serve": "^14.2.7",
     "textlint": "^15.8.0",
     "textlint-rule-no-mix-dearu-desumasu": "^6.0.4",
     "textlint-rule-preset-ja-spacing": "^3.0.4",
