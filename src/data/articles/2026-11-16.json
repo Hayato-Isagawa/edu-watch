@@ -1,5 +1,67 @@
 [
   {
+    "id": "kkn-2026-11-16-06a693a02bd324fe",
+    "title": "NTT西日本と京大が連携強化、フィジカルAIの社会実装を担う人材育成プログラムを開発",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20261117o02",
+    "publishedAt": "2026-11-16T22:00:58.000Z",
+    "collectedAt": "2026-11-17T04:15:52.362Z",
+    "summary": "NTT西日本は11月13日、フィジカルAIの発展と次世代を担う人材の育成に向け、京都大学成長戦略本部との連携を強化すると発表した。その一環として、京都大学を拠点とするフィジカルAIコミュニティ「KUPAC」の運営法人であ […]",
+    "categories": [
+      "ICT / GIGA"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-11-16-d2f86a8005547a28",
+    "title": "みんなのコード、中高教員向け生成AI活用ワークショップを12/25にオンラインで開催",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20261117o01",
+    "publishedAt": "2026-11-16T22:00:43.000Z",
+    "collectedAt": "2026-11-17T04:15:52.362Z",
+    "summary": "NPO法人みんなのコードは12月25日に、中学校・高等学校の教員を対象としたオンライン研修「生成AI活用・実践ワークショップ」を開催する。東京大学大学院工学系研究科松尾・岩澤研究室が協力する。 教育現場で生成AIの活用が […]",
+    "categories": [
+      "ICT / GIGA",
+      "研究・エビデンス",
+      "教員・働き方"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-11-16-d94c4b43717773f2",
+    "title": "共立女子学園、専任事務職員へ「Google AI Pro for Education」を導入",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20261117o03",
+    "publishedAt": "2026-11-16T22:00:16.000Z",
+    "collectedAt": "2026-11-17T04:15:52.362Z",
+    "summary": "共立女子学園（東京都千代田区）は9月より、専任事務職員全員を対象に「Google AI Pro for Education」を導入した。生成AIを前提とした業務改革「AX（AIトランスフォーメーション）」を本格始動させ、 […]",
+    "categories": [
+      "ICT / GIGA"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-11-16-cd9a8bbf1a44a20d",
+    "title": "部活動地域展開の負担を軽減、固定費0円の運営アプリ「b+ NEXT」提供開始〜アーシャルデザイン",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20261117o04",
+    "publishedAt": "2026-11-16T22:00:11.000Z",
+    "collectedAt": "2026-11-17T04:15:52.362Z",
+    "summary": "アーシャルデザインは11月13日、部活動やサークル、クラブチーム向けの運営アプリ「b+ NEXT」の提供を開始した。全国の自治体で部活動地域展開に導入されている既存アプリ「b+」の機能を、より多くの現場が手軽に活用できる […]",
+    "categories": [
+      "その他"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
     "id": "resemom-2026-11-16-1be7c971cac61a6f",
     "title": "不登校や高校中退を経験したムエタイ世界王者、引退試合に子供100人招待",
     "sourceId": "resemom",
