@@ -150,7 +150,9 @@ const ACTIONS_GREEN = [
  *
  * @param checkRuns  `commits/{sha}/check-runs` が返す check_runs。
  * @param comments   `issues/{n}/comments` が返す既存コメント。文字列なら github-actions[bot] の
- *                   本文、`{ body, login }` なら作者も指定する。null なら API エラー(fixture 無し → exit 1)。
+ *                   本文、`{ body, login, type, association }` なら作者も指定する(省いた項目は
+ *                   github-actions[bot] の値。このリポの実 API では user.type が Bot、author_association が
+ *                   CONTRIBUTOR)。null なら API エラー(fixture 無し → exit 1)。
  * @param pulls      `commits/{sha}/pulls` が返す PR。`prFromEvent` が空のときだけ引かれる。
  * @param prFromEvent  `workflow_run.pull_requests[0].number` に相当する env。
  * @param self       `SELF`(job 名)。同名の check-run は除外される。
@@ -178,9 +180,17 @@ function runStep({
       path.join(dir, "comments.json"),
       JSON.stringify(
         comments.map((c) => {
-          const { body, login = "github-actions[bot]" } =
-            typeof c === "string" ? { body: c } : c;
-          return { body, user: { login } };
+          const {
+            body,
+            login = "github-actions[bot]",
+            type = "Bot",
+            association = "CONTRIBUTOR",
+          } = typeof c === "string" ? { body: c } : c;
+          return {
+            body,
+            user: { login, type },
+            author_association: association,
+          };
         })
       )
     );
@@ -384,11 +394,58 @@ test("マーカーの後ろに大量のコメントがあっても、重複を�
 });
 
 test("同じ sha のマーカーでも github-actions[bot] 以外が書いたものは数えない", () => {
-  for (const login of ["someone", "dependabot[bot]", "github-actions"]) {
-    const r = runStep({ comments: [{ body: `✅ 前回\n${MARKER}`, login }] });
-    assert.equal(r.code, 0, `${login}: ${r.out}`);
-    assert.ok(r.commentedBody, `${login}: 投稿されなかった`);
+  // type と association は、オーナーと bot は実 API の値(2026-11-17 にこのリポのコメントで確認)、
+  // someone と github-actions はリポに関わりの無い人を想定した値。user.type か、ここに並べた
+  // author_association の値の 1 つを or で足して緩める書き換えは、どれかが赤にする。狭める形・組み合わせ・
+  // fixture に無い項目や値で絞る形はここでは見ず、下の完全一致のテストが止める。
+  for (const author of [
+    { login: "someone", type: "User", association: "NONE" },
+    { login: "github-actions", type: "User", association: "NONE" },
+    { login: "Hayato-Isagawa", type: "User", association: "OWNER" },
+    { login: "dependabot[bot]", type: "Bot", association: "CONTRIBUTOR" },
+    {
+      login: "cloudflare-workers-and-pages[bot]",
+      type: "Bot",
+      association: "NONE",
+    },
+  ]) {
+    const r = runStep({
+      comments: [{ body: `✅ 前回\n${MARKER}`, ...author }],
+    });
+    assert.equal(r.code, 0, `${author.login}: ${r.out}`);
+    assert.ok(r.commentedBody, `${author.login}: 投稿されなかった`);
   }
+});
+
+test("印を探す取得と照合は完全一致で固定する(字面と、gh に実際に渡る --jq)", () => {
+  // 例を並べる fixture では、fixture に無い項目や組み合わせで絞り込みを緩める・狭める
+  // 書き換えを塞ぎきれない。取得・照合の 3 行をそのまま固定し、comments への代入も
+  // 1 か所に限る。式を変えるときはこの期待値も直す
+  const jq = '.[] | select(.user.login == "github-actions[bot]") | .body';
+  const lines = extractRunBlock(WORKFLOW)
+    .split("\n")
+    .map((l) => l.trim())
+    .filter((l) => l !== "" && !l.startsWith("#"));
+  const assigns = lines.filter((l) => /\bcomments\+?=/.test(l));
+  assert.equal(assigns.length, 1, `comments への代入: ${assigns.join(" / ")}`);
+  const i = lines.indexOf(assigns[0]);
+  assert.deepEqual(lines.slice(i - 1, i + 2), [
+    'marker="<!-- ci-summary: ${SHA} -->"',
+    `comments=$(gh api --paginate "repos/\${GH_REPO}/issues/\${pr}/comments" --jq '${jq}')`,
+    'if [[ "$comments" == *"$marker"* ]]; then',
+  ]);
+
+  // 字面を残したまま別の変数で 2 回目の照合を足す形や、gh を関数で包んで --jq を差し替える形は、
+  // 上では止まらない。スタブが記録した呼び出しで、コメント一覧の取得が 1 回だけで、その --jq が
+  // 上の式であることを見る。gh を通らない取得(curl など)はここでも見えない
+  const r = runStep();
+  assert.equal(r.code, 0, r.out);
+  const reads = r.ghArgs.filter(
+    (a) => a.includes("/issues/42/comments") && !a.includes("-f body=")
+  );
+  assert.deepEqual(reads, [
+    `api --paginate repos/example/repo/issues/42/comments --jq ${jq}`,
+  ]);
 });
 
 test("別の sha のマーカーしか無ければ投稿する(再 push は別扱い)", () => {
