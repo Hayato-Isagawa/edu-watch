@@ -151,8 +151,8 @@ const ACTIONS_GREEN = [
  * @param checkRuns  `commits/{sha}/check-runs` が返す check_runs。
  * @param comments   `issues/{n}/comments` が返す既存コメント。文字列なら github-actions[bot] の
  *                   本文、`{ body, login, type, association }` なら作者も指定する(省いた項目は
- *                   github-actions[bot] の値。このリポの実 API では user.type が Bot、author_association が
- *                   CONTRIBUTOR)。null なら API エラー(fixture 無し → exit 1)。
+ *                   github-actions[bot] の値。このリポの実 API では 2026-11-17 時点で user.type が Bot、
+ *                   author_association が CONTRIBUTOR)。null なら API エラー(fixture 無し → exit 1)。
  * @param pulls      `commits/{sha}/pulls` が返す PR。`prFromEvent` が空のときだけ引かれる。
  * @param prFromEvent  `workflow_run.pull_requests[0].number` に相当する env。
  * @param self       `SELF`(job 名)。同名の check-run は除外される。
@@ -435,17 +435,51 @@ test("印を探す取得と照合は完全一致で固定する(字面と、gh �
     'if [[ "$comments" == *"$marker"* ]]; then',
   ]);
 
-  // 字面を残したまま別の変数で 2 回目の照合を足す形や、gh を関数で包んで --jq を差し替える形は、
-  // 上では止まらない。スタブが記録した呼び出しで、コメント一覧の取得が 1 回だけで、その --jq が
-  // 上の式であることを見る。gh を通らない取得(curl など)はここでも見えない
-  const r = runStep();
-  assert.equal(r.code, 0, r.out);
-  const reads = r.ghArgs.filter(
-    (a) => a.includes("/issues/42/comments") && !a.includes("-f body=")
+  // 字面を残したまま、別の変数で 2 回目の照合を足す形・別のエンドポイントや `gh pr view` から
+  // 取る形・gh を関数で包んで --jq を差し替える形は、上では止まらない。スタブは引数を記録してから
+  // 判定するので、記録した呼び出しから投稿(-f body= を持つ呼び出しと、本文の改行の後ろの行)を除き、
+  // 残りが決まった列であることを見る。経路は 3 つ(PR 番号がイベントにある・別の sha の bot コメントが
+  // ある・PR 番号を pulls から引く)。これ以外の条件で分岐させた取得と、スタブを通らない取得
+  // (curl や絶対パスの gh など)はここでも見えない
+  const checkRuns = new RegExp(
+    `^api --paginate repos/example/repo/commits/${SHA}/check-runs `
   );
-  assert.deepEqual(reads, [
-    `api --paginate repos/example/repo/issues/42/comments --jq ${jq}`,
-  ]);
+  const pullsRead = new RegExp(`^api repos/example/repo/commits/${SHA}/pulls `);
+  const commentsRead = `api --paginate repos/example/repo/issues/42/comments --jq ${jq}`;
+  for (const [label, opts, expected] of [
+    ["PR 番号がイベントにある", {}, [checkRuns, commentsRead]],
+    [
+      "別の sha の bot コメントがある",
+      {
+        comments: [
+          "<!-- ci-summary: ffffffffffffffffffffffffffffffffffffffff -->",
+        ],
+      },
+      [checkRuns, commentsRead],
+    ],
+    [
+      "PR 番号を pulls から引く",
+      { prFromEvent: "", pulls: [{ number: 42 }] },
+      [checkRuns, pullsRead, commentsRead],
+    ],
+  ]) {
+    const r = runStep(opts);
+    assert.equal(r.code, 0, `${label}: ${r.out}`);
+    assert.ok(r.commentedBody, `${label}: 投稿されなかった`);
+    const calls = r.ghArgs.filter(
+      (a) => !a.includes("-f body=") && a !== MARKER
+    );
+    assert.equal(
+      calls.length,
+      expected.length,
+      `${label}: ${calls.join(" / ")}`
+    );
+    expected.forEach((e, k) =>
+      typeof e === "string"
+        ? assert.equal(calls[k], e, label)
+        : assert.match(calls[k], e, label)
+    );
+  }
 });
 
 test("別の sha のマーカーしか無ければ投稿する(再 push は別扱い)", () => {
