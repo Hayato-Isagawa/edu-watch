@@ -1,5 +1,64 @@
 [
   {
+    "id": "resemom-2026-11-17-bb674e07d926aff0",
+    "title": "エプソムカレッジ・マレーシア説明会、東京11/28・大阪11/29",
+    "sourceId": "resemom",
+    "sourceName": "リセマム",
+    "sourceUrl": "https://resemom.jp/article/2026/11/17/88343.html",
+    "publishedAt": "2026-11-17T06:45:02.000Z",
+    "collectedAt": "2026-11-17T19:15:54.525Z",
+    "summary": "エプソムカレッジ マレーシアは2026年11月28日に東京、11月29日に大阪で学校説明会を開催する。おもに小学生から高校生とその家族を対象に、英国式カリキュラムや大学進学、寮生活などを紹介。会場で入学試験の一部を受験した人には、2027年春・夏の英語キャンプの割引も用意する。説明会は参加無料。",
+    "categories": [
+      "その他"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "mext-2026-11-17-42a4474003f8f5bd",
+    "title": "「学校給食衛生管理基準」の在り方に関する有識者会議(第6回)配布資料",
+    "sourceId": "mext",
+    "sourceName": "文部科学省",
+    "sourceUrl": "https://www.mext.go.jp/b_menu/shingi/chousa/shotou/205/giji_list/mext_00005.html",
+    "publishedAt": "2026-11-17T06:30:00.000Z",
+    "collectedAt": "2026-11-17T19:15:54.525Z",
+    "categories": [
+      "政策・制度"
+    ],
+    "layer": 1,
+    "language": "ja"
+  },
+  {
+    "id": "nikkyo-2026-11-17-4d8e01e4fff02be7",
+    "title": "性被害児童の支援へ　児童自立支援職員研修の体系化を",
+    "sourceId": "nikkyo",
+    "sourceName": "日本教育新聞",
+    "sourceUrl": "https://www.kyoiku-press.com/post-318533/",
+    "publishedAt": "2026-11-17T06:18:00.000Z",
+    "collectedAt": "2026-11-17T19:15:54.525Z",
+    "summary": "児童買春や児童ポルノの被害を受けた子どもへの支援の在り方を検討するこども家庭庁の有識者会議は10日、対応方法をまとめたガイドラインの策定や、児童自立支援施設の職員を対象にした研修の体系化に向けた方向…",
+    "categories": [
+      "政策・制度",
+      "教員・働き方"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "chukyo-2026-11-17-4388b4c1db659e77",
+    "title": "中央教育審議会教育振興基本計画部会（第2回）の開催について",
+    "sourceId": "chukyo",
+    "sourceName": "中央教育審議会",
+    "sourceUrl": "https://www.mext.go.jp/b_menu/shingi/chukyo/chukyo18/kaisai/mext_00001.html",
+    "publishedAt": "2026-11-17T05:00:00.000Z",
+    "collectedAt": "2026-11-17T19:15:54.525Z",
+    "categories": [
+      "政策・制度"
+    ],
+    "layer": 1,
+    "language": "ja"
+  },
+  {
     "id": "nikkyo-2026-11-17-db8fcb1ca88b9017",
     "title": "『不登校の子、3人に1人が「学校に行きたい」　岡山市が子どもと保護者に調査』が4位にランクイン　記事ランキング　2026年11月9日～11月15日",
     "sourceId": "nikkyo",
