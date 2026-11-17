@@ -43,7 +43,8 @@
       "不登校"
     ],
     "layer": 2,
-    "language": "ja"
+    "language": "ja",
+    "requiresMembership": true
   },
   {
     "id": "resemom-2026-10-23-ec53eba13a2d3f89",
