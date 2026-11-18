@@ -194,6 +194,24 @@ Sprint 1〜4(基盤構築・RSS 自動収集パイプライン・フロント実
 - 日次記事に編集者の意見は加えない
 - 週次ダイジェストに限り論点整理を付与
 
+**Bash での digest の書き換えは Edit の hook を通らない。** digest の frontmatter の保護値(`title` / `weekStart` /
+`weekEnd` / `publishedAt` / 記事 id の並び / URL)と公開済みの号の `updatedAt` は、Edit / Write のとき
+`pre-edit-frontmatter-immutable.cjs` が確認を出し、数値・URL の変化は `post-edit-roundtrip-spot-check.cjs` が
+Claude に知らせる。ところが digest への書き込みは実際には Bash(`cp` / `sed > 新ファイル` / python)で行われていて、
+この 2 本は働いていなかった(2026-11 の調査で直近 30 日の Edit / Write は 0 回)。`.claude/hooks/bash-frontmatter-guard.cjs`
+が Bash の前後で同じ判定を当て、**事後に知らせる(止めない)**:
+
+- Pre で全 worktree の digest の全文を控え、Post / PostToolUseFailure で変わった号に保護値の差・`updatedAt` の規則
+  (控えにあった値が消えたときも)・roundtrip(変わった範囲どうしのトークンの差。Claude にだけ)を当てる。
+  新しく置かれた号と、消えた公開済みの号は 1 行ずつ出す
+- 公開済みかどうかと origin/main と同じ中身かどうかは、`git ls-tree origin/main` 1 回と blob の SHA-1 で決める。
+  pull・`git checkout origin/main -- …` で origin/main と同じ中身になった号では `updatedAt` と roundtrip を出さない
+- コマンド文字列で止める事前 ask は持たない(書くたびに確認が出て止まるため)。そのため `run_in_background` の Bash は
+  照合が空振りし、その変化は以後どこにも出ない。並列の tool call・別セッション・git の切り替えによる変化も、
+  その Bash の変化として出る(安全側の誤報)。同じ Bash の中で作った worktree の号の書き換えは出ない
+- Edit 側の 2 本はユーザー環境のディスパッチャが sha256 で固定しているので触らず、定義を複製している。一致はテストが
+  宣言の文字列・実データ全件・同じ表の入力で固定している。何が起きても exit 0(ディスパッチャ経由では exit 2 が全 Bash の停止になる)
+
 ## ビジュアルリグレッションテスト(VRT)
 
 共有レイアウト・コンポーネント・`global.css` の改修による視覚回帰を、目視に頼らず差分画像で検出する仕組み(ADR 0060、edu-evidence ADR 0024 のミラー)。機能テスト(`e2e/`)とは別系統で併走する:
