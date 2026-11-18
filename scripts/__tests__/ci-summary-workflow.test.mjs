@@ -4,10 +4,14 @@
 // 崩れて通知が消えても workflow は exit 0 のまま、PR の check 一覧にも出ない
 // (run は既定ブランチの sha に紐づく)。気づく手段は「通知が来なかった」しかない。
 //
-// 写しを置かず、**ワークフローに埋まっている本体**を取り出して走らせる。gh はスタブに
+// 走らせるのは、**ワークフローに埋まっている本体**を取り出したもの(写しではない)。gh はスタブに
 // 差し替え、`--jq` のフィルタは実 jq に通す — `.app.slug == "github-actions"` の絞り込みが
 // 無いと、Cloudflare Workers Builds の check-run(workflow_run を起こさない)を待ち続けて
 // 再判定の機会が無いまま通知が消える。フィルタを素通りさせると、その退行を検出できない。
+//
+// それとは別に、パースした workflow 全体を期待値と、通知の run を写し
+// (fixtures/ci-summary/notify-run.sh)と、丸ごと比べる。理由は「workflow 全体が決まった形」の
+// テストに書いた。
 
 import test from "node:test";
 import assert from "node:assert/strict";
@@ -27,6 +31,12 @@ import {
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const WORKFLOWS_DIR = path.join(HERE, "..", "..", ".github", "workflows");
 const WORKFLOW = path.join(WORKFLOWS_DIR, "ci-summary.yml");
+const NOTIFY_RUN_FIXTURE = path.join(
+  HERE,
+  "fixtures",
+  "ci-summary",
+  "notify-run.sh"
+);
 const yaml = () => fs.readFileSync(WORKFLOW, "utf8");
 
 /**
@@ -69,7 +79,8 @@ function violations(src) {
 }
 
 // 通知ステップの run が読む値。SELF が空だと `grep -v -F ""` が全行を落として無音で終わるので、
-// キーだけでなく値も固定する。余分なキーは見ない
+// キーだけでなく値も固定する。余分なキーは wiring() では見ず、「workflow 全体が決まった形」の
+// テストで止める
 const ENV = {
   GH_TOKEN: "${{ github.token }}",
   GH_REPO: "${{ github.repository }}",
@@ -440,7 +451,7 @@ test("印を探す取得と照合は完全一致で固定する(字面と、gh �
   // 判定するので、記録した呼び出しから投稿(-f body= を持つ呼び出しと、本文の改行の後ろの行)を除き、
   // 残りが決まった列であることを見る。経路は 3 つ(PR 番号がイベントにある・別の sha の bot コメントが
   // ある・PR 番号を pulls から引く)。これ以外の条件で分岐させた取得と、スタブを通らない取得
-  // (curl や絶対パスの gh など)はここでも見えない
+  // (curl や絶対パスの gh など)はここでは見えず、下の workflow 全体の固定で止める
   const checkRuns = new RegExp(
     `^api --paginate repos/example/repo/commits/${SHA}/check-runs `
   );
@@ -480,6 +491,61 @@ test("印を探す取得と照合は完全一致で固定する(字面と、gh �
         : assert.match(calls[k], e, label)
     );
   }
+});
+
+test("workflow 全体が決まった形(通知の run は fixture の写しと完全一致)", () => {
+  // 経路を写して走らせる上の検査は、回していない条件(コメントの長さ・環境変数など)の分岐に足した
+  // 照合や、固定した 3 行を死んだコードにして別の変数で照合し直す形を塞げない
+  // (Hayato-Isagawa/edu-law#401)。ステップの外でも、job や workflow 直下の defaults・env、
+  // types・branches、concurrency、別の job を足す形で、通知を黙って止められる。写しを置かない原則の
+  // 例外として、パースした workflow 全体を丸ごと固定し、通知の run は fixture の写しと 1 文字ずつ
+  // 比べる。テストが走らせる本文も同じ写しと比べる。マージキーは `!!merge <<:` などの形だと
+  // 展開されて等価に見えるので、使っていないことも見る。ci-summary.yml を変えるときは、run は
+  // fixture を、それ以外はここの期待値を、コピーで直す
+  const run = fs.readFileSync(NOTIFY_RUN_FIXTURE, "utf8");
+  assert.deepEqual(mergeKeyPaths(yaml()), [], "マージキー");
+  assert.deepEqual(parseWorkflow(yaml()), {
+    name: "CI summary",
+    on: {
+      workflow_run: {
+        workflows: [
+          "Checks",
+          "E2E Tests",
+          "VRT",
+          "Security Audit",
+          "Health check",
+          "Bot PR watchdog",
+          "Dependabot auto-merge",
+          "zizmor",
+        ],
+        types: ["completed"],
+      },
+    },
+    permissions: { checks: "read", "pull-requests": "write" },
+    concurrency: {
+      group: "ci-summary-${{ github.event.workflow_run.head_sha }}",
+      "cancel-in-progress": false,
+    },
+    jobs: {
+      notify: {
+        if:
+          "github.event.workflow_run.event == 'pull_request' && " +
+          "github.event.workflow_run.triggering_actor.login != 'dependabot[bot]' && " +
+          "!startsWith(github.event.workflow_run.head_branch, 'chore/auto-collect-') && " +
+          "!startsWith(github.event.workflow_run.head_branch, 'chore/recheck-nikkyo-')",
+        "runs-on": "ubuntu-latest",
+        "timeout-minutes": 5,
+        steps: [
+          {
+            name: "Comment on the PR when every Actions check on the commit has succeeded",
+            env: ENV,
+            run,
+          },
+        ],
+      },
+    },
+  });
+  assert.equal(extractRunBlock(WORKFLOW), run, "テストが走らせる本文");
 });
 
 test("別の sha のマーカーしか無ければ投稿する(再 push は別扱い)", () => {
