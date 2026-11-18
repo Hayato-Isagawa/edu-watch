@@ -92,3 +92,39 @@ export function triggerNames(on) {
   }
   return null;
 }
+
+/**
+ * 手元の yaml と GitHub の runner とで読みが食い違いうる書き方のうち、次のものを返す(空なら、どれも無い)。
+ * テストは手元の yaml や行単位の取り出しで workflow を読むので、どれもテストが緑のまま本番の挙動だけを変えうる。
+ *
+ * - 単独の CR・U+0085・U+2028・U+2029: yaml はコメントの中ではコメントの続きとして読むが、runner が使う
+ *   YamlDotNet(`CharacterAnalyzer.IsBreak`)は改行として読む
+ * - yaml のエラーと警告(未知のタグ・未知のディレクティブなど): yaml は警告を出して読み進める
+ * - 明示したタグ: actions/runner の `YamlObjectReader` は、スカラーに付いた未知のタグや、引用符付きの
+ *   値に付いた bool / int / float / null のタグで例外を投げ、マップや列に付いたタグは見ない(yaml は
+ *   `!!set` を Set として読む)。`!!int "5"` のように yaml が警告を出さずに値へ解決するものもあるので、
+ *   workflow では使わないタグを、付いていること自体で落とす
+ * - `%YAML` と `%TAG` のディレクティブ: yaml は警告を出さずに受けるが、runner が pin する YamlDotNet 5.3.0 は
+ *   `%YAML 1.2` を例外にし、`%YAML 1.1` の下では yaml が `yes` を true と読む。workflow では使わないので落とす
+ *
+ * github.com のサーバーが runner と同じ実装で workflow を読むかは未検証。
+ */
+export function ambiguousYaml(src) {
+  const found = [];
+  if (/[\r\u0085\u2028\u2029]/.test(src.replace(/\r\n/g, "\n")))
+    found.push("行区切りに使われうる文字がある");
+  const doc = YAML.parseDocument(src, { merge: false });
+  for (const e of [...doc.errors, ...doc.warnings])
+    found.push(`yaml: ${e.message}`);
+  if (doc.directives?.yaml?.explicit) found.push("%YAML ディレクティブがある");
+  if (Object.keys(doc.directives?.tags ?? {}).some((h) => h !== "!!"))
+    found.push("%TAG ディレクティブがある");
+  if (doc.directives?.tags?.["!!"] !== "tag:yaml.org,2002:")
+    found.push("%TAG で !! を差し替えている");
+  YAML.visit(doc, {
+    Node(_, node) {
+      if (node.tag) found.push(`タグ: ${node.tag}`);
+    },
+  });
+  return found;
+}
