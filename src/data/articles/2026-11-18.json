@@ -1,5 +1,77 @@
 [
   {
+    "id": "mext-2026-11-18-e29a99085b4ed70b",
+    "title": "令和8年度日本語教員試験の再試験の実施について",
+    "sourceId": "mext",
+    "sourceName": "文部科学省",
+    "sourceUrl": "https://www.mext.go.jp/b_menu/houdou/2026/mext_00014.html",
+    "publishedAt": "2026-11-18T08:00:00.000Z",
+    "collectedAt": "2026-11-18T18:56:53.339Z",
+    "categories": [
+      "教員・働き方"
+    ],
+    "layer": 1,
+    "language": "ja"
+  },
+  {
+    "id": "nikkyo-2026-11-18-9c45f4035470e502",
+    "title": "持続可能な水泳授業へ屋内プール整備推進を要請　水泳議連が決議",
+    "sourceId": "nikkyo",
+    "sourceName": "日本教育新聞",
+    "sourceUrl": "https://www.kyoiku-press.com/post-318560/",
+    "publishedAt": "2026-11-18T06:39:00.000Z",
+    "collectedAt": "2026-11-18T18:56:53.339Z",
+    "summary": "総会であいさつをする水泳議連会長の丸川珠代元五輪相＝17日午前、国会内で 　超党派でつくる水泳議員連盟は17日の総会で、政府に対し、全ての学校で水泳実技の授業を実施できる体制の整備や十分な予算措置を求…",
+    "categories": [
+      "その他"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "mext-2026-11-18-f12c3a84c7ad8646",
+    "title": "デジタルな形態を含む教科書の発行・採択等の指針に関する検討会議・第6回議事録",
+    "sourceId": "mext",
+    "sourceName": "文部科学省",
+    "sourceUrl": "https://www.mext.go.jp/b_menu/shingi/chousa/shotou/206/gijiroku/mext_00001.html",
+    "publishedAt": "2026-11-18T05:00:00.000Z",
+    "collectedAt": "2026-11-18T18:56:53.339Z",
+    "categories": [
+      "政策・制度"
+    ],
+    "layer": 1,
+    "language": "ja"
+  },
+  {
+    "id": "chukyo-2026-11-18-ae43d200e3b41ffe",
+    "title": "中央教育審議会初等中等教育分科会教育課程部会教育課程企画特別部会（第23回）を開催します",
+    "sourceId": "chukyo",
+    "sourceName": "中央教育審議会",
+    "sourceUrl": "https://www.mext.go.jp/b_menu/shingi/chukyo/chukyo3/kaisai/mext_00158.html",
+    "publishedAt": "2026-11-18T05:00:00.000Z",
+    "collectedAt": "2026-11-18T18:56:53.339Z",
+    "categories": [
+      "政策・制度"
+    ],
+    "layer": 1,
+    "language": "ja"
+  },
+  {
+    "id": "nikkyo-2026-11-18-ea6d1bfe65fccfff",
+    "title": "交付金創設求め、緊急集会　高校改革を実現する会",
+    "sourceId": "nikkyo",
+    "sourceName": "日本教育新聞",
+    "sourceUrl": "https://www.kyoiku-press.com/post-318543/",
+    "publishedAt": "2026-11-18T04:29:00.000Z",
+    "collectedAt": "2026-11-18T18:56:53.339Z",
+    "summary": "高校教育改革を支える交付金の創設を求める「高校教育改革を実現する会」は17日、衆議院議員会館で緊急集会を開いた。年末の予算編成を前に、国会議員や教育関係者らが交付金創設の必要性を訴えた。 　同会は、…",
+    "categories": [
+      "その他"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
     "id": "resemom-2026-11-18-3af0aedc2c8263e6",
     "title": "新潟県立国際フロンティア高、ケンブリッジ国際認定校に…2027年4月開校",
     "sourceId": "resemom",
