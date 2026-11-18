@@ -1,5 +1,81 @@
 [
   {
+    "id": "kkn-2026-11-17-825234323b6306ba",
+    "title": "兵庫県×ゲシピ、一時保護施設でeスポーツ英会話の実証実験を開始",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20261118o01",
+    "publishedAt": "2026-11-17T22:00:52.000Z",
+    "collectedAt": "2026-11-18T03:15:41.113Z",
+    "summary": "兵庫県では11月より、県内の一時保護施設でオンラインのeスポーツ英会話「eスピ！」（提供元：ゲシピ）を活用した実証実験がスタートする。行政課題の解決にスタートアップの技術を活用する「ひょうごTECHイノベーションプロジェ […]",
+    "categories": [
+      "研究・エビデンス"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-11-17-a693133e97dec07f",
+    "title": "LX DESIGNとBowL、教員向けストレスチェック「Well」の学校向け無償トライアルを開始",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20261118o04",
+    "publishedAt": "2026-11-17T22:00:44.000Z",
+    "collectedAt": "2026-11-18T03:15:41.113Z",
+    "summary": "外部人材と学校をつなぐ「複業先生」を運営するLX DESIGNは11月16日、メンタルヘルス総合支援を手がける一社・BowLと連携し、教員向けストレスチェックサービス「Well」の学校向け無償ショートトライアルの募集を開 […]",
+    "categories": [
+      "教員・働き方"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-11-17-58c347219984d4fb",
+    "title": "文理選択前の中高生に理系の先輩との出会いを 全国37校で社会人女性が出張講演〜山田進太郎D&I財団「STEM Week」",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20261118o02",
+    "publishedAt": "2026-11-17T22:00:21.000Z",
+    "collectedAt": "2026-11-18T03:15:41.113Z",
+    "summary": "公財・山田進太郎D&I財団は10月12日から26日までの2週間、中高生を対象としたキャリア教育企画「STEM Week」を実施した。全国37校の中学・高校から約3700人が参加し、STEM（科学・技術・工学・数学 […]",
+    "categories": [
+      "ICT / GIGA"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-11-17-5bbe7a229505c4c5",
+    "title": "『最新教育動向シリーズ　1冊整理　学習指導要領　改定への見取り図』教育の未来を研究する会／編",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/post_library/261026_8i",
+    "publishedAt": "2026-11-17T22:00:03.000Z",
+    "collectedAt": "2026-11-18T03:15:41.113Z",
+    "summary": "“どうなる？”の視点で端的に解説 次期学習指導要領の改訂に向けて進行中の文部科学省・各部会、ワーキンググループの審議内容を、従来の課題感も挙げながら”どうなる？”の観点で端的に整理した。 巻頭に文 […]",
+    "categories": [
+      "政策・制度",
+      "研究・エビデンス"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-11-17-d5031874767943bb",
+    "title": "文部科学省「留学生就職促進教育プログラム認定制度」公募を開始",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20261118o03",
+    "publishedAt": "2026-11-17T22:00:01.000Z",
+    "collectedAt": "2026-11-18T03:15:41.113Z",
+    "summary": "文部科学省は11月16日、外国人留学生の国内企業等への就職を一層促進するため、「留学生就職促進教育プログラム認定制度」の公募を開始した。 本制度は、外国人留学生に対し「日本語教育」「キャリア教育（日本企業論等）」「インタ […]",
+    "categories": [
+      "政策・制度"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
     "id": "resemom-2026-11-17-bb674e07d926aff0",
     "title": "エプソムカレッジ・マレーシア説明会、東京11/28・大阪11/29",
     "sourceId": "resemom",
