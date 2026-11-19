@@ -160,6 +160,7 @@ test("fixture: ambiguousYaml は区切り文字・制御文字・yaml のエラ�
     ["U+2029", "# c\u2029name: x\n"],
     ["未知のディレクティブ", "%FOO bar\n---\nname: x\n"],
     ["キーの重複", "name: x\nname: y\n"],
+    ["yaml のエラー", "a: b: c\n"],
     ["スカラーの未知のタグ", "name: !foo x\n"],
     ["マップの未知のタグ", "jobs: !foo {a: 1}\n"],
     ["引用符付きの値の型のタグ", 'timeout-minutes: !!int "5"\n'],

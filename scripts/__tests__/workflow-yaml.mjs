@@ -112,7 +112,7 @@ export function triggerNames(on) {
  *   のをやめて例外を投げる。ほかの制御文字は YamlDotNet も yaml と同じく中身として読むとみられるが、workflow
  *   では使わないので一緒に落とす
  * - マップや列をキーにした形(`[x]: 1`): yaml は文字列に直して読むが、actions/runner の `TemplateReader` は
- *   マップの終わりを期待して例外を投げる
+ *   マップの終わりを期待して例外を投げる(文字列でないキーとして落ちる)
  * - 文字列でないキー(null・数値・真偽値): runner の `TemplateReader` はキーを `ToString()` で文字列にしてから
  *   重複を判定するが、書式が JS と違う(null は空文字、数値は G15 書式)。`null:` と `"":` のように、yaml は
  *   後勝ちで 1 つに畳み、runner は重複として拒む組がありうるので、使っていること自体を落とす
@@ -156,12 +156,8 @@ export function ambiguousYaml(src) {
       const seen = new Set();
       for (const pair of map.items) {
         const key = pair.key;
-        if (YAML.isCollection(key)) {
-          found.push("マップや列をキーにしている");
-          continue;
-        }
         const value = YAML.isScalar(key) ? key.value : key;
-        // エイリアスのキーもここで落ちる(Alias はスカラーではないので、値が文字列にならない)
+        // マップや列・エイリアスのキーもここで落ちる(スカラーではないので、値が文字列にならない)
         if (typeof value !== "string") {
           found.push(`文字列でないキー: ${String(value)}`);
           continue;
