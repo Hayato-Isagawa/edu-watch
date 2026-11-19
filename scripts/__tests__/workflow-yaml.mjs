@@ -92,3 +92,81 @@ export function triggerNames(on) {
   }
   return null;
 }
+
+/**
+ * 手元の yaml と GitHub の runner とで読みが食い違いうる書き方のうち、次のものを返す(空なら、どれも無い)。
+ * テストは手元の yaml や行単位の取り出しで workflow を読むので、どれもテストが緑のまま本番の挙動だけを変えうる。
+ * runner 側の挙動は、どれも actions/runner と YamlDotNet 5.3.0 のソースを読んで確かめただけで、実行はしていない。
+ *
+ * - 単独の CR・U+0085・U+2028・U+2029: yaml はコメントの中ではコメントの続きとして読むが、runner が使う
+ *   YamlDotNet(`CharacterAnalyzer.IsBreak`)は改行として読む
+ * - yaml のエラーと警告(未知のタグ・未知のディレクティブなど): yaml は警告を出して読み進める
+ * - 明示したタグ: actions/runner の `YamlObjectReader` は、スカラーに付いた未知のタグや、引用符付きの
+ *   値に付いた bool / int / float / null のタグで例外を投げ、マップや列に付いたタグは見ない(yaml は
+ *   `!!set` を Set として読む)。`!!int "5"` のように yaml が警告を出さずに値へ解決するものもあるので、
+ *   workflow では使わないタグを、付いていること自体で落とす
+ * - `%YAML` と `%TAG` のディレクティブ: yaml は警告を出さずに受けるが、runner が pin する YamlDotNet 5.3.0 は
+ *   `%YAML 1.2` を例外にし、`%YAML 1.1` の下では yaml が `yes` を true と読む。workflow では使わないので落とす
+ * - タブ・LF・CR 以外の制御文字(C0・DEL・C1): このうち U+0085 は、上のとおり YamlDotNet が改行として読む。
+ *   残りで読みが食い違うのは NUL で、yaml がコメントの続きとして読むのに、YamlDotNet の Scanner はそこで読む
+ *   のをやめて例外を投げる。ほかの制御文字は YamlDotNet も yaml と同じく中身として読むとみられるが、workflow
+ *   では使わないので一緒に落とす
+ * - マップや列をキーにした形(`[x]: 1`): yaml は文字列に直して読むが、actions/runner の `TemplateReader` は
+ *   マップの終わりを期待して例外を投げる(文字列でないキーとして落ちる)
+ * - 文字列でないキー(null・数値・真偽値): runner の `TemplateReader` はキーを `ToString()` で文字列にしてから
+ *   重複を判定するが、書式が JS と違う(null は空文字、数値は G15 書式)。`null:` と `"":` のように、yaml は
+ *   後勝ちで 1 つに畳み、runner は重複として拒む組がありうるので、使っていること自体を落とす
+ * - エイリアスをキーにした形: yaml はエイリアスで書いたキー(`&k t:` と `*k :`)の重複を検出せず後勝ちで読む。
+ *   runner は、アンカーを一律に拒む読み方(src/Sdk/DTPipelines の `YamlObjectReader`)か、アンカーを控えて
+ *   エイリアスのところで読み直したうえで `TemplateReader` が重複として拒む読み方(src/Sdk/WorkflowParser の
+ *   `YamlObjectReader` に `ParseOptions.AllowAnchors` を渡す経路)のどちらかで、GitHub がどちらで読むかは
+ *   確かめていないが、どちらでも yaml と食い違う。workflow では使わないので、使っていること自体を落とす(文字列で
+ *   ないキーとして落ちる)
+ * - キーの重複: runner は大文字小文字を区別せずに重複を判定する。文字列のキーを大文字小文字をそろえて比べる
+ *
+ * github.com のサーバーが runner と同じ実装で workflow を読むかは未検証。
+ */
+export function ambiguousYaml(src) {
+  const found = [];
+  if (/[\r\u0085\u2028\u2029]/.test(src.replace(/\r\n/g, "\n")))
+    found.push("行区切りに使われうる文字がある");
+  // 正規表現に制御文字を書くと lint(no-control-regex)に当たるので、文字コードで見る
+  const isControl = (n) =>
+    (n < 0x20 && n !== 0x09 && n !== 0x0a && n !== 0x0d) ||
+    n === 0x7f ||
+    (n >= 0x80 && n <= 0x9f);
+  if ([...src].some((c) => isControl(c.charCodeAt(0))))
+    found.push("タブ・LF・CR 以外の制御文字がある");
+  const doc = YAML.parseDocument(src, { merge: false });
+  for (const e of [...doc.errors, ...doc.warnings])
+    found.push(`yaml: ${e.message}`);
+  if (doc.directives?.yaml?.explicit) found.push("%YAML ディレクティブがある");
+  if (Object.keys(doc.directives?.tags ?? {}).some((h) => h !== "!!"))
+    found.push("%TAG ディレクティブがある");
+  if (doc.directives?.tags?.["!!"] !== "tag:yaml.org,2002:")
+    found.push("%TAG で !! を差し替えている");
+  YAML.visit(doc, {
+    Node(_, node) {
+      if (node.tag) found.push(`タグ: ${node.tag}`);
+    },
+  });
+  // マップは別の走査で見る。同じ走査に Map を足すと、yaml はマップに Node を呼ばなくなり、マップのタグを見落とす
+  YAML.visit(doc, {
+    Map(_, map) {
+      const seen = new Set();
+      for (const pair of map.items) {
+        const key = pair.key;
+        const value = YAML.isScalar(key) ? key.value : key;
+        // マップや列・エイリアスのキーもここで落ちる(スカラーではないので、値が文字列にならない)
+        if (typeof value !== "string") {
+          found.push(`文字列でないキー: ${String(value)}`);
+          continue;
+        }
+        const name = value.toLowerCase();
+        if (seen.has(name)) found.push(`キーの重複: ${name}`);
+        seen.add(name);
+      }
+    },
+  });
+  return found;
+}
