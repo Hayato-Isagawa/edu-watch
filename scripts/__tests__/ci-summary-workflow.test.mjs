@@ -502,9 +502,8 @@ test("workflow 全体が決まった形(通知の run は fixture の写しと�
   // 例外として、パースした workflow 全体を丸ごと固定し、通知の run は fixture の写しと 1 文字ずつ
   // 比べる。テストが走らせる本文も同じ写しと比べる。マージキーは `!!merge <<:` などの形だと
   // 展開されて等価に見えるので、使っていないことも見る。手元の yaml と GitHub で読みが食い違いうる
-  // 書き方(区切り文字・yaml の警告・タグ・ディレクティブ)も、パース結果の比較を素通りするので
-  // ambiguousYaml で落とす。ci-summary.yml を変えるときは、run は fixture を、それ以外はここの
-  // 期待値を、コピーで直す
+  // 書き方も、パース結果の比較を素通りしうるので ambiguousYaml で落とす(何を拾うかと理由は共通ファイル)。
+  // ci-summary.yml を変えるときは、run は fixture を、それ以外はここの期待値を、コピーで直す
   const run = fs.readFileSync(NOTIFY_RUN_FIXTURE, "utf8");
   assert.deepEqual(mergeKeyPaths(yaml()), [], "マージキー");
   assert.deepEqual(ambiguousYaml(yaml()), []);

@@ -78,7 +78,7 @@ GitHub Actions が展開しないので(actions/runner#1182)、`merge: false` �
 PR のコンテンツ」で撮る配線(ADR 0068)も、**壊れても CI は緑のまま**だから — 運ぶ素材を 1 つ
 落としても、テストは走り、多くのページは通る。一番腐りやすいのは運ぶ素材の allowlist なので、
 `src/` の実ディレクトリを走査して「運ぶ・`paths` で監視する・描画に入らないと明言する」の
-三択を強制している。**テストを足したら `package.json` の下限(現在 279、実測ちょうど)も上げること。**
+三択を強制している。**テストを足したら `package.json` の下限(現在 280、実測ちょうど)も上げること。**
 
 `vrt-targets.test.mjs` も同じ口にある。VRT の撮影が**静かに減る**経路(対象を消す・ループを絞る・
 projects を削る・skip に落とす・`fullPage` を落とす・比較設定を緩める・比較ステップを撮り直しにする・
@@ -155,14 +155,19 @@ case 文が知らない終端値は以前「待つ」に落ち、2026-10-23 に 
 
 共通部分の `scripts/__tests__/workflow-yaml.mjs` には、手元の yaml と GitHub の runner で読みが食い違いうる
 書き方を拾う `ambiguousYaml` もある(2026-11 に姉妹リポから写した)。拾うのは、行区切りに使われうる単独の CR・
-U+0085・U+2028・U+2029、yaml のエラーと警告(未知のタグ・未知のディレクティブ・yaml が検出するキーの重複など。
-エイリアスで書いたキーや型の違うキー(`1` と `"1"`)の重複は yaml が検出せず、拾わない)、明示したタグ、`%YAML` と
-既定と違う `%TAG` のディレクティブ。行区切りの文字以外は、yaml が同じ値に読むと、パース結果で比べる全体の固定
-(ci-summary・zizmor)を素通りしていた(Hayato-Isagawa/edu-evidence#868。`runs-on: !foo ubuntu-latest` が
-素通りした。行区切りの文字は zizmor では先に拾っていたが、ci-summary では素通りしていた)。GitHub 側で読みが
-変わって挙動が変わるかは未検証で、actions/runner のソースからの推測。判定は `.github/workflows/` の全部の
-workflow に当て(テストが読む workflow だけに当てると漏れる)、判定自体が no-op に落ちていないことは書き方ごとの
-fixture で確かめる。どちらのテストも `zizmor-workflow.test.mjs` の末尾にある。
+U+0085・U+2028・U+2029、タブ・LF・CR 以外の制御文字(C0・DEL・C1。読みが食い違うのは NUL で、ほかは workflow で使わないので
+一緒に落とす)、yaml のエラーと警告(未知のタグ・未知のディレクティブなど)、明示したタグ、`%YAML` と既定と違う
+`%TAG` のディレクティブ、マップや列をキーにした形(`[x]: 1`)、文字列でないキー(null・数値・真偽値。runner はキーを
+.NET の書式で文字列にしてから重複を判定するので、`null:` と `"":` のような組が食い違う)、エイリアスをキーにした形
+(yaml はエイリアスのキーの重複を検出せず、runner はアンカーを受け付けないとみられる)、キーの重複(runner は
+大文字小文字を区別せずに重複を判定するので、大文字小文字をそろえて比べる)。どれも yaml が同じ値に読むと、
+パース結果で比べる全体の固定(ci-summary・zizmor)を
+素通りしうる(Hayato-Isagawa/edu-evidence#868。`runs-on: !foo ubuntu-latest` が素通りした。行区切りの文字は
+zizmor では先に拾っていたが、ci-summary では素通りしていた)。GitHub 側で読みが変わって挙動が変わるかは未検証で、
+actions/runner のソースからの推測。判定は `.github/workflows/` の全部の workflow に当て(テストが読む workflow
+だけに当てると漏れる)、判定自体が no-op に落ちていないことは書き方ごとの fixture で確かめる。マージキーの判定
+`mergeKeyPaths` も、書き方ごとの fixture で確かめる(`!!merge` のタグの条件は、yaml 2.9.1 では別の条件と重なって
+いて単独では固定できない)。この 3 本のテストは `zizmor-workflow.test.mjs` の末尾にある。
 
 `test:workflows` / `test:hooks` は `assert-test-files.mjs` / `assert-test-results.mjs` を通している。
 `node --test` は「glob が 0 件」「中身が空」「全件 skip」のどれでも exit 0 で終わるので、守って
