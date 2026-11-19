@@ -1,6 +1,6 @@
 # 0071. Organization JSON-LD に姉妹サイトの関係を書かず、digest の更新日を `updatedAt` で持つ
 
-- 状態: 採用(0067 の「digest には読者向けの意味を持つ更新日フィールドが無い」前提を上書き。OG の版元は 0067 のまま)
+- 状態: 採用(0067 の「digest には読者向けの意味を持つ更新日フィールドが無い」前提を上書き。OG の版元は 0067 のまま) / 再検討条件の 2 つ目の Bash の経路は [ADR 0084](0084-bash-digest-guard-notify-after.md) が扱う(上書きではない)
 - 日付: 2026-09-16
 - 関連 PR: `feat/jsonld-relations-and-date-modified`
 - 関連 ADR: [`ADR 0064`](0064-post-publication-correction-policy.md)(公開後の訂正) / [`ADR 0067`](0067-og-cache-version-source.md)(OG の版元) / edu-law 0030(姉妹サイト側のミラー)

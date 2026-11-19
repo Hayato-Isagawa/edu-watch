@@ -26,7 +26,7 @@
 
 ## 姉妹サイトとの整合
 
-EduEvidence JP と共通の運営方針(植物モチーフブランド体系 / Node の LTS / 公開氏名 / 本体非営利 + SaaS 分離)は、edu-evidence の `docs/decisions/0001` `0002` `0004` `0005` `0046` を参照し、本リポジトリには edu-watch 固有の判断のみを置く。
+EduEvidence JP と共通の運営方針(植物モチーフブランド体系 / Node の LTS / 公開氏名 / 本体非営利 + SaaS 分離)は、edu-evidence の `docs/decisions/0001` `0002` `0004` `0005` `0046` `0047` を参照し、本リポジトリには edu-watch 固有の判断のみを置く。
 
 ## テンプレート
 
@@ -132,3 +132,4 @@ EduEvidence JP と共通の運営方針(植物モチーフブランド体系 / N
 - [0081. cf-purge は、置き換えた新しいビルドを追い、確かめられないときは purge して赤で終わる](0081-cf-purge-follow-superseding-build.md)
 - [0082. cf-purge は 429 の待ちに下限を付け、429 のまま期限に届いたら purge して赤で終わる](0082-cf-purge-rate-limit-floor-and-deadline.md)
 - [0083. test:workflows は pass が下限とちょうど一致しないと落とす](0083-test-workflows-exact-bound.md)
+- [0084. digest を Bash で書き換えたときは、事後に知らせて止めない](0084-bash-digest-guard-notify-after.md)

@@ -35,7 +35,7 @@ npm run test:hooks         # .claude/hooks/ の回帰テスト(下限つき)
 
 `package.json` の `engines.node` は `>=26.0.0`。
 
-**Node の版を上げるときは、Cloudflare 側のビルド変数 `NODE_VERSION` も同じ値に上げる。** Workers Builds は `.tool-versions` を読むが、その版ではビルドしない(2026-11-12 実測: 24.22.2 を指定しても既定の 24.22.1 で走った)。ビルドの版を決めるのは Worker `edu-watch` の `NODE_VERSION` で、`.node-version` より優先される(2026-11-13 実測: `.node-version` に 26.13.1 を置いても `NODE_VERSION` の 24.22.3 で走った)。ダッシュボードのビルド変数は、本番(`main`)とプレビュー(それ以外のブランチ)の 2 つのトリガーに同じ値をまとめて保存する。出たばかりの版は、Workers Builds のツールのインストール段階でビルドが落ちる(2026-11 の 24.22.3 は通るまで 1 日以上かかった)。Workers Builds の npm は `package.json` の `packageManager` でしか変わらず、無ければ既定の 10.9.2 になる。新しい Node に同梱の npm の版(nodejs.org の `dist/index.json` の `npm` 欄)に合わせる。このため次の順で上げる。
+**Node の版を上げるときは、Cloudflare 側のビルド変数 `NODE_VERSION` も同じ値に上げる。** Workers Builds は `.tool-versions` を読むが、その版ではビルドしない(2026-11-12 実測: 24.22.2 を指定しても既定の 24.22.1 で走った)。ビルドの版を決めるのは Worker `edu-watch` の `NODE_VERSION` で、`.node-version` より優先される(2026-11-13 実測: `.node-version` に 26.13.1 を置いても `NODE_VERSION` の 24.22.3 で走った)。ダッシュボードのビルド変数は、本番(`main`)とプレビュー(それ以外のブランチ)の 2 つのトリガーに同じ値をまとめて保存する。出たばかりの版は、Workers Builds のツールのインストール段階でビルドが落ちる(2026-11 の 24.22.3 は通るまで 1 日以上かかった)。Workers Builds の npm は `package.json` の `packageManager` でしか変わらず、無ければ既定の 10.9.2 になる。新しい Node に同梱の npm の版(nodejs.org の `dist/index.json` の `npm` 欄)に合わせる(edu-evidence ADR 0046 / 0047)。このため次の順で上げる。
 
 1. ダッシュボードで `NODE_VERSION` を新しい版にする(本番とプレビューの両方に入る)
 2. `.tool-versions` と、`package.json` の `packageManager` を上げる PR を出し、プレビュービルドのログの `Detected the following tools from environment:` に `nodejs@<新しい版>` と `npm@<同梱の版>` が出て、成功するのを確かめる。ツールのインストール段階で落ちたら、`NODE_VERSION` を元の版に戻し、時間を置いてやり直す
@@ -48,7 +48,7 @@ npm run test:hooks         # .claude/hooks/ の回帰テスト(下限つき)
 `link-check.yml` に埋め込まれた「検出をどう届けるか」の判定を固定する。**壊れても静かに壊れる** —
 lychee は走り、レポートもアーティファクトに残り、job も緑のまま**通知だけ**が消える。姉妹リポ
 okinawa-in-data では open な link-check Issue があると後続の検出を捨てており、2026-08-17 に
-見つかった 404 が 2 日間どこにも出なかった(okinawa-in-data#107 / #110。このリポも同じコードを
+見つかった 404 が 2 日間どこにも出なかった(塞いだ後の形は同リポの `.github/workflows/link-check.yml`。このリポも同じコードを
 共有していた)。
 
 テストはワークフローから `run:` ブロックを取り出して bash で走らせ、`gh` をスタブして渡された
@@ -197,7 +197,7 @@ actions/runner と YamlDotNet 5.3.0 のソースを読んで確かめただけ�
 - **edu-evidence.org**(本家): 戦略 74 本・コラム 31 本のストック型エビデンスポータル
 - **news.edu-evidence.org**(本サイト): 日次の教育ニュース + 週次ダイジェスト(フロー型)
 
-Layout / styles / glossary / OG 画像ユーティリティは edu-evidence からコピー持ち込み。半年運用後に共通化(npm package 化など)を検討する。
+Layout / styles / glossary / OG 画像ユーティリティは edu-evidence からコピー持ち込み。半年運用後に共通化(npm package 化など)を検討する(ADR 0002)。
 
 ## 現状
 
@@ -210,7 +210,7 @@ Sprint 1〜4(基盤構築・RSS 自動収集パイプライン・フロント実
 - 日次記事に編集者の意見は加えない
 - 週次ダイジェストに限り論点整理を付与
 
-**Bash での digest の書き換えは Edit の hook を通らない。** digest の frontmatter の保護値(`title` / `weekStart` /
+**Bash での digest の書き換えは Edit の hook を通らない(ADR 0084)。** digest の frontmatter の保護値(`title` / `weekStart` /
 `weekEnd` / `publishedAt` / 記事 id の並び / URL)と公開済みの号の `updatedAt` は、Edit / Write のとき
 `pre-edit-frontmatter-immutable.cjs` が確認を出し、数値・URL の変化は `post-edit-roundtrip-spot-check.cjs` が
 Claude に知らせる。ところが digest への書き込みは実際には Bash(`cp` / `sed > 新ファイル` / python)で行われていて、
@@ -239,7 +239,7 @@ Claude に知らせる。ところが digest への書き込みは実際には B
   その後 ADR 0068 で比率そのものをやめた — 許容量がページの長さに比例して長いページほど甘く、
   pixelmatch の既定 `threshold: 0.2` 未満の色差は比率を下げても数えられないため(edu-law の実測)
 - **リトライは入れない**。差分が実測 0 なら、リトライは間欠的な問題を握り潰すだけになる
-- **対象**: `vrt/targets.mjs` の 12 URL(トップ / ダイジェスト一覧・詳細 / アーカイブ一覧・詳細 / カテゴリ一覧・詳細 / ソース一覧・詳細 / about / 検索 / 404)を `vrt/pages.spec.ts` がフルページ撮影(`src/pages/` のテンプレート 13 本と 1 対 1)。テンプレートを追加したら代表 URL を 1 行追記する — 忘れると `test:workflows` が赤にする。ダーク断面は #655 で追加(それまで 1 枚も撮っていなかった)。**`/changelog` は入れない** — PR ごとに先頭へ 1 件増えるので、内容の追加だけで必ず差分が出て本当の崩れが埋もれる(理由は同ファイル冒頭。`.github/workflows/vrt.yml` の `paths` でも `!src/pages/changelog.astro` で除外している)
+- **対象**: `vrt/targets.mjs` の 12 URL(トップ / ダイジェスト一覧・詳細 / アーカイブ一覧・詳細 / カテゴリ一覧・詳細 / ソース一覧・詳細 / about / 検索 / 404)を `vrt/pages.spec.ts` がフルページ撮影(`src/pages/` のテンプレート 13 本と 1 対 1)。テンプレートを追加したら代表 URL を 1 行追記する — 忘れると `test:workflows` が赤にする。ダーク断面は #655 で追加(それまで 1 枚も撮っていなかった)。**`/changelog` は入れない** — PR ごとに先頭へ 1 件増えるので、内容の追加だけで必ず差分が出て本当の崩れが埋もれる(理由は同ファイル冒頭。`.github/workflows/vrt.yml` の `paths` でも `!src/pages/changelog.astro` で除外している。ADR 0060 の対象列挙からの訂正は ADR 0068 の「ADR 0060 の訂正」の表)
 - **ゲート**: `.github/workflows/vrt.yml` が `pull_request` の `paths` で描画に効くパスに限定起動する。記事データ・ダイジェストだけの PR では走らない(`workflow_dispatch` で手動実行可)。依存 bump(`package-lock.json`)では走るが、auto-merge は required しか待たないので、自動マージされる bump では事後の記録にしかならない(major と 0.x の本番依存の minor は人が見る。ADR 0078)。**列挙の正典は同ファイルで、ここには写さない** — 写すと片方だけが古くなる
 - **比較方式(案A + コンテンツ中立)**: CI 内で main と PR を両方ビルドし、同一 Linux 環境で撮影・比較する。ベースライン PNG はコミットしない(`vrt/__screenshots__/` は gitignore)。システムフォント描画の macOS↔Linux 差を回避するため。
   **main 側は「main のコード × PR のコンテンツ」でビルドする**(`src/content` / `src/data` / `src/content.config.ts` を運ぶ)。記事の自動収集で一覧が伸びただけの赤を消すため(ADR 0068)。運ぶ素材の allowlist と degraded 経路は `scripts/__tests__/vrt-baseline.test.mjs` が固定している(`test:workflows` の口)
@@ -250,10 +250,10 @@ Claude に知らせる。ところが digest への書き込みは実際には B
 ## ホスティング
 
 Cloudflare Workers の静的アセット配信(Workers Builds が GitHub main を監視して自動デプロイ)。
-設定は `wrangler.jsonc`。2026-08-05 に Cloudflare Pages から移行した。
+設定は `wrangler.jsonc`。2026-08-05 に Cloudflare Pages から移行した(edu-evidence ADR 0032)。
 `public/_headers` のセキュリティヘッダーは Workers でもそのまま解釈される。
 ドメイン: **news.edu-evidence.org**(edu-evidence.org のサブドメイン、CNAME)。
-メール: Cloudflare Email Routing で `news@edu-evidence.org` を個人 Gmail に転送。
+メール: Cloudflare Email Routing で `news@edu-evidence.org` を運営専用の Gmail に転送。
 
 **Cloudflare のメールアドレス難読化は Workers では効かない**。Pages 配信時は `mailto:`
 が `/cdn-cgi/l/email-protection#…` に置換されていたが、Workers では生のアドレスが出る。
