@@ -133,3 +133,4 @@ EduEvidence JP と共通の運営方針(植物モチーフブランド体系 / N
 - [0082. cf-purge は 429 の待ちに下限を付け、429 のまま期限に届いたら purge して赤で終わる](0082-cf-purge-rate-limit-floor-and-deadline.md)
 - [0083. test:workflows は pass が下限とちょうど一致しないと落とす](0083-test-workflows-exact-bound.md)
 - [0084. digest を Bash で書き換えたときは、事後に知らせて止めない](0084-bash-digest-guard-notify-after.md)
+- [0085. PR の Actions が全部成功したときだけ、PR に 1 回だけ通知する(ci-summary・追認記録。edu-law ADR 0036 ミラー)](0085-ci-summary-notify-once-on-success.md)
