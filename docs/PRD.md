@@ -558,7 +558,7 @@ edu-watch の footer / about では以下を明記する:
 - [x] 本 PRD ドラフトを v0.1 として提出(2026-04-23)
 - [x] レビュー後、以下の決定事項を反映して v1.0 に昇格(2026-04-24)
   - Yahoo ニュースの扱い: 3 層構成(一次情報・主要メディア・話題性シグナル)に整理。Yahoo は第 3 層として週次編集時の参考のみ
-  - X(Twitter)運用: `@edu_evidence_jp` 統一運用、日次 は投稿せず週次ダイジェスト公開時に 1 スレッド
+  - X(Twitter)運用: `@edu_evidence` 統一運用(実際のハンドルは `@edu_evidence_jp`。ADR 0005 の「更新」)、日次 は投稿せず週次ダイジェスト公開時に 1 スレッド
   - メール: Cloudflare Email Routing で `contact` / `news` / `notify` の 3 エイリアス、運営専用の Gmail に転送
   - マネタイズ: edu-watch 本体は非営利のまま、収益化は別ブランドの教員業務支援 SaaS(授業ではなく通常業務向け)で実施
 - [x] v1.0 承認 — **Sprint 1 着手可**
