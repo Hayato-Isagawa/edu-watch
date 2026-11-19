@@ -1,5 +1,67 @@
 [
   {
+    "id": "kkn-2026-11-18-fdc95549c905ef3f",
+    "title": "国立大82%が生成AI指針を公開、課題の扱いは8割超が教員判断に委ねる AIエージェントへの言及はゼロ〜Uravation調査",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20261119o03",
+    "publishedAt": "2026-11-18T22:00:49.000Z",
+    "collectedAt": "2026-11-19T02:54:02.619Z",
+    "summary": "生成AIの研修やコンサルティングを手がけるUravationは11月16日、全国の国立大学85校の公式サイトを対象とした生成AIの利用指針に関する調査結果を発表した。全体の82.4%にあたる70校で指針や留意事項の公開ペ […]",
+    "categories": [
+      "ICT / GIGA",
+      "政策・制度",
+      "研究・エビデンス"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-11-18-1d381ee5c0e20a9a",
+    "title": "神奈川県、庁舎や県立高校にロボットを試行導入　業務の効率化や社会実装を加速",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20261119o02",
+    "publishedAt": "2026-11-18T22:00:12.000Z",
+    "collectedAt": "2026-11-19T02:54:02.619Z",
+    "summary": "神奈川県は11月13日、「ロボット見える化推進事業」の一環として、県庁舎と県立高校の計2カ所にロボットを試行導入すると発表した。県民がロボットと触れ合う機会を創出するとともに、職員や教員の業務支援および効率化を図る。 & […]",
+    "categories": [
+      "教員・働き方"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-11-18-d662b9586691109a",
+    "title": "スタディポケット、2027年度向け教育特化AI新製品発表会を12/1にオンラインで開催",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20261119o01",
+    "publishedAt": "2026-11-18T22:00:03.000Z",
+    "collectedAt": "2026-11-19T02:54:02.619Z",
+    "summary": "スタディポケットは12月1日、2027年度に向けた新プロダクト発表会「StudyPocket Product Day 2026」をオンラインで開催する。開発中の新製品のデモンストレーションと2027年度の提供計画を、教育 […]",
+    "categories": [
+      "ICT / GIGA"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-11-18-dbe10295682390ed",
+    "title": "英語で光の不思議を探究 小学生向け「STEMキャンプ2026ウィンター」12/24〜27に名古屋で開催",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20261119o04",
+    "publishedAt": "2026-11-18T22:00:01.000Z",
+    "collectedAt": "2026-11-19T02:54:02.619Z",
+    "summary": "英語教育事業などを展開するアライブは、12月24日〜27日の4日間、小学3年生以上を対象とした体験型プログラム「STEMキャンプ2026ウィンター」を英語で開催する。テーマは「The Lightwave Adventur […]",
+    "categories": [
+      "ICT / GIGA"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
     "id": "mext-2026-11-18-e29a99085b4ed70b",
     "title": "令和8年度日本語教員試験の再試験の実施について",
     "sourceId": "mext",
