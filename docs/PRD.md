@@ -304,7 +304,7 @@ edu-evidence と完全に揃える。共通運用・共通デプロイ・共通�
 
 ### 8.3 継承する共通資産(edu-evidence からコピー)
 
-MVP 時点では **コピー持ち込み** で開始。半年運用後に共通化するか判断。
+MVP 時点では **コピー持ち込み** で開始。半年運用後に共通化するか判断(半年後の再評価は ADR 0086。`glossary.ts` と `remark-glossary.mjs` は持ち込んでいない)。
 
 - `src/layouts/Layout.astro`(ヘッダー・フッター・用語ツールチップ JS)
 - `src/data/glossary.ts`(用語集)
