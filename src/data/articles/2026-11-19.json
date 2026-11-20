@@ -1,5 +1,51 @@
 [
   {
+    "id": "kkn-2026-11-19-058def6357c971ad",
+    "title": "共通テスト「情報Ⅰ」の授業づくりを学ぶ 高校情報科教員向けセミナーを12/12に岡山で開催〜大修館書店",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20261120o04",
+    "publishedAt": "2026-11-19T22:00:54.000Z",
+    "collectedAt": "2026-11-20T02:46:28.876Z",
+    "summary": "大修館書店は12月12日、高校情報科教員を対象としたセミナー「共通テスト情報Ⅰ『プログラミング』『データの活用』対策と指導のデザイン ―授業で生きるノウハウ共有会」を岡山市で開催する。 同セミナーは、新刊の共通テスト対策 […]",
+    "categories": [
+      "教員・働き方"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-11-19-43143c7ae4c87770",
+    "title": "子供の生成AI利用が大幅増、17歳の86.4%に 東京都「とうきょう こども アンケート」2026年調査",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20261120o01",
+    "publishedAt": "2026-11-19T22:00:54.000Z",
+    "collectedAt": "2026-11-20T02:46:28.876Z",
+    "summary": "東京都子供政策連携室は、都内に住む子供と保護者を対象とした定点調査「とうきょう こども アンケート」の2026年調査結果を公表した。17歳の生成AI使用経験が8割を超えたほか、学年が上がるにつれて子供の幸福度や精神的健康 […]",
+    "categories": [
+      "ICT / GIGA",
+      "研究・エビデンス"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-11-19-780a190183b8a5ad",
+    "title": "ブリティッシュ・カウンシル、中学校英語教員向けに「話す・書く」の指導力を磨くオンライン研修の受講者を募集",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20261120o02",
+    "publishedAt": "2026-11-19T22:00:04.000Z",
+    "collectedAt": "2026-11-20T02:46:28.876Z",
+    "summary": "ブリティッシュ・カウンシルは11月17日、全国の中学校英語教員を対象としたオンライン研修「Teaching English Communication Skills (TECS) with NEW HORIZON(東京書 […]",
+    "categories": [
+      "教員・働き方"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
     "id": "resemom-2026-11-19-82bba9c4439a5a98",
     "title": "VR・ARで宇宙飛行士に「バーチャル宇宙体験フェス」平塚12/12",
     "sourceId": "resemom",
