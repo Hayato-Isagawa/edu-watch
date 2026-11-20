@@ -306,11 +306,11 @@ edu-evidence と完全に揃える。共通運用・共通デプロイ・共通�
 
 MVP 時点では **コピー持ち込み** で開始。半年運用後に共通化するか判断(半年後の再評価は ADR 0086。`glossary.ts` と `remark-glossary.mjs` は持ち込んでいない)。
 
-- `src/layouts/Layout.astro`(ヘッダー・フッター・用語ツールチップ JS)
-- `src/data/glossary.ts`(用語集)
+- `src/layouts/Layout.astro`(ヘッダー・フッター・用語ツールチップ JS。edu-watch には用語ツールチップ JS を持ち込んでいない)
+- `src/data/glossary.ts`(用語集。edu-watch には持ち込んでいない)
 - `src/styles/global.css`(デザインシステム / トークン)
 - `src/lib/og-image.ts`(OG 画像生成)
-- `src/plugins/remark-glossary.mjs`(用語自動リンク)
+- `src/plugins/remark-glossary.mjs`(用語自動リンク。edu-watch には持ち込んでいない)
 - `public/_headers`(セキュリティヘッダー)
 
 ### 8.4 共有しないもの(サイト固有)
