@@ -2,7 +2,7 @@
 
 EduEvidence JP / EduWatch JP / EduLaw JP(法知識)/ EduResearch JP(研究アイデア源)/ 将来のツールサイト(教員業務支援)を、**「1 本の木」の部位** に対応付けるブランド体系。5 サイト(以上)が 1 つの生態系として統合され、教員の実務構造と視覚的に重なる(ADR 0020 で 4 サイトから 5 サイト体系に拡張)。
 
-本ガイドは edu-evidence / edu-watch 両リポジトリに同一の内容で配置する(EduLaw JP / EduResearch JP 立ち上げ時にも同期。将来 `@edu-evidence/brand` のような shared パッケージ化を検討)。
+本ガイドは edu-evidence / edu-watch / edu-law の各リポジトリに同一の内容で配置する(EduResearch JP のリポジトリを立ち上げるときにも同期する。将来 `@edu-evidence/brand` のような shared パッケージ化を検討)。
 
 ---
 
@@ -146,5 +146,5 @@ EduResearch JP(種)は対称(静的シンボル)/ 非対称(芽吹きの方向�
 
 ## 7. 参考
 
-- 本ガイドと同一内容を EduWatch JP リポジトリ(`Hayato-Isagawa/edu-watch`)の `docs/BRAND.md` にも配置する。EduLaw JP(`Hayato-Isagawa/edu-law`)/ EduResearch JP(`Hayato-Isagawa/edu-research`)リポジトリ立ち上げ時にも同期する
+- 本ガイドと同一内容を、EduEvidence JP(`Hayato-Isagawa/edu-evidence`)・EduWatch JP(`Hayato-Isagawa/edu-watch`)・EduLaw JP(`Hayato-Isagawa/edu-law`)の各リポジトリの `docs/BRAND.md` に配置する。EduResearch JP はリポジトリを立ち上げるときに同期する
 - サイト数が 5 つを超えた段階で、共有 npm パッケージ化(`@edu-evidence/brand`)を検討
