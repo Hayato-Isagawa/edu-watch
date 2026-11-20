@@ -99,7 +99,7 @@ project 側に `baseURL` を置くことも許さない。CI では `!process.en
 分岐させた形で、どちらも意図して書かない限り出てこないとして受け入れている(理由と塞ぎ方はテストのコメント)。
 
 `ci-summary-workflow.test.mjs` も同じ口。`ci-summary.yml`(PR の Actions が全部成功したときだけ PR に
-@メンション付きコメントを 1 件付け、GitHub Mobile の通知を 1 回にまとめる)は失敗時に何もしない設計なので、
+@メンション付きコメントを 1 件付け、GitHub Mobile の通知を 1 回にまとめる。方針は ADR 0085(edu-law ADR 0036 のミラー))は失敗時に何もしない設計なので、
 判定が崩れて通知が消えても workflow は exit 0 のまま。link-check と同じく `run:` を取り出して bash で
 走らせ、`gh` はスタブに差し替える。`--jq` のフィルタは**実 jq に通す** — `.app.slug == "github-actions"` の
 絞り込みが無いと Cloudflare の check-run(`workflow_run` を起こさない)を待ち続けて通知が消えるので、
