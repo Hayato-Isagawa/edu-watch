@@ -2,7 +2,7 @@
 
 EduEvidence JP / EduWatch JP / EduLaw JP(法知識)/ EduResearch JP(研究アイデア源)/ 将来のツールサイト(教員業務支援)を、**「1 本の木」の部位** に対応付けるブランド体系。5 サイト(以上)が 1 つの生態系として統合され、教員の実務構造と視覚的に重なる(ADR 0020 で 4 サイトから 5 サイト体系に拡張)。
 
-本ガイドは edu-evidence / edu-watch 両リポジトリに同一の内容で配置する(EduLaw JP / EduResearch JP 立ち上げ時にも同期。将来 `@edu-evidence/brand` のような shared パッケージ化を検討)。
+本ガイドは edu-evidence / edu-watch / edu-law の各リポジトリに同一の内容で配置する(EduResearch JP のリポジトリを立ち上げるときにも同期する。将来 `@edu-evidence/brand` のような shared パッケージ化を検討)。
 
 ---
 
@@ -13,7 +13,7 @@ EduEvidence JP / EduWatch JP / EduLaw JP(法知識)/ EduResearch JP(研究アイ
 | 部位 | 対応サイト | 意味 | 状態 |
 |---|---|---|---|
 | **種(seed)** | **EduResearch JP**(research.edu-evidence.org) | まだ芽が出ていない可能性、研究のアイデア源 | 採択 / 法サイト後着手 |
-| **根(root)** | **EduLaw JP**(law.edu-evidence.org) | 足元から支える基盤、目に見えない制度知識 | 採択 / 着手準備中 |
+| **根(root)** | **EduLaw JP**(law.edu-evidence.org) | 足元から支える基盤、目に見えない制度知識 | 実装済み |
 | **幹(trunk / stem)** | 将来: ツールサイト(業務支援 SaaS) | 日常業務の中核を通す支柱 | 未実装 |
 | **成熟した葉(mature leaf)** | **EduEvidence JP**(edu-evidence.org) | 光を受けて学びを育てる(エビデンスの蓄積) | 実装済み |
 | **双葉(cotyledon)** | **EduWatch JP**(news.edu-evidence.org) | 日々の新しい芽吹き(日次ニュース) | 実装済み |
@@ -38,7 +38,7 @@ EduEvidence JP / EduWatch JP / EduLaw JP(法知識)/ EduResearch JP(研究アイ
 |---|---|---|
 | EduEvidence JP(葉) | `#2b5d3a`(深緑) | 葉・光合成・学術・自然 |
 | EduWatch JP(双葉) | `#1e4a6e`(ディープネイビー) | 新聞紙面の伝統色・信頼・時事 |
-| EduLaw JP(根) | `#6b4423` 周辺(茶) | 根・土・基盤・守護(ADR 0020 で採択) |
+| EduLaw JP(根) | `#6b4423`(茶) | 根・土・基盤・守護(ADR 0020 で採択) |
 | EduResearch JP(種) | 黄土色・麦色系(具体値はロゴ実装 PR で確定) | 種・可能性・知的探求・アイデア源(ADR 0020 で採択) |
 | ツール(将来、幹) | `#8b6f47` 周辺(アンバー / 濃茶)予定 | 幹・木質・実用・道具 |
 
@@ -94,6 +94,7 @@ import Logo from "../components/Logo.astro";
 |---|---|---|
 | EduEvidence JP(葉) | `w-7 h-7` | `w-5 h-5` |
 | EduWatch JP(双葉) | `w-8 h-8` | `w-6 h-6` |
+| EduLaw JP(根) | `w-8 h-8` | `w-5 h-5` |
 
 双葉の方がモチーフの面積が小さいため、表示サイズを一段大きくして均衡を取る。新サイトも**モチーフの視覚的重さに応じてサイズを調整** する(規則というより均衡感を優先)。
 
@@ -109,7 +110,7 @@ import Logo from "../components/Logo.astro";
 | **動き / 速度 / 新鮮さ** | 左右非対称 | EduWatch JP(双葉) |
 | **可能性 / 芽吹き** | ロゴ実装時に決定 | EduResearch JP(種) |
 
-EduLaw JP(根)・ツール(幹)はロゴ実装時に **左右対称** を基本とする(制度・業務の安定感を表現)。
+EduLaw JP(根)は **左右対称** で実装した。ツール(幹)もロゴ実装時に **左右対称** を基本とする(制度・業務の安定感を表現)。
 EduResearch JP(種)は対称(静的シンボル)/ 非対称(芽吹きの方向感)のいずれを採るか、ロゴ実装 PR で決める。
 
 ---
@@ -146,5 +147,5 @@ EduResearch JP(種)は対称(静的シンボル)/ 非対称(芽吹きの方向�
 
 ## 7. 参考
 
-- 本ガイドと同一内容を EduWatch JP リポジトリ(`Hayato-Isagawa/edu-watch`)の `docs/BRAND.md` にも配置する。EduLaw JP(`Hayato-Isagawa/edu-law`)/ EduResearch JP(`Hayato-Isagawa/edu-research`)リポジトリ立ち上げ時にも同期する
+- 本ガイドと同一内容を、EduEvidence JP(`Hayato-Isagawa/edu-evidence`)・EduWatch JP(`Hayato-Isagawa/edu-watch`)・EduLaw JP(`Hayato-Isagawa/edu-law`)の各リポジトリの `docs/BRAND.md` に配置する。EduResearch JP はリポジトリを立ち上げるときに同期する
 - サイト数が 5 つを超えた段階で、共有 npm パッケージ化(`@edu-evidence/brand`)を検討
