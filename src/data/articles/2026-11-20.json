@@ -1,5 +1,138 @@
 [
   {
+    "id": "resemom-2026-11-20-0513bfb583b8dd66",
+    "title": "慶応大、就職先トップ3はコンサル…学部別順位も公表",
+    "sourceId": "resemom",
+    "sourceName": "リセマム",
+    "sourceUrl": "https://resemom.jp/article/2026/11/20/88396.html",
+    "publishedAt": "2026-11-20T10:45:02.000Z",
+    "collectedAt": "2026-11-20T18:42:06.144Z",
+    "summary": "慶應義塾大学による就職・進路データ「2025年度上位就職先企業」（2026年5月1日現在）の調査によると、全学部・研究科合計就職者数5,634人の就職先は、1位アクセンチュア（143人）、2位デロイトトーマツ（138人）、3位ベイカレント（112人）とコンサル志向の高さを象徴する結果となった。",
+    "categories": [
+      "研究・エビデンス"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "resemom-2026-11-20-9a55624bdbb61f53",
+    "title": "立教大野球部、卒業生の進路…TDK・キーエンスなど大企業並ぶ",
+    "sourceId": "resemom",
+    "sourceName": "リセマム",
+    "sourceUrl": "https://resemom.jp/article/2026/11/20/88395.html",
+    "publishedAt": "2026-11-20T10:15:02.000Z",
+    "collectedAt": "2026-11-20T18:42:06.144Z",
+    "summary": "立教大学野球部は2026年11月18日、2026年度卒業生26人の進路を発表した。野球を継続するのは6人で、日立製作所や日本生命保険、JR四国などに進む。このほか、キーエンスやフジテレビジョン、味の素など一般企業への就職が決まった。",
+    "categories": [
+      "その他"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "resemom-2026-11-20-1745772a52cbb4a8",
+    "title": "早稲田大、就職率93.6％…就職先1位はアクセンチュア",
+    "sourceId": "resemom",
+    "sourceName": "リセマム",
+    "sourceUrl": "https://resemom.jp/article/2026/11/20/88393.html",
+    "publishedAt": "2026-11-20T09:45:03.000Z",
+    "collectedAt": "2026-11-20T18:42:06.144Z",
+    "summary": "早稲田大学キャリアセンターは、2025年度卒業・修了者進路状況をまとめた。2026年5月1日現在の調査によると、就職希望者8,648人に対する就職率は93.6％となった。就職人数上位企業・団体の総計1位はアクセンチュアの133人、2位はNTTデータの126人だった。国家試験や学部別の進路も公表している。",
+    "categories": [
+      "研究・エビデンス"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "nikkyo-2026-11-20-41ae1636a75d6c3d",
+    "title": "学習評価や校務でのAI活用を議論　都教委",
+    "sourceId": "nikkyo",
+    "sourceName": "日本教育新聞",
+    "sourceUrl": "https://www.kyoiku-press.com/post-318595/",
+    "publishedAt": "2026-11-20T06:30:00.000Z",
+    "collectedAt": "2026-11-20T18:42:06.144Z",
+    "summary": "東京都教委は20日、学校現場のDX推進について話し合う有識者会議を開いた。ICTを活用した個別最適な学びに向けた、定期テストのデジタル化（CBT化）や、学習支援でのAI活用を進める際の留意点、教員と…",
+    "categories": [
+      "ICT / GIGA",
+      "教員・働き方"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "mext-2026-11-20-424d52fea28ad09c",
+    "title": "デジタルな形態を含む教科書の発行・採択等の指針に関する検討会議（第7回）の開催について",
+    "sourceId": "mext",
+    "sourceName": "文部科学省",
+    "sourceUrl": "https://www.mext.go.jp/b_menu/shingi/chousa/shotou/206/kaisai/mext_00001.html",
+    "publishedAt": "2026-11-20T05:00:00.000Z",
+    "collectedAt": "2026-11-20T18:42:06.144Z",
+    "categories": [
+      "政策・制度"
+    ],
+    "layer": 1,
+    "language": "ja"
+  },
+  {
+    "id": "chukyo-2026-11-20-6be314ecca93184a",
+    "title": "中央教育審議会初等中等教育分科会教育課程部会（第137回）を開催します",
+    "sourceId": "chukyo",
+    "sourceName": "中央教育審議会",
+    "sourceUrl": "https://www.mext.go.jp/b_menu/shingi/chukyo/chukyo3/kaisai/mext_00159.html",
+    "publishedAt": "2026-11-20T05:00:00.000Z",
+    "collectedAt": "2026-11-20T18:42:06.144Z",
+    "categories": [
+      "政策・制度"
+    ],
+    "layer": 1,
+    "language": "ja"
+  },
+  {
+    "id": "nikkyo-2026-11-20-07e0d8ae98c89f08",
+    "title": "文科省、医療的ケアの検討会議が第1回会合",
+    "sourceId": "nikkyo",
+    "sourceName": "日本教育新聞",
+    "sourceUrl": "https://www.kyoiku-press.com/post-318592/",
+    "publishedAt": "2026-11-20T04:22:00.000Z",
+    "collectedAt": "2026-11-20T18:42:06.144Z",
+    "summary": "文科省は17日、「今後の学校における医療的ケアの在り方に関する有識者会議」の第1回会合を開いた。医療的ケア児が増加していることなどを踏まえ、学校や教育委員会の支援体制、看護師の配置などについて検討す…",
+    "categories": [
+      "政策・制度"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "resemom-2026-11-20-132d8a8535d62e04",
+    "title": "【小学校受験】KANAGAWA私立小学校合同フェア12/6、体験授業も",
+    "sourceId": "resemom",
+    "sourceName": "リセマム",
+    "sourceUrl": "https://resemom.jp/article/2026/11/20/88384.html",
+    "publishedAt": "2026-11-20T04:15:03.000Z",
+    "collectedAt": "2026-11-20T18:42:06.144Z",
+    "summary": "2026年12月6日、私立小学校10校が参加する「KANAGAWA私立小学校合同フェア」が聖セシリア小学校で開催される。参加校による個別相談会、パネルディスカッションのほか、幼児体験授業を行う。事前申込制、Webサイトの申込フォームより申し込む。",
+    "categories": [
+      "その他"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "chukyo-2026-11-20-87f2474c8d36b465",
+    "title": "第20回中央教育審議会生涯学習分科会社会教育の在り方に関する特別部会の配布資料を更新しました",
+    "sourceId": "chukyo",
+    "sourceName": "中央教育審議会",
+    "sourceUrl": "https://www.mext.go.jp/b_menu/shingi/chukyo/chukyo2/015/giji_list/mext_00025.html",
+    "publishedAt": "2026-11-20T03:00:00.000Z",
+    "collectedAt": "2026-11-20T18:42:06.144Z",
+    "categories": [
+      "政策・制度"
+    ],
+    "layer": 1,
+    "language": "ja"
+  },
+  {
     "id": "nikkyo-2026-11-20-5307b40bc025cc65",
     "title": "就職時に「有名企業重視」、保護者世代の6分の1に",
     "sourceId": "nikkyo",
