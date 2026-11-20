@@ -188,7 +188,7 @@ actions/runner と YamlDotNet 5.3.0 のソースを読んで確かめただけ�
 - `src/content/digests/` — 週次ダイジェスト(Markdown コレクション、本サイトの主コンテンツ)
 - `src/pages/` — index(トップ) / digest(一覧・詳細) / archive / categories / sources / search / about / changelog / 404 / og / rss.xml.ts / design-tokens.json.ts
 - `src/layouts/Layout.astro` — 共通レイアウト(edu-evidence と統一のデザイントークン)
-- `src/styles/global.css` — デザインシステム(edu-evidence から持ち込み、将来共通化候補)
+- `src/styles/global.css` — デザインシステム(edu-evidence から持ち込み、その後サイトごとに分かれた。ADR 0086)
 - `public/_headers` — セキュリティヘッダー
 - `docs/PRD.md` — v1.0 承認済みのプロダクト要件
 
@@ -197,7 +197,7 @@ actions/runner と YamlDotNet 5.3.0 のソースを読んで確かめただけ�
 - **edu-evidence.org**(本家): 戦略 74 本・コラム 31 本のストック型エビデンスポータル
 - **news.edu-evidence.org**(本サイト): 日次の教育ニュース + 週次ダイジェスト(フロー型)
 
-Layout / styles / glossary / OG 画像ユーティリティは edu-evidence からコピー持ち込み。半年運用後に共通化(npm package 化など)を検討する(ADR 0002)。
+Layout / styles / OG 画像ユーティリティ / セキュリティヘッダーは edu-evidence からコピー持ち込み(ADR 0002。glossary.ts と remark-glossary.mjs は持ち込んでいない)。2026-11 の再評価で、別リポジトリのまま続けると決めた(ADR 0086)。
 
 ## 現状
 
