@@ -33,7 +33,10 @@ jobs:
         uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
           node-version-file: ".tool-versions"
-          cache: "npm"
+          # issues: write を持つジョブに、main の npm キャッシュを読む経路を残さない(audit.yml と同じ)。
+          # schedule と手動実行だけで動き PR を待たせないので、キャッシュが無くても困らない。
+          # package.json に packageManager があると、setup-node は cache の指定が無くても有効にするので、明示して切る
+          package-manager-cache: false
 
       - name: Install dependencies
         run: npm ci
@@ -41,18 +44,21 @@ jobs:
       - name: Build site
         run: npm run build
 
-      - name: Restore lychee cache
-        id: lychee-cache
-        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
-        with:
-          path: .lycheecache
-          key: lychee-${{ github.run_id }}
-          restore-keys: lychee-
-
+      # **lychee のキャッシュは置かない。** issues: write を持つジョブにキャッシュを読む経路を残さない
+      # (npm と同じ)。lychee は 24 時間(--max-cache-age の既定 1d)より古い結果を捨てるので、週 1 回の
+      # schedule では前の週のキャッシュがどのみち使われず、置いても効くのは 24 時間以内の回し直しだけ。
+      # **job の timeout-minutes より短い制限をステップに置く。** job の制限に当たると
+      # GitHub は job を取り消すので、通知ステップの暗黙の success() が偽になり Issue が
+      # 立たない。ステップの制限なら runner は Failed として扱い、continue-on-error が
+      # outcome=failure に変えて job を続ける(lychee-action は composite なので、判定するのは
+      # actions/runner の CompositeActionHandler.cs)。
+      # 固まった回も「could not produce a report」として届く。前後のステップと kill の時間を残すため、
+      # 差は 5 分以上にする(link-check-workflow.test.mjs が固定)。
       - name: Run lychee
         id: lychee
         uses: lycheeverse/lychee-action@e7477775783ea5526144ba13e8db5eec57747ce8 # v2
         continue-on-error: true
+        timeout-minutes: 20
         with:
           # Accept broader status codes as a safety net for paywalled news
           # outlets and government sites that may rate-limit bots.
@@ -77,8 +83,6 @@ jobs:
           # fast, not from broken links. See ADR 0066.
           args: >-
             --no-progress
-            --cache
-            --max-cache-age 1d
             --root-dir ${{ github.workspace }}/dist
             --accept 200,201,202,203,204,206,301,302,303,307,308,403,429,503
             --timeout 30
@@ -194,7 +198,7 @@ jobs:
           else
             title="[auto] Link check could not produce a report ($today)"
             lead="週次の自動リンクチェックが**レポートを出せずに終了しました**(lychee の終了コード: ${LYCHEE_EXIT_CODE:-unknown})。**何が切れたかは分かりません。**"
-            hint="リンク切れの報告ではなく、**チェックそのものが完走しなかった**という報告です。run ログの \`Download and extract lychee\` / \`Install lychee\` と、lychee 本体が panic していないかを見てください。この状態が続くと、リンク切れが起きても誰も気づけません。"
+            hint="リンク切れの報告ではなく、**チェックそのものが完走しなかった**という報告です。run ログの \`Download and extract lychee\` / \`Install lychee\` と、lychee 本体が panic していないか・時間切れ(\`has timed out\`)になっていないかを見てください。この状態が続くと、リンク切れが起きても誰も気づけません。"
             recheck="今回はレポートが無いので、照合できる URL の一覧もありません。"
             datelabel="実行日"
           fi
