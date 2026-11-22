@@ -1,6 +1,6 @@
 # 0066. リンクチェックで kyoiku-press.com だけレート制限を掛ける
 
-- 状態: 採用
+- 状態: 採用 / §影響の「job ごと打ち切られ、Issue は作られない」は、[ADR 0087](0087-detect-ci-drift-instead-of-sharing.md) が各リポで直すと決めた修正(lychee の手順に job より短い時間制限を置く)で解消し、時間切れは「could not produce a report」の Issue として届く。§補足の lychee のキャッシュも同じ修正で外した(どちらも上書きではない)
 - 日付: 2026-08-19
 - 関連 issue: #511（#416 が同一現象の先行例）
 - 関連 ADR: 0055（kknews.co.jp の除外）、0056（MEXT 採用公告の除外）、0065（`timeout-minutes` の宣言）
