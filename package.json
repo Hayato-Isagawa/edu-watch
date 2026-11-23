@@ -37,13 +37,13 @@
     "og:default": "npx tsx scripts/generate-default-og.ts"
   },
   "dependencies": {
-    "@astrojs/react": "^7.1.4",
+    "@astrojs/react": "^7.1.9",
     "@astrojs/rss": "^4.0.19",
-    "@astrojs/sitemap": "^3.7.4",
+    "@astrojs/sitemap": "^3.7.5",
     "@tailwindcss/vite": "^4.3.5",
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
-    "astro": "^7.4.7",
+    "astro": "^7.4.12",
     "cheerio": "^1.2.0",
     "isomorphic-dompurify": "^4.6.0",
     "marked": "^18.1.2",
