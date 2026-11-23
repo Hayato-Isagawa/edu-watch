@@ -1,5 +1,145 @@
 [
   {
+    "id": "kkn-2026-11-23-5d8452092c0be80f",
+    "title": "デジタル教科書、学習者用は半数以上が未使用 指導者用は小中で高普及率、現場は使い分け模索〜School Voice Project調査",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20261124o04",
+    "publishedAt": "2026-11-23T22:00:49.000Z",
+    "collectedAt": "2026-11-23T22:07:59.200Z",
+    "summary": "NPO法人School Voice Projectは11月20日、全国の小～高校年齢の児童生徒が通う一条校に勤務する教職員を対象に実施した「デジタル教科書」の使用実態に関するアンケート調査の結果を発表した。 指導者用デジ […]",
+    "categories": [
+      "ICT / GIGA",
+      "教員・働き方"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-11-23-c433887f0e8d4460",
+    "title": "IGS、非認知能力測定ツール「Ai GROW」の中高生向け受検画面を刷新へ",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20261124o01",
+    "publishedAt": "2026-11-23T22:00:33.000Z",
+    "collectedAt": "2026-11-23T22:07:59.200Z",
+    "summary": "Institution for a Global Society（IGS）は11月20日、児童・生徒の非認知能力測定ツール「Ai GROW」の中高生向け受検画面を刷新し、12月1日から提供を開始すると発表した。同ツールは […]",
+    "categories": [
+      "その他"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-11-23-802aabd7e89e1a6a",
+    "title": "オープンバッジで学びや経験を可視化（第52回日本教育工学研究協議会全国大会WSより）",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/post_ict/261123_2c",
+    "publishedAt": "2026-11-23T22:00:31.000Z",
+    "collectedAt": "2026-11-23T22:07:59.200Z",
+    "summary": "第52回全日本教育工学研究協議会全国大会　高知・香美市大会が10月30・31日に開催され、全国から1200人以上の教育関係者が高知県香美市に参集した。テーマは｢教育DXで進化する探究の学び～地域とともに創る未来の学校｣。 […]",
+    "categories": [
+      "ICT / GIGA",
+      "研究・エビデンス"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-11-23-5ab3da6d1aeb1851",
+    "title": "子供が学問に出会う場所「こども本の森　札幌・北大」",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/post_library/261123_6a",
+    "publishedAt": "2026-11-23T22:00:29.000Z",
+    "collectedAt": "2026-11-23T22:07:59.200Z",
+    "summary": "教育旅行先としてニーズが高い北海道に、新たな名所が加わった。建築家・安藤忠雄氏が私財を投じて全国に展開する｢こども本の森｣。その6館目となる施設が本年8月、広大な北海道大学構内の一角に｢こども本の森　札幌・北大｣（以下、 […]",
+    "categories": [
+      "その他"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-11-23-50514a0bf15fa6d6",
+    "title": "学校向けAI英語「VerbSpark」、教委・学校向けに「学校別活用状況ダッシュボード」を提供",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20261124o03",
+    "publishedAt": "2026-11-23T22:00:27.000Z",
+    "collectedAt": "2026-11-23T22:07:59.200Z",
+    "summary": "スパトレは、学校向けAI英語学習サービス「VerbSpark」において、教育委員会や学校向けに「学校別活用状況ダッシュボード」を提供している。     ■活用格差を早期に捉える狙い 1人1台端末環境で […]",
+    "categories": [
+      "ICT / GIGA",
+      "政策・制度"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-11-23-e4b5773245f3b4a1",
+    "title": "非認知能力を「LoT」で育む＜第2回＞地域で継続的に実践できるプログラムに",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/post_ict/lot02",
+    "publishedAt": "2026-11-23T22:00:24.000Z",
+    "collectedAt": "2026-11-23T22:07:59.200Z",
+    "summary": "アクティビティとふり返りを通じて非認知能力を育む日本向け教育プログラム「LoT（＝Leaders of Tomorrow）」。初年度（2025年10月～2026年9月）は、日本全国13都道府県37拠点で計165回のプログ […]",
+    "categories": [
+      "その他"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-11-23-dfe0f8d6ff175c4b",
+    "title": "英語の本の環境を整え、楽しく主体的に学ぶ～「小学生のためのブックガイド　英語をもっと楽しく学ぶ－読書や遊びで広がる世界」",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/post_library/261123_7b",
+    "publishedAt": "2026-11-23T22:00:16.000Z",
+    "collectedAt": "2026-11-23T22:07:59.200Z",
+    "summary": "『小学生のためのブックガイド　英語をもっと楽しく学ぶ　－読書や遊びで広がる世界』が日外アソシエーツ㈱から11月に刊行された。英語を学ぶ時にさまざまな本を活用することで、学びの幅を広げ、興味関心を高めることができる。 本書 […]",
+    "categories": [
+      "その他"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-11-23-3b6b8c8f5e6a3765",
+    "title": "IB校の「探究」を公開～香美市立大宮小学校（第52回日本教育工学研究協議会全国大会公開授業より）",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/post_ict/261123_2a",
+    "publishedAt": "2026-11-23T22:00:15.000Z",
+    "collectedAt": "2026-11-23T22:07:59.200Z",
+    "summary": "第52回全日本教育工学研究協議会全国大会　高知・香美市大会が10月30・31日に開催され、全国から1200人以上の教育関係者が高知県香美市に参集した。テーマは｢教育DXで進化する探究の学び～地域とともに創る未来の学校｣。 […]",
+    "categories": [
+      "ICT / GIGA",
+      "研究・エビデンス"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-11-23-93717938a98bc14f",
+    "title": "教科書仲間もAIも学習資源～香美市立鏡野中学校（第52回日本教育工学研究協議会全国大会公開授業より）",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/post_ict/261123_2b",
+    "publishedAt": "2026-11-23T22:00:11.000Z",
+    "collectedAt": "2026-11-23T22:07:59.200Z",
+    "summary": "第52回全日本教育工学研究協議会全国大会　高知・香美市大会が10月30・31日に開催され、全国から1200人以上の教育関係者が高知県香美市に参集した。テーマは｢教育DXで進化する探究の学び～地域とともに創る未来の学校｣。 […]",
+    "categories": [
+      "ICT / GIGA",
+      "研究・エビデンス"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
     "id": "kkn-2026-11-23-713353cfcbeb7594",
     "title": "クジラボ、教員向けウェビナー「なんだかクラスが落ち着かない。そんなとき、先生にできること」を11/30に開催",
     "sourceId": "kkn",
