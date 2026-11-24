@@ -147,7 +147,8 @@
       "ICT / GIGA"
     ],
     "layer": 2,
-    "language": "ja"
+    "language": "ja",
+    "requiresMembership": true
   },
   {
     "id": "nikkyo-2026-10-29-168c76ba64dc2e14",
@@ -162,7 +163,8 @@
       "その他"
     ],
     "layer": 2,
-    "language": "ja"
+    "language": "ja",
+    "requiresMembership": true
   },
   {
     "id": "chukyo-2026-10-29-5e8470b9ae2f4414",
