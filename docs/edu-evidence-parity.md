@@ -8,7 +8,7 @@ EduWatch JP の UI/UX 判断は姉妹サイト EduEvidence JP を起点として
 
 | 機能 | edu-watch の PR | edu-evidence の元実装 |
 |---|---|---|
-| `.link-underline` の挙動(平常時は親の継承色 → ホバーで accent + アンダーライン伸長) | #40 | `src/styles/global.css` |
+| `.link-underline` の挙動(ナビなどは平常時は親の継承色 → ホバーで accent + アンダーライン伸長。本文では平常時から accent + 下線。ADR 0088) | #40 | `src/styles/global.css` |
 | ヘッダー main nav(主要動線をヘッダーに集約) | #40 | `src/layouts/Layout.astro`(`<nav class="...lg:flex hidden">`) |
 | フッターをリンクリスト型に再編 | #40 | `src/layouts/Layout.astro` 末尾(edu-evidence は 4 列、edu-watch は 3 列に縮約) |
 | `<header>` の sticky 化 + 半透明 bg + `backdrop-filter: blur(8px)` | #42 | `.site-header` |

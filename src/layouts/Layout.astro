@@ -488,8 +488,10 @@ const escapeLd = (obj: object): string => JSON.stringify(obj).replace(/</g, "\\u
         document.addEventListener("keydown", (e) => {
           if (e.key === "Escape" && isOpen) setOpen(false);
         });
-        window.addEventListener("resize", () => {
-          if (window.innerWidth >= 1024 && isOpen) setOpen(false);
+        // メニューを隠す CSS(lg = 64rem)と同じ条件で見る。px で見ると、既定の文字が小さいブラウザで
+        // メニューだけ消えて本文が inert のまま残る
+        window.matchMedia("(min-width: 64rem)").addEventListener("change", (e) => {
+          if (e.matches && isOpen) setOpen(false);
         });
       })();
     </script>

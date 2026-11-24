@@ -130,6 +130,7 @@ test.describe("印刷スタイル", () => {
     const bodyLink = page.locator('main .prose-digest a[href^="http"]').first();
     await expect(bodyLink).toHaveCSS("color", "rgb(0, 0, 0)");
     await expect(bodyLink).toHaveCSS("text-decoration-line", "underline");
+    await expect(bodyLink).toHaveCSS("border-bottom-width", "0px");
     const bodyHref = await bodyLink.getAttribute("href");
     const bodyAfter = await bodyLink.evaluate(
       (el) => getComputedStyle(el, "::after").content

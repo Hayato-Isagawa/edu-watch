@@ -321,14 +321,30 @@ function typeLabel(url: string): string | null {
   }
   .prose-digest a {
     color: var(--color-accent);
-    text-decoration: underline;
-    text-decoration-thickness: 1px;
-    text-underline-offset: 3px;
+    text-decoration-line: none;
+    border-bottom: 1px solid color-mix(in srgb, currentColor 70%, transparent);
+    background-image: linear-gradient(var(--color-accent), var(--color-accent));
+    background-origin: border-box;
+    background-size: 0% 2px;
+    background-position: left bottom;
+    background-repeat: no-repeat;
+    padding-bottom: 2px;
+    transition:
+      border-color 0.15s ease 0.2s,
+      background-size 0.3s ease;
   }
   .prose-digest a:hover,
-  .prose-digest a:focus,
   .prose-digest a:focus-visible {
-    text-decoration-thickness: 2px;
+    border-color: transparent;
+    background-size: 100% 2px;
+    transition:
+      border-color 0.1s ease,
+      background-size 0.3s ease 0.1s;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .prose-digest a {
+      transition: none !important;
+    }
   }
   .prose-digest blockquote {
     margin: 1.25rem 0;
