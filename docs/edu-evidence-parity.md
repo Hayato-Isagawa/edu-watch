@@ -12,7 +12,7 @@ EduWatch JP の UI/UX 判断は姉妹サイト EduEvidence JP を起点として
 | ヘッダー main nav(主要動線をヘッダーに集約) | #40 | `src/layouts/Layout.astro`(`<nav class="...lg:flex hidden">`) |
 | フッターをリンクリスト型に再編 | #40 | `src/layouts/Layout.astro` 末尾(edu-evidence は 4 列、edu-watch は 3 列に縮約) |
 | `<header>` の sticky 化 + 半透明 bg + `backdrop-filter: blur(8px)` | #42 | `.site-header` |
-| モバイルハンバーガーメニュー(`role="dialog"` + フルスクリーンオーバーレイ + 3 本バー × アニメ) | #42 | `src/layouts/Layout.astro`(menu-toggle / mobile-menu) + `.mobile-menu*` CSS |
+| モバイルハンバーガーメニュー(フルスクリーンオーバーレイ + 3 本バー × アニメ) | #42 | `src/layouts/Layout.astro`(menu-toggle / mobile-menu) + `.mobile-menu*` CSS |
 | Pagefind ベースの全文検索(`/search/` ページ + 結果 UI スタイル) | #43 | `src/pages/search.astro`、build script に `npx pagefind --site dist` |
 | ヘッダー検索アイコン + モバイルメニュー先頭の検索フォーム(`/search?q=...`) | #43 | edu-evidence と同じ |
 | `back-to-top` ボタン(スクロール 600px 超で出現、smooth scroll、reduced-motion 対応) | #45 | `<button id="back-to-top">` + `#back-to-top` CSS + ScrollY 監視スクリプト |

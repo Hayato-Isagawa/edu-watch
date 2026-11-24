@@ -202,9 +202,6 @@ const escapeLd = (obj: object): string => JSON.stringify(obj).replace(/</g, "\\u
       id="mobile-menu"
       data-state="closed"
       class="mobile-menu lg:hidden"
-      role="dialog"
-      aria-modal="true"
-      aria-label="モバイルナビゲーション"
       inert
     >
       <div class="mobile-menu-inner">
@@ -466,6 +463,10 @@ const escapeLd = (obj: object): string => JSON.stringify(obj).replace(/</g, "\\u
           document.body.dataset.menu = open ? "open" : "closed";
           if (open) menu.removeAttribute("inert");
           else menu.setAttribute("inert", "");
+          // 全面を覆うので、裏の本文には触れさせない(開閉ボタンのあるヘッダーは残す)
+          for (const el of document.querySelectorAll("main, body > footer, #back-to-top, .skip-link")) {
+            el.toggleAttribute("inert", open);
+          }
           toggle.setAttribute("aria-expanded", String(open));
           toggle.setAttribute("aria-label", open ? "メニューを閉じる" : "メニューを開く");
           if (bars.length === 3) {
@@ -480,6 +481,10 @@ const escapeLd = (obj: object): string => JSON.stringify(obj).replace(/</g, "\\u
           }
         };
         toggle.addEventListener("click", () => setOpen(!isOpen));
+        // 同じページ内へのリンクでは遷移が起きないので、押したら閉じる
+        menu.addEventListener("click", (e) => {
+          if (isOpen && e.target.closest("a")) setOpen(false);
+        });
         document.addEventListener("keydown", (e) => {
           if (e.key === "Escape" && isOpen) setOpen(false);
         });

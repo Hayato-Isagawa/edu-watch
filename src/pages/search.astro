@@ -62,7 +62,8 @@ import Layout from "../layouts/Layout.astro";
   </script>
 
   <style is:global>
-    :root {
+    /* :root に置くと、後から読まれる pagefind-ui.css の :root に負ける */
+    #search {
       --pagefind-ui-scale: 1;
       --pagefind-ui-primary: var(--color-accent);
       --pagefind-ui-text: var(--color-ink);
