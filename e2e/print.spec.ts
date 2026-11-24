@@ -125,7 +125,7 @@ test.describe("印刷スタイル", () => {
     await expect(page.locator("#reading-progress")).toBeHidden();
 
     // 本文リンクはページ内 <style is:global> がアクセント色を塗るので、print 側が勝って
-    // いることを見る。toHaveCSS は色の transition(150ms)が終わるまで待つ。
+    // いることを見る。toHaveCSS は値がそろうまで待つ。
     // 本文は marked + DOMPurify の出力で target="_blank" が付かないので、URL 併記は href で判定する
     const bodyLink = page.locator('main .prose-digest a[href^="http"]').first();
     await expect(bodyLink).toHaveCSS("color", "rgb(0, 0, 0)");
