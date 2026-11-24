@@ -1,0 +1,91 @@
+[
+  {
+    "id": "chukyo-2026-11-24-280ea89332e0e026",
+    "title": "中央教育審議会 教育振興基本計画部会 特別企画「未来社会と人間に関するインサイトセッション」",
+    "sourceId": "chukyo",
+    "sourceName": "中央教育審議会",
+    "sourceUrl": "https://www.mext.go.jp/b_menu/shingi/chukyo/chukyo17/kaisai/mext_00016.html",
+    "publishedAt": "2026-11-24T05:00:00.000Z",
+    "collectedAt": "2026-11-24T05:42:10.772Z",
+    "categories": [
+      "政策・制度"
+    ],
+    "layer": 1,
+    "language": "ja"
+  },
+  {
+    "id": "nikkyo-2026-11-24-68df479f50c32168",
+    "title": "神戸市立高同士、単位互換を検討",
+    "sourceId": "nikkyo",
+    "sourceName": "日本教育新聞",
+    "sourceUrl": "https://www.kyoiku-press.com/post-318798/",
+    "publishedAt": "2026-11-24T04:16:00.000Z",
+    "collectedAt": "2026-11-24T05:42:10.772Z",
+    "summary": "神戸市教委は19日、市立高校の改革方策を発表、各校の特徴的な授業を相互に受講できる仕組みや単位互換について検討する方針を掲げた。私立高校の授業料無償化に伴い公立高校離れが進む中、神戸市立高校の魅力向…",
+    "categories": [
+      "その他"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "resemom-2026-11-24-133190d47beae116",
+    "title": "【小学校受験2027】立川国際中等附属小、2次倍率6.19倍…0.12pt増",
+    "sourceId": "resemom",
+    "sourceName": "リセマム",
+    "sourceUrl": "https://resemom.jp/article/2026/11/24/88406.html",
+    "publishedAt": "2026-11-24T04:15:03.000Z",
+    "collectedAt": "2026-11-24T05:42:10.772Z",
+    "summary": "東京都教育委員会は2026年11月21日、2027年度（令和9年度）東京都立小学校入学者決定における第2次（適性検査）の受検状況（一般枠募集）を公表した。立川国際中等教育学校附属小学校の受検者数は359人、全体の受検倍率は前年度比0.12ポイント増の6.19倍となった。",
+    "categories": [
+      "政策・制度",
+      "研究・エビデンス"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "chukyo-2026-11-24-8fe191d439a9d99c",
+    "title": "中央教育審議会大学分科会質向上・質保証システム部会（第13回）を開催します",
+    "sourceId": "chukyo",
+    "sourceName": "中央教育審議会",
+    "sourceUrl": "https://www.mext.go.jp/b_menu/shingi/chukyo/chukyo4/055/kaisai/1422340_00016.html",
+    "publishedAt": "2026-11-24T01:00:00.000Z",
+    "collectedAt": "2026-11-24T05:42:10.772Z",
+    "categories": [
+      "政策・制度"
+    ],
+    "layer": 1,
+    "language": "ja"
+  },
+  {
+    "id": "resemom-2026-11-24-db6d72a3ce226afc",
+    "title": "管理職として働き方の変化とやりがいとは…Teacher’s［Shift］",
+    "sourceId": "resemom",
+    "sourceName": "リセマム",
+    "sourceUrl": "https://resemom.jp/article/2026/11/24/88399.html",
+    "publishedAt": "2026-11-24T00:45:02.000Z",
+    "collectedAt": "2026-11-24T05:42:10.772Z",
+    "summary": "TDXラジオは11月16日と11月23日、「Teacher’s ［Shift］～新しい学びと先生の働き方改革～」のFile.293とFile.294を公開した。ゲストに森村学園中等部・高等部の髙田昌輝先生を迎え、教頭としての働き方の変化や管理職のやりがいなどについて迫る。",
+    "categories": [
+      "教員・働き方"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "nier-2026-11-24-fce636270b78ceaa",
+    "title": "名誉所員称号記授与式を行いました。",
+    "sourceId": "nier",
+    "sourceName": "国立教育政策研究所",
+    "sourceUrl": "https://www.nier.go.jp/02_news/2026/081784.html",
+    "publishedAt": "2026-11-24T00:00:00.000Z",
+    "collectedAt": "2026-11-24T05:42:10.772Z",
+    "summary": "イベント",
+    "categories": [
+      "研究・エビデンス"
+    ],
+    "layer": 1,
+    "language": "ja"
+  }
+]

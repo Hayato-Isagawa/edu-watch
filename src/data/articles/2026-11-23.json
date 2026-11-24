@@ -275,5 +275,104 @@
     ],
     "layer": 2,
     "language": "ja"
+  },
+  {
+    "id": "nikkyo-2026-11-23-0f6fb6c9c9eeadbe",
+    "title": "高専新設へ国の支援拡充　有識者会議・報告案　まずは農業分野で",
+    "sourceId": "nikkyo",
+    "sourceName": "日本教育新聞",
+    "sourceUrl": "https://www.kyoiku-press.com/post-318524/",
+    "publishedAt": "2026-11-23T00:00:00.000Z",
+    "collectedAt": "2026-11-24T05:42:10.772Z",
+    "summary": "文科省の有識者会議「高等専門学校の機能強化に関する検討会」は１６日、高専の機能強化に向け、公私立高専の新設に対する国の財政支援拡充を求める報告案をまとめた。農業などへの分野の拡大や、卒業者への学位授…",
+    "categories": [
+      "政策・制度"
+    ],
+    "layer": 2,
+    "language": "ja",
+    "requiresMembership": true
+  },
+  {
+    "id": "nikkyo-2026-11-23-ea6d1bfe65fccfff",
+    "title": "高校改革交付金創設訴え　有識者団体が緊急集会",
+    "sourceId": "nikkyo",
+    "sourceName": "日本教育新聞",
+    "sourceUrl": "https://www.kyoiku-press.com/post-318543/",
+    "publishedAt": "2026-11-23T00:00:00.000Z",
+    "collectedAt": "2026-11-24T05:42:10.772Z",
+    "summary": "集会であいさつする松本前文科相＝１７日、衆議院第二議員会館 　高校教育改革を支える交付金の創設を求める「高校教育改革を実現する会」は１７日、衆議院議員会館で緊急集会を開いた。年末の予算編成を前に、国会…",
+    "categories": [
+      "その他"
+    ],
+    "layer": 2,
+    "language": "ja",
+    "requiresMembership": true
+  },
+  {
+    "id": "nikkyo-2026-11-23-297566db474b3492",
+    "title": "不登校の子、3人に1人が「学校に行きたい」　岡山市が子どもと保護者に調査",
+    "sourceId": "nikkyo",
+    "sourceName": "日本教育新聞",
+    "sourceUrl": "https://www.kyoiku-press.com/post-318277/",
+    "publishedAt": "2026-11-23T00:00:00.000Z",
+    "collectedAt": "2026-11-24T05:42:10.772Z",
+    "summary": "岡山市は、不登校の小・中学生と保護者対象のアンケート調査の結果を公表した。学校を休んでいるときの気持ちについて、子どもの３３・５％が「できれば学校に行きたい」と回答し、最も多かった。一方、保護者が感…",
+    "categories": [
+      "不登校",
+      "研究・エビデンス"
+    ],
+    "layer": 2,
+    "language": "ja",
+    "requiresMembership": true
+  },
+  {
+    "id": "nikkyo-2026-11-23-11ae6cdee8b207de",
+    "title": "不易流行",
+    "sourceId": "nikkyo",
+    "sourceName": "日本教育新聞",
+    "sourceUrl": "https://www.kyoiku-press.com/post-318626/",
+    "publishedAt": "2026-11-23T00:00:00.000Z",
+    "collectedAt": "2026-11-24T05:42:10.772Z",
+    "summary": "◆いわゆる闇バイトに加担する若者の中には、メディアがその危険性を周知していることを知らずにSNSや仲間を通じた勧誘に応じてしまう者がいるという。行政や警察がいくら注意喚起をしても、若者が日々接する情報…",
+    "categories": [
+      "その他"
+    ],
+    "layer": 2,
+    "language": "ja",
+    "requiresMembership": true
+  },
+  {
+    "id": "nikkyo-2026-11-23-f133392c8c2bdf17",
+    "title": "校外学習前に下見必要　文科省　危機管理の指針で改訂案",
+    "sourceId": "nikkyo",
+    "sourceName": "日本教育新聞",
+    "sourceUrl": "https://www.kyoiku-press.com/post-318286/",
+    "publishedAt": "2026-11-23T00:00:00.000Z",
+    "collectedAt": "2026-11-24T05:42:10.772Z",
+    "summary": "学校が危機管理マニュアルを作成するに当たって参考にする国の指針について文科省は１０日、改訂案を示した。沖縄県名護市辺野古沖で研修旅行中の生徒が死亡した転覆事故を踏まえて校外学習時の前には必ず下見を行…",
+    "categories": [
+      "政策・制度",
+      "教員・働き方"
+    ],
+    "layer": 2,
+    "language": "ja",
+    "requiresMembership": true
+  },
+  {
+    "id": "nikkyo-2026-11-23-c951f24fc3232832",
+    "title": "社会通念超える苦情・要望　半年間で教職員13％経験",
+    "sourceId": "nikkyo",
+    "sourceName": "日本教育新聞",
+    "sourceUrl": "https://www.kyoiku-press.com/post-318289/",
+    "publishedAt": "2026-11-23T00:00:00.000Z",
+    "collectedAt": "2026-11-24T05:42:10.772Z",
+    "summary": "都教委調査 　今年４～１０月の間に、都内公立学校の約１３％の教職員が社会通念を超える苦情や要望を受けたことが１１日、東京都教委の調査で分かった。管理職では４割弱にも上った。調査結果からは、啓発に課題が…",
+    "categories": [
+      "研究・エビデンス",
+      "教員・働き方"
+    ],
+    "layer": 2,
+    "language": "ja",
+    "requiresMembership": true
   }
 ]

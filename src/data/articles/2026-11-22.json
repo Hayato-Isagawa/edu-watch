@@ -1,5 +1,53 @@
 [
   {
+    "id": "nikkyo-2026-11-22-9c45f4035470e502",
+    "title": "屋内プール整備促進国に要請　水泳議連　持続可能な実技授業へ決議",
+    "sourceId": "nikkyo",
+    "sourceName": "日本教育新聞",
+    "sourceUrl": "https://www.kyoiku-press.com/post-318560/",
+    "publishedAt": "2026-11-22T23:50:00.000Z",
+    "collectedAt": "2026-11-24T05:42:10.772Z",
+    "summary": "総会であいさつする水泳議連会長の丸川珠代元五輪相＝１７日午前、国会内で 　超党派でつくる水泳議員連盟は１７日の総会で、政府に対し、全ての学校で水泳実技の授業を実施できる体制整備や十分な予算措置を求める…",
+    "categories": [
+      "その他"
+    ],
+    "layer": 2,
+    "language": "ja",
+    "requiresMembership": true
+  },
+  {
+    "id": "nikkyo-2026-11-22-74429ebb89d500e5",
+    "title": "高専新設、各地で計画　技術者育成へ自治体動く",
+    "sourceId": "nikkyo",
+    "sourceName": "日本教育新聞",
+    "sourceUrl": "https://www.kyoiku-press.com/post-318628/",
+    "publishedAt": "2026-11-22T23:50:00.000Z",
+    "collectedAt": "2026-11-24T05:42:10.772Z",
+    "summary": "各地の自治体で、高等専門学校（高専）の新設に向けた動きが進んでいる。AIやデジタル技術に対応できる人材の育成を目指し、既存の専門高校に併設する他、学校再編で使われなくなる校舎を活用する計画もある。国…",
+    "categories": [
+      "ICT / GIGA"
+    ],
+    "layer": 2,
+    "language": "ja",
+    "requiresMembership": true
+  },
+  {
+    "id": "nikkyo-2026-11-22-d7754d06762c7481",
+    "title": "府立高の職業教育支援　大阪府教委とビズリーチが協定",
+    "sourceId": "nikkyo",
+    "sourceName": "日本教育新聞",
+    "sourceUrl": "https://www.kyoiku-press.com/post-318515/",
+    "publishedAt": "2026-11-22T23:50:00.000Z",
+    "collectedAt": "2026-11-24T05:42:10.772Z",
+    "summary": "大阪府教委は１０日、人材サービス大手のビズリーチと、府立高校の職業教育の充実に向けた連携協定を結んだ。産業界の動向や職業に関する情報を教育に取り入れ、生徒の進路選択やキャリア形成を支援する。 　協定…",
+    "categories": [
+      "その他"
+    ],
+    "layer": 2,
+    "language": "ja",
+    "requiresMembership": true
+  },
+  {
     "id": "kkn-2026-11-22-3668ec995278593f",
     "title": "SK本舗、大学や高専など学生ものづくりチームにPLA+フィラメント4kgを無償提供",
     "sourceId": "kkn",
