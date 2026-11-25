@@ -1,5 +1,50 @@
 [
   {
+    "id": "nikkyo-2026-11-25-c78327eb56913589",
+    "title": "各教科の精選、具体例示す　項目の統合や学年変更　文科省",
+    "sourceId": "nikkyo",
+    "sourceName": "日本教育新聞",
+    "sourceUrl": "https://www.kyoiku-press.com/post-318830/",
+    "publishedAt": "2026-11-25T06:00:00.000Z",
+    "collectedAt": "2026-11-25T20:01:09.732Z",
+    "summary": "文科省は25日、中央教育審議会の教育課程企画特別部会に、各教科の学習内容の精選に向けた具体的な方針を示した。教科ごとに学習項目を統合するほか、一部の内容は扱う学年を変更する。情報教育の充実や児童・生…",
+    "categories": [
+      "ICT / GIGA",
+      "政策・制度"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "nikkyo-2026-11-25-499d330d4cdebfd7",
+    "title": "児童・生徒の自殺、昨年同期を上回る",
+    "sourceId": "nikkyo",
+    "sourceName": "日本教育新聞",
+    "sourceUrl": "https://www.kyoiku-press.com/post-318824/",
+    "publishedAt": "2026-11-25T05:54:00.000Z",
+    "collectedAt": "2026-11-25T20:01:09.732Z",
+    "summary": "こども家庭庁は24日、今年1～10月の間に、自ら命を絶った小・中学生、高校生の人数は前年同期より37人多い490人だったことを明らかにした。小学生が4人増、中学生が14人減、高校生が47人増。過去5…",
+    "categories": [
+      "政策・制度"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "chukyo-2026-11-25-644f83563705f7ba",
+    "title": "中央教育審議会初等中等教育分科会教育課程部会教育課程企画特別部会（第24回）を開催します",
+    "sourceId": "chukyo",
+    "sourceName": "中央教育審議会",
+    "sourceUrl": "https://www.mext.go.jp/b_menu/shingi/chukyo/chukyo3/kaisai/mext_00162.html",
+    "publishedAt": "2026-11-25T05:00:00.000Z",
+    "collectedAt": "2026-11-25T20:01:09.732Z",
+    "categories": [
+      "政策・制度"
+    ],
+    "layer": 1,
+    "language": "ja"
+  },
+  {
     "id": "resemom-2026-11-25-1ea12ddc8529e2a6",
     "title": "「最速」「最深」で東大理類トップ合格へ…河合塾グループ最高峰「MEPLOMETA」開校",
     "sourceId": "resemom",
