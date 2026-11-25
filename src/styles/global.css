@@ -43,9 +43,16 @@
   --color-change-fix: oklch(51.4% 0.222 16.935);
 }
 
+/* スクロールバーや入力欄などブラウザの部品を、OS ではなくサイトのテーマに合わせる。
+   詳細度を上げない(上げると、印刷の :root の light に勝ってしまう) */
+:root {
+  color-scheme: light;
+}
+
 @variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
 
 [data-theme="dark"] {
+  color-scheme: dark;
   --color-bg: #16181d;
   --color-ink: #d0d3dc;
   --color-sub: #9ba1a8;
@@ -83,11 +90,6 @@ body {
   line-height: 1.8;
 }
 
-a {
-  color: inherit;
-  text-decoration: none;
-}
-
 .font-serif {
   font-family: var(--font-serif);
 }
@@ -97,7 +99,7 @@ a {
 
 ::selection {
   background: var(--color-accent);
-  color: #fff;
+  color: var(--color-bg);
 }
 
 .link-underline {
@@ -119,9 +121,48 @@ a {
   background-size: 100% 1px;
 }
 
+/* 本文のリンクは、色だけに頼らず平常時も下線で示す(ADR 0088)。
+   ナビ・見出し・記事のヘッダー・フッター・カードの題名と、太字の一覧(アーカイブの日付など)は対象外。
+   印刷は @media print の .link-underline(黒の下線)に任せる。
+   ホバーとフォーカスでは、平常時の薄い線(border)を消してから、濃い線を左端から引く。
+   どちらも border の箱の下端に置くので、フォントが変わっても位置がずれない。
+   薄さは背景と 3:1 を割らない範囲で決めている */
+@media screen {
+  main
+    :is(
+      :is(p, dd, figcaption, blockquote) .link-underline,
+      li > .link-underline:not(.font-bold),
+      .link-underline.text-accent
+    ):not(.font-mono, :is(h1, h2, h3, h4, nav, header) *, .font-bold > *) {
+    color: var(--color-accent);
+    border-bottom: 1px solid color-mix(in srgb, currentColor 70%, transparent);
+    background-origin: border-box;
+    background-size: 0% 2px;
+    background-position: left bottom;
+    transition:
+      color 0.2s ease,
+      border-color 0.15s ease 0.2s,
+      background-size 0.3s ease;
+  }
+  main
+    :is(
+      :is(p, dd, figcaption, blockquote) .link-underline,
+      li > .link-underline:not(.font-bold),
+      .link-underline.text-accent
+    ):not(.font-mono, :is(h1, h2, h3, h4, nav, header) *, .font-bold > *):is(:hover, :focus-visible) {
+    border-color: transparent;
+    background-size: 100% 2px;
+    transition:
+      color 0.2s ease,
+      border-color 0.1s ease,
+      background-size 0.3s ease 0.1s;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .link-underline {
-    transition: none;
+  .link-underline,
+  main .link-underline {
+    transition: none !important;
   }
 }
 
@@ -771,6 +812,7 @@ body[data-menu="open"] {
   main .prose-digest a {
     color: inherit;
     text-decoration: underline;
+    border-bottom: 0;
   }
   /* 外部リンクは紙から辿れるよう URL を併記する。本文(.prose-digest)は marked + DOMPurify の
      出力で target が付かないので、href の先頭で外部を判定する。 */
