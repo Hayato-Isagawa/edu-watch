@@ -13,11 +13,9 @@ import Layout from "../layouts/Layout.astro";
       </h1>
     </div>
     <div id="search" class="max-w-2xl"></div>
+    {/* dev サーバーには Pagefind の索引が無いので、この文が出る(npm run build && npm run preview で動く) */}
     <p id="search-fallback" class="text-sm text-sub hidden">
-      検索機能はビルド後の環境で動作します。<code
-        class="font-mono text-xs bg-card px-1.5 py-0.5 rounded"
-        >npm run build && npm run preview</code
-      > で確認できます。
+      検索を読み込めませんでした。時間をおいて、ページを読み込み直してください。
     </p>
   </section>
 
@@ -90,7 +88,8 @@ import Layout from "../layouts/Layout.astro";
     .pagefind-ui .pagefind-ui__search-input:focus {
       border-color: var(--color-accent);
       box-shadow: 0 0 0 3px color-mix(in oklab, var(--color-accent) 20%, transparent);
-      outline: none;
+      /* 強制カラーでは box-shadow が消えるので、見えない輪郭を残す(システムの色で描かれる) */
+      outline: 2px solid transparent;
     }
     .pagefind-ui .pagefind-ui__search-input::placeholder {
       color: var(--color-sub) !important;

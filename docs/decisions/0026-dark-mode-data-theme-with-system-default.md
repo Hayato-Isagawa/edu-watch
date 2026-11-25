@@ -1,6 +1,6 @@
 # 0026. ダークモードはシステム追従デフォルト + 手動切替トグル(`data-theme` 属性)で提供する
 
-- 状態: 採用
+- 状態: 採用 / 〈切替で選んだ値を残し続けること〉は [0089](0089-theme-follows-os-again.md) で上書き
 - 日付: 2026-05-03
 - 関連 PR: 本 ADR と同一 PR で確定
 - 関連 ADR: 0011(semantic attribute state management)/ 0025(system font stack)
