@@ -137,3 +137,4 @@ EduEvidence JP と共通の運営方針(植物モチーフブランド体系 / N
 - [0086. 別リポジトリとコピー持ち込みを続け、CI の共有は別に検討する(ADR 0002 の半年後の再評価)](0086-reevaluate-separate-repositories.md)
 - [0087. CI は共有せずコピーのまま、ファミリーの workflow のずれを自動で見つける](0087-detect-ci-drift-instead-of-sharing.md)
 - [0088. 本文のリンクは平常時も下線で示す(edu-evidence ADR 0049 ミラー)](0088-underline-body-links.md)
+- [0089. テーマの切替で OS と同じ色へ戻したら、OS の設定に従う状態へ戻す](0089-theme-follows-os-again.md)

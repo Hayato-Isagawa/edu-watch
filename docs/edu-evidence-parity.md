@@ -20,6 +20,7 @@ EduWatch JP の UI/UX 判断は姉妹サイト EduEvidence JP を起点として
 | ハンバーガー breakpoint を `lg`(1024px)に統一 | #80 | 同左(#80 以前は `md` にしていた。項目数が増えて `md` に収まらなくなった) |
 | 動的 OG 画像(Satori + Sharp で build 時生成、フォント同梱) | #88(ADR 0031) | `src/pages/og/` 一式。**edu-watch は digest 個別のみ**で、日次記事・ハブページは静的 default(ADR 0032) |
 | reading-progress バー(longForm ページ上端に 0 → 100%) | #402 | `<div id="reading-progress">` |
+| テーマの切替で OS と同じ色へ戻したら保存を消す(ADR 0089) | 本行と同じ PR | `src/layouts/Layout.astro`(edu-evidence ADR 0050) |
 
 ## 2. 意図的差(揃えない判断)
 

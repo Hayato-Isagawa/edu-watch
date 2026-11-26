@@ -1,6 +1,6 @@
 # 0070. 印刷スタイルを global.css の 1 ブロックで提供する(edu-law ADR 0029 ミラー)
 
-- 状態: 採用
+- 状態: 採用(検査の項の「150ms の `transition`」は、本文リンクでは [0088](0088-underline-body-links.md) で無くなった)
 - 日付: 2026-09-15
 - 関連 PR: `feat/print-stylesheet`
 - 関連 ADR: edu-law 0029(原本)、0060 / 0068(VRT)

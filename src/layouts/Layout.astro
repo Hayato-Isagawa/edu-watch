@@ -30,6 +30,16 @@ const ogImage = ogImagePath
   : `${siteUrl}/og-image.png?v=${OG_DEFAULT_VERSION}`;
 
 const escapeLd = (obj: object): string => JSON.stringify(obj).replace(/</g, "\\u003c");
+
+// ナビの現在地。項目自身のページは page、その下のページは true
+const currentPath = Astro.url.pathname.replace(/\/$/, "");
+const currentFor = (href: string) => {
+  const target = href.replace(/\/$/, "");
+  if (currentPath === target) return "page" as const;
+  return target !== "" && currentPath.startsWith(`${target}/`)
+    ? ("true" as const)
+    : undefined;
+};
 ---
 
 <!doctype html>
@@ -123,11 +133,11 @@ const escapeLd = (obj: object): string => JSON.stringify(obj).replace(/</g, "\\u
           class="text-xs gap-4 lg:gap-6 text-sub hidden lg:flex items-center"
           aria-label="メインナビゲーション"
         >
-          <a href="/categories/" class="link-underline">カテゴリ</a>
-          <a href="/sources/" class="link-underline">媒体</a>
-          <a href="/archive/" class="link-underline">アーカイブ</a>
-          <a href="/digest/" class="link-underline">ダイジェスト</a>
-          <a href="/about/" class="link-underline">サイトについて</a>
+          <a href="/categories/" aria-current={currentFor("/categories/")} class="link-underline">カテゴリ</a>
+          <a href="/sources/" aria-current={currentFor("/sources/")} class="link-underline">媒体</a>
+          <a href="/archive/" aria-current={currentFor("/archive/")} class="link-underline">アーカイブ</a>
+          <a href="/digest/" aria-current={currentFor("/digest/")} class="link-underline">ダイジェスト</a>
+          <a href="/about/" aria-current={currentFor("/about/")} class="link-underline">サイトについて</a>
           <a
             href="https://edu-evidence.org"
             class="link-underline hover:text-ink transition"
@@ -136,7 +146,7 @@ const escapeLd = (obj: object): string => JSON.stringify(obj).replace(/</g, "\\u
           >
             エビデンスで探す ↗
           </a>
-          <a href="/search/" class="hover:text-ink transition" aria-label="検索">
+          <a href="/search/" aria-current={currentFor("/search/")} class="hover:text-ink transition" aria-label="検索">
             <svg
               class="w-4 h-4 inline-block"
               fill="none"
@@ -188,11 +198,7 @@ const escapeLd = (obj: object): string => JSON.stringify(obj).replace(/</g, "\\u
       {longForm && (
         <div
           id="reading-progress"
-          role="progressbar"
-          aria-label="ページの読了率"
-          aria-valuemin="0"
-          aria-valuemax="100"
-          aria-valuenow="0"
+          aria-hidden="true"
           data-progress="0"
         ></div>
       )}
@@ -239,18 +245,18 @@ const escapeLd = (obj: object): string => JSON.stringify(obj).replace(/</g, "\\u
           <section class="mobile-menu-section">
             <h2 class="mobile-menu-section-title">Explore — 探す</h2>
             <ul>
-              <li><a href="/categories/">カテゴリ</a></li>
-              <li><a href="/sources/">媒体</a></li>
-              <li><a href="/archive/">アーカイブ</a></li>
-              <li><a href="/digest/">ダイジェスト</a></li>
+              <li><a href="/categories/" aria-current={currentFor("/categories/")}>カテゴリ</a></li>
+              <li><a href="/sources/" aria-current={currentFor("/sources/")}>媒体</a></li>
+              <li><a href="/archive/" aria-current={currentFor("/archive/")}>アーカイブ</a></li>
+              <li><a href="/digest/" aria-current={currentFor("/digest/")}>ダイジェスト</a></li>
             </ul>
           </section>
 
           <section class="mobile-menu-section">
             <h2 class="mobile-menu-section-title">About — サイトについて</h2>
             <ul>
-              <li><a href="/about/">このサイトについて</a></li>
-              <li><a href="/changelog/">更新履歴</a></li>
+              <li><a href="/about/" aria-current={currentFor("/about/")}>このサイトについて</a></li>
+              <li><a href="/changelog/" aria-current={currentFor("/changelog/")}>更新履歴</a></li>
             </ul>
           </section>
 
@@ -363,7 +369,7 @@ const escapeLd = (obj: object): string => JSON.stringify(obj).replace(/</g, "\\u
         </div>
 
         <div class="space-y-3">
-          <div class="font-mono uppercase tracking-widest text-ink">探す</div>
+          <h2 class="font-mono uppercase tracking-widest text-ink">探す</h2>
           <ul class="space-y-1.5">
             <li><a href="/categories/" class="link-underline">カテゴリ</a></li>
             <li><a href="/sources/" class="link-underline">媒体</a></li>
@@ -373,7 +379,7 @@ const escapeLd = (obj: object): string => JSON.stringify(obj).replace(/</g, "\\u
         </div>
 
         <div class="space-y-3">
-          <div class="font-mono uppercase tracking-widest text-ink">サイト</div>
+          <h2 class="font-mono uppercase tracking-widest text-ink">サイト</h2>
           <ul class="space-y-1.5">
             <li><a href="/about/" class="link-underline">このサイトについて</a></li>
             <li><a href="/changelog/" class="link-underline">更新履歴</a></li>
@@ -422,19 +428,21 @@ const escapeLd = (obj: object): string => JSON.stringify(obj).replace(/</g, "\\u
             if (labelEl) labelEl.textContent = label;
           }
         };
+        const media = window.matchMedia("(prefers-color-scheme: dark)");
         apply(root.getAttribute("data-theme") || "light");
         for (const btn of buttons) {
           btn.addEventListener("click", () => {
             const next = root.getAttribute("data-theme") === "dark" ? "light" : "dark";
             apply(next);
             try {
-              localStorage.setItem("theme", next);
+              // OS と同じテーマに戻したら、保存を消して OS の設定に従う
+              if ((next === "dark") === media.matches) localStorage.removeItem("theme");
+              else localStorage.setItem("theme", next);
             } catch {
               // localStorage unavailable (private browsing) — apply for session only
             }
           });
         }
-        const media = window.matchMedia("(prefers-color-scheme: dark)");
         media.addEventListener("change", (e) => {
           let saved = null;
           try {
@@ -511,6 +519,11 @@ const escapeLd = (obj: object): string => JSON.stringify(obj).replace(/</g, "\\u
             const next = visible ? "visible" : "hidden";
             if (backToTop.dataset.state !== next) {
               backToTop.dataset.state = next;
+              // 見えなくなるボタンにフォーカスを残さない
+              if (!visible && document.activeElement === backToTop) {
+                const main = document.getElementById("main-content");
+                if (main) main.focus({ preventScroll: true });
+              }
               backToTop.setAttribute("aria-hidden", String(!visible));
               backToTop.setAttribute("tabindex", visible ? "0" : "-1");
             }
@@ -520,7 +533,6 @@ const escapeLd = (obj: object): string => JSON.stringify(obj).replace(/</g, "\\u
             const ratio = max > 0 ? Math.min(1, Math.max(0, y / max)) : 0;
             const pct = Math.round(ratio * 100);
             progress.dataset.progress = String(pct);
-            progress.setAttribute("aria-valuenow", String(pct));
             progress.style.transform = "scaleX(" + ratio + ")";
           }
         };

@@ -372,13 +372,14 @@ body[data-menu="open"] {
   border: 1px solid var(--color-line);
   border-radius: 0.5rem;
   color: var(--color-ink);
-  outline: none;
   transition:
     border-color 200ms ease-out,
     box-shadow 200ms ease-out;
 }
 .mobile-menu-search input:focus {
   border-color: var(--color-accent);
+  /* 強制カラーでは box-shadow が消えるので、見えない輪郭を残す(システムの色で描かれる) */
+  outline: 2px solid transparent;
   box-shadow: 0 0 0 3px color-mix(in oklab, var(--color-accent) 20%, transparent);
 }
 .mobile-menu-search input::placeholder {
@@ -587,7 +588,7 @@ body[data-menu="open"] {
    個別ページの .prose-digest が担う。姉妹サイトと同じ値を保つために残している
    (ADR 0029 §本サイト固有の差分)。消すと同 ADR の決定を覆すことになる。 */
 .prose-article {
-  font-size: 17px;
+  font-size: 1.0625rem;
   line-height: 1.8;
   text-wrap: pretty;
 }
@@ -757,6 +758,10 @@ body[data-menu="open"] {
     margin: 12mm;
   }
   html {
+    font-size: 11pt;
+  }
+  /* 本文は 1.0625rem なので、そのままだと 11pt より少し大きい */
+  main .prose-digest {
     font-size: 11pt;
   }
   body {
