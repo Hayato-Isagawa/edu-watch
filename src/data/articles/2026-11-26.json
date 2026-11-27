@@ -1,5 +1,81 @@
 [
   {
+    "id": "kkn-2026-11-26-9fd3cca5d38c2760",
+    "title": "広教、次期学習指導要領見据え「二次元コードの特性」など「情報技術の仕組み」を『事例で学ぶNetモラル』に追加",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20261127o01",
+    "publishedAt": "2026-11-26T22:00:50.000Z",
+    "collectedAt": "2026-11-27T03:53:27.848Z",
+    "summary": "広島県教科用図書販売（広教）は、デジタル教材『事例で学ぶNetモラル』に新シリーズ「情報技術の仕組み」を追加した。次期学習指導要領で重視される「情報技術の特性の理解」に焦点を当てた内容で、「二次元コードの特性」「Exif […]",
+    "categories": [
+      "政策・制度"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-11-26-a0c94a1a3c06852a",
+    "title": "高校生考案のレシピ～こども食堂で〝いただきます〟～日本冷凍めん協会",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/post_health/261123_5b",
+    "publishedAt": "2026-11-26T22:00:43.000Z",
+    "collectedAt": "2026-11-27T03:53:27.848Z",
+    "summary": "(一社)日本冷凍めん協会は｢FHJ全国高校生冷凍めん料理コンクール｣で受賞した高校生考案のレシピを、さらに実際の麺料理として、こども食堂で提供する取組をNPO法人むすびえの協力のもと行っている。 11月7日は千葉県・松戸 […]",
+    "categories": [
+      "その他"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-11-26-ca068411cf409734",
+    "title": "都立大森高、子供の「こころ」「いのち」「つながり」を考える公開教育講演会を1/9に開催",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20261127o02",
+    "publishedAt": "2026-11-26T22:00:39.000Z",
+    "collectedAt": "2026-11-27T03:53:27.848Z",
+    "summary": "東京都立大森高等学校は2027年1月9日、昭和医科大学保健医療学部教授の副島賢和氏を講師に招き、公開教育講演会「ひとりじゃないよ～自分も相手も大切にするにはどうしたらいいの？～」を開催する。 副島氏は公立小学校教諭を経て […]",
+    "categories": [
+      "その他"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-11-26-799db8a90e5ce8da",
+    "title": "ポリグロッツ、学校向け英語学習サービスにAI英会話の課題配信機能を追加",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20261127o04",
+    "publishedAt": "2026-11-26T22:00:15.000Z",
+    "collectedAt": "2026-11-27T03:53:27.848Z",
+    "summary": "ポリグロッツは11月25日、学校・教育機関向け英語学習サービス「レシピー for School」にAI英会話の課題配信機能を追加したと発表した。 ■授業や目的に合わせた2種類の課題形式 新機能では、教員が授業内容や学習目 […]",
+    "categories": [
+      "ICT / GIGA",
+      "教員・働き方"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "kkn-2026-11-26-832ba7bfeb99b801",
+    "title": "学研WILL学園、学校見学が困難な中高生向け「無料・家庭訪問型オープンスクール」の予約受付を12/1開始",
+    "sourceId": "kkn",
+    "sourceName": "教育家庭新聞",
+    "sourceUrl": "https://www.kknews.co.jp/news/20261127o03",
+    "publishedAt": "2026-11-26T22:00:13.000Z",
+    "collectedAt": "2026-11-27T03:53:27.848Z",
+    "summary": "学研ホールディングスのグループ会社である学研エル・スタッフィングは、運営する学研WILL学園で「無料・家庭訪問型オープンスクール」の予約受付を12月1日から開始すると発表した。対象は、不登校や発達特性などにより通信制高校 […]",
+    "categories": [
+      "不登校"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
     "id": "resemom-2026-11-26-5c7efc2f3169667f",
     "title": "大学・専門学校など約100校参加「進路フェスタ」神戸12/11",
     "sourceId": "resemom",
@@ -43,6 +119,20 @@
       "政策・制度"
     ],
     "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "mext-2026-11-26-9a603e6dac8799b2",
+    "title": "学校における校外活動の安全確保の徹底等に関するフォローアップ結果及びこれを踏まえた対応について（通知）",
+    "sourceId": "mext",
+    "sourceName": "文部科学省",
+    "sourceUrl": "https://www.mext.go.jp/a_menu/kenko/anzen/1417343_00067.htm",
+    "publishedAt": "2026-11-26T07:03:00.000Z",
+    "collectedAt": "2026-11-27T03:53:27.848Z",
+    "categories": [
+      "政策・制度"
+    ],
+    "layer": 1,
     "language": "ja"
   },
   {
