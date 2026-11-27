@@ -1,5 +1,127 @@
 [
   {
+    "id": "resemom-2026-11-27-2a212dbde2b0a8cf",
+    "title": "宇宙飛行士候補者を新規募集へ、JAXAが学歴・専門不問で",
+    "sourceId": "resemom",
+    "sourceName": "リセマム",
+    "sourceUrl": "https://resemom.jp/article/2026/11/27/88469.html",
+    "publishedAt": "2026-11-27T09:45:03.000Z",
+    "collectedAt": "2026-11-27T19:33:31.384Z",
+    "summary": "文部科学省は2026年11月27日、宇宙航空研究開発機構（JAXA）において日本人宇宙飛行士候補者の新規募集を行うと発表した。採用人数は若干名。2027年4月ごろに募集を開始し、2028年秋ごろに選抜結果を発表する予定。",
+    "categories": [
+      "政策・制度",
+      "研究・エビデンス",
+      "教員・働き方"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "resemom-2026-11-27-9024142e58aec80c",
+    "title": "インフルエンザ5週連続増…学校等の閉鎖1,777施設に拡大",
+    "sourceId": "resemom",
+    "sourceName": "リセマム",
+    "sourceUrl": "https://resemom.jp/article/2026/11/27/88467.html",
+    "publishedAt": "2026-11-27T08:45:02.000Z",
+    "collectedAt": "2026-11-27T19:33:31.384Z",
+    "summary": "厚生労働省は2026年11月27日、第47週（11月16日～22日）のインフルエンザ発生状況を発表した。全国の定点あたり報告数は13.51人で、前週の11.94人から増加。都道府県別では北海道が34.59人で最多となり、警報レベルの目安である30人を2週連続で上回った。",
+    "categories": [
+      "その他"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "resemom-2026-11-27-1e48f6f3e6b6867d",
+    "title": "運動後の牛乳習慣と熱中症予防、認識に関連性…中部大",
+    "sourceId": "resemom",
+    "sourceName": "リセマム",
+    "sourceUrl": "https://resemom.jp/article/2026/11/27/88466.html",
+    "publishedAt": "2026-11-27T08:15:03.000Z",
+    "collectedAt": "2026-11-27T19:33:31.384Z",
+    "summary": "中部大学の研究グループは2026年11月25日、男子大学野球選手49名を対象に、運動後の牛乳摂取習慣と熱中症予防・運動パフォーマンスに対する認識の関連について調査結果を発表した。牛乳を習慣的に飲む選手は飲まない選手に比べ効果を肯定的に捉える割合が高く、両者の把握が栄養教育に有用としている。",
+    "categories": [
+      "研究・エビデンス"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "nikkyo-2026-11-27-b95ce4429048a5fb",
+    "title": "性犯罪歴確認システムに脆弱性　システム稼働を延期",
+    "sourceId": "nikkyo",
+    "sourceName": "日本教育新聞",
+    "sourceUrl": "https://www.kyoiku-press.com/post-318884/",
+    "publishedAt": "2026-11-27T05:03:00.000Z",
+    "collectedAt": "2026-11-27T19:33:31.384Z",
+    "summary": "こども性暴力防止法が来月25日に施行され、子どもと関わる仕事に就く人の性犯罪歴を確認するため、新たに導入するシステムに脆弱性が多数あることが分かった。これを受けてこども家庭庁は当面、システムを運用せ…",
+    "categories": [
+      "政策・制度"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "mext-2026-11-27-966e66fe369fba26",
+    "title": "令和8年度医学教育等関係業務功労者表彰について",
+    "sourceId": "mext",
+    "sourceName": "文部科学省",
+    "sourceUrl": "https://www.mext.go.jp/b_menu/houdou/mext_01694.html",
+    "publishedAt": "2026-11-27T05:00:00.000Z",
+    "collectedAt": "2026-11-27T19:33:31.384Z",
+    "categories": [
+      "政策・制度"
+    ],
+    "layer": 1,
+    "language": "ja"
+  },
+  {
+    "id": "nikkyo-2026-11-27-6618876df7203a08",
+    "title": "国家戦略として教員不足解消を　自民党が緊急決議",
+    "sourceId": "nikkyo",
+    "sourceName": "日本教育新聞",
+    "sourceUrl": "https://www.kyoiku-press.com/post-318878/",
+    "publishedAt": "2026-11-27T04:28:00.000Z",
+    "collectedAt": "2026-11-27T19:33:31.384Z",
+    "summary": "決議を受け取る青山周平文科副大臣(左から3人目)と調査会メンバーら＝26日午後、党本部で 　来年度予算編成が迫る中、自民党の教育立国調査会は26日、教員不足対策を盛り込んだ緊急決議をまとめた。令和9年…",
+    "categories": [
+      "教員・働き方"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "resemom-2026-11-27-5fdca46c14c0d448",
+    "title": "こども食堂、過去最多1万3,879か所…全小学校区の4割に拡大",
+    "sourceId": "resemom",
+    "sourceName": "リセマム",
+    "sourceUrl": "https://resemom.jp/article/2026/11/27/88462.html",
+    "publishedAt": "2026-11-27T04:15:02.000Z",
+    "collectedAt": "2026-11-27T19:33:31.384Z",
+    "summary": "全国こども食堂支援センター・むすびえは2026年11月25日、「2026年度こども食堂全国調査」の結果を発表した。全国のこども食堂の個所数は過去最多となる1万3,879か所（速報値）に達し、全国の公立小学校・義務教育学校の通学区域の4割以上をカバーしていることが明らかになった。",
+    "categories": [
+      "その他"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
+    "id": "nikkyo-2026-11-27-e26185d4e91876c9",
+    "title": "全国学調、教科は4日間から指定　来年度、全面CBT化へ",
+    "sourceId": "nikkyo",
+    "sourceName": "日本教育新聞",
+    "sourceUrl": "https://www.kyoiku-press.com/post-318874/",
+    "publishedAt": "2026-11-27T04:13:00.000Z",
+    "collectedAt": "2026-11-27T19:33:31.384Z",
+    "summary": "文科省は26日の専門家会議で、来年度の全国学力・学習状況調査の実施要項案を示した。全教科をコンピューター試験（CBT）に移行するのに合わせ、教科調査の実施日に幅を持たせる。 　来年度の悉皆（しっかい…",
+    "categories": [
+      "政策・制度",
+      "研究・エビデンス"
+    ],
+    "layer": 2,
+    "language": "ja"
+  },
+  {
     "id": "resemom-2026-11-27-e548a6f8532c4fe1",
     "title": "世界トップ大への進学を支える教育とは…NLCS Kobe校長と教員が語る学びの核心",
     "sourceId": "resemom",
